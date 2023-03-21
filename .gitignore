@@ -1,0 +1,9 @@
+# java and gradle files
+*.class
+bin/
+build/
+.gradle/
+
+# vscode files
+.vscode/
+
