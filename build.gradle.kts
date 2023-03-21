@@ -17,6 +17,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 
+    // SpotBugs
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
 }
 
 //javafx {
