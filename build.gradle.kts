@@ -11,17 +11,24 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter API for testing.
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
+    // Use JUnit Jupiter for testing.
+    val junitVersion = "5.9.1"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 
-    // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 }
 
 //javafx {
 //    version = "19"
 //    modules = [ 'javafx.controls' ]
 //}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging { events("passed", "skipped", "failed") }
+    testLogging.showStandardStreams = true
+}
 
 application {
     mainClass.set("it.tbt.TurnBasedTunnels")
