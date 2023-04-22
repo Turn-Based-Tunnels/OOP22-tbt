@@ -19,12 +19,18 @@ dependencies {
 
     // SpotBugs
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
-}
 
-//javafx {
-//    version = "19"
-//    modules = [ 'javafx.controls' ]
-//}
+    // JavaFx
+    val javaFxVersion = "19"
+    val javaFxModules = listOf("base","controls","fxml","swing","graphics")
+    val supportedSystems = listOf("win", "linux", "mac")
+    for (module in javaFxModules) {
+        for (sys in supportedSystems) {
+            implementation("org.openjfx:javafx-$module:$javaFxVersion:$sys")
+        }
+    }
+
+}
 
 tasks.test {
     useJUnitPlatform()
@@ -35,4 +41,5 @@ tasks.test {
 application {
     mainClass.set("it.tbt.TurnBasedTunnels")
 }
+
 
