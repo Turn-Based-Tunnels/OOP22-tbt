@@ -3,7 +3,7 @@ package it.tbt.model.characters;
 /**
  * Generic Enemy.
  */
-public class Enemy extends Character {
+public class Enemy extends CharacterImpl {
     private static final long serialVersionUID = 398686380391405543L;
 
     /**

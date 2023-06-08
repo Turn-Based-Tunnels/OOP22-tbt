@@ -10,7 +10,7 @@ import it.tbt.model.skills.Skill;
 /**
  * Generic Ally.
  */
-public class Ally extends Character {
+public class Ally extends CharacterImpl {
     private static final long serialVersionUID = 6613096542675407381L;
     private final List<Skill> skills;
 
