@@ -3,7 +3,7 @@ package it.tbt.model.items;
 /**
  * Generic Weapon.
  */
-public abstract class Weapon extends Item {
+public abstract class Weapon extends ItemImpl implements Equipement {
     private final int attack;
 
     /**

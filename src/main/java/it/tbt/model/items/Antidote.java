@@ -3,7 +3,7 @@ package it.tbt.model.items;
 /**
  * Antidote, should remove the POISONED status.
  */
-public class Antidote extends Consumable {
+public class Antidote extends ItemImpl implements Consumable {
 
     /**
      * Default constructor.

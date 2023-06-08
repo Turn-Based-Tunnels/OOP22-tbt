@@ -3,7 +3,7 @@ package it.tbt.model.items;
 /**
  * Generic Potion.
  */
-public class Potion extends Consumable {
+public class Potion extends ItemImpl implements Consumable {
     private final int healPower;
 
     /**
