@@ -1,14 +1,14 @@
 package it.tbt.engine.impl;
 
-import it.tbt.Controller.ModelManager.GameStateManager;
-import it.tbt.Controller.ModelManager.IGameStateManager;
-import it.tbt.Controller.ViewControllerManager.api.ViewControllerManager;
-import it.tbt.Controller.ViewControllerManager.impl.GameViewManagerImpl2;
-import it.tbt.Model.Party.IParty;
-import it.tbt.Model.Party.Party;
-import it.tbt.Model.GameState;
-import it.tbt.Model.World.impl.FileWorldCreationStrategy;
-import it.tbt.View.api.GameViewFactory;
+import it.tbt.controller.ModelManager.GameStateManager;
+import it.tbt.controller.ModelManager.IGameStateManager;
+import it.tbt.controller.ViewControllerManager.api.ViewControllerManager;
+import it.tbt.controller.ViewControllerManager.impl.GameViewManagerImpl2;
+import it.tbt.model.Party.IParty;
+import it.tbt.model.Party.Party;
+import it.tbt.model.GameState;
+import it.tbt.model.World.impl.FileWorldCreationStrategy;
+import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
 

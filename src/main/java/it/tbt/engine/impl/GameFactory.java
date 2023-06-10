@@ -1,7 +1,7 @@
 package it.tbt.engine.impl;
 
-import it.tbt.View.api.GameViewFactory;
-import it.tbt.View.javaFx.JavaFxViewFactory;
+import it.tbt.view.api.GameViewFactory;
+import it.tbt.view.javaFx.JavaFxViewFactory;
 import it.tbt.engine.api.Game;
 import javafx.stage.Stage;
 
