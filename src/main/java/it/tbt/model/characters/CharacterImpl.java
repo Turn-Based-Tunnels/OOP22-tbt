@@ -98,12 +98,12 @@ public class CharacterImpl implements Character {
 
     /**
      * The character take damage, decreasing the health if INVINCIBLE status is found.
-     * @param damage        the damage taken by the character
+     * @param damage the damage taken by the character
      */
     @Override
     public void takeDamage(final int damage) {
         if (!statuses.contains(Status.INVINCIBLE)) {
-            health -= damage;
+            health = health < damage ? 0 : health - damage;
         }
     }
 
@@ -113,7 +113,13 @@ public class CharacterImpl implements Character {
      */
     @Override
     public void setHealth(final int health) {
-        this.health = health < this.maxHealth ? health : this.maxHealth;
+        if (health < 0) {
+            this.health = 0;
+        } else if (health > this.maxHealth) {
+            this.health = this.maxHealth;
+        } else {
+            this.health = health;
+        }
     }
 
     /**
