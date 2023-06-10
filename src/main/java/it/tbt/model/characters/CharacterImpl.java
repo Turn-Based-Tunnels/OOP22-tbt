@@ -1,6 +1,6 @@
 package it.tbt.model.characters;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.EnumSet;
 import java.util.Collections;
@@ -147,10 +147,10 @@ public class CharacterImpl implements Character {
 
     /**
      * Get the character inventory.
-     * @return list of items in the character's intentory
+     * @return map of <item, count> representing the character's intentory
      */
     @Override
-    public List<Item> getInventory() {
+    public Map<Item, Integer> getInventory() {
         return inventory.getItems();
     }
 

@@ -1,9 +1,9 @@
 package it.tbt.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import it.tbt.model.items.Item;
 
@@ -11,13 +11,13 @@ import it.tbt.model.items.Item;
  * Character's inventory.
  */
 public class Inventory {
-    private final List<Item> items;
+    private final Map<Item, Integer> items;
 
     /**
      * Default/empty Constructor.
      */
     public Inventory() {
-        items = new ArrayList<>();
+        this.items = new HashMap<>();
     }
 
     /**
@@ -25,15 +25,18 @@ public class Inventory {
      * @param newItems
      */
     public Inventory(final Collection<Item> newItems) {
-        items = new ArrayList<>(newItems);
+        this.items = new HashMap<>();
+        for (final Item item : newItems) {
+            this.items.put(item, 1);
+        }
     }
 
     /**
      * Get inventory contents as a list of items.
      * @return list of items in the inventory
      */
-    public List<Item> getItems() {
-        return Collections.unmodifiableList(items);
+    public Map<Item, Integer> getItems() {
+        return Collections.unmodifiableMap(items);
     }
 
     /**
@@ -41,7 +44,11 @@ public class Inventory {
      * @param item
      */
     public void addItem(final Item item) {
-        items.add(item);
+        if (items.containsKey(item)) {
+            items.put(item, items.get(item) + 1);
+        } else {
+            items.put(item, 1);
+        }
     }
 
     /**
@@ -50,9 +57,13 @@ public class Inventory {
      * @return true if the item was found and removed
      */
     public boolean removeItem(final Item item) {
-        final int index = items.indexOf(item);
-        if (index > 0) {
-            items.remove(index);
+        if (items.containsKey(item)) {
+            final int count = items.get(item);
+            if (count > 1) {
+                items.put(item, count - 1);
+            } else {
+                items.remove(item);
+            }
             return true;
         } else {
             return false;

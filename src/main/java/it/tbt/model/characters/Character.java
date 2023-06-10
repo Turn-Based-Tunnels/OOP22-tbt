@@ -1,6 +1,6 @@
 package it.tbt.model.characters;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Optional;
 
@@ -77,9 +77,9 @@ public interface Character {
 
     /**
      * Get the character inventory.
-     * @return list of items in the character's intentory
+     * @return map of <item, count> representing the character's intentory
      */
-    List<Item> getInventory();
+    Map<Item, Integer> getInventory();
 
     /**
      * Add an item to the inventory.
