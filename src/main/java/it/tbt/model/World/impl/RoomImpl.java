@@ -1,6 +1,6 @@
 package it.tbt.model.World.impl;
 
-import it.tbt.model.Entities.Entity;
+import it.tbt.model.entities.Entity;
 import it.tbt.model.World.api.Room;
 import java.util.HashSet;
 import java.util.Set;

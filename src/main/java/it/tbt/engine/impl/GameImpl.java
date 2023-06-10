@@ -4,10 +4,10 @@ import it.tbt.controller.ModelManager.GameStateManager;
 import it.tbt.controller.ModelManager.IGameStateManager;
 import it.tbt.controller.ViewControllerManager.api.ViewControllerManager;
 import it.tbt.controller.ViewControllerManager.impl.GameViewManagerImpl2;
-import it.tbt.model.Party.IParty;
-import it.tbt.model.Party.Party;
 import it.tbt.model.GameState;
 import it.tbt.model.World.impl.FileWorldCreationStrategy;
+import it.tbt.model.party.IParty;
+import it.tbt.model.party.Party;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
