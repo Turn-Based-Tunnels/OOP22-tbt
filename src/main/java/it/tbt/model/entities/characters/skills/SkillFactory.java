@@ -1,4 +1,4 @@
-package it.tbt.model.skills;
+package it.tbt.model.entities.characters.skills;
 
 /**
  * Skill Factory.

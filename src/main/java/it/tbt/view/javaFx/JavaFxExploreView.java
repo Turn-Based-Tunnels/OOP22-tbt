@@ -2,8 +2,8 @@ package it.tbt.view.javaFx;
 
 import it.tbt.controller.ModelManager.ExploreState;
 import it.tbt.controller.ViewControllerManager.api.ExploreController;
-import it.tbt.model.Entities.Entity;
-import it.tbt.model.Party.Party;
+import it.tbt.model.entities.Entity;
+import it.tbt.model.party.Party;
 import it.tbt.view.api.GameViewExplore;
 import javafx.application.Platform;
 import javafx.scene.Group;

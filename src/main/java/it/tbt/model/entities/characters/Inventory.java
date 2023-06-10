@@ -1,11 +1,10 @@
-package it.tbt.model;
+package it.tbt.model.entities.characters;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.tbt.model.items.Item;
+import it.tbt.model.entities.items.Item;
 
 /**
  * Character's inventory.
@@ -36,7 +35,7 @@ public class Inventory {
      * @return list of items in the inventory
      */
     public Map<Item, Integer> getItems() {
-        return Collections.unmodifiableMap(items);
+        return Map.copyOf(items);
     }
 
     /**

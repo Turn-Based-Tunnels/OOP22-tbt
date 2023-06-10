@@ -1,8 +1,8 @@
-package it.tbt.model.skills;
+package it.tbt.model.entities.characters.skills;
 
 import java.util.Optional;
 
-import it.tbt.model.Status;
+import it.tbt.model.entities.characters.Status;
 
 /**
  * Generic skill.

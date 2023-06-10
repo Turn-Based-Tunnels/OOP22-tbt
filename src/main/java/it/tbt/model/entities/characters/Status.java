@@ -1,4 +1,4 @@
-package it.tbt.model;
+package it.tbt.model.entities.characters;
 
 /**
  * Status of a character.

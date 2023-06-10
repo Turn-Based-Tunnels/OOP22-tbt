@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import it.tbt.model.Entities.Entity;
+import it.tbt.model.entities.Entity;
 import it.tbt.model.World.api.Room;
 import it.tbt.model.World.api.World;
 import it.tbt.model.World.api.WorldCreationStrategy;

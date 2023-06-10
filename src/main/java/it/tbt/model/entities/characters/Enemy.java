@@ -1,4 +1,4 @@
-package it.tbt.model.characters;
+package it.tbt.model.entities.characters;
 
 /**
  * Generic Enemy.

@@ -1,4 +1,4 @@
-package it.tbt.model.items;
+package it.tbt.model.entities.items;
 
 /**
  * Antidote, should remove the POISONED status.

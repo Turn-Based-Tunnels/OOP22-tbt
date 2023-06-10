@@ -1,6 +1,6 @@
 package it.tbt.model.World.api;
 
-import it.tbt.model.Entities.Entity;
+import it.tbt.model.entities.Entity;
 
 import java.util.Set;
 

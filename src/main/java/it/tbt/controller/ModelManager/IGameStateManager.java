@@ -1,7 +1,7 @@
 package it.tbt.controller.ModelManager;
 
 import it.tbt.model.GameState;
-import it.tbt.model.Party.IParty;
+import it.tbt.model.party.IParty;
 import it.tbt.model.World.api.World;
 
 public interface IGameStateManager {

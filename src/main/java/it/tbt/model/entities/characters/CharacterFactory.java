@@ -1,10 +1,10 @@
-package it.tbt.model.characters;
+package it.tbt.model.entities.characters;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
-import it.tbt.model.skills.Skill;
+import it.tbt.model.entities.characters.skills.Skill;
 
 /**
  * Character's Factory.

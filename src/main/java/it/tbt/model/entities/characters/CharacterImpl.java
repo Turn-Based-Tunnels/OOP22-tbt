@@ -1,16 +1,13 @@
-package it.tbt.model.characters;
+package it.tbt.model.entities.characters;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.EnumSet;
-import java.util.Collections;
 import java.util.Optional;
 
-import it.tbt.model.Inventory;
-import it.tbt.model.Status;
-import it.tbt.model.items.Armor;
-import it.tbt.model.items.Item;
-import it.tbt.model.items.Weapon;
+import it.tbt.model.entities.items.Armor;
+import it.tbt.model.entities.items.Item;
+import it.tbt.model.entities.items.Weapon;
 
 /**
  * Generic Character.
@@ -128,7 +125,7 @@ public class CharacterImpl implements Character {
      */
     @Override
     public Set<Status> getStatuses() {
-        return Collections.unmodifiableSet(statuses);
+        return Set.copyOf(statuses);
     }
 
     /**

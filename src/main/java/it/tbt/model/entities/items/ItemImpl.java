@@ -1,4 +1,4 @@
-package it.tbt.model.items;
+package it.tbt.model.entities.items;
 
 /**
  * Generic item.

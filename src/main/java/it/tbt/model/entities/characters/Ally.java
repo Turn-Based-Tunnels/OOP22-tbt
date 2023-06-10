@@ -1,11 +1,10 @@
-package it.tbt.model.characters;
+package it.tbt.model.entities.characters;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import it.tbt.model.skills.Skill;
+import it.tbt.model.entities.characters.skills.Skill;
 
 /**
  * Generic Ally.
@@ -55,7 +54,7 @@ public class Ally extends CharacterImpl {
      * @return list of the character's skills
      */
     public List<Skill> getSkills() {
-        return Collections.unmodifiableList(skills);
+        return List.copyOf(skills);
     }
 
     /**

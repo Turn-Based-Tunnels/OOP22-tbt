@@ -1,7 +1,7 @@
 package it.tbt.model.Command.explore;
 
 import it.tbt.model.Command.api.Command;
-import it.tbt.model.Party.IParty;
+import it.tbt.model.party.IParty;
 
 public class CommandMove implements Command {
 
