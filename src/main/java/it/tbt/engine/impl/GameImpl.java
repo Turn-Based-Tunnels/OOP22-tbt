@@ -7,7 +7,6 @@ import it.tbt.Controller.ViewControllerManager.impl.GameViewManagerImpl2;
 import it.tbt.Model.Party.IParty;
 import it.tbt.Model.Party.Party;
 import it.tbt.Model.GameState;
-import it.tbt.Model.World.collision.CollisionHandler;
 import it.tbt.Model.World.impl.FileWorldCreationStrategy;
 import it.tbt.View.api.GameViewFactory;
 import it.tbt.engine.api.Game;
@@ -17,8 +16,6 @@ public class GameImpl implements Game {
 
     private ViewControllerManager viewControllerManager;
     private IGameStateManager gameStateManager;
-    private CollisionHandler collisionHandler;
-
     private GameState gameState;
 
     public GameImpl(final GameViewFactory gvf) {
