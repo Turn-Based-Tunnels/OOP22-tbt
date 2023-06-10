@@ -29,6 +29,7 @@ dependencies {
             implementation("org.openjfx:javafx-$module:$javaFxVersion:$sys")
         }
     }
+    implementation("com.google.code.gson:gson:2.10.1")
 
 }
 
