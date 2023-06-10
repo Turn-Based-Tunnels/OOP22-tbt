@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Party extends Entity implements IParty, TimeAffected {
-
     Set<Character> roaster;
     Room currentRoom;
 

@@ -39,7 +39,7 @@ public class GameImpl implements Game {
      */
     @Override
     public void loadResources() {
-
+        //TO LOAD RESOURCES
     }
 
     /**
@@ -64,7 +64,7 @@ public class GameImpl implements Game {
      */
     @Override
     public void render(float time) {
-
+        //RENDER WITH TIME LAG TO REPRESENT
     }
 
     /**
@@ -79,10 +79,18 @@ public class GameImpl implements Game {
     }
 
     /**
+     * @return
+     */
+    @Override
+    public Boolean isOver() {
+        return this.gameStateManager.isOver();
+    }
+
+    /**
      *
      */
     @Override
     public void cleanup() {
-
+        //CLEAN UP ON THE CLOSURE
     }
 }

@@ -12,5 +12,6 @@ public interface Game {
     void render();
     void render(float time);
     Boolean handleInput();
+    Boolean isOver();
     void cleanup();
 }

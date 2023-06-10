@@ -91,6 +91,14 @@ public class GameStateManager implements IGameStateManager {
         this.world = world;
     }
 
+    /**
+     * @return
+     */
+    @Override
+    public Boolean isOver() {
+        return this.party.getX()==40;
+    }
+
     protected void triggerCombatState() {
 
     }

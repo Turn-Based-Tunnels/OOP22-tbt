@@ -1,12 +1,10 @@
-package it.tbt;
+package it.tbt.engine.impl;
 
-import it.tbt.engine.api.GameLoop;
-import it.tbt.engine.impl.FixedTimeGameLoop;
-import it.tbt.engine.impl.GameFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class TurnBasedTunnelsFx extends Application {
+public class JavaFxLauncher extends Application {
+
     /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
@@ -24,7 +22,7 @@ public class TurnBasedTunnelsFx extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GameLoop gl = new FixedTimeGameLoop(GameFactory.createJavaFxGame(primaryStage));
-        gl.start();
+        var x = new JavaFxGameLoopManager(new FixedTimeGameLoop(GameFactory.createJavaFxGame(primaryStage)));
+        x.startLoop();
     }
 }

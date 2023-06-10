@@ -14,4 +14,5 @@ public interface IGameStateManager {
     void setParty(IParty party);
     World getWorld();
     void setWorld(World world);
+    Boolean isOver();
 }
