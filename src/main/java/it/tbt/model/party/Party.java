@@ -24,7 +24,6 @@ public class Party extends Entity implements IParty, TimeAffected {
      * @param name
      * @param x
      * @param y
-     * @param c
      */
     public Party(final String name, final int x, final int y) {
         super(name, x, y);

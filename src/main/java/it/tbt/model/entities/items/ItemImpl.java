@@ -9,6 +9,7 @@ class ItemImpl implements Item {
 
     /**
      * Item constructor.
+     * @param name
      * @param value     the value of the item
      */
     protected ItemImpl(final String name, final int value) {
@@ -18,7 +19,7 @@ class ItemImpl implements Item {
 
     /**
      * Return the item name.
-     * @return
+     * @return name
      */
     @Override
     public String getName() {

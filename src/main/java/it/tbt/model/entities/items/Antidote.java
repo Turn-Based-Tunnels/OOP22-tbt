@@ -7,6 +7,7 @@ public class Antidote extends ItemImpl implements Consumable {
 
     /**
      * Default constructor.
+     * @param name
      * @param value
      */
     public Antidote(final String name, final int value) {

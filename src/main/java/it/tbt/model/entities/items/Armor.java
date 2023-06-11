@@ -8,6 +8,7 @@ public abstract class Armor extends ItemImpl implements Equipement {
 
     /**
      * Default constructor.
+     * @param name
      * @param defence
      * @param value
      */

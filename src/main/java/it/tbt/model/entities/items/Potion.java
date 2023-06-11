@@ -8,6 +8,7 @@ public class Potion extends ItemImpl implements Consumable {
 
     /**
      * Default constructor.
+     * @param name
      * @param value
      * @param healPower
      */

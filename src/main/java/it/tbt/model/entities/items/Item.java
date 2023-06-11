@@ -7,7 +7,7 @@ public interface Item {
 
     /**
      * Return the item name.
-     * @return
+     * @return name
      */
     String getName();
 
