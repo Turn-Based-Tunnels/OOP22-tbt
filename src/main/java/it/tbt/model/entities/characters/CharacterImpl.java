@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.EnumSet;
 import java.util.Optional;
 
+import it.tbt.model.entities.EntityImpl;
 import it.tbt.model.entities.items.Armor;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.items.Weapon;
@@ -12,9 +13,8 @@ import it.tbt.model.entities.items.Weapon;
 /**
  * Generic Character.
  */
-public class CharacterImpl implements Character {
+public class CharacterImpl extends EntityImpl implements Character {
     private static final long serialVersionUID = 4416007599695354122L;
-    private final String name;
     private final int maxHealth;
     private final int speed;
     private final Inventory inventory;
@@ -37,7 +37,7 @@ public class CharacterImpl implements Character {
         final int attack,
         final int speed
     ) {
-        this.name = name;
+        super(name);
         this.maxHealth = health;
         this.health = health;
         this.attack = attack;
@@ -46,15 +46,6 @@ public class CharacterImpl implements Character {
         this.inventory = new Inventory();
         this.weapon = Optional.empty();
         this.armor = Optional.empty();
-    }
-
-    /**
-     * Get the character's name.
-     * @return character's name
-     */
-    @Override
-    public final String getName() {
-        return name;
     }
 
     /**

@@ -3,7 +3,7 @@ package it.tbt.model.entities;
 /**
  * Generic entity with a position in space.
  */
-public abstract class SpatialEntityImpl extends EnemyImpl implements SpatialEntity {
+public abstract class SpatialEntityImpl extends EntityImpl implements SpatialEntity {
     private final int x;
     private final int y;
 

@@ -2,13 +2,13 @@ package it.tbt.model.entities.characters.skills;
 
 import java.util.Optional;
 
+import it.tbt.model.entities.EntityImpl;
 import it.tbt.model.entities.characters.Status;
 
 /**
  * Generic skill.
  */
-public class Skill {
-    private final String name;
+public class Skill extends EntityImpl {
     private final double attackMultiplier;
     private final int cooldown;
     private int remainingCooldown;
@@ -28,20 +28,12 @@ public class Skill {
         final int cooldown,
         final boolean incProbCritical
     ) {
-        this.name = name;
+        super(name);
         this.attackMultiplier = attackMultiplier;
         this.cooldown = cooldown;
         this.remainingCooldown = 0;
         this.incProbCritical = incProbCritical;
         this.possibleStatus = Optional.empty();
-    }
-
-    /**
-     * Get the skill name.
-     * @return skill name
-     */
-    public String getName() {
-        return name;
     }
 
     /**

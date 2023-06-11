@@ -3,14 +3,14 @@ package it.tbt.model.entities;
 /**
  * Generic entity implementation.
  */
-public abstract class EnemyImpl implements Entity {
+public abstract class EntityImpl implements Entity {
     private final String name;
 
     /**
      * Default constructor.
      * @param name
      */
-    protected EnemyImpl(final String name) {
+    protected EntityImpl(final String name) {
         this.name = name;
     }
 

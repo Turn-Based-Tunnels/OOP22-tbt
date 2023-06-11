@@ -3,7 +3,7 @@ package it.tbt.model.entities;
 /**
  * Generic entity with a variable position in space.
  */
-public class MovableEntityImpl extends EnemyImpl implements MovableEntity {
+public class MovableEntityImpl extends EntityImpl implements MovableEntity {
     private int x;
     private int y;
 
