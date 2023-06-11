@@ -7,9 +7,10 @@ public class Antidote extends ItemImpl implements Consumable {
 
     /**
      * Default constructor.
+     * @param name
      * @param value
      */
-    public Antidote(final int value) {
-        super(value);
+    public Antidote(final String name, final int value) {
+        super(name, value);
     }
 }

@@ -8,11 +8,12 @@ public abstract class Armor extends ItemImpl implements Equipement {
 
     /**
      * Default constructor.
+     * @param name
      * @param defence
      * @param value
      */
-    public Armor(final int defence, final int value) {
-        super(value);
+    public Armor(final String name, final int defence, final int value) {
+        super(name, value);
         this.defence = defence;
     }
 

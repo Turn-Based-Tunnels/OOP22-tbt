@@ -8,11 +8,12 @@ public class Potion extends ItemImpl implements Consumable {
 
     /**
      * Default constructor.
+     * @param name
      * @param value
      * @param healPower
      */
-    public Potion(final int value, final int healPower) {
-        super(value);
+    public Potion(final String name, final int value, final int healPower) {
+        super(name, value);
         this.healPower = healPower;
     }
 
