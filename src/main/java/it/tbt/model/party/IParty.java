@@ -2,20 +2,35 @@ package it.tbt.model.party;
 
 import java.util.List;
 
+import it.tbt.model.entities.MovableEntity;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.World.api.Room;
 
 /**
  * Generic Party.
  */
-public interface IParty {
-    void setCurrentRoom(Room room);
-    Room getCurrentRoom();
-    void move(int xv, int yv);
-    int getX();
-    int getY();
+public interface IParty extends MovableEntity {
 
-        /**
+    /**
+     * Set current room.
+     * @param room
+     */
+    void setCurrentRoom(Room room);
+
+    /**
+     * Get current room.
+     * @return room
+     */
+    Room getCurrentRoom();
+
+    /**
+     * Move party.
+     * @param xv
+     * @param yv
+     */
+    void move(int xv, int yv);
+
+    /**
      * Get the party members.
      * @return list of allies
      */

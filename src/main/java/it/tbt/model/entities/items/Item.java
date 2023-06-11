@@ -1,15 +1,11 @@
 package it.tbt.model.entities.items;
 
+import it.tbt.model.entities.Entity;
+
 /**
  * Generic item.
  */
-public interface Item {
-
-    /**
-     * Return the item name.
-     * @return name
-     */
-    String getName();
+public interface Item extends Entity {
 
     /**
      * Return the monetary value of the item.

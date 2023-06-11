@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Optional;
 
+import it.tbt.model.entities.Entity;
 import it.tbt.model.entities.items.Armor;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.items.Weapon;
@@ -11,13 +12,7 @@ import it.tbt.model.entities.items.Weapon;
 /**
  * Generic Character.
  */
-public interface Character {
-
-    /**
-     * Get the character's name.
-     * @return character's name
-     */
-    String getName();
+public interface Character extends Entity {
 
     /**
      * Get the current character's health.

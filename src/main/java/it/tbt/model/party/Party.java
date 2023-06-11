@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import it.tbt.model.entities.characters.Ally;
-import it.tbt.model.entities.Entity;
+import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.World.api.Room;
 import it.tbt.model.time.TimeAffected;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Party implementation.
  */
-public class Party extends Entity implements IParty, TimeAffected {
+public class Party extends MovableEntityImpl implements IParty, TimeAffected {
     private final Set<Ally> members;
     private Room currentRoom;
     private int wallet;
@@ -43,6 +43,7 @@ public class Party extends Entity implements IParty, TimeAffected {
     }
 
     /**
+     * Set current room.
      * @param room
      */
     @Override
@@ -51,6 +52,7 @@ public class Party extends Entity implements IParty, TimeAffected {
     }
 
     /**
+     * Get current room.
      * @return
      */
     @Override
@@ -59,14 +61,15 @@ public class Party extends Entity implements IParty, TimeAffected {
     }
 
     /**
+     * Move party.
      * @param xv
      * @param yv
      */
     @Override
     public void move(final int xv, final int yv) {
-        if(this.currentRoom.isValidCoordinates(xv + this.x, yv + this.y)) {
-            this.x += xv;
-            this.y += yv;
+        if (this.currentRoom.isValidCoordinates(xv + getX(), yv + getY())) {
+            setX(getX() + xv);
+            setY(getY() + yv);
         }
     }
 
