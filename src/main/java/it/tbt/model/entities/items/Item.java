@@ -6,6 +6,12 @@ package it.tbt.model.entities.items;
 public interface Item {
 
     /**
+     * Return the item name.
+     * @return
+     */
+    String getName();
+
+    /**
      * Return the monetary value of the item.
      * @return item's value
      */

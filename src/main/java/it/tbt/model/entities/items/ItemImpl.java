@@ -3,15 +3,26 @@ package it.tbt.model.entities.items;
 /**
  * Generic item.
  */
-public class ItemImpl implements Item {
+class ItemImpl implements Item {
+    private final String name;
     private final int value;
 
     /**
      * Item constructor.
      * @param value     the value of the item
      */
-    protected ItemImpl(final int value) {
+    protected ItemImpl(final String name, final int value) {
+        this.name = name;
         this.value = value;
+    }
+
+    /**
+     * Return the item name.
+     * @return
+     */
+    @Override
+    public String getName() {
+        return name;
     }
 
     /**

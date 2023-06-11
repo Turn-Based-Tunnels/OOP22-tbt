@@ -11,8 +11,8 @@ public abstract class Weapon extends ItemImpl implements Equipement {
      * @param attack
      * @param value
      */
-    public Weapon(final int attack, final int value) {
-        super(value);
+    public Weapon(final String name, final int attack, final int value) {
+        super(name, value);
         this.attack = attack;
     }
 
