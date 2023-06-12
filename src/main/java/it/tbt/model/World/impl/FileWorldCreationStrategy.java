@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import it.tbt.model.entities.Entity;
+import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.World.api.Room;
 import it.tbt.model.World.api.World;
 import it.tbt.model.World.api.WorldCreationStrategy;
@@ -48,7 +48,7 @@ public class FileWorldCreationStrategy implements WorldCreationStrategy {
                     String objectType = objectObject.get("type").getAsString();
                     JsonObject position = objectObject.getAsJsonObject("position");
                     // Create the object based on its type and add it to the room
-                    Entity gameObject = new Entity(objectName,position.get("x").getAsInt(),position.get("y").getAsInt());
+                    MovableEntityImpl gameObject = new MovableEntityImpl(objectName,position.get("x").getAsInt(),position.get("y").getAsInt());
                     room.addEntity(gameObject);
                 }
 

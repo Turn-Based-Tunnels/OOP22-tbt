@@ -1,10 +1,11 @@
 package it.tbt.model.entities.items;
 
+import it.tbt.model.entities.EntityImpl;
+
 /**
  * Generic item.
  */
-class ItemImpl implements Item {
-    private final String name;
+class ItemImpl extends EntityImpl implements Item {
     private final int value;
 
     /**
@@ -13,17 +14,8 @@ class ItemImpl implements Item {
      * @param value     the value of the item
      */
     protected ItemImpl(final String name, final int value) {
-        this.name = name;
+        super(name);
         this.value = value;
-    }
-
-    /**
-     * Return the item name.
-     * @return name
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**
