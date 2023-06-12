@@ -20,7 +20,7 @@ public class GameImpl implements Game {
 
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl2(gvf);
-        IParty t = new Party("Party", 0,0);
+        IParty t = new Party("Party", 0,0,0,0); // placeholder
         gameStateManager = new GameStateManager(t, new FileWorldCreationStrategy("data.json").createWorld());
         t.setCurrentRoom(this.gameStateManager.getWorld().getListRoom().stream().findFirst().get());
         gameState = GameState.EXPLORE;
