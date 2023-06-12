@@ -8,9 +8,9 @@ public interface Game {
 
     void initialize();
     void loadResources();
-    void update(float deltaTime);
+    void update(long deltaTime);
     void render();
-    void render(float time);
+    void render(long time);
     Boolean handleInput();
     Boolean isOver();
     void cleanup();

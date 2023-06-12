@@ -9,10 +9,6 @@ public interface IGameStateManager {
     ModelState getStateModel();
     GameState getState();
     Boolean hasStateChanged();
-    void updateState(float timePassed);
-    IParty getParty();
-    void setParty(IParty party);
-    World getWorld();
-    void setWorld(World world);
+    void updateState(long timePassed);
     Boolean isOver();
 }

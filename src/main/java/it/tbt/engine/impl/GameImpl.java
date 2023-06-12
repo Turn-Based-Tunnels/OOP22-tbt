@@ -1,13 +1,13 @@
 package it.tbt.engine.impl;
 
+import it.tbt.Commons.resourceloader.world.impl.FileWorldCreationStrategy3;
 import it.tbt.controller.ModelManager.GameStateManager;
 import it.tbt.controller.ModelManager.IGameStateManager;
 import it.tbt.controller.ViewControllerManager.api.ViewControllerManager;
 import it.tbt.controller.ViewControllerManager.impl.GameViewManagerImpl2;
-import it.tbt.model.GameState;
-import it.tbt.model.World.impl.FileWorldCreationStrategy;
 import it.tbt.model.party.IParty;
 import it.tbt.model.party.Party;
+import it.tbt.model.World.api.World;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
@@ -16,15 +16,14 @@ public class GameImpl implements Game {
 
     private ViewControllerManager viewControllerManager;
     private IGameStateManager gameStateManager;
-    private GameState gameState;
 
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl2(gvf);
         IParty t = new Party("Party", 0,0);
-        gameStateManager = new GameStateManager(t, new FileWorldCreationStrategy("data.json").createWorld());
-        t.setCurrentRoom(this.gameStateManager.getWorld().getListRoom().stream().findFirst().get());
-        gameState = GameState.EXPLORE;
-    }
+        World w = new FileWorldCreationStrategy3().createWorld();
+        t.setCurrentRoom(w.getListRoom().stream().findAny().get());
+        gameStateManager = new GameStateManager(t, w);
+    } 
 
     /**
      *
@@ -46,9 +45,8 @@ public class GameImpl implements Game {
      * @param deltaTime
      */
     @Override
-    public void update(float deltaTime) {
+    public void update(long deltaTime) {
         this.gameStateManager.updateState(deltaTime);
-
     }
 
     /**
@@ -63,7 +61,7 @@ public class GameImpl implements Game {
      * @param time
      */
     @Override
-    public void render(float time) {
+    public void render(long time) {
         //RENDER WITH TIME LAG TO REPRESENT
     }
 
@@ -73,8 +71,10 @@ public class GameImpl implements Game {
     @Override
     public Boolean handleInput() {
         Boolean r = this.viewControllerManager.getCommands().isEmpty();
-        this.viewControllerManager.getCommands().stream().forEach(l->l.execute());
-        this.viewControllerManager.cleanCommands();
+        if(r == false) {
+            this.viewControllerManager.getCommands().get().stream().forEach(l -> l.execute());
+            this.viewControllerManager.cleanCommands();
+        }
         return !r;
     }
 

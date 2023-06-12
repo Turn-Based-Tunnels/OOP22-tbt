@@ -11,6 +11,11 @@ public class WorldImpl implements World {
 
     Set<Room> rooms = new HashSet<>();
 
+
+    public WorldImpl(final Set<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     /**
      * @param room
      */
