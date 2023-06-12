@@ -18,6 +18,7 @@ public class FixedTimeGameLoop implements GameLoop {
         super();
         this.game = g;
         this.lastUpdateTime = System.nanoTime();
+        this.game.initialize();
         this.game.render();
     }
     /**

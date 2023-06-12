@@ -5,10 +5,11 @@ import it.tbt.model.Command.api.Command;
 import it.tbt.model.GameState;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ViewControllerManager {
 
-    public List<Command> getCommands();
+    public Optional<List<Command>> getCommands();
 
     public void renderView(GameState gameState, ModelState modelState, Boolean hasChanged);
 

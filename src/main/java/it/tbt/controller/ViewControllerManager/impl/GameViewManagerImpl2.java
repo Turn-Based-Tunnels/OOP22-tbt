@@ -12,6 +12,7 @@ import it.tbt.view.api.GameViewExplore;
 import it.tbt.view.api.GameViewFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GameViewManagerImpl2 implements ViewControllerManager {
 
@@ -28,8 +29,8 @@ public class GameViewManagerImpl2 implements ViewControllerManager {
      * @return
      */
     @Override
-    public List<Command> getCommands() {
-        return this.currentController.getCommands();
+    public Optional<List<Command>> getCommands() {
+        return Optional.ofNullable(this.currentController.getCommands());
     }
 
     /**
@@ -43,15 +44,10 @@ public class GameViewManagerImpl2 implements ViewControllerManager {
                 case EXPLORE -> {
                     ExploreState exploreState = (ExploreState) modelState;
                     ExploreController exploreControllerImpl = new ExploreControllerImpl(exploreState);
-                    var x = this.gameViewFactory.createRoom(exploreControllerImpl);
+                    var x = this.gameViewFactory.createRoom(exploreControllerImpl, exploreState);
                     this.currentController = exploreControllerImpl;
                     this.currentGameView = x;
                 }
-            }
-        }
-        switch (gameState) {
-            case EXPLORE -> {
-                ((GameViewExplore) this.currentGameView).setData((ExploreState) modelState);
             }
         }
         this.currentGameView.render();

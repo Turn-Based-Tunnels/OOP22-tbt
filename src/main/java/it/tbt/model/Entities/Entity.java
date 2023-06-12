@@ -1,20 +1,7 @@
 package it.tbt.model.Entities;
 
-public class Entity {
+public interface Entity {
+    public String getName();
 
-    private String name;
-    protected int X;
-    protected int Y;
-    public Entity(String Name, int X, int Y) {
-
-    }
-
-    public int getY() {
-        return Y;
-    }
-
-    public int getX() {
-        return X;
-    }
 
 }

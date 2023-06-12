@@ -21,5 +21,15 @@ public class ExploreStateImpl implements ExploreState{
         return new LinkedList<>(this.room.getEntities());
     }
 
-    public IParty getParty() { return party; };
+    public IParty getParty() { return party; }
+
+    /**
+     * @return
+     */
+    @Override
+    public Room getRoom() {
+        return this.room;
+    }
+
+    ;
 }

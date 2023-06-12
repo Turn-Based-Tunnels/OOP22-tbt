@@ -1,13 +1,15 @@
 package it.tbt.model.Party;
 
+import it.tbt.model.Entities.AbstractEntity;
 import it.tbt.model.Entities.Entity;
+import it.tbt.model.Entities.SpatialEntity;
 import it.tbt.model.World.api.Room;
 import it.tbt.model.time.TimeAffected;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Party extends Entity implements IParty, TimeAffected {
+public class Party extends AbstractEntity implements TimeAffected, IParty {
     Set<Character> roaster;
     Room currentRoom;
 
@@ -43,9 +45,9 @@ public class Party extends Entity implements IParty, TimeAffected {
      */
     @Override
     public void move(int xv, int yv) {
-        if(this.currentRoom.isValidCoordinates(xv+this.X, yv+this.Y)) {
-            this.X += xv;
-            this.Y += yv;
+        if(this.currentRoom.isValidCoordinates(xv+this.x, yv+this.y)) {
+            this.x += xv;
+            this.y += yv;
         }
     }
 
@@ -53,7 +55,7 @@ public class Party extends Entity implements IParty, TimeAffected {
      * @param time
      */
     @Override
-    public void affect(float time) {
+    public void affect(long time) {
 
     }
 }

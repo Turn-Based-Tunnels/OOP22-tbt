@@ -1,5 +1,7 @@
 package it.tbt.view.javaFx;
 
+import it.tbt.controller.ModelManager.ExploreState;
+import it.tbt.controller.ModelManager.ModelState;
 import it.tbt.controller.ViewControllerManager.api.ExploreController;
 import it.tbt.controller.ViewControllerManager.api.ViewController;
 
@@ -38,14 +40,13 @@ public class JavaFxViewFactory implements GameViewFactory {
 
 
     @Override
-    public GameViewExplore createRoom(ExploreController exploreController) {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    public GameView createRoom(ExploreController exploreController, ExploreState modelState) {
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
         });
-        return new JavaFxExploreView(exploreController, this.stage, scene, group);
+        return new JavaFxExploreView(exploreController, modelState, this.stage, scene, group);
     }
 }
