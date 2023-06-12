@@ -1,6 +1,6 @@
 package it.tbt.model.roomLink;
 
-import it.tbt.model.World.api.Room;
+import it.tbt.model.world.api.Room;
 import it.tbt.model.entities.SpatialEntity;
 
 import java.util.function.Predicate;

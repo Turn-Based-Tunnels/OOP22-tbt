@@ -2,14 +2,12 @@ package it.tbt.model.party;
 
 import java.util.*;
 
-import it.tbt.model.World.interaction.InteractionComponent;
-import it.tbt.model.World.interaction.InteractionTrigger;
-import it.tbt.model.World.interaction.PartyInteractionComponent;
-import it.tbt.model.entities.SpatialEntity;
+import it.tbt.model.world.interaction.InteractionComponent;
+import it.tbt.model.world.interaction.InteractionTrigger;
+import it.tbt.model.world.interaction.PartyInteractionComponent;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.MovableEntityImpl;
-import it.tbt.model.World.api.Room;
-import it.tbt.model.World.interaction.Interactable;
+import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.ExploreStateTrigger;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.time.TimeAffected;

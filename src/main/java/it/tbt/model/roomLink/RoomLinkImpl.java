@@ -1,7 +1,7 @@
 package it.tbt.model.roomLink;
 
-import it.tbt.model.World.api.Room;
-import it.tbt.model.World.interaction.Interactable;
+import it.tbt.model.world.api.Room;
+import it.tbt.model.world.interaction.Interactable;
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.SpatialEntityImpl;
 import it.tbt.model.party.IParty;

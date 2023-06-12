@@ -1,6 +1,6 @@
 package it.tbt.view.api;
 
-import it.tbt.controller.ModelManager.ExploreState;
+import it.tbt.controller.modelmanager.ExploreState;
 
 /**
  * Specific version of the GameView interface which represents

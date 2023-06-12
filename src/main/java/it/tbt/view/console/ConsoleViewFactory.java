@@ -1,8 +1,8 @@
 package it.tbt.view.console;
 
-import it.tbt.controller.ModelManager.ExploreState;
-import it.tbt.controller.ViewControllerManager.api.ExploreController;
-import it.tbt.controller.ViewControllerManager.api.ViewController;
+import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
 

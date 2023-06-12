@@ -1,12 +1,10 @@
 package it.tbt.view.javaFx;
 
-import it.tbt.controller.ModelManager.ExploreState;
-import it.tbt.controller.ModelManager.ModelState;
-import it.tbt.controller.ViewControllerManager.api.ExploreController;
-import it.tbt.controller.ViewControllerManager.api.ViewController;
+import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
 
 import it.tbt.view.api.GameView;
-import it.tbt.view.api.GameViewExplore;
 import it.tbt.view.api.GameViewFactory;
 import javafx.application.Platform;
 import javafx.event.EventHandler;

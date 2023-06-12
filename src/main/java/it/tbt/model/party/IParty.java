@@ -4,7 +4,7 @@ import java.util.List;
 
 import it.tbt.model.entities.MovableEntity;
 import it.tbt.model.entities.characters.Ally;
-import it.tbt.model.World.api.Room;
+import it.tbt.model.world.api.Room;
 
 /**
  * Generic Party.

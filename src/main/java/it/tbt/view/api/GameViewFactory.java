@@ -1,8 +1,8 @@
 package it.tbt.view.api;
 
-import it.tbt.controller.ModelManager.ExploreState;
-import it.tbt.controller.ViewControllerManager.api.ExploreController;
-import it.tbt.controller.ViewControllerManager.api.ViewController;
+import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
 
 public interface GameViewFactory {
     public GameView createMenu(final ViewController vc);

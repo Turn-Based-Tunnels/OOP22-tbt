@@ -1,10 +1,9 @@
 package it.tbt.view.javaFx;
 
 import it.tbt.Commons.resourceloader.ImageLoader;
-import it.tbt.controller.ModelManager.ExploreState;
-import it.tbt.controller.ViewControllerManager.api.ExploreController;
+import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.viewcontrollermanager.api.ExploreController;
 import it.tbt.model.entities.MovableEntity;
-import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.party.IParty;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
