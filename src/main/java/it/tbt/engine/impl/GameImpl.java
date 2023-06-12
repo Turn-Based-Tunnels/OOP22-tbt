@@ -3,11 +3,20 @@ package it.tbt.engine.impl;
 import it.tbt.Commons.resourceloader.world.impl.FileWorldCreationStrategy3;
 import it.tbt.controller.ModelManager.GameStateManager;
 import it.tbt.controller.ModelManager.IGameStateManager;
+import it.tbt.controller.ModelManager.TransitionManager.api.TransitionManager;
+import it.tbt.controller.ModelManager.TransitionManager.impl.TransitionManagerImpl;
+import it.tbt.controller.ModelManager.UpdateManager.api.UpdateManager;
+import it.tbt.controller.ModelManager.UpdateManager.impl.UpdateManagerImpl;
 import it.tbt.controller.ViewControllerManager.api.ViewControllerManager;
 import it.tbt.controller.ViewControllerManager.impl.GameViewManagerImpl2;
+import it.tbt.model.World.api.Room;
+import it.tbt.model.World.impl.RoomImpl;
 import it.tbt.model.party.IParty;
 import it.tbt.model.party.Party;
 import it.tbt.model.World.api.World;
+import it.tbt.model.roomLink.RoomLink;
+import it.tbt.model.roomLink.RoomLinkImpl;
+import it.tbt.model.statechange.StateTrigger;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
@@ -21,8 +30,18 @@ public class GameImpl implements Game {
         viewControllerManager = new GameViewManagerImpl2(gvf);
         IParty t = new Party("Party", 0,0);
         World w = new FileWorldCreationStrategy3().createWorld();
-        t.setCurrentRoom(w.getListRoom().stream().findAny().get());
-        gameStateManager = new GameStateManager(t, w);
+        Room startRoom = new RoomImpl("RoomStart");
+        Room endRoom = new RoomImpl("endRoom");
+        RoomLink roomLink1 = new RoomLinkImpl("link", 100, 100, startRoom, endRoom);
+        startRoom.addEntity(roomLink1);
+        RoomLink roomLink2 = new RoomLinkImpl("link2", 150, 150, startRoom, endRoom);
+        endRoom.addEntity(roomLink2);
+        TransitionManager transitionManager = new TransitionManagerImpl(w, t);
+        UpdateManager updateManager = new UpdateManagerImpl();
+        gameStateManager = new GameStateManager(transitionManager, updateManager);
+        ((StateTrigger)t).addStateObserver(transitionManager);
+        t.setCurrentRoom(startRoom);
+
     } 
 
     /**

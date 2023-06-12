@@ -5,6 +5,10 @@
   },
   {
     "imagePath": "./tbt/roomLink.png",
-    "objectClass": "it.tbt.model.roomLink.RoomLink"
+    "objectClass": "it.tbt.model.roomLink.RoomLinkImpl"
+  },
+  {
+    "imagePath": "./tbt/Room.jpg",
+    "objectClass": "it.tbt.model.World.impl.RoomImpl"
   }
 ]

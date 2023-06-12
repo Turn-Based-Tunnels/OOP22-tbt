@@ -1,23 +1,29 @@
 package it.tbt.model.party;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+import it.tbt.model.World.interaction.InteractionComponent;
+import it.tbt.model.World.interaction.InteractionTrigger;
+import it.tbt.model.World.interaction.PartyInteractionComponent;
+import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.World.api.Room;
+import it.tbt.model.World.interaction.Interactable;
+import it.tbt.model.statechange.ExploreStateTrigger;
+import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.time.TimeAffected;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Party implementation.
  */
-public class Party extends MovableEntityImpl implements IParty, TimeAffected {
+public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, ExploreStateTrigger, TimeAffected {
     private final Set<Ally> members;
     private Room currentRoom;
     private int wallet;
+    private InteractionComponent interactionComponent = new PartyInteractionComponent(this);
+
+    private List<StateObserver> stateObservers = new LinkedList<>();
 
     /**
      * Constructor without party members.
@@ -49,6 +55,7 @@ public class Party extends MovableEntityImpl implements IParty, TimeAffected {
     @Override
     public void setCurrentRoom(final Room room) {
         this.currentRoom = room;
+        notifyState();
     }
 
     /**
@@ -106,5 +113,39 @@ public class Party extends MovableEntityImpl implements IParty, TimeAffected {
     @Override
     public void addCash(final int amount) {
         wallet += amount;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public InteractionComponent getInteractionComponent() {
+        return this.interactionComponent;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void notifyState() {
+        for(var x: stateObservers) {
+            x.onExplore();
+        }
+    }
+
+    /**
+     * @param observer
+     */
+    @Override
+    public void addStateObserver(StateObserver observer) {
+        this.stateObservers.add(observer);
+    }
+
+    /**
+     * @param observer
+     */
+    @Override
+    public void removeStateObserver(StateObserver observer) {
+        this.stateObservers.remove(observer);
     }
 }

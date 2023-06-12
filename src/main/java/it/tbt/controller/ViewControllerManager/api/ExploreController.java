@@ -8,4 +8,6 @@ public interface ExploreController extends ViewController {
     public void moveUp();
 
     public void moveLeft();
+
+    public void interactWithProximity();
 }

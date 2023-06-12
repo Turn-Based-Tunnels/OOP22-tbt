@@ -2,6 +2,8 @@ package it.tbt.model.World.impl;
 
 import it.tbt.model.entities.Entity;
 import it.tbt.model.World.api.Room;
+import it.tbt.model.entities.SpatialEntity;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +14,7 @@ public class RoomImpl implements Room {
     private int roomWidth;
     private int roomHeight;
 
-    private Set<Entity> entities;
+    private Set<SpatialEntity> entities;
 
     public RoomImpl(final String roomName) {
         roomWidth = 400;
@@ -25,7 +27,7 @@ public class RoomImpl implements Room {
      * @param entity
      */
     @Override
-    public void addEntity(Entity entity) {
+    public void addEntity(SpatialEntity entity) {
         entities.add(entity);
     }
 
@@ -33,7 +35,7 @@ public class RoomImpl implements Room {
      * @return
      */
     @Override
-    public Set<Entity> getEntities() {
+    public Set<SpatialEntity> getEntities() {
         return entities;
     }
 
