@@ -18,6 +18,11 @@ public class GameStateManager implements IGameStateManager{
         this.updateManager = new UpdateManagerImpl();
     }
 
+    public GameStateManager(final TransitionManager transitionManager, final UpdateManager updateManager) {
+        this.transitionManager = transitionManager;
+        this.updateManager = updateManager;
+    }
+
     /**
      * @return
      */

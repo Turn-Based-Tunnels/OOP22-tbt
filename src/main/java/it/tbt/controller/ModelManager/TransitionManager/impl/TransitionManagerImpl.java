@@ -19,8 +19,11 @@ public class TransitionManagerImpl implements TransitionManager {
     public TransitionManagerImpl(World world, IParty party) {
         this.world = world;
         this.party = party;
+        /*
+        TO-REMOVE
         this.currentGameState = GameState.EXPLORE;
         this.currentModelState = new ExploreStateImpl(this.party.getCurrentRoom(), this.party);
+        */
     }
 
     /**
