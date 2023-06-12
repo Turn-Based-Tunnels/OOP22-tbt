@@ -1,7 +1,7 @@
 [
   {
     "imagePath": "./tbt/player2.png",
-    "objectClass": "it.tbt.model.Party.IParty"
+    "objectClass": "it.tbt.model.party.IParty"
   },
   {
     "imagePath": "./tbt/roomLink.png",
