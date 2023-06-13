@@ -43,7 +43,7 @@ public class ExploreControllerImpl implements ExploreController {
     }
 
     public void moveRight() {
-        this.commands.add(new CommandMove(this.modelState.getParty(), 1,0));
+        this.commands.add(new CommandMove(this.modelState.getParty(), 5,0));
     }
 
     /**
@@ -51,7 +51,7 @@ public class ExploreControllerImpl implements ExploreController {
      */
     @Override
     public void moveDown() {
-        this.commands.add(new CommandMove(this.modelState.getParty(),0,1));
+        this.commands.add(new CommandMove(this.modelState.getParty(),0,5));
     }
 
     /**
@@ -59,7 +59,7 @@ public class ExploreControllerImpl implements ExploreController {
      */
     @Override
     public void moveUp() {
-        this.commands.add(new CommandMove(this.modelState.getParty(), 0, -1));
+        this.commands.add(new CommandMove(this.modelState.getParty(), 0, -5));
     }
 
     /**
@@ -67,7 +67,7 @@ public class ExploreControllerImpl implements ExploreController {
      */
     @Override
     public void moveLeft() {
-        this.commands.add(new CommandMove(this.modelState.getParty(), -1, 0));
+        this.commands.add(new CommandMove(this.modelState.getParty(), -5, 0));
     }
 
     /**

@@ -17,6 +17,6 @@ public class CommandInteract implements Command {
      */
     @Override
     public void execute() {
-        this.interactionTrigger.getInteractionComponent().InteractLogic();
+        this.interactionTrigger.triggerInteraction();
     }
 }

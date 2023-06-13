@@ -28,13 +28,13 @@ public class GameImpl implements Game {
 
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl2(gvf);
-        IParty t = new Party("Party", 0,0);
+        IParty t = new Party("Party", 0,0, 50, 50);
         World w = new FileWorldCreationStrategy3().createWorld();
         Room startRoom = new RoomImpl("RoomStart");
         Room endRoom = new RoomImpl("endRoom");
-        RoomLink roomLink1 = new RoomLinkImpl("link", 100, 100, startRoom, endRoom);
+        RoomLink roomLink1 = new RoomLinkImpl("link", 100, 100, 75, 75, startRoom, endRoom);
         startRoom.addEntity(roomLink1);
-        RoomLink roomLink2 = new RoomLinkImpl("link2", 150, 150, startRoom, endRoom);
+        RoomLink roomLink2 = new RoomLinkImpl("link2", 150, 150, 50, 50, startRoom, endRoom);
         endRoom.addEntity(roomLink2);
         TransitionManager transitionManager = new TransitionManagerImpl(w, t);
         UpdateManager updateManager = new UpdateManagerImpl();
@@ -42,8 +42,7 @@ public class GameImpl implements Game {
         ((StateTrigger)t).addStateObserver(transitionManager);
         t.setCurrentRoom(startRoom);
 
-    } 
-
+    }
     /**
      *
      */

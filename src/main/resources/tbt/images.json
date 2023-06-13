@@ -9,6 +9,6 @@
   },
   {
     "imagePath": "./tbt/Room.jpg",
-    "objectClass": "it.tbt.model.World.impl.RoomImpl"
+    "objectClass": "it.tbt.model.world.impl.RoomImpl"
   }
 ]

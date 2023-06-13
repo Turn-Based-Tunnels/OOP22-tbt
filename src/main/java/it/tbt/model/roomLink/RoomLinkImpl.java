@@ -14,8 +14,8 @@ public class RoomLinkImpl extends SpatialEntityImpl implements RoomLink, Interac
     private Room room1;
     private Room room2;
 
-    public RoomLinkImpl(String Name, int X, int Y, Room firstRoom, Room secondRoom) {
-        super(Name, X, Y);
+    public RoomLinkImpl(String Name, int X, int Y, int width, int height, Room firstRoom, Room secondRoom) {
+        super(Name, X, Y, width, height);
         this.room1 = firstRoom;
         this.room2 = secondRoom;
 

@@ -16,4 +16,16 @@ public interface SpatialEntity extends Entity {
      * @return Y coordinate
      */
     int getY();
+
+    /**
+     * Get height.
+     * @return height
+     */
+    int getHeight();
+
+    /**
+     * Get width.
+     * @return width
+     */
+    int getWidth();
 }

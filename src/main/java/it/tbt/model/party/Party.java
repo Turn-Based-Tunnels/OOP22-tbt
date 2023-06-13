@@ -15,7 +15,7 @@ import it.tbt.model.time.TimeAffected;
 /**
  * Party implementation.
  */
-public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, ExploreStateTrigger, TimeAffected {
+public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, ExploreStateTrigger {
     private final Set<Ally> members;
     private Room currentRoom;
     private int wallet;
@@ -28,9 +28,17 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      * @param name
      * @param x
      * @param y
+     * @param width
+     * @param height
      */
-    public Party(final String name, final int x, final int y) {
-        super(name, x, y);
+    public Party(
+        final String name,
+        final int x,
+        final int y,
+        final int width,
+        final int height
+    ) {
+        super(name, x, y, width, height);
         this.members = new HashSet<>();
     }
 
@@ -39,10 +47,19 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      * @param name
      * @param x
      * @param y
+     * @param width
+     * @param height
      * @param c
      */
-    public Party(final String name, final int x, final int y, final Collection<Ally> c) {
-        super(name, x, y);
+    public Party(
+        final String name,
+        final int x,
+        final int y,
+        final int width,
+        final int height,
+        final Collection<Ally> c
+    ) {
+        super(name, x, y, width, height);
         this.members = new HashSet<>(c);
     }
 
@@ -77,15 +94,6 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
             setY(getY() + yv);
         }
     }
-
-    /**
-     * @param time
-     */
-    @Override
-    public void affect(final long time) {
-
-    }
-
     /**
      * Get the party members.
      * @return list of allies
@@ -114,15 +122,15 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     }
 
     /**
-     * @return
+     * Triggers the interaction logic of the interaction component.
      */
     @Override
-    public InteractionComponent getInteractionComponent() {
-        return this.interactionComponent;
+    public void triggerInteraction() {
+        this.interactionComponent.InteractLogic();
     }
 
     /**
-     *
+     * Notifies all the
      */
     @Override
     public void notifyState() {

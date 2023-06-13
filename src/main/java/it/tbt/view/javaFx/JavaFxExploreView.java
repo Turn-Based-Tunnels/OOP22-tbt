@@ -61,19 +61,20 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
         this.bg = new Background(new BackgroundImage(new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getRoom().getClass())), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         var party = new ImageView(ImageLoader.getInstance().getFilePath(IParty.class));
         this.images.put(this.exploreState.getParty(), party);
-        party.setFitHeight(50);
-        party.setFitWidth(50);
+        party.setFitHeight(this.exploreState.getParty().getHeight());
+        party.setFitWidth(this.exploreState.getParty().getWidth());
         for(var x: this.exploreState.getRoom().getEntities()) {
             System.out.println(x.getClass());
             var img = new ImageView(ImageLoader.getInstance().getFilePath(x.getClass()));
             if(x instanceof MovableEntity) {
                 this.images.put((MovableEntity)x, img);
             }
-            img.setFitWidth(50);
-            img.setFitHeight(50);
+            img.setFitWidth(x.getWidth());
+            img.setFitHeight(x.getHeight());
             img.setX(x.getX());
             img.setY(x.getY());
             staticImages.getChildren().add(img);
+            //this.stage.setTitle(this.exploreState.getRoom();
         }
     }
 
