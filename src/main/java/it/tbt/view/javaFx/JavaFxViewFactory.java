@@ -13,10 +13,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * JavaFx Factory for GameViews
+ */
+
 public class JavaFxViewFactory implements GameViewFactory {
 
     private Stage stage;
 
+    /**
+     * @param stage used as reference to where the GameViews will reside.
+     */
     public JavaFxViewFactory(final Stage stage) {
         this.stage = stage;
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -36,15 +43,17 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new SimpleJavaFxViewMenu(vc);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameView createRoom(ExploreController exploreController, ExploreState modelState) {
+    public GameView createRoom(ExploreController exploreController, ExploreState exploreState) {
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
         });
-        return new JavaFxExploreView(exploreController, modelState, this.stage, scene, group);
+        return new JavaFxExploreView(exploreController, exploreState, this.stage, scene, group);
     }
 }

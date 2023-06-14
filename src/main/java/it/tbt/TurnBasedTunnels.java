@@ -3,11 +3,6 @@ package it.tbt;
 import it.tbt.engine.impl.JavaFxLauncher;
 import javafx.application.Application;
 
-/**
- *
- * Comment.
- */
-
 public final class TurnBasedTunnels{
 
     /**

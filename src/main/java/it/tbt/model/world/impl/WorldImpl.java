@@ -9,12 +9,14 @@ import java.util.Set;
 
 public class WorldImpl implements World {
 
-    Set<Room> rooms = new HashSet<>();
-
+    Set<Room> rooms;
+    private Room start;
 
     public WorldImpl(final Set<Room> rooms) {
         this.rooms = rooms;
     }
+
+    public WorldImpl() { this.rooms = new HashSet<>(); }
 
     /**
      * @param room
@@ -30,5 +32,21 @@ public class WorldImpl implements World {
     @Override
     public List<Room> getListRoom() {
         return this.rooms.stream().toList();
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Room getStartRoom() {
+        return this.start;
+    }
+
+    /**
+     * @param room
+     */
+    @Override
+    public void setStartRoom(final Room room) {
+        this.start = room;
     }
 }

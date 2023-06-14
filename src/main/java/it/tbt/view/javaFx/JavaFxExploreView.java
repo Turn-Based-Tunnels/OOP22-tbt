@@ -36,17 +36,15 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void render() {
-        //var entities = exploreState.getAllEntities();
         Platform.runLater(() -> {
             Pane rootPane = new Pane();
             Group dynamicImages = new Group();
             dynamicImages.getChildren().clear();
             for(var x: images.keySet()) {
-                System.out.println("X: " + this.images.get(x).getX()+" Y: "+ this.images.get(x).getY());
                 this.images.get(x).setX(x.getX());
                 this.images.get(x).setY(x.getY());
                 dynamicImages.getChildren().add(this.images.get(x));
@@ -74,7 +72,6 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
             img.setX(x.getX());
             img.setY(x.getY());
             staticImages.getChildren().add(img);
-            //this.stage.setTitle(this.exploreState.getRoom();
         }
     }
 

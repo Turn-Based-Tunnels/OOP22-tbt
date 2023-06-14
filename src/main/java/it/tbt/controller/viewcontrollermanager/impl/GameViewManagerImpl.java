@@ -13,19 +13,25 @@ import it.tbt.view.api.GameViewFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class GameViewManagerImpl2 implements ViewControllerManager {
+/**
+ * Default implementation of a ViewControllerManager
+ */
+
+public class GameViewManagerImpl implements ViewControllerManager {
 
     private GameViewFactory gameViewFactory;
     private ViewController currentController;
-
     private GameView currentGameView;
 
-    public GameViewManagerImpl2(final GameViewFactory gameViewFactory) {
+    /**
+     * @param gameViewFactory the GameView factory which will be used to generate the GameViews.
+     */
+    public GameViewManagerImpl(final GameViewFactory gameViewFactory) {
         this.gameViewFactory = gameViewFactory;
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Optional<List<Command>> getCommands() {
@@ -33,8 +39,7 @@ public class GameViewManagerImpl2 implements ViewControllerManager {
     }
 
     /**
-     * @param gameState
-     * @param modelState
+     * {@inheritDoc}
      */
     @Override
     public void renderView(GameState gameState, ModelState modelState, Boolean hasChanged) {
@@ -53,7 +58,7 @@ public class GameViewManagerImpl2 implements ViewControllerManager {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void cleanCommands() {

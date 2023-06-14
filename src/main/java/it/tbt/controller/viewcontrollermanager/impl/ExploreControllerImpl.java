@@ -10,6 +10,10 @@ import it.tbt.model.world.interaction.InteractionTrigger;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Default implementation of the Controller of the Explore state.
+ */
+
 public class ExploreControllerImpl implements ExploreController {
 
     private List<Command> commands;
@@ -21,13 +25,8 @@ public class ExploreControllerImpl implements ExploreController {
         this.clean();
     }
 
-    @Override
-    public void addCommand(Command c) {
-        this.commands.add(c);
-    }
-
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public List<Command> getCommands() {
@@ -35,43 +34,46 @@ public class ExploreControllerImpl implements ExploreController {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void clean() {
         this.commands = new LinkedList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void moveRight() {
-        this.commands.add(new CommandMove(this.modelState.getParty(), 5,0));
+        this.commands.add(new CommandMove(this.modelState.getParty(), DEFAULT_MOVE_X,0));
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void moveDown() {
-        this.commands.add(new CommandMove(this.modelState.getParty(),0,5));
+        this.commands.add(new CommandMove(this.modelState.getParty(),0,DEFAULT_MOVE_Y));
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void moveUp() {
-        this.commands.add(new CommandMove(this.modelState.getParty(), 0, -5));
+        this.commands.add(new CommandMove(this.modelState.getParty(), 0, -DEFAULT_MOVE_Y));
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void moveLeft() {
-        this.commands.add(new CommandMove(this.modelState.getParty(), -5, 0));
+        this.commands.add(new CommandMove(this.modelState.getParty(), -DEFAULT_MOVE_X, 0));
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void interactWithProximity() {

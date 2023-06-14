@@ -13,34 +13,34 @@ public class GameStateManager implements IGameStateManager{
     private TransitionManager transitionManager;
     private UpdateManager updateManager;
 
-    public GameStateManager(final IParty party, final World world) {
-        this.transitionManager = new TransitionManagerImpl(world, party);
-        this.updateManager = new UpdateManagerImpl();
-    }
-
     public GameStateManager(final TransitionManager transitionManager, final UpdateManager updateManager) {
         this.transitionManager = transitionManager;
         this.updateManager = updateManager;
     }
 
+    public GameStateManager(final World world, final IParty party) {
+        this.transitionManager = new TransitionManagerImpl(world, party);
+        this.updateManager = new UpdateManagerImpl();
+        this.transitionManager.init();
+        party.setCurrentRoom(world.getStartRoom());
+    }
+
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public ModelState getStateModel() {
         return this.transitionManager.getCurrentModelState();
     }
-
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public GameState getState() {
         return this.transitionManager.getState();
     }
-
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Boolean hasStateChanged() {
@@ -48,7 +48,7 @@ public class GameStateManager implements IGameStateManager{
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void updateState(long timePassed) {
@@ -56,7 +56,7 @@ public class GameStateManager implements IGameStateManager{
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Boolean isOver() {

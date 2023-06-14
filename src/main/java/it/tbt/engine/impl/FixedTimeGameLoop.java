@@ -7,14 +7,14 @@ import javafx.animation.AnimationTimer;
 public class FixedTimeGameLoop implements GameLoop {
 
     private static final long SECOND_IN_MILLISECOND = 1_000_000_000;
-    private long timeSlice = SECOND_IN_MILLISECOND / 30;
+    private long timeSlice = SECOND_IN_MILLISECOND / 60;
     private long lastUpdateTime;
     private long timeAccumulator;
     private Boolean updated = false;
     private Boolean consistent = true;
     private final Game game;
 
-    public FixedTimeGameLoop(final Game g) {
+    public FixedTimeGameLoop(final Game g, final int fps) {
         super();
         this.game = g;
         this.lastUpdateTime = System.nanoTime();
