@@ -1,13 +1,11 @@
 package it.tbt.engine.impl;
 
-import it.tbt.controller.ModelManager.GameStateManager;
-import it.tbt.controller.ModelManager.IGameStateManager;
-import it.tbt.controller.ViewControllerManager.api.ViewControllerManager;
-import it.tbt.controller.ViewControllerManager.impl.GameViewManagerImpl2;
-import it.tbt.model.GameState;
-import it.tbt.model.World.impl.FileWorldCreationStrategy;
-import it.tbt.model.party.IParty;
-import it.tbt.model.party.Party;
+import it.tbt.commons.resourceloader.world.impl.WorldCreationDefault;
+import it.tbt.controller.modelmanager.GameStateManager;
+import it.tbt.controller.modelmanager.IGameStateManager;
+import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
+import it.tbt.controller.viewcontrollermanager.impl.GameViewManagerImpl;
+import it.tbt.model.party.PartyFactory;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
@@ -16,18 +14,14 @@ public class GameImpl implements Game {
 
     private ViewControllerManager viewControllerManager;
     private IGameStateManager gameStateManager;
-    private GameState gameState;
 
     public GameImpl(final GameViewFactory gvf) {
-        viewControllerManager = new GameViewManagerImpl2(gvf);
-        IParty t = new Party("Party", 0,0,0,0); // placeholder
-        gameStateManager = new GameStateManager(t, new FileWorldCreationStrategy("data.json").createWorld());
-        t.setCurrentRoom(this.gameStateManager.getWorld().getListRoom().stream().findFirst().get());
-        gameState = GameState.EXPLORE;
+        viewControllerManager = new GameViewManagerImpl(gvf);
+        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(), PartyFactory.createDefaultParty());
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void initialize() {
@@ -35,24 +29,15 @@ public class GameImpl implements Game {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
-    public void loadResources() {
-        //TO LOAD RESOURCES
-    }
-
-    /**
-     * @param deltaTime
-     */
-    @Override
-    public void update(float deltaTime) {
+    public void update(long deltaTime) {
         this.gameStateManager.updateState(deltaTime);
-
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void render() {
@@ -60,37 +45,24 @@ public class GameImpl implements Game {
     }
 
     /**
-     * @param time
-     */
-    @Override
-    public void render(float time) {
-        //RENDER WITH TIME LAG TO REPRESENT
-    }
-
-    /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Boolean handleInput() {
         Boolean r = this.viewControllerManager.getCommands().isEmpty();
-        this.viewControllerManager.getCommands().stream().forEach(l->l.execute());
-        this.viewControllerManager.cleanCommands();
+        if(r == false) {
+            this.viewControllerManager.getCommands().get().stream().forEach(l -> l.execute());
+            this.viewControllerManager.cleanCommands();
+        }
         return !r;
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Boolean isOver() {
         return this.gameStateManager.isOver();
     }
 
-    /**
-     *
-     */
-    @Override
-    public void cleanup() {
-        //CLEAN UP ON THE CLOSURE
-    }
 }

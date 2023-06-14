@@ -1,0 +1,14 @@
+[
+  {
+    "imagePath": "./tbt/player2.png",
+    "objectClass": "it.tbt.model.party.IParty"
+  },
+  {
+    "imagePath": "./tbt/roomLink.png",
+    "objectClass": "it.tbt.model.roomLink.RoomLinkImpl"
+  },
+  {
+    "imagePath": "./tbt/Room.jpg",
+    "objectClass": "it.tbt.model.world.impl.RoomImpl"
+  }
+]

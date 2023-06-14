@@ -1,9 +1,9 @@
 package it.tbt.view.console;
 
-import it.tbt.controller.ViewControllerManager.api.ExploreController;
-import it.tbt.controller.ViewControllerManager.api.ViewController;
+import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.view.api.GameView;
-import it.tbt.view.api.GameViewExplore;
 import it.tbt.view.api.GameViewFactory;
 
 public class ConsoleViewFactory implements GameViewFactory {
@@ -18,10 +18,12 @@ public class ConsoleViewFactory implements GameViewFactory {
 
     /**
      * @param vc
+     * @param exploreState
      * @return
      */
     @Override
-    public GameViewExplore createRoom(ExploreController vc) {
+    public GameView createRoom(ExploreController vc, ExploreState exploreState) {
         return null;
     }
+
 }
