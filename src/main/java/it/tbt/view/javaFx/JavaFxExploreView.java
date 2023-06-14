@@ -17,17 +17,27 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
+/**
+ * An implementation of a GameView that describes the Explore game state.
+ */
+
 public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
 
     private ExploreState exploreState;
     private ExploreController exploreController;
     private Map<MovableEntity, ImageView> images = new HashMap<>(); //Images of objects who can move
-
     private Group staticImages = new Group();
-
     private Background bg;
 
-    public JavaFxExploreView(ExploreController exploreController, ExploreState exploreState, Stage stage, Scene scene, Group root) {
+    /**
+     * @param exploreController The exploreController that provides the input to this view
+     * @param exploreState The model data used to render the current game state
+     * @param stage JavaFx main graphic component
+     * @param scene JavaFx graphic component
+     * @param root JavaFx graphic component
+     */
+    public JavaFxExploreView(final ExploreController exploreController, final ExploreState exploreState, final Stage stage, final Scene scene
+            , final Group root) {
         super(stage, scene, root);
         this.exploreController = exploreController;
         this.setKeyMap();
@@ -55,15 +65,19 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
         });
     }
 
+    /**
+     * Loads images, and populates the staticImages group with images of entities which
+     * do not change overtime, so they do not need to be rendered more than one time.
+     */
     private void loadImagesRenderStatic() {
         this.bg = new Background(new BackgroundImage(new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getRoom().getClass())), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         var party = new ImageView(ImageLoader.getInstance().getFilePath(IParty.class));
         this.images.put(this.exploreState.getParty(), party);
         party.setFitHeight(this.exploreState.getParty().getHeight());
         party.setFitWidth(this.exploreState.getParty().getWidth());
-        for(var x: this.exploreState.getRoom().getEntities()) {
+        for ( var x: this.exploreState.getRoom().getEntities() ) {
             var img = new ImageView(ImageLoader.getInstance().getFilePath(x.getClass()));
-            if(x instanceof MovableEntity) {
+            if ( x instanceof MovableEntity ) {
                 this.images.put((MovableEntity)x, img);
             }
             img.setFitWidth(x.getWidth());
@@ -74,18 +88,21 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
         }
     }
 
+    /**
+     * Set the input mapping.
+     */
     private void setKeyMap() {
         scene.setOnKeyPressed(event -> {
             KeyCode k = event.getCode();
-            if(k.equals(KeyCode.D)) {
+            if( k.equals(KeyCode.D) ) {
                 this.exploreController.moveRight();
-            } else if(k.equals(KeyCode.W)) {
+            } else if( k.equals(KeyCode.W) ) {
                 this.exploreController.moveUp();
-            } else if(k.equals(KeyCode.A)) {
+            } else if( k.equals(KeyCode.A) ) {
                 this.exploreController.moveLeft();
-            } else if(k.equals(KeyCode.S)) {
+            } else if( k.equals(KeyCode.S) ) {
                 this.exploreController.moveDown();
-            } else if(k.equals(KeyCode.E)) {
+            } else if( k.equals(KeyCode.E) ) {
                 this.exploreController.interactWithProximity();
             }
         });

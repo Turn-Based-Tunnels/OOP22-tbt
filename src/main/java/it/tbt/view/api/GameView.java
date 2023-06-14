@@ -11,5 +11,5 @@ public interface GameView {
     /**
      * The view render logic.
      */
-    public void render();
+    void render();
 }

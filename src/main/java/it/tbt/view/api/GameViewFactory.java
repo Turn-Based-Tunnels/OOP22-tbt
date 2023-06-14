@@ -9,12 +9,17 @@ import it.tbt.controller.viewcontrollermanager.api.ViewController;
  */
 
 public interface GameViewFactory {
-    public GameView createMenu(final ViewController vc);
+
+    /**
+     * @param vc
+     * @return the GameView for the Menu Game State
+     */
+    GameView createMenu(ViewController vc);
     /**
      * @param exploreController the controller to be passed the view
      * @param exploreState the state the view will need to render
      * @return the GameView for the Explore Game State
      */
-    public GameView createRoom(final ExploreController exploreController, final ExploreState exploreState);
+    GameView createRoom(ExploreController exploreController, ExploreState exploreState);
 
 }
