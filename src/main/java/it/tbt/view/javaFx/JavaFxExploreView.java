@@ -1,38 +1,81 @@
 package it.tbt.view.javaFx;
 
-import it.tbt.controller.ModelManager.ExploreState;
-import it.tbt.controller.ViewControllerManager.api.ExploreController;
-import it.tbt.model.entities.Entity;
-import it.tbt.model.party.Party;
-import it.tbt.view.api.GameViewExplore;
+import it.tbt.commons.resourceloader.ImageLoader;
+import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.model.entities.MovableEntity;
+import it.tbt.model.party.IParty;
+import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class JavaFxExploreView extends AbstractJavaFxView implements GameViewExplore {
+public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
 
     private ExploreState exploreState;
     private ExploreController exploreController;
-    private Scene scene;
-    private Group root;
-    private Map<Class<? extends Entity>, String> images = new HashMap<>();
+    private Map<MovableEntity, ImageView> images = new HashMap<>(); //Images of objects who can move
 
-    private ImageView imageView;
+    private Group staticImages = new Group();
 
+    private Background bg;
 
-    public JavaFxExploreView(ExploreController exploreController, Stage stage, Scene scene, Group root) {
+    public JavaFxExploreView(ExploreController exploreController, ExploreState exploreState, Stage stage, Scene scene, Group root) {
         super(stage, scene, root);
-        images.put(Party.class, "./tbt/player2.png");
-        this.scene = scene;
-        this.root = root;
         this.exploreController = exploreController;
-        this.scene.setOnKeyPressed(event -> {
+        this.setKeyMap();
+        this.exploreState = exploreState;
+        loadImagesRenderStatic();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void render() {
+        Platform.runLater(() -> {
+            Pane rootPane = new Pane();
+            Group dynamicImages = new Group();
+            dynamicImages.getChildren().clear();
+            for(var x: images.keySet()) {
+                this.images.get(x).setX(x.getX());
+                this.images.get(x).setY(x.getY());
+                dynamicImages.getChildren().add(this.images.get(x));
+            }
+            rootPane.setBackground(this.bg);
+            rootPane.getChildren().addAll(dynamicImages, staticImages);
+            scene.setRoot(rootPane);
+        });
+    }
+
+    private void loadImagesRenderStatic() {
+        this.bg = new Background(new BackgroundImage(new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getRoom().getClass())), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
+        var party = new ImageView(ImageLoader.getInstance().getFilePath(IParty.class));
+        this.images.put(this.exploreState.getParty(), party);
+        party.setFitHeight(this.exploreState.getParty().getHeight());
+        party.setFitWidth(this.exploreState.getParty().getWidth());
+        for(var x: this.exploreState.getRoom().getEntities()) {
+            var img = new ImageView(ImageLoader.getInstance().getFilePath(x.getClass()));
+            if(x instanceof MovableEntity) {
+                this.images.put((MovableEntity)x, img);
+            }
+            img.setFitWidth(x.getWidth());
+            img.setFitHeight(x.getHeight());
+            img.setX(x.getX());
+            img.setY(x.getY());
+            staticImages.getChildren().add(img);
+        }
+    }
+
+    private void setKeyMap() {
+        scene.setOnKeyPressed(event -> {
             KeyCode k = event.getCode();
             if(k.equals(KeyCode.D)) {
                 this.exploreController.moveRight();
@@ -42,37 +85,10 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameViewExp
                 this.exploreController.moveLeft();
             } else if(k.equals(KeyCode.S)) {
                 this.exploreController.moveDown();
+            } else if(k.equals(KeyCode.E)) {
+                this.exploreController.interactWithProximity();
             }
         });
-        imageView = new ImageView(this.images.get(Party.class));
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
-        
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void render() {
-        //var entities = exploreState.getAllEntities();
-        Platform.runLater(() -> {
-            root.getChildren().clear();
-            imageView.setX(this.exploreState.getParty().getX());
-            imageView.setY(this.exploreState.getParty().getY());
-            System.out.println("Y:"+this.exploreState.getParty().getY()+ "X:"+this.exploreState.getParty().getX());
-            root.getChildren().add(imageView);
-            scene.setRoot(root);
-        });
-    }
-
-
-    /**
-     * @param modelState
-     */
-    @Override
-    public void setData(ExploreState modelState) {
-        this.exploreState = modelState;
     }
 }
 
