@@ -1,61 +1,41 @@
-package it.tbt.view.mainMenu;
+package it.tbt.view.javaFx;
 
-import it.tbt.control.input.api.InputListener;
-import it.tbt.control.input.impl.InputHandler;
-import it.tbt.control.menu.impl.MenuController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
+import it.tbt.controller.viewcontrollermanager.impl.MainMenuController;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuItem;
-import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.menu.impl.MenuSelect;
-import it.tbt.model.party.Party;
 import it.tbt.view.api.GameView;
-import it.tbt.view.javaFx.AbstractJavaFxView;
-import it.tbt.view.resizableApp.ResizableApp;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.event.Event;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import  it.tbt.controller.modelmanager.MenuState;
 
-import java.awt.event.KeyListener;
+import javax.swing.text.View;
 import java.util.*;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
-import static java.awt.event.KeyEvent.*;
 
-
-public class MainMenu extends /*ResizableApp*/ AbstractJavaFxView implements GameView {
+public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implements GameView {
 
     private Scene scene;
     private Group root;
-    private MenuController menuController;
+    private ViewController menuController;
     private MenuState main;
 
     public void setData(MenuState modelState){
         this.main = modelState;
     }
 
-    public MainMenu(MenuController menuController, Stage stage, Scene scene, Group root, MenuState menuState) {
+    public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, Group root, MenuState menuState) {
         super(stage, scene, root);
         this.scene = scene;
         this.root = root;
@@ -67,7 +47,6 @@ public class MainMenu extends /*ResizableApp*/ AbstractJavaFxView implements Gam
             public void handle(KeyEvent event) {
                 System.out.println("ff15" + event.getCode());
                 menuController.onKeyPressed(event.getCode().getCode());
-                render();
             }
         });
     }

@@ -1,14 +1,14 @@
 package it.tbt.view.javaFx;
 
-import it.tbt.control.menu.impl.MenuController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
+import it.tbt.controller.viewcontrollermanager.impl.MainMenuController;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
-import it.tbt.controller.viewcontrollermanager.api.ViewController;
 
+import it.tbt.controller.viewcontrollermanager.impl.PauseMenuController;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
-import it.tbt.view.mainMenu.MainMenu;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -42,7 +42,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      * @return
      */
     @Override
-    public GameView createMenu(final MenuController menuController, final MenuState menuState) {
+    public GameView createMenu(final ViewController menuController, final MenuState menuState) {
         System.out.println("lel");
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
@@ -52,7 +52,21 @@ public class JavaFxViewFactory implements GameViewFactory {
         });
 
 
-        return new MainMenu(menuController, this.stage, scene, group, menuState);
+        return new JavaFxMenuView(menuController, this.stage, scene, group, menuState);
+    }
+
+    @Override
+    public GameView createPause(PauseMenuController menuController, MenuState menuState) {
+        System.out.println("lel");
+        Group group = new Group();
+        Scene scene = new Scene(group, 300, 300);
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
+
+
+        return new JavaFxMenuView(menuController, this.stage, scene, group, menuState);
     }
 
     /**

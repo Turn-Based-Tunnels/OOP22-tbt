@@ -6,7 +6,9 @@ import it.tbt.model.command.api.Command;
 import it.tbt.model.command.explore.CommandInteract;
 import it.tbt.model.command.explore.CommandMove;
 import it.tbt.model.world.interaction.InteractionTrigger;
+import javafx.scene.input.KeyCode;
 
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,4 +85,18 @@ public class ExploreControllerImpl implements ExploreController {
 
     }
 
+    @Override
+    public void onKeyPressed(int key) {
+        if(key==KeyEvent.VK_D) {
+            this.moveRight();
+        } else if(key==KeyEvent.VK_W) {
+            this.moveUp();
+        } else if(key==KeyEvent.VK_A) {
+            this.moveLeft();
+        } else if(key==KeyEvent.VK_S) {
+            this.moveDown();
+        } else if(key==KeyEvent.VK_E) {
+            this.interactWithProximity();
+        }
+    }
 }

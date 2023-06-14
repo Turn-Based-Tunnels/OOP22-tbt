@@ -7,11 +7,13 @@ import it.tbt.model.entities.MovableEntity;
 import it.tbt.model.party.IParty;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -30,9 +32,15 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
     public JavaFxExploreView(ExploreController exploreController, ExploreState exploreState, Stage stage, Scene scene, Group root) {
         super(stage, scene, root);
         this.exploreController = exploreController;
-        this.setKeyMap();
         this.exploreState = exploreState;
         loadImagesRenderStatic();
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println("ff15" + event.getCode());
+                exploreController.onKeyPressed(event.getCode().getCode());
+            }
+        });
     }
 
     /**
@@ -74,22 +82,6 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
         }
     }
 
-    private void setKeyMap() {
-        scene.setOnKeyPressed(event -> {
-            KeyCode k = event.getCode();
-            if(k.equals(KeyCode.D)) {
-                this.exploreController.moveRight();
-            } else if(k.equals(KeyCode.W)) {
-                this.exploreController.moveUp();
-            } else if(k.equals(KeyCode.A)) {
-                this.exploreController.moveLeft();
-            } else if(k.equals(KeyCode.S)) {
-                this.exploreController.moveDown();
-            } else if(k.equals(KeyCode.E)) {
-                this.exploreController.interactWithProximity();
-            }
-        });
-    }
 }
 
 
