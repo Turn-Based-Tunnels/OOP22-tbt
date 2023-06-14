@@ -1,12 +1,15 @@
 package it.tbt.view.javaFx;
 
+import it.tbt.control.menu.impl.MenuController;
 import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 
 import it.tbt.model.world.api.Room;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
+import it.tbt.view.mainMenu.MainMenu;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -40,8 +43,14 @@ public class JavaFxViewFactory implements GameViewFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameView createMenu(final ViewController vc) {
-        return null;
+    public GameView createMenu(final MenuController menuController, final MenuState menuState) {
+        Group group = new Group();
+        Scene scene = new Scene(group, 300, 300);
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
+        return new MainMenu(menuController, this.stage, scene, group, menuState);
     }
 
     /**

@@ -1,15 +1,19 @@
 package it.tbt.controller.modelmanager.transitionmanager.impl;
 
 import it.tbt.controller.modelmanager.ExploreStateImpl;
+import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
 import it.tbt.engine.api.Game;
 import it.tbt.model.GameState;
+import it.tbt.model.menu.api.MenuItem;
+import it.tbt.model.menu.impl.MenuAspectRateoSelect;
+import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.api.World;
 
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Default implementation of a TransitionManager
@@ -20,12 +24,14 @@ public final class TransitionManagerImpl implements TransitionManager {
     private Optional<GameState> currentGameState;
     private World world;
     private IParty party;
+    private MenuModel mainMenu;
     private Optional<ModelState> currentModelState;
     private Boolean stateChanged = false;
 
-    public TransitionManagerImpl(final World world, final IParty party) {
+    public TransitionManagerImpl(final World world, final IParty party, final MenuModel mainMenu) {
         this.world = world;
         this.party = party;
+        this.mainMenu = mainMenu;
     }
 
     /**
@@ -54,6 +60,12 @@ public final class TransitionManagerImpl implements TransitionManager {
                 }
             }
         }
+        for(var x: this.mainMenu.getItems()){
+            if(x instanceof StateTrigger){
+                ((StateTrigger)x).addStateObserver(this);
+            }
+        }
+
     }
 
     /**
@@ -108,5 +120,12 @@ public final class TransitionManagerImpl implements TransitionManager {
     @Override
     public void onFight() {
         //TO-DO
+    }
+
+    @Override
+    public void onMenu() {
+        stateChanged = true;
+        this.currentGameState = Optional.of(GameState.MENU);
+        this.currentModelState = Optional.of(new MenuStateImpl(mainMenu));
     }
 }
