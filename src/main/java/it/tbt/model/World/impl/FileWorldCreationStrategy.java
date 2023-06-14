@@ -48,7 +48,8 @@ public class FileWorldCreationStrategy implements WorldCreationStrategy {
                     String objectType = objectObject.get("type").getAsString();
                     JsonObject position = objectObject.getAsJsonObject("position");
                     // Create the object based on its type and add it to the room
-                    MovableEntityImpl gameObject = new MovableEntityImpl(objectName,position.get("x").getAsInt(),position.get("y").getAsInt());
+                    // place holder
+                    MovableEntityImpl gameObject = new MovableEntityImpl(objectName,position.get("x").getAsInt(),position.get("y").getAsInt(), 1 ,1);
                     room.addEntity(gameObject);
                 }
 

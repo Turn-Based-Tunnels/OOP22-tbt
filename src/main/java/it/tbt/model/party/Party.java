@@ -24,9 +24,17 @@ public class Party extends MovableEntityImpl implements IParty, TimeAffected {
      * @param name
      * @param x
      * @param y
+     * @param width
+     * @param height
      */
-    public Party(final String name, final int x, final int y) {
-        super(name, x, y);
+    public Party(
+        final String name,
+        final int x,
+        final int y,
+        final int width,
+        final int height
+    ) {
+        super(name, x, y, width, height);
         this.members = new HashSet<>();
     }
 
@@ -35,10 +43,19 @@ public class Party extends MovableEntityImpl implements IParty, TimeAffected {
      * @param name
      * @param x
      * @param y
+     * @param width
+     * @param height
      * @param c
      */
-    public Party(final String name, final int x, final int y, final Collection<Ally> c) {
-        super(name, x, y);
+    public Party(
+        final String name,
+        final int x,
+        final int y,
+        final int width,
+        final int height,
+        final Collection<Ally> c
+    ) {
+        super(name, x, y, width, height);
         this.members = new HashSet<>(c);
     }
 
