@@ -1,9 +1,11 @@
 package it.tbt.model.party;
 
 import java.util.List;
+import java.util.Map;
 
 import it.tbt.model.entities.MovableEntity;
 import it.tbt.model.entities.characters.Ally;
+import it.tbt.model.entities.items.Item;
 import it.tbt.model.world.api.Room;
 
 /**
@@ -47,4 +49,23 @@ public interface IParty extends MovableEntity {
      * @param amount
      */
     void addCash(int amount);
+
+    /**
+     * Get the character inventory.
+     * @return map of <item, count> representing the character's intentory
+     */
+    Map<Item, Integer> getInventory();
+
+    /**
+     * Add an item to the inventory.
+     * @param item
+     */
+    void addItemToInventory(Item item);
+
+    /**
+     * Remove an item from the inventory.
+     * @param item
+     * @return true if the item was found and removed
+     */
+    boolean removeItemFromInventory(Item item);
 }

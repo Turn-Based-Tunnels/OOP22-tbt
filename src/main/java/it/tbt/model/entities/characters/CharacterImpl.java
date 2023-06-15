@@ -1,13 +1,11 @@
 package it.tbt.model.entities.characters;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.EnumSet;
 import java.util.Optional;
 
 import it.tbt.model.entities.EntityImpl;
 import it.tbt.model.entities.items.Armor;
-import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.items.Weapon;
 
 /**
@@ -17,7 +15,6 @@ public class CharacterImpl extends EntityImpl implements Character {
     private static final long serialVersionUID = 4416007599695354122L;
     private final int maxHealth;
     private final int speed;
-    private final Inventory inventory;
     private int health;
     private final int attack;
     private final Set<Status> statuses;
@@ -43,7 +40,6 @@ public class CharacterImpl extends EntityImpl implements Character {
         this.attack = attack;
         this.speed = speed;
         this.statuses = EnumSet.noneOf(Status.class);
-        this.inventory = new Inventory();
         this.weapon = Optional.empty();
         this.armor = Optional.empty();
     }
@@ -137,34 +133,6 @@ public class CharacterImpl extends EntityImpl implements Character {
     public boolean removeStatus(final Status status) {
         // return true if action is performed
         return statuses.remove(status);
-    }
-
-    /**
-     * Get the character inventory.
-     * @return map of <item, count> representing the character's intentory
-     */
-    @Override
-    public Map<Item, Integer> getInventory() {
-        return inventory.getItems();
-    }
-
-    /**
-     * Add an item to the inventory.
-     * @param item
-     */
-    @Override
-    public void addItemToInventory(final Item item) {
-        inventory.addItem(item);
-    }
-
-    /**
-     * Remove an item from the inventory.
-     * @param item
-     * @return true if the item was found and removed
-     */
-    @Override
-    public boolean removeItemFromInventory(final Item item) {
-        return inventory.removeItem(item);
     }
 
     /**
