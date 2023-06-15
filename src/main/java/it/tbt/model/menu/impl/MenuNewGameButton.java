@@ -2,13 +2,13 @@ package it.tbt.model.menu.impl;
 
 import it.tbt.model.command.api.Command;
 import it.tbt.model.command.menu.ButtonCommand;
-import it.tbt.model.statechange.ExploreStateTrigger;
 import it.tbt.model.statechange.StateObserver;
+import it.tbt.model.statechange.StateTrigger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuNewGameButton extends MenuButton implements ExploreStateTrigger {
+public class MenuNewGameButton extends MenuButton implements StateTrigger {
     public MenuNewGameButton(String text) {
         super(text);
     }
@@ -17,28 +17,18 @@ public class MenuNewGameButton extends MenuButton implements ExploreStateTrigger
         return new ButtonCommand() {
             @Override
             public void execute() {
-                notifyState();
+                stateObserver.onExplore();
             }
         };
     }
 
-    @Override
-    public void notifyState() {
-        for (var o: observers
-             ) {
-            o.onExplore();
-        }
-    }
+    StateObserver stateObserver;
 
-    List<StateObserver> observers = new ArrayList<>();
-
+    /**
+     * @param stateObserver
+     */
     @Override
-    public void addStateObserver(StateObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeStateObserver(StateObserver observer) {
-        observers.remove(observer);
+    public void setStateObserver(StateObserver stateObserver) {
+        this.stateObserver = stateObserver;
     }
 }

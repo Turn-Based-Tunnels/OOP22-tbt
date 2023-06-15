@@ -25,6 +25,7 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
 
     private ExploreState exploreState;
     private ExploreController exploreController;
+    //private Pane movingSpace =
     private Map<MovableEntity, ImageView> images = new HashMap<>(); //Images of objects who can move
     private Group staticImages = new Group();
     private Background bg;
@@ -50,6 +51,7 @@ public class JavaFxExploreView extends AbstractJavaFxView implements GameView {
      */
     @Override
     public void render() {
+
         Platform.runLater(() -> {
             Pane rootPane = new Pane();
             Group dynamicImages = new Group();

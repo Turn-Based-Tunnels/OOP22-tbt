@@ -2,26 +2,24 @@ package it.tbt.model.party;
 
 import java.util.*;
 
+import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.interaction.InteractionComponent;
 import it.tbt.model.world.interaction.InteractionTrigger;
 import it.tbt.model.world.interaction.PartyInteractionComponent;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
-import it.tbt.model.statechange.ExploreStateTrigger;
 import it.tbt.model.statechange.StateObserver;
-import it.tbt.model.time.TimeAffected;
 
 /**
  * Party implementation.
  */
-public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, ExploreStateTrigger {
+public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, StateTrigger {
     private final Set<Ally> members;
     private Room currentRoom;
     private int wallet;
     private InteractionComponent interactionComponent = new PartyInteractionComponent(this);
-
-    private List<StateObserver> stateObservers = new LinkedList<>();
+    private StateObserver stateObserver;
 
     /**
      * Constructor without party members.
@@ -70,7 +68,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     @Override
     public void setCurrentRoom(final Room room) {
         this.currentRoom = room;
-        notifyState();
+        this.stateObserver.onExplore();
     }
 
     /**
@@ -130,28 +128,11 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     }
 
     /**
-     * Notifies all the
+     * @param stateObserver
      */
     @Override
-    public void notifyState() {
-        for(var x: stateObservers) {
-            x.onExplore();
-        }
+    public void setStateObserver(StateObserver stateObserver) {
+        this.stateObserver = stateObserver;
     }
 
-    /**
-     * @param observer
-     */
-    @Override
-    public void addStateObserver(StateObserver observer) {
-        this.stateObservers.add(observer);
-    }
-
-    /**
-     * @param observer
-     */
-    @Override
-    public void removeStateObserver(StateObserver observer) {
-        this.stateObservers.remove(observer);
-    }
 }
