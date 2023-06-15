@@ -11,18 +11,17 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.Map;
 
-import edu.umd.cs.findbugs.annotations.CheckReturnValue;
+import it.tbt.controller.SimpleLogger;
 
 /**
  * Manage resource files in the user home directory.
  */
 public class ResourceFilesManagerImpl extends ResourceManagerImpl implements ResourceFilesManager {
-    private final String className = this.getClass().getName();
-    private final Logger logger = Logger.getLogger(className);
+    private final String className = getClass().getName();
+    private final Logger logger = SimpleLogger.getLogger(className);
     private final String userHomePath = System.getProperty("user.home");
     private final String osName = System.getProperty("os.name");
     private final String configFolderPath;
@@ -78,13 +77,6 @@ public class ResourceFilesManagerImpl extends ResourceManagerImpl implements Res
                 Files.createDirectories(Paths.get(this.configFolderPath));
             } catch (IOException e) {
                 logger.throwing(className, "ResourceFilesManagerImpl", e);
-                // retry before giving up
-                try {
-                    Files.createDirectories(Paths.get(this.configFolderPath));
-                } catch (IOException f) {
-                    logger.throwing(className, "ResourceFilesManagerImpl", f);
-                    // give up
-                }
             }
         }
     }
@@ -118,66 +110,59 @@ public class ResourceFilesManagerImpl extends ResourceManagerImpl implements Res
     }
 
     /**
+     * Check if the directory exists in the config path.
+     * @param dirPath directory path relative to the config directory
+     * @throws IOException
+     */
+    public void makeDirInPath(final String dirPath) throws IOException {
+        final String path = configFolderPath + File.separator + dirPath;
+        final File dir;
+        if (path.endsWith("/")) {
+            dir = new File(path);
+        } else {
+            dir = new File(path).getParentFile();
+        }
+        if (!dir.exists() || !dir.isDirectory()) {
+            Files.createDirectories(Paths.get(dir.getPath()));
+        }
+    }
+
+    /**
      * Get a BufferedInputStream to read from the file.
      * @param filePath resource file path relative to the config directory
      * @return BufferedInputStream
      */
     @Override
-    protected Optional<BufferedInputStream> getResourceInputStream(final String filePath) {
+    protected BufferedInputStream getResourceInputStream(final String filePath) throws FileNotFoundException {
         final String path = configFolderPath + File.separator + filePath;
-        try {
-            return Optional.of(
-                new BufferedInputStream(
-                    new FileInputStream(path)
-                )
-            );
-        } catch (FileNotFoundException e) {
-            logger.throwing(className, "getResourceInputStream", e);
-            return Optional.empty();
-        }
+        return new BufferedInputStream(
+            new FileInputStream(path)
+        );
     }
 
     /**
      * Get the required resource file as a BufferedOutputStream.
      * @param filePath resource file path relative to the config directory
      * @return a BufferedOutputStream
+     * @throws FileNotFoundException
      */
-    protected Optional<BufferedOutputStream> getResourceOutputStream(final String filePath) {
+    protected BufferedOutputStream getResourceOutputStream(final String filePath) throws FileNotFoundException {
         final String path = configFolderPath + File.separator + filePath;
-        try {
-            return Optional.of(
-                new BufferedOutputStream(
-                    new FileOutputStream(path)
-                )
-            );
-        } catch (FileNotFoundException e) {
-            logger.throwing(className, "getResourceOutputStream", e);
-            return Optional.empty();
-        }
+        return new BufferedOutputStream(
+            new FileOutputStream(path)
+        );
     }
 
     /**
      * Write the given string to the resource file.
      * @param filePath name of the resource file
      * @param content string that has to be written
-     * @return false if the write fails
+     * @throws IOException
      */
-    @CheckReturnValue
     @Override
-    public boolean writeResource(final String filePath, final byte[] content) {
-        final String path = configFolderPath + File.separator + filePath;
-        final Optional<BufferedOutputStream> optWriter = getResourceOutputStream(path);
-        if (optWriter.isEmpty()) {
-            return false;
-        }
-        final BufferedOutputStream bufWriter = optWriter.get();
-        try {
+    public void writeResource(final String filePath, final byte[] content) throws IOException {
+        try (BufferedOutputStream bufWriter = getResourceOutputStream(filePath)) {
             bufWriter.write(content);
-            bufWriter.close();
-            return true;
-        } catch (IOException e) {
-            logger.throwing(className, "writeResource", e);
-            return false;
         }
     }
 
@@ -185,23 +170,11 @@ public class ResourceFilesManagerImpl extends ResourceManagerImpl implements Res
      * Write the given InputStream to the resource file.
      * @param filePath name of the resource file
      * @param content InputStream that has to be written
-     * @return false if the write or read fails
+     * @throws IOException
      */
-    @CheckReturnValue
-    protected boolean writeResource(final String filePath, final InputStream content) {
-        final String path = configFolderPath + File.separator + filePath;
-        final Optional<BufferedOutputStream> optWriter = getResourceOutputStream(path);
-        if (optWriter.isEmpty()) {
-            return false;
-        }
-        final BufferedOutputStream bufWriter = optWriter.get();
-        try {
+    protected void writeResource(final String filePath, final InputStream content) throws IOException {
+        try (BufferedOutputStream bufWriter = getResourceOutputStream(filePath)) {
             content.transferTo(bufWriter);
-            bufWriter.close();
-            return true;
-        } catch (IOException e) {
-            logger.throwing(className, "writeResource", e);
-            return false;
         }
     }
 }

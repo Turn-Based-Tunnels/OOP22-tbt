@@ -20,20 +20,22 @@ public class Skill extends EntityImpl {
      * @param name
      * @param attackMultiplier
      * @param cooldown
+     * @param possibleStatus
      * @param incProbCritical
      */
     protected Skill(
         final String name,
         final double attackMultiplier,
         final int cooldown,
+        final Optional<Status> possibleStatus,
         final boolean incProbCritical
     ) {
         super(name);
         this.attackMultiplier = attackMultiplier;
         this.cooldown = cooldown;
         this.remainingCooldown = 0;
+        this.possibleStatus = possibleStatus;
         this.incProbCritical = incProbCritical;
-        this.possibleStatus = Optional.empty();
     }
 
     /**
