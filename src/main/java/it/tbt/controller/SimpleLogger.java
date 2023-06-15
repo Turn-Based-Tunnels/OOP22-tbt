@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 /**
  * Simple preconfigured logger.
  */
-public class SimpleLogger {
+public final class SimpleLogger {
 
     /**
      * Private constructor.

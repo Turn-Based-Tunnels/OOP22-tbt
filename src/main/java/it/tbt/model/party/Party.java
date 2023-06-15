@@ -21,9 +21,8 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     private Room currentRoom;
     private int wallet;
     private final Inventory inventory;
-    private InteractionComponent interactionComponent = new PartyInteractionComponent(this);
-
-    private List<StateObserver> stateObservers = new LinkedList<>();
+    private final InteractionComponent interactionComponent = new PartyInteractionComponent(this);
+    private final List<StateObserver> stateObservers = new LinkedList<>();
 
     /**
      * Constructor without party members.
@@ -134,11 +133,11 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     }
 
     /**
-     * Notifies all the
+     * Notifies all the observers.
      */
     @Override
     public void notifyState() {
-        for(var x: stateObservers) {
+        for (final var x: stateObservers) {
             x.onExplore();
         }
     }
@@ -147,7 +146,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      * @param observer
      */
     @Override
-    public void addStateObserver(StateObserver observer) {
+    public void addStateObserver(final StateObserver observer) {
         this.stateObservers.add(observer);
     }
 
@@ -155,7 +154,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      * @param observer
      */
     @Override
-    public void removeStateObserver(StateObserver observer) {
+    public void removeStateObserver(final StateObserver observer) {
         this.stateObservers.remove(observer);
     }
 
