@@ -19,8 +19,8 @@
     },
     {
         "name":"Poisonus arrow",
-        "attackMultiplier":1.10,
-        "cooldown":2,
+        "attackMultiplier": 1.10,
+        "cooldown": 2,
         "possibleStatus": "POISONED",
         "incProbCritical": false
     }

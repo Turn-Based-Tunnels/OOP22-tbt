@@ -21,8 +21,8 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     private Room currentRoom;
     private int wallet;
     private final Inventory inventory;
-    private InteractionComponent interactionComponent = new PartyInteractionComponent(this);
     private StateObserver stateObserver;
+    private final InteractionComponent interactionComponent = new PartyInteractionComponent(this);
 
     /**
      * Constructor without party members.

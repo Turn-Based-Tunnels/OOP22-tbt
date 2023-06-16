@@ -9,8 +9,15 @@ import it.tbt.model.entities.characters.skills.Skill;
 /**
  * Character's Factory.
  */
-public class CharacterFactory {
-    private final Random rnd = new Random();
+public final class CharacterFactory {
+    private static final Random RND = new Random();
+
+    /**
+     * No constructor, this is an utility class.
+     */
+    private CharacterFactory() {
+        throw new UnsupportedOperationException("Utility class and cannot be instantiated");
+    }
 
     /**
      * Create an ally with skills.
@@ -21,7 +28,7 @@ public class CharacterFactory {
      * @param skills
      * @return new ally
      */
-    public Ally createAlly(
+    public static Ally createAlly(
         final String name,
         final int health,
         final int attack,
@@ -39,7 +46,7 @@ public class CharacterFactory {
      * @param speed
      * @return new ally
      */
-    public Ally createAlly(
+    public static Ally createAlly(
         final String name,
         final int health,
         final int attack,
@@ -56,7 +63,7 @@ public class CharacterFactory {
      * @param speed
      * @return new enemy
      */
-    public Enemy createEnemy(
+    public static Enemy createEnemy(
         final String name,
         final int health,
         final int attack,
@@ -73,10 +80,10 @@ public class CharacterFactory {
      * @param statsSum
      * @return new random nemy
      */
-    public Enemy createRandomEnemy(final String name, final int statsSum) {
-        final long tmpHealth = rnd.nextInt();
-        final long tmpAttack = rnd.nextInt();
-        final long tmpSpeed = rnd.nextInt();
+    public static Enemy createRandomEnemy(final String name, final int statsSum) {
+        final long tmpHealth = RND.nextInt();
+        final long tmpAttack = RND.nextInt();
+        final long tmpSpeed = RND.nextInt();
         final long sum = tmpHealth + tmpAttack + tmpSpeed;
         return new Enemy(
             name,
