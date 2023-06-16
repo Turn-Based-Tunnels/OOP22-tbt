@@ -11,4 +11,6 @@ public interface MenuState extends ModelState{
     public List<MenuItem> getItems();
 
     public int getFocus();
+
+    public void toExplore();
 }

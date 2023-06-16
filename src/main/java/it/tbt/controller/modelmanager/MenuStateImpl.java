@@ -27,4 +27,9 @@ public class MenuStateImpl implements MenuState{
     public int getFocus(){
         return menuModel.getFocus();
     }
+
+    @Override
+    public void toExplore() {
+        menuModel.toExplore();
+    }
 }

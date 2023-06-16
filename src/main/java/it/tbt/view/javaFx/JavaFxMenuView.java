@@ -10,6 +10,7 @@ import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -206,6 +207,7 @@ public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implemen
             }
             vbox.setAlignment(Pos.CENTER);
             root.getChildren().add(vbox);
+            scene.setCursor(Cursor.NONE);
 
         });
     }

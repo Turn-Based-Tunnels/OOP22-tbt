@@ -15,9 +15,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PauseMenuController implements ViewController, StateTrigger {
+public class PauseMenuController implements ViewController {
 
-    private StateObserver stateObserver;
     private MenuStateImpl modelState;
     private List<Command> commands;
 
@@ -70,7 +69,7 @@ public class PauseMenuController implements ViewController, StateTrigger {
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        stateObserver.onExplore();
+                        modelState.toExplore();
                     }
                 });
                 break;
@@ -86,14 +85,5 @@ public class PauseMenuController implements ViewController, StateTrigger {
     @Override
     public void clean() {
         this.commands = new LinkedList<>();
-    }
-
-
-    /**
-     * @param stateObserver
-     */
-    @Override
-    public void setStateObserver(StateObserver stateObserver) {
-        this.stateObserver = stateObserver;
     }
 }
