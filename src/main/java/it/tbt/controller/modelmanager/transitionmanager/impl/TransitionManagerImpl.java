@@ -4,15 +4,12 @@ import it.tbt.controller.modelmanager.ExploreStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
-import it.tbt.engine.api.Game;
 import it.tbt.model.GameState;
-import it.tbt.model.menu.api.MenuItem;
-import it.tbt.model.menu.impl.MenuAspectRateoSelect;
+import it.tbt.model.entities.npc.api.FightNPC;
 import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.api.World;
-
 import java.util.*;
 
 /**
@@ -59,6 +56,12 @@ public final class TransitionManagerImpl implements TransitionManager {
             for(var y: x.getEntities()) {
                 if(y instanceof StateTrigger) {
                     ((StateTrigger)y).setStateObserver(this);
+                    if(y instanceof FightNPC){
+                        if(((FightNPC)y).getFightModel() instanceof StateTrigger){
+                            ((StateTrigger)((FightNPC)y).getFightModel()).setStateObserver(this);
+                        }
+
+                    }
                 }
             }
         }
