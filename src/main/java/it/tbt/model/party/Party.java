@@ -12,6 +12,7 @@ import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.StateObserver;
+import javafx.util.Pair;
 
 /**
  * Party implementation.
@@ -23,6 +24,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     private final Inventory inventory;
     private StateObserver stateObserver;
     private final InteractionComponent interactionComponent = new PartyInteractionComponent(this);
+    private Pair<String, String> dialogue;
 
     /**
      * Constructor without party members.
@@ -165,5 +167,13 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     @Override
     public boolean removeItemFromInventory(final Item item) {
         return inventory.removeItem(item);
+    }
+    @Override
+    public Pair<String, String> getDialogue() {
+        return dialogue;
+    }
+    @Override
+    public void setDialogue(Pair<String, String> dialogue) {
+        this.dialogue = dialogue;
     }
 }
