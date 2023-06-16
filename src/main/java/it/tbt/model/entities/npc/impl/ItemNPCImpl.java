@@ -10,8 +10,8 @@ import java.util.Map;
 public class ItemNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.ItemNPC {
     private Map<Item, Integer> items;
 
-    public ItemNPCImpl(String name, String dialogue, Map<Item, Integer> items) {
-        super(name);
+    public ItemNPCImpl(String name, int x, int y ,int height, int width, Map<Item, Integer> items) {
+        super(name, x, y, height, width);
         this.items = items;
     }
 

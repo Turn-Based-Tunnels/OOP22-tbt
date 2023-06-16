@@ -10,8 +10,8 @@ import java.util.Map;
 public class HealerNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.HealerNPC, Interactable {
     private int healAmount;
 
-    public HealerNPCImpl(String name, String dialogue, int healAmount) {
-        super(name);
+    public HealerNPCImpl(String name, int x, int y ,int height, int width, int healAmount) {
+        super(name, x, y, height, width);
         this.healAmount = healAmount;
     }
 

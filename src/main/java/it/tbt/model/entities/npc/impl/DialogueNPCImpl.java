@@ -6,8 +6,8 @@ import it.tbt.model.entities.npc.api.DialogueNPC;
 public class DialogueNPCImpl extends AbstractNPCImpl implements DialogueNPC {
 
     private String dialogue;
-    public DialogueNPCImpl(String name, String dialogue) {
-        super(name);
+    public DialogueNPCImpl(String name, int x, int y ,int height, int width, String dialogue) {
+        super(name, x, y, height, width);
         this.dialogue=dialogue;
     }
 

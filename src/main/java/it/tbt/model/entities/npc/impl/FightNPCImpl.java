@@ -8,8 +8,9 @@ import it.tbt.model.statechange.StateTrigger;
 import java.util.Map;
 
 public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrigger {
-    public FightNPCImpl(String name) {
-        super(name);
+    public FightNPCImpl(String name, int x, int y ,int height, int width, Object fightModel) {
+        super(name, x, y, height, width);
+        this.fightModel = fightModel;
     }
 
     private Object fightModel;
