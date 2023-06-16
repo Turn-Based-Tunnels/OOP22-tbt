@@ -6,8 +6,8 @@ public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
     private String shop;
     private AbstractNPCImpl npc;
 
-    public ShopNPCImpl(String name, String dialogue, String shop) {
-        super(name);
+    public ShopNPCImpl(String name, int x, int y ,int height, int width, String shop) {
+        super(name, x, y, height, width);
         this.shop = shop;
     }
 
