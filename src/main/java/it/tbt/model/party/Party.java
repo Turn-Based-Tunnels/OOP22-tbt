@@ -7,6 +7,8 @@ import it.tbt.model.world.interaction.InteractionComponent;
 import it.tbt.model.world.interaction.InteractionTrigger;
 import it.tbt.model.world.interaction.PartyInteractionComponent;
 import it.tbt.model.entities.characters.Ally;
+import it.tbt.model.entities.characters.Inventory;
+import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.StateObserver;
@@ -18,6 +20,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     private final Set<Ally> members;
     private Room currentRoom;
     private int wallet;
+    private final Inventory inventory;
     private InteractionComponent interactionComponent = new PartyInteractionComponent(this);
     private StateObserver stateObserver;
 
@@ -38,6 +41,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     ) {
         super(name, x, y, width, height);
         this.members = new HashSet<>();
+        this.inventory = new Inventory();
     }
 
     /**
@@ -59,6 +63,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     ) {
         super(name, x, y, width, height);
         this.members = new HashSet<>(c);
+        this.inventory = new Inventory();
     }
 
     /**
@@ -87,7 +92,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public void move(final int xv, final int yv) {
-        if (this.currentRoom.isValidCoordinates(xv + getX(), yv + getY())) {
+        if (this.currentRoom.isValidCoordinates(xv + getX(), yv + getY(), getWidth(), getHeight())) {
             setX(getX() + xv);
             setY(getY() + yv);
         }
@@ -134,5 +139,31 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     public void setStateObserver(StateObserver stateObserver) {
         this.stateObserver = stateObserver;
     }
+    /**
+     * Get the character inventory.
+     * @return map of <item, count> representing the character's intentory
+     */
+    @Override
+    public Map<Item, Integer> getInventory() {
+        return inventory.getItems();
+    }
 
+    /**
+     * Add an item to the inventory.
+     * @param item
+     */
+    @Override
+    public void addItemToInventory(final Item item) {
+        inventory.addItem(item);
+    }
+
+    /**
+     * Remove an item from the inventory.
+     * @param item
+     * @return true if the item was found and removed
+     */
+    @Override
+    public boolean removeItemFromInventory(final Item item) {
+        return inventory.removeItem(item);
+    }
 }

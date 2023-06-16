@@ -8,7 +8,6 @@ import it.tbt.model.GameState;
 import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.api.World;
-import it.tbt.view.mainMenu.MainMenu;
 
 public class GameStateManager implements IGameStateManager{
 
@@ -20,8 +19,8 @@ public class GameStateManager implements IGameStateManager{
         this.updateManager = updateManager;
     }
 
-    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu) {
-        this.transitionManager = new TransitionManagerImpl(world, party, mainMenu);
+    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu, final  MenuModel pauseMenu) {
+        this.transitionManager = new TransitionManagerImpl(world, party, mainMenu, pauseMenu);
         this.updateManager = new UpdateManagerImpl();
         this.transitionManager.init();
         party.setCurrentRoom(world.getStartRoom());

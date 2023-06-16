@@ -1,30 +1,25 @@
-package it.tbt.control.menu.impl;
+package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.control.input.api.InputListener;
-import it.tbt.control.input.impl.InputHandler;
-import it.tbt.controller.modelmanager.ExploreState;
-import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
-import it.tbt.model.menu.api.MenuItem;
 import it.tbt.model.menu.api.MenuSelect;
-import it.tbt.model.menu.impl.MenuModel;
+
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class MenuController implements InputListener, ViewController {
+public class MainMenuController implements ViewController {
 
     private List<Command> commands;
 
     private MenuStateImpl modelState;
 
-    private List<MenuItem> items;
 
-    public MenuController(final MenuStateImpl menuStateImpl){
+    public MainMenuController(final MenuStateImpl menuStateImpl){
         this.modelState = menuStateImpl;
         this.clean();
     }
@@ -42,11 +37,6 @@ public class MenuController implements InputListener, ViewController {
     /*@Override*/
     public void clean() {
         this.commands = new LinkedList<>();
-    }
-
-
-    public int getFocus(){
-        return modelState.getFocus();
     }
 
 
@@ -91,6 +81,14 @@ public class MenuController implements InputListener, ViewController {
                     if(modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>){
                         this.commands.add((Command)((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
                     }
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    this.commands.add(new Command() {
+                        @Override
+                        public void execute() {
+                            System.exit(0);
+                        }
+                    });
                     break;
             }
 

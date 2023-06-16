@@ -1,12 +1,10 @@
 package it.tbt.model.entities.characters;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.Optional;
 
 import it.tbt.model.entities.Entity;
 import it.tbt.model.entities.items.Armor;
-import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.items.Weapon;
 
 /**
@@ -68,25 +66,6 @@ public interface Character extends Entity {
      * @return true if the status was found and removed, false otherwise
      */
     boolean removeStatus(Status status);
-
-    /**
-     * Get the character inventory.
-     * @return map of <item, count> representing the character's intentory
-     */
-    Map<Item, Integer> getInventory();
-
-    /**
-     * Add an item to the inventory.
-     * @param item
-     */
-    void addItemToInventory(Item item);
-
-    /**
-     * Remove an item from the inventory.
-     * @param item
-     * @return true if the item was found and removed
-     */
-    boolean removeItemFromInventory(Item item);
 
     /**
      * Get the character's equipped weapon.

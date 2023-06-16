@@ -23,11 +23,11 @@ public final class SkillFactory {
         skills = new HashSet<>();
 
         final Optional<Skill[]> optSkills = ConfigManager.parseJsonConfig(
-            "/tbt/entities/skills.json",
+            "tbt/entities/skills.json",
             Skill[].class
         );
         if (optSkills.isEmpty()) {
-            throw(new IllegalStateException("Failed loading skills from json"));
+            throw new IllegalStateException("Failed loading skills from json");
         } else {
             for (final Skill skill : optSkills.get()) {
                 skills.add(skill);

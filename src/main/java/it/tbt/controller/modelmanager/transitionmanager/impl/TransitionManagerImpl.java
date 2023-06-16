@@ -25,13 +25,15 @@ public final class TransitionManagerImpl implements TransitionManager {
     private World world;
     private IParty party;
     private MenuModel mainMenu;
+    private MenuModel pauseMenu;
     private Optional<ModelState> currentModelState;
     private Boolean stateChanged = false;
 
-    public TransitionManagerImpl(final World world, final IParty party, final MenuModel mainMenu) {
+    public TransitionManagerImpl(final World world, final IParty party, final MenuModel mainMenu, final MenuModel pauseMenu) {
         this.world = world;
         this.party = party;
         this.mainMenu = mainMenu;
+        this.pauseMenu = pauseMenu;
     }
 
     /**
@@ -127,5 +129,12 @@ public final class TransitionManagerImpl implements TransitionManager {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.MENU);
         this.currentModelState = Optional.of(new MenuStateImpl(mainMenu));
+    }
+
+    @Override
+    public void onPause(){
+        stateChanged= true;
+        this.currentGameState = Optional.of(GameState.PAUSE);
+        this.currentModelState = Optional.of(new MenuStateImpl(pauseMenu));
     }
 }

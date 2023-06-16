@@ -1,4 +1,4 @@
-package it.tbt.control.menu.impl;
+package it.tbt.model.menu.impl;
 
 import it.tbt.model.menu.api.MenuItem;
 import it.tbt.model.menu.impl.MenuAspectRateoSelect;
@@ -17,4 +17,15 @@ public class MenuFactory {
 
         return  new MenuModel(test);
     }
+    public static MenuModel getPauseMenu(){
+        List<MenuItem> test = new ArrayList<>();
+        NavigableMap<String, Double> rateos = new TreeMap<>();
+        rateos.put("16:9", 16.0 / 9.0);
+        rateos.put("4:3", 4.0 / 3.0);
+        rateos.put("3:2", 3.0 / 2.0);
+        test.addAll(Arrays.asList(new it.tbt.model.menu.impl.MenuNewGameButton("Continue"), new MenuQuitToTitleButton("Quit to Title Screen"),new it.tbt.model.menu.impl.MenuQuitGameButton("Exit To Desktop"), new MenuAspectRateoSelect("Proporzioni", rateos), new it.tbt.model.menu.impl.MenuFullScreenButton("Full Screen")));
+
+        return  new MenuModel(test);
+    }
+
 }

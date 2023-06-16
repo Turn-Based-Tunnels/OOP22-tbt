@@ -6,15 +6,16 @@ import java.util.Set;
 
 
 public interface Room {
-    public static int DEFAULT_START_X = 0;
-    public static int DEFAULT_START_Y = 0;
-    public static int X_AXIS_UPPERBOUND = 300;
-    public static int Y_AXIS_UPPERBOUND = 300;
+    int X_AXIS_UPPERBOUND = 300;
+    int Y_AXIS_UPPERBOUND = 300;
+    int DEFAULT_START_X = 0;
+    int DEFAULT_START_Y = 0;
+
 
     void addEntity(final SpatialEntity entity);
 
     Set<SpatialEntity> getEntities();
 
-    Boolean isValidCoordinates(int x, int y);
+    Boolean isValidCoordinates(int xCenter, int yCenter, int width, int height);
 
 }

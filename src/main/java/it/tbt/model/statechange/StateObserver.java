@@ -1,7 +1,8 @@
 package it.tbt.model.statechange;
 
 public interface StateObserver {
-    void onExplore();
-    void onFight();
-    void onMenu();
+    public void onExplore();
+    public void onFight();
+    public void onMenu();
+    public void onPause();
 }

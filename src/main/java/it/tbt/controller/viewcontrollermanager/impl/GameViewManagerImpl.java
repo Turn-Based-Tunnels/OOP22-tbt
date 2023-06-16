@@ -1,8 +1,6 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
-import it.tbt.control.menu.impl.MenuController;
 import it.tbt.controller.modelmanager.ExploreState;
-import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
@@ -13,7 +11,6 @@ import it.tbt.model.GameState;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,14 +48,21 @@ public class GameViewManagerImpl implements ViewControllerManager {
             switch (gameState) {
                 case EXPLORE -> {
                     ExploreState exploreState = (ExploreState) modelState;
-                    ExploreController exploreControllerImpl = new ExploreControllerImpl(exploreState);
+                    ViewController exploreControllerImpl = new ExploreControllerImpl(exploreState);
                     var x = this.gameViewFactory.createRoom(exploreControllerImpl, exploreState);
                     this.currentController = exploreControllerImpl;
                     this.currentGameView = x;
                 }
                 case MENU -> {
                     MenuStateImpl menuState = (MenuStateImpl) modelState;
-                    MenuController menuController = new MenuController(menuState);
+                    MainMenuController menuController = new MainMenuController(menuState);
+                    var x = this.gameViewFactory.createMenu(menuController, menuState);
+                    this.currentController = menuController;
+                    this.currentGameView = x;
+                }
+                case PAUSE -> {
+                    MenuStateImpl menuState = (MenuStateImpl) modelState;
+                    PauseMenuController menuController = new PauseMenuController(menuState);
                     var x = this.gameViewFactory.createMenu(menuController, menuState);
                     this.currentController = menuController;
                     this.currentGameView = x;

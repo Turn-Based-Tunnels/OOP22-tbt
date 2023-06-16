@@ -10,14 +10,12 @@ import java.util.Set;
 public class RoomImpl implements Room {
 
     private String roomName;
-    private int roomWidth;
-    private int roomHeight;
+    private int roomWidth = X_AXIS_UPPERBOUND;
+    private int roomHeight = Y_AXIS_UPPERBOUND;
 
     private Set<SpatialEntity> entities;
 
     public RoomImpl(final String roomName) {
-        roomWidth = 400;
-        roomHeight = 400;
         this.roomName = roomName;
         entities = new HashSet<>();
     }
@@ -39,13 +37,19 @@ public class RoomImpl implements Room {
     }
 
     /**
-     * @param x
-     * @param y
+     * @param xCenter
+     * @param yCenter
+     * @param width
+     * @param height
      * @return
      */
     @Override
-    public Boolean isValidCoordinates(int x, int y) {
-        return x>=0 && x<=roomWidth && y>=0 && y<=roomHeight;
+    public Boolean isValidCoordinates(int xCenter, int yCenter, int width, int height) {
+        final int left = xCenter - (width / 2);
+        final int right = xCenter + (width / 2);
+        final int top = yCenter - (height / 2);
+        final int bottom = yCenter + (height / 2);
+        return !(left < 0 || right > this.roomWidth || top < 0 || bottom > this.roomHeight);
     }
 
 }

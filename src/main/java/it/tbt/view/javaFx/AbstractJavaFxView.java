@@ -1,7 +1,11 @@
 package it.tbt.view.javaFx;
 
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
+import it.tbt.view.api.AbstractGameView;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -9,7 +13,7 @@ import javafx.stage.Stage;
  * made in JavaFx.
  */
 
-public abstract class AbstractJavaFxView {
+public abstract class AbstractJavaFxView extends AbstractGameView {
 
     protected Stage stage;
     protected Scene scene;
@@ -21,19 +25,16 @@ public abstract class AbstractJavaFxView {
      * @param root
      */
 
-    protected AbstractJavaFxView(Stage stage, Scene scene, Group root) {
+    protected AbstractJavaFxView(ViewController viewController, Stage stage, Scene scene, Group root) {
+        super(viewController);
         this.stage = stage;
         this.scene = scene;
         this.root = root;
-    }
-
-    /**
-     * Resizes the stage to width and height provided by parameter.
-     * @param width
-     * @param height
-     */
-    protected void resizeView(int width, int height) {
-        this.stage.setWidth(width);
-        this.stage.setHeight(height);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                viewController.onKeyPressed(event.getCode().getCode());
+            }
+        });
     }
 }
