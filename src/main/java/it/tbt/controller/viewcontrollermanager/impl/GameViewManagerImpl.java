@@ -48,7 +48,7 @@ public class GameViewManagerImpl implements ViewControllerManager {
             switch (gameState) {
                 case EXPLORE -> {
                     ExploreState exploreState = (ExploreState) modelState;
-                    ExploreController exploreControllerImpl = new ExploreControllerImpl(exploreState);
+                    ViewController exploreControllerImpl = new ExploreControllerImpl(exploreState);
                     var x = this.gameViewFactory.createRoom(exploreControllerImpl, exploreState);
                     this.currentController = exploreControllerImpl;
                     this.currentGameView = x;

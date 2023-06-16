@@ -1,15 +1,16 @@
 package it.tbt.model.menu.impl;
 
 import it.tbt.model.command.menu.ButtonCommand;
-import it.tbt.model.statechange.MenuStateTrigger;
 import it.tbt.model.statechange.StateObserver;
+import it.tbt.model.statechange.StateTrigger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuQuitToTitleButton extends  MenuButton implements MenuStateTrigger {
+public class MenuQuitToTitleButton extends  MenuButton implements StateTrigger {
 
     List<StateObserver> observers = new ArrayList<>();
+    private StateObserver stateObserver;
 
     public MenuQuitToTitleButton(String text) {
         super(text);
@@ -21,26 +22,16 @@ public class MenuQuitToTitleButton extends  MenuButton implements MenuStateTrigg
         return new ButtonCommand() {
             @Override
             public void execute() {
-                notifyState();
+                stateObserver.onExplore();
             }
         };
     }
 
+    /**
+     * @param stateObserver
+     */
     @Override
-    public void notifyState() {
-        for (var o: observers
-        ) {
-            o.onMenu();
-        }
-    }
-
-    @Override
-    public void addStateObserver(StateObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeStateObserver(StateObserver observer) {
-        observers.remove(observer);
+    public void setStateObserver(StateObserver stateObserver) {
+        this.stateObserver = stateObserver;
     }
 }

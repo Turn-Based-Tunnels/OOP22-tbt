@@ -2,6 +2,7 @@ package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.command.explore.CommandInteract;
 import it.tbt.model.command.explore.CommandMove;
@@ -16,9 +17,12 @@ import java.util.List;
  * Default implementation of the Controller of the Explore state.
  */
 
-public class ExploreControllerImpl implements ExploreController {
+public class ExploreControllerImpl implements ViewController {
 
     private List<Command> commands;
+
+    private static int DEFAULT_MOVE_X = 5;
+    private static int DEFAULT_MOVE_Y = 5;
 
     private ExploreState modelState;
 
@@ -46,44 +50,41 @@ public class ExploreControllerImpl implements ExploreController {
     /**
      * {@inheritDoc}
      */
-    public void moveRight() {
+    private void moveRight() {
         this.commands.add(new CommandMove(this.modelState.getParty(), DEFAULT_MOVE_X,0));
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void moveDown() {
+    private void moveDown() {
         this.commands.add(new CommandMove(this.modelState.getParty(),0,DEFAULT_MOVE_Y));
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void moveUp() {
+    private void moveUp() {
         this.commands.add(new CommandMove(this.modelState.getParty(), 0, -DEFAULT_MOVE_Y));
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void moveLeft() {
+    private void moveLeft() {
         this.commands.add(new CommandMove(this.modelState.getParty(), -DEFAULT_MOVE_X, 0));
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void interactWithProximity() {
+    private void interactWithProximity() {
         if(this.modelState.getParty() instanceof InteractionTrigger) {
             this.commands.add(new CommandInteract((InteractionTrigger) this.modelState.getParty()));
         }
-
     }
+
+
 
     @Override
     public void onKeyPressed(int key) {
@@ -97,6 +98,8 @@ public class ExploreControllerImpl implements ExploreController {
             this.moveDown();
         } else if(key==KeyEvent.VK_E) {
             this.interactWithProximity();
+        } else if(key==KeyEvent.VK_ESCAPE) {
+
         }
     }
 }

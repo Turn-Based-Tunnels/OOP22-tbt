@@ -17,7 +17,7 @@ public interface ViewControllerManager {
     /**
      * @return an Optional List of Commands. If it is empty no Command has been added.
      */
-    public Optional<List<Command>> getCommands();
+    Optional<List<Command>> getCommands();
 
     /**
      * Renders the View associated to the GameState and provides it with modelState for the rendering of its data.
@@ -27,11 +27,11 @@ public interface ViewControllerManager {
      * @param modelState the model state modeling the current game state
      * @param hasChanged boolean representing if a new View is needed or just rendering is sufficient
      */
-    public void renderView(GameState gameState, ModelState modelState, Boolean hasChanged);
+    void renderView(GameState gameState, ModelState modelState, Boolean hasChanged);
 
     /**
      * Cleans the commands of the current controller
      */
-    public void cleanCommands();
+    void cleanCommands();
 
 }

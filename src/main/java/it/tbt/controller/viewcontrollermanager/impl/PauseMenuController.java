@@ -7,18 +7,17 @@ import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
-import it.tbt.model.statechange.ExploreStateTrigger;
 import it.tbt.model.statechange.StateObserver;
+import it.tbt.model.statechange.StateTrigger;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PauseMenuController implements ViewController, ExploreStateTrigger {
+public class PauseMenuController implements ViewController, StateTrigger {
 
-    List<StateObserver> observers = new ArrayList<>();
-
+    private StateObserver stateObserver;
     private MenuStateImpl modelState;
     private List<Command> commands;
 
@@ -71,7 +70,7 @@ public class PauseMenuController implements ViewController, ExploreStateTrigger 
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        notifyState();
+                        stateObserver.onExplore();
                     }
                 });
                 break;
@@ -89,21 +88,12 @@ public class PauseMenuController implements ViewController, ExploreStateTrigger 
         this.commands = new LinkedList<>();
     }
 
-    @Override
-    public void notifyState() {
-        for (var o: observers
-        ) {
-            o.onExplore();
-        }
-    }
 
+    /**
+     * @param stateObserver
+     */
     @Override
-    public void addStateObserver(StateObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeStateObserver(StateObserver observer) {
-        observers.remove(observer);
+    public void setStateObserver(StateObserver stateObserver) {
+        this.stateObserver = stateObserver;
     }
 }

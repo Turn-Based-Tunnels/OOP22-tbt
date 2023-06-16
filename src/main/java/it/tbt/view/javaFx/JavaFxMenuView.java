@@ -36,7 +36,7 @@ public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implemen
     }
 
     public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, Group root, MenuState menuState) {
-        super(stage, scene, root);
+        super(menuController, stage, scene, root);
         this.scene = scene;
         this.root = root;
         this.menuController = menuController;

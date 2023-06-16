@@ -2,6 +2,7 @@ package it.tbt.model.party;
 
 import java.util.*;
 
+import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.interaction.InteractionComponent;
 import it.tbt.model.world.interaction.InteractionTrigger;
 import it.tbt.model.world.interaction.PartyInteractionComponent;
@@ -10,19 +11,18 @@ import it.tbt.model.entities.characters.Inventory;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
-import it.tbt.model.statechange.ExploreStateTrigger;
 import it.tbt.model.statechange.StateObserver;
 
 /**
  * Party implementation.
  */
-public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, ExploreStateTrigger {
+public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, StateTrigger {
     private final Set<Ally> members;
     private Room currentRoom;
     private int wallet;
     private final Inventory inventory;
+    private StateObserver stateObserver;
     private final InteractionComponent interactionComponent = new PartyInteractionComponent(this);
-    private final List<StateObserver> stateObservers = new LinkedList<>();
 
     /**
      * Constructor without party members.
@@ -73,7 +73,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     @Override
     public void setCurrentRoom(final Room room) {
         this.currentRoom = room;
-        notifyState();
+        this.stateObserver.onExplore();
     }
 
     /**
@@ -92,7 +92,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public void move(final int xv, final int yv) {
-        if (this.currentRoom.isValidCoordinates(xv + getX(), yv + getY())) {
+        if (this.currentRoom.isValidCoordinates(xv + getX(), yv + getY(), getWidth(), getHeight())) {
             setX(getX() + xv);
             setY(getY() + yv);
         }
@@ -133,31 +133,12 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     }
 
     /**
-     * Notifies all the observers.
+     * @param stateObserver
      */
     @Override
-    public void notifyState() {
-        for (final var x: stateObservers) {
-            x.onExplore();
-        }
+    public void setStateObserver(StateObserver stateObserver) {
+        this.stateObserver = stateObserver;
     }
-
-    /**
-     * @param observer
-     */
-    @Override
-    public void addStateObserver(final StateObserver observer) {
-        this.stateObservers.add(observer);
-    }
-
-    /**
-     * @param observer
-     */
-    @Override
-    public void removeStateObserver(final StateObserver observer) {
-        this.stateObservers.remove(observer);
-    }
-
     /**
      * Get the character inventory.
      * @return map of <item, count> representing the character's intentory

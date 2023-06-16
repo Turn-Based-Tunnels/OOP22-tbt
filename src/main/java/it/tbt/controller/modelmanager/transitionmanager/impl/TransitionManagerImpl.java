@@ -53,18 +53,18 @@ public final class TransitionManagerImpl implements TransitionManager {
      */
     private void startObserving() {
         if(this.party instanceof StateTrigger) {
-            ((StateTrigger)this.party).addStateObserver(this);
+            ((StateTrigger)this.party).setStateObserver(this);
         }
         for(var x: this.world.getListRoom()) {
             for(var y: x.getEntities()) {
                 if(y instanceof StateTrigger) {
-                    ((StateTrigger)y).addStateObserver(this);
+                    ((StateTrigger)y).setStateObserver(this);
                 }
             }
         }
         for(var x: this.mainMenu.getItems()){
             if(x instanceof StateTrigger){
-                ((StateTrigger)x).addStateObserver(this);
+                ((StateTrigger)x).setStateObserver(this);
             }
         }
 

@@ -1,11 +1,10 @@
 package it.tbt.view.javaFx;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.controller.viewcontrollermanager.impl.MainMenuController;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
-
+import it.tbt.model.world.api.Room;
 import it.tbt.controller.viewcontrollermanager.impl.PauseMenuController;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
@@ -17,7 +16,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * JavaFx Factory for GameViews
+ * JavaFx Factory for GameViews.
  */
 
 public class JavaFxViewFactory implements GameViewFactory {
@@ -31,7 +30,7 @@ public class JavaFxViewFactory implements GameViewFactory {
         this.stage = stage;
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
-            public void handle(WindowEvent t) {
+            public void handle(final WindowEvent t) {
                 Platform.exit();
                 System.exit(0);
             }
@@ -39,25 +38,21 @@ public class JavaFxViewFactory implements GameViewFactory {
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public GameView createMenu(final ViewController menuController, final MenuState menuState) {
-        System.out.println("lel");
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
         });
-
-
         return new JavaFxMenuView(menuController, this.stage, scene, group, menuState);
     }
 
     @Override
-    public GameView createPause(PauseMenuController menuController, MenuState menuState) {
-        System.out.println("lel");
+    public GameView createPause(ViewController menuController, MenuState menuState) {
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
         Platform.runLater(() -> {
@@ -73,9 +68,9 @@ public class JavaFxViewFactory implements GameViewFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameView createRoom(ExploreController exploreController, ExploreState exploreState) {
+    public GameView createRoom(final ViewController exploreController, final ExploreState exploreState) {
         Group group = new Group();
-        Scene scene = new Scene(group, 300, 300);
+        Scene scene = new Scene(group, Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
