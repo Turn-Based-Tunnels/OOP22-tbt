@@ -40,6 +40,20 @@ public interface IParty extends MovableEntity {
     List<Ally> getMembers();
 
     /**
+     * Add the given ally to the party.
+     * @param ally
+     * @return true if the ally has been added
+     */
+    boolean addMember(Ally ally);
+
+    /**
+     * Remove the given ally from the party.
+     * @param ally
+     * @return true if the ally has been removed
+     */
+    boolean removeMember(Ally ally);
+
+    /**
      * Get the current amount of cash available to the party.
      * @return available cash
      */
