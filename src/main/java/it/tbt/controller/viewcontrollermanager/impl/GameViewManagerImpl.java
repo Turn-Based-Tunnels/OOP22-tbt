@@ -1,9 +1,11 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
+import it.tbt.controller.viewcontrollermanager.api.FightController;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.model.command.api.Command;
@@ -25,7 +27,8 @@ public class GameViewManagerImpl implements ViewControllerManager {
     private GameView currentGameView;
 
     /**
-     * @param gameViewFactory the GameView factory which will be used to generate the GameViews.
+     * @param gameViewFactory the GameView factory which will be used to generate
+     *                        the GameViews.
      */
     public GameViewManagerImpl(final GameViewFactory gameViewFactory) {
         this.gameViewFactory = gameViewFactory;
@@ -44,7 +47,7 @@ public class GameViewManagerImpl implements ViewControllerManager {
      */
     @Override
     public void renderView(GameState gameState, ModelState modelState, Boolean hasChanged) {
-        if(hasChanged) {
+        if (hasChanged) {
             switch (gameState) {
                 case EXPLORE -> {
                     ExploreState exploreState = (ExploreState) modelState;
@@ -65,6 +68,13 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     PauseMenuController menuController = new PauseMenuController(menuState);
                     var x = this.gameViewFactory.createMenu(menuController, menuState);
                     this.currentController = menuController;
+                    this.currentGameView = x;
+                }
+                case FIGHT -> {
+                    FightState fightState = (FightState) modelState;
+                    ViewController fightController = new FightControllerImpl(fightState);
+                    var x = this.gameViewFactory.createFight(fightController, fightState);
+                    this.currentController = fightController;
                     this.currentGameView = x;
                 }
             }

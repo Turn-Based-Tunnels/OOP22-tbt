@@ -10,5 +10,9 @@
   {
     "imagePath": "./tbt/Room.jpg",
     "objectClass": "it.tbt.model.world.impl.RoomImpl"
+  },
+  {
+    "imagePath": "./tbt/luigi.png",
+    "objectClass": "it.tbt.model.entities.npc.impl.FightNPCImpl"
   }
 ]

@@ -9,7 +9,7 @@ import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.api.World;
 
-public class GameStateManager implements IGameStateManager{
+public class GameStateManager implements IGameStateManager {
 
     private TransitionManager transitionManager;
     private UpdateManager updateManager;
@@ -17,9 +17,11 @@ public class GameStateManager implements IGameStateManager{
     public GameStateManager(final TransitionManager transitionManager, final UpdateManager updateManager) {
         this.transitionManager = transitionManager;
         this.updateManager = updateManager;
+        transitionManager.onMenu();
     }
 
-    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu, final  MenuModel pauseMenu) {
+    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu,
+            final MenuModel pauseMenu) {
         this.transitionManager = new TransitionManagerImpl(world, party, mainMenu, pauseMenu);
         this.updateManager = new UpdateManagerImpl();
         this.transitionManager.init();
@@ -34,6 +36,7 @@ public class GameStateManager implements IGameStateManager{
     public ModelState getStateModel() {
         return this.transitionManager.getCurrentModelState();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -41,6 +44,7 @@ public class GameStateManager implements IGameStateManager{
     public GameState getState() {
         return this.transitionManager.getState();
     }
+
     /**
      * {@inheritDoc}
      */
