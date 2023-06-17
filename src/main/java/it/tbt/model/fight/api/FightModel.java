@@ -9,6 +9,8 @@ import it.tbt.model.statechange.StateTrigger;
 
 public interface FightModel extends StateTrigger {
 
+    Ally getCurrentAlly();
+
     List<Ally> getAllies();
 
     List<Enemy> getEnemies();

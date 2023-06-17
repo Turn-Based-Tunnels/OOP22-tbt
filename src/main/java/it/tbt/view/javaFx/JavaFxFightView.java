@@ -55,6 +55,9 @@ public class JavaFxFightView extends AbstractJavaFxView {
 
     private void setLableTextAlly(Label name, Label hp, int i) {
         if (main.getAllies().get(i).getMaxHealth() != 0) {
+            if (main.getAllies().get(i) == main.getCurrentAlly()) {
+                name.setTextFill(Color.web("#A020F0"));
+            }
             name.setText(main.getAllies().get(i).getName());
             hp.setText(main.getAllies().get(i).getHealth() + "/" + main.getAllies().get(i).getMaxHealth());
         } else {
@@ -125,8 +128,15 @@ public class JavaFxFightView extends AbstractJavaFxView {
             enemyLabelsGrid.addRow(1, enemyHpLabel1, enemyHpLabel2, enemyHpLabel3, enemyHpLabel4);
 
             // Creazione dei bottoni
-            Button skillButton = new Button("Skill");
-            Button attackButton = new Button("Attacco");
+            String skillButtonText;
+            if (main.getCurrentAlly().getSkills().get(0).getRemainingCooldown() == 0) {
+                skillButtonText = "Skill: x" + main.getCurrentAlly().getSkills().get(0).getAttackMultiplier();
+            } else {
+                skillButtonText = "CD: " + main.getCurrentAlly().getSkills().get(0).getRemainingCooldown();
+            }
+            Button skillButton = new Button(skillButtonText);
+            Button attackButton = new Button(
+                    "Attacco: " + (main.getCurrentAlly().getAttack() + main.getCurrentAlly().getWeaponAttack()));
             Button potionButton = new Button("Pozione");
             Button antidoteButton = new Button("Antidoto");
 

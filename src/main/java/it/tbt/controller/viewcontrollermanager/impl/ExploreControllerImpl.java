@@ -23,7 +23,8 @@ public final class ExploreControllerImpl implements ViewController {
     private ExploreState modelState;
 
     /**
-     * @param exploreStateImpl the state on which the controller maps the input to the commands to the state.
+     * @param exploreStateImpl the state on which the controller maps the input to
+     *                         the commands to the state.
      */
     public ExploreControllerImpl(final ExploreState exploreStateImpl) {
         this.modelState = exploreStateImpl;
@@ -50,6 +51,7 @@ public final class ExploreControllerImpl implements ViewController {
      * Moves the IParty in the X-axis by a positive amount.
      */
     private void moveRight() {
+        this.commands.add(new CommandMove(this.modelState.getParty(), DEFAULT_MOVE_X, 0));
         this.commands.add(new CommandMove(this.modelState.getParty(), DEFAULT_MOVE_X, 0));
     }
 
@@ -95,11 +97,15 @@ public final class ExploreControllerImpl implements ViewController {
         if (key == KeyEvent.VK_D) {
             this.moveRight();
         } else if (key == KeyEvent.VK_W) {
+        } else if (key == KeyEvent.VK_W) {
             this.moveUp();
+        } else if (key == KeyEvent.VK_A) {
         } else if (key == KeyEvent.VK_A) {
             this.moveLeft();
         } else if (key == KeyEvent.VK_S) {
+        } else if (key == KeyEvent.VK_S) {
             this.moveDown();
+        } else if (key == KeyEvent.VK_E) {
         } else if (key == KeyEvent.VK_E) {
             this.interactWithProximity();
         } else if (key == KeyEvent.VK_ESCAPE) {

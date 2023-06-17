@@ -27,17 +27,10 @@ public class FightStateImpl implements FightState {
     @Override
     public void handleNextTarget() {
         model.selectNextTarget();
-        // view.updateSelectedTarget(model.getSelectedEnemy());
     }
 
     public void handlePerformAction() {
         model.performSelectedAction();
-        /*
-         * view.updateAllyStats(model.getSelectedAlly());
-         * view.updateEnemyStats(model.getSelectedEnemy());
-         * view.updateCooldowns(model.getCurrentAlly());
-         * view.updateHealthBar(model.getSelectedEnemy());
-         */
     }
 
     public void handleCycleAction(boolean cycleUp) {
@@ -62,8 +55,6 @@ public class FightStateImpl implements FightState {
                 model.selectAction(false, true, false);
             }
         }
-
-        // updateButtonsState();
     }
 
     @Override
@@ -91,26 +82,9 @@ public class FightStateImpl implements FightState {
         return model.isUsingPotion();
     }
 
-    /*
-     * public void updateButtonsState() {
-     * // Disabilita tutti i pulsanti di azione
-     * view.disableAllActionButtons();
-     * 
-     * // Abilita il pulsante corrispondente all'azione selezionata
-     * if (model.isUsingSkill()) {
-     * view.updateSkillButton(true);
-     * } else if (model.isUsingPotion()) {
-     * view.updatePotionButton(true);
-     * } else if (model.isUsingAntidote()) {
-     * view.updateAntidoteButton(true);
-     * } else {
-     * view.updateAttackButton(true);
-     * }
-     * }
-     * 
-     * public void handleExit() {
-     * // Chiudi l'applicazione
-     * Platform.exit();
-     * }
-     */
+    @Override
+    public Ally getCurrentAlly() {
+        return model.getCurrentAlly();
+    }
+
 }

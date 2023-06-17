@@ -17,6 +17,8 @@ public interface FightState extends ModelState {
 
     public void handleCycleAction(boolean cycleUp);
 
+    public Ally getCurrentAlly();
+
     public List<Ally> getAllies();
 
     public List<Enemy> getEnemies();
@@ -26,4 +28,5 @@ public interface FightState extends ModelState {
     public boolean isUsingAntidote();
 
     public boolean isUsingPotion();
+
 }
