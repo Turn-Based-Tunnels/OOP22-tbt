@@ -1,20 +1,24 @@
 package it.tbt.engine.impl;
 
-import it.tbt.engine.api.Game;
 import it.tbt.engine.api.GameLoop;
 import javafx.animation.AnimationTimer;
 
-public class JavaFxGameLoopManager {
-
+/**
+ * GameLoopManager implemented with an JavaFx AnimationTimer.
+ */
+public class AnimationTimerGameLoopManager {
     private GameLoop loop;
     private AnimationTimer gameLoopAnimationTimer;
 
-    public JavaFxGameLoopManager(GameLoop gameLoop) {
+    /**
+     * @param gameLoop that the Manger will manage.
+     */
+    public AnimationTimerGameLoopManager(final GameLoop gameLoop) {
         this.loop = gameLoop;
         var gameLoopAnimationTimer = new AnimationTimer() {
             @Override
             public void handle(final long now) {
-                if(loop.isConsistent()) {
+                if (loop.isConsistent()) {
                     loop.loop();
                 } else {
                     this.stop();
@@ -24,6 +28,9 @@ public class JavaFxGameLoopManager {
         this.gameLoopAnimationTimer = gameLoopAnimationTimer;
     }
 
+    /**
+     * Starts the looping.
+     */
     public void startLoop() {
         gameLoopAnimationTimer.start();
     }

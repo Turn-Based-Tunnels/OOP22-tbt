@@ -1,13 +1,8 @@
 package it.tbt.view.api;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.controller.viewcontrollermanager.impl.MainMenuController;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.MenuState;
-import it.tbt.controller.viewcontrollermanager.api.ExploreController;
-import it.tbt.controller.viewcontrollermanager.impl.PauseMenuController;
-
-import javax.swing.text.View;
 
 /**
  * Interface for a Factory of GameViews. To be implemented with framework specific logic.
@@ -15,8 +10,20 @@ import javax.swing.text.View;
 
 public interface GameViewFactory {
 
-    public GameView createMenu(ViewController menuController, MenuState menuState);
-    public GameView createPause(ViewController menuController, MenuState menuState);
+    /**
+     * @param menuController
+     * @param menuState
+     * @return the Menu view which renders the menuState data and has InputHandling done by menuController.
+     */
+    GameView createMenu(ViewController menuController, MenuState menuState);
+
+    /**
+     * @param menuController
+     * @param menuState
+     * @return the Menu view which renders the menuState data and has InputHandling done by menuController.
+     */
+    GameView createPause(ViewController menuController, MenuState menuState);
+
     /**
      * @param exploreController the controller to be passed the view
      * @param exploreState the state the view will need to render

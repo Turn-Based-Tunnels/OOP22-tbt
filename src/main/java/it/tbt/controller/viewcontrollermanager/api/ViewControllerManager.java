@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Interface for the ViewControllerManager, which manages the Views
- * and the Controllers.
+ * Interface for the ViewControllerManager, which manages the Views and the Controllers.
  */
 
 public interface ViewControllerManager {
@@ -30,7 +29,7 @@ public interface ViewControllerManager {
     void renderView(GameState gameState, ModelState modelState, Boolean hasChanged);
 
     /**
-     * Cleans the commands of the current controller
+     * Cleans the commands of the current controller.
      */
     void cleanCommands();
 

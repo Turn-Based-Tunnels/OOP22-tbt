@@ -3,11 +3,20 @@ package it.tbt;
 import it.tbt.engine.impl.JavaFxLauncher;
 import javafx.application.Application;
 
-public final class TurnBasedTunnels{
+/**
+ * Application entry point class.
+ */
+public final class TurnBasedTunnels {
 
     /**
-     * Application entry point
-    */
+     * Entry-point class not instantiable.
+     */
+    private TurnBasedTunnels() { };
+
+    /**
+     * Application entry point.
+     * @param args
+     */
     public static void main(final String[] args) {
         Application.launch(JavaFxLauncher.class, args);
     }

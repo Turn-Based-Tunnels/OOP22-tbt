@@ -1,12 +1,10 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
-import it.tbt.control.input.api.InputListener;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
-
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;

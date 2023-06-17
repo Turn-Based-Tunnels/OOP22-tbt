@@ -1,14 +1,14 @@
 package it.tbt.engine.api;
 
 /**
- * The GameLoop interface defines the ,
- * and it exposes a Boolean telling if the GameLogic is consistent until the last
+ * The GameLoop interface defines the single loop cycle.
+ * It exposes a Boolean telling if the GameLogic is consistent up to the last loop cycle called.
  */
 
-public interface GameLoop{
+public interface GameLoop {
 
     /**
-     * Method that represents the single iteration of the game logic
+     * Method that represents the single iteration of the game logic.
      */
     void loop();
     /**

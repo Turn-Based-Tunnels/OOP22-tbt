@@ -6,6 +6,9 @@ import it.tbt.model.entities.SpatialEntity;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Default implementation of the Room interface.
+ */
 
 public class RoomImpl implements Room {
 
@@ -15,21 +18,24 @@ public class RoomImpl implements Room {
 
     private Set<SpatialEntity> entities;
 
+    /**
+     * @param roomName the room's name
+     */
     public RoomImpl(final String roomName) {
         this.roomName = roomName;
         entities = new HashSet<>();
     }
 
     /**
-     * @param entity
+     * {@inheritDoc}
      */
     @Override
-    public void addEntity(SpatialEntity entity) {
+    public void addEntity(final SpatialEntity entity) {
         entities.add(entity);
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<SpatialEntity> getEntities() {
@@ -37,14 +43,10 @@ public class RoomImpl implements Room {
     }
 
     /**
-     * @param xCenter
-     * @param yCenter
-     * @param width
-     * @param height
-     * @return
+     * {@inheritDoc}
      */
     @Override
-    public Boolean isValidCoordinates(int xCenter, int yCenter, int width, int height) {
+    public Boolean isValidCoordinates(final int xCenter, final int yCenter, final int width, final int height) {
         final int left = xCenter - (width / 2);
         final int right = xCenter + (width / 2);
         final int top = yCenter - (height / 2);

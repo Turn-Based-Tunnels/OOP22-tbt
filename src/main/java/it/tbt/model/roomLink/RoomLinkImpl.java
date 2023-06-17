@@ -9,31 +9,54 @@ import it.tbt.model.party.IParty;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Simple implementation of the RoomLink interface where there are 2 Rooms.
+ */
 public class RoomLinkImpl extends SpatialEntityImpl implements RoomLink, Interactable {
 
     private Room room1;
     private Room room2;
 
-    public RoomLinkImpl(String Name, int X, int Y, int width, int height, Room firstRoom, Room secondRoom) {
-        super(Name, X, Y, width, height);
+    /**
+     * @param name
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param firstRoom
+     * @param secondRoom
+     */
+
+    public RoomLinkImpl(final String name,
+                        final int x,
+                        final int y,
+                        final int width,
+                        final int height,
+                        final Room firstRoom,
+                        final Room secondRoom) {
+        super(name, x, y, width, height);
         this.room1 = firstRoom;
         this.room2 = secondRoom;
 
     }
 
+    /**
+     * This method just chooses the room to travel to based on a predicate.
+     */
+
     @Override
-    public Room getRoomOnPredicate(Predicate<Room> predicate) {
-        return List.of(room1, room2).stream().filter(l->predicate.test(l)).findFirst().get();
+    public Room getRoomOnPredicate(final Predicate<Room> predicate) {
+        return List.of(room1, room2).stream().filter(l -> predicate.test(l)).findFirst().get();
     }
 
-
     /**
-     * @param interactable
+     * The RoomLink changes the Party's Room, it does nothing if any other object tries to interact with it.
      */
     @Override
-    public void OnInteraction(SpatialEntity interactable) {
-        if(interactable instanceof IParty) {
-            ((IParty)interactable).setCurrentRoom(getRoomOnPredicate(l->l!=((IParty)interactable).getCurrentRoom()));
+    public void onInteraction(final SpatialEntity interactionTrigger) {
+        if (interactionTrigger instanceof IParty) {
+            ((IParty) interactionTrigger).setCurrentRoom(
+                    getRoomOnPredicate(l -> l != ((IParty) interactionTrigger).getCurrentRoom()));
         }
 
     }

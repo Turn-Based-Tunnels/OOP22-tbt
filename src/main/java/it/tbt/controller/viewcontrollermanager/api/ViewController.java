@@ -8,15 +8,14 @@ import java.util.List;
  * Interface for the input hub for the current view/state.
  */
 
-public interface ViewController extends InputListener{
+public interface ViewController extends InputListener {
     /**
-     * Returns the list of Commands intercepted
-     * @return
+     * @return the list of Commands intercepted.
      */
-    public List<Command> getCommands();
+    List<Command> getCommands();
 
     /**
-     * Cleans the list of Commands this ViewController currently has.
+     * Cleans the Commands this ViewController currently has.
      */
-    public void clean();
+    void clean();
 }

@@ -5,9 +5,23 @@ import it.tbt.view.javaFx.JavaFxViewFactory;
 import it.tbt.engine.api.Game;
 import javafx.stage.Stage;
 
-public class GameFactory {
+/**
+ * Factory for Game objects, difference to be in the graphical framework it is used.
+ */
 
-    public static Game createJavaFxGame(Stage stage) {
+public final class GameFactory {
+
+    /**
+     * Utility class, must not be instantiated.
+     */
+    private GameFactory() { }
+
+    /**
+     * @param stage
+     * @return an instance of the Game interface, where all the object have been created by their default values.
+     * In JavaFx graphical framework.
+     */
+    public static Game createJavaFxGame(final Stage stage) {
         GameViewFactory viewFactory = new JavaFxViewFactory(stage);
         return new GameImpl(viewFactory);
     }

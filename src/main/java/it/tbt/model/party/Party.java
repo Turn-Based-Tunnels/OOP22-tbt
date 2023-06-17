@@ -1,7 +1,5 @@
 package it.tbt.model.party;
 
-import java.util.*;
-
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.interaction.InteractionComponent;
 import it.tbt.model.world.interaction.InteractionTrigger;
@@ -12,6 +10,12 @@ import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.StateObserver;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
 
 /**
  * Party implementation.
@@ -129,14 +133,14 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public void triggerInteraction() {
-        this.interactionComponent.InteractLogic();
+        this.interactionComponent.interactLogic();
     }
 
     /**
      * @param stateObserver
      */
     @Override
-    public void setStateObserver(StateObserver stateObserver) {
+    public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;
     }
     /**

@@ -3,6 +3,10 @@ package it.tbt.engine.impl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * JavaFx Launcher of the Game.
+ */
+
 public class JavaFxLauncher extends Application {
 
     /**
@@ -21,8 +25,8 @@ public class JavaFxLauncher extends Application {
      * @throws Exception if something goes wrong
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        var x = new JavaFxGameLoopManager(new FixedTimeGameLoop(GameFactory.createJavaFxGame(primaryStage), 60));
+    public void start(final Stage primaryStage) throws Exception {
+        var x = new AnimationTimerGameLoopManager(new FixedTimeGameLoop(GameFactory.createJavaFxGame(primaryStage)));
         x.startLoop();
     }
 }

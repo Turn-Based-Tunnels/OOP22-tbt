@@ -8,16 +8,21 @@ import it.tbt.model.world.api.World;
 import it.tbt.model.world.impl.RoomImpl;
 import it.tbt.model.world.impl.WorldImpl;
 
+/**
+ * Hard coded default World Setup.
+ */
+
 public class WorldCreationDefault implements WorldCreationStrategy {
+
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public World createWorld() {
         World w = new WorldImpl();
         Room startRoom = new RoomImpl("RoomStart");
         Room endRoom = new RoomImpl("EndRoom");
-        RoomLink roomLink1 = new RoomLinkImpl("link", 100, 100, 75, 75, startRoom, endRoom);
+        RoomLink roomLink1 = new RoomLinkImpl("link", 100, 100, 50, 50, startRoom, endRoom);
         startRoom.addEntity(roomLink1);
         RoomLink roomLink2 = new RoomLinkImpl("link2", 150, 150, 50, 50, startRoom, endRoom);
         endRoom.addEntity(roomLink2);

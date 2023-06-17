@@ -2,23 +2,43 @@ package it.tbt.model.world.collision;
 
 import it.tbt.model.entities.SpatialEntity;
 
-public class CollisionDetectorImpl implements CollisionDetector{
+import java.util.List;
+
+/**
+ *
+ */
+
+public class CollisionDetectorImpl implements CollisionDetector {
+
     /**
-     * @param sp1
-     * @param sp2
-     * @return
+     * {@inheritDoc}
      */
     @Override
-    public Boolean checkCollision(SpatialEntity sp1, SpatialEntity sp2) {
-        double x1 = sp1.getX() - sp1.getWidth() / 2;
-        double y1 = sp1.getY() - sp1.getHeight() / 2;
-        double x2 = sp1.getX() + sp1.getWidth() / 2;
-        double y2 = sp1.getY() + sp1.getHeight() / 2;
+    public Boolean checkCollision(final SpatialEntity sp1, final SpatialEntity sp2) {
+        var first = this.getVertices(sp1);
+        var second = this.getVertices(sp2);
+        return !(first.get(2) < second.get(0)
+                ||
+                second.get(2) < first.get(0)
+                ||
+                first.get(3) < second.get(1)
+                ||
+                second.get(3) < first.get(1));
+    }
 
-        double x3 = sp2.getX() - sp2.getWidth() / 2;
-        double y3 = sp2.getY() - sp2.getHeight() / 2;
-        double x4 = sp2.getX() + sp2.getWidth() / 2;
-        double y4 = sp2.getY() + sp2.getHeight() / 2;
-        return (x1 <= x4 && x2 >= x3 && y1 <= y4 && y2 >= y3) || (x1 >= x3 && x2 <= x4 && y1 >= y3 && y2 <= y4);
+    /**
+     * @param sp
+     * @return a LinkedList of size 4 where the first element is the x coordinate of the left upper vertex,
+     * the second is the y coordinate of the left upper vertex,
+     * the third is the x coordinate of the right inferior vertex,
+     * the forth is the y coordinate of the right inferior vertex.
+     */
+    private List<Integer> getVertices(final SpatialEntity sp) {
+        return List.of(
+                sp.getX() - (sp.getWidth() / 2),
+                sp.getY() - (sp.getHeight() / 2),
+                sp.getX() + (sp.getWidth() / 2),
+                sp.getY() + (sp.getHeight() / 2)
+        );
     }
 }

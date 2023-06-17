@@ -29,7 +29,6 @@ public class PauseMenuController implements ViewController, StateTrigger {
     @Override
     public void onKeyPressed(int key) {
         switch (key) {
-
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
                 this.commands.add(new Command() {
@@ -87,8 +86,6 @@ public class PauseMenuController implements ViewController, StateTrigger {
     public void clean() {
         this.commands = new LinkedList<>();
     }
-
-
     /**
      * @param stateObserver
      */

@@ -10,15 +10,24 @@ import it.tbt.model.party.PartyFactory;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
-
-public class GameImpl implements Game {
-
+/**
+ * Default implementation of the Game interface.
+ */
+public final class GameImpl implements Game {
     private ViewControllerManager viewControllerManager;
     private IGameStateManager gameStateManager;
 
+    /**
+     * This implementation uses a ViewControllerManager and an GameStateManager as helper classes to delegate responsibility.
+     * Creates both the World, the IParty and the Menus object with default implementations.
+     * @param gvf the GameViewFactory which is used to create views different based on the graphical framework chosen.
+     */
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl(gvf);
-        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(), PartyFactory.createDefaultParty(), MenuFactory.getMainMenu(), MenuFactory.getPauseMenu());
+        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(),
+                PartyFactory.createDefaultParty(),
+                MenuFactory.getMainMenu(),
+                MenuFactory.getPauseMenu());
     }
 
     /**
@@ -26,14 +35,17 @@ public class GameImpl implements Game {
      */
     @Override
     public void initialize() {
-       this.viewControllerManager.renderView(this.gameStateManager.getState(), this.gameStateManager.getStateModel(), true);
+       this.viewControllerManager.renderView(
+               this.gameStateManager.getState(),
+               this.gameStateManager.getStateModel(),
+               true);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void update(long deltaTime) {
+    public void update(final long deltaTime) {
         this.gameStateManager.updateState(deltaTime);
     }
 
@@ -42,7 +54,11 @@ public class GameImpl implements Game {
      */
     @Override
     public void render() {
-        this.viewControllerManager.renderView(this.gameStateManager.getState(), this.gameStateManager.getStateModel(), this.gameStateManager.hasStateChanged());
+        this.viewControllerManager.renderView(
+                this.gameStateManager.getState(),
+                this.gameStateManager.getStateModel(),
+                this.gameStateManager.hasStateChanged()
+                );
     }
 
     /**
@@ -51,7 +67,7 @@ public class GameImpl implements Game {
     @Override
     public Boolean handleInput() {
         Boolean r = this.viewControllerManager.getCommands().isEmpty();
-        if(r == false) {
+        if (!r) {
             this.viewControllerManager.getCommands().get().stream().forEach(l -> l.execute());
             this.viewControllerManager.cleanCommands();
         }

@@ -6,22 +6,24 @@ import it.tbt.controller.modelmanager.updatemanager.api.UpdateManager;
 import it.tbt.model.GameState;
 import it.tbt.model.time.TimeAffected;
 
-public class UpdateManagerImpl implements UpdateManager {
+public final class UpdateManagerImpl implements UpdateManager {
 
     /**
      * @param gameState
      */
     @Override
-    public void updateModel(GameState gameState, ModelState modelState, long timeTransition) {
+    public void updateModel(final GameState gameState, final ModelState modelState, final long timeTransition) {
         switch (gameState) {
             case EXPLORE -> {
-                var state = (ExploreState) modelState;
-                if(state.getParty() instanceof TimeAffected) {
-                    ((TimeAffected)state.getParty()).affect(timeTransition);
-                }
-                for(var x: state.getRoom().getEntities()) {
-                    if(x instanceof TimeAffected) {
-                        ((TimeAffected)x).affect(timeTransition);
+                if (modelState instanceof ExploreState) {
+                    var state = (ExploreState) modelState;
+                    if (state.getParty() instanceof TimeAffected) {
+                        ((TimeAffected) state.getParty()).affect(timeTransition);
+                    }
+                    for (var x : state.getRoom().getEntities()) {
+                        if (x instanceof TimeAffected) {
+                            ((TimeAffected) x).affect(timeTransition);
+                        }
                     }
                 }
             }

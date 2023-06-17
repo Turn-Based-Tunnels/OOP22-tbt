@@ -2,32 +2,36 @@ package it.tbt.model.world.impl;
 
 import it.tbt.model.world.api.Room;
 import it.tbt.model.world.api.World;
-
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Default implementation for World interface.
+ */
 public class WorldImpl implements World {
-
-    Set<Room> rooms;
-    private Room start;
-
+    private Set<Room> rooms;
+    private Optional<Room> start;
+    /**
+     * @param rooms set of Rooms to be added on creation of the World.
+     */
     public WorldImpl(final Set<Room> rooms) {
         this.rooms = rooms;
     }
-
-    public WorldImpl() { this.rooms = new HashSet<>(); }
-
+    public WorldImpl() {
+        this.rooms = new HashSet<>();
+    }
     /**
-     * @param room
+     * {@inheritDoc}
      */
     @Override
-    public void addRoom(Room room) {
+    public void addRoom(final Room room) {
         this.rooms.add(room);
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public List<Room> getListRoom() {
@@ -35,18 +39,16 @@ public class WorldImpl implements World {
     }
 
     /**
-     * @return
+     * {@inheritDoc}
      */
     @Override
-    public Room getStartRoom() {
-        return this.start;
-    }
+    public Optional<Room> getStartRoom() { return this.start; }
 
     /**
-     * @param room
+     * {@inheritDoc}
      */
     @Override
     public void setStartRoom(final Room room) {
-        this.start = room;
+        this.start = Optional.of(room);
     }
 }

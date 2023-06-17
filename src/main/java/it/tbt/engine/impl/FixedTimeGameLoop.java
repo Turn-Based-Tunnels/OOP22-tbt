@@ -2,27 +2,35 @@ package it.tbt.engine.impl;
 
 import it.tbt.engine.api.Game;
 import it.tbt.engine.api.GameLoop;
-import javafx.animation.AnimationTimer;
 
+/**
+ * Implementation of the GameLoop based on a fixed time slice on every render.
+ */
 public class FixedTimeGameLoop implements GameLoop {
 
     private static final long SECOND_IN_MILLISECOND = 1_000_000_000;
-    private long timeSlice = SECOND_IN_MILLISECOND / 60;
+
+    private static final long TARGET_FPS = 60;
+    private long timeSlice = SECOND_IN_MILLISECOND / TARGET_FPS;
     private long lastUpdateTime;
     private long timeAccumulator;
     private Boolean updated = false;
     private Boolean consistent = true;
     private final Game game;
 
-    public FixedTimeGameLoop(final Game g, final int fps) {
+    /**
+     * @param game the game object on which this loops calls the major operations
+     */
+    public FixedTimeGameLoop(final Game game) {
         super();
-        this.game = g;
+        this.game = game;
         this.lastUpdateTime = System.nanoTime();
         this.game.initialize();
         this.game.render();
     }
+
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void loop() {
@@ -31,7 +39,7 @@ public class FixedTimeGameLoop implements GameLoop {
         lastUpdateTime += elapsedTime;
         timeAccumulator += elapsedTime;
 
-        if(this.game.handleInput()) {
+        if (this.game.handleInput()) {
             updated = true;
         }
 
@@ -46,7 +54,9 @@ public class FixedTimeGameLoop implements GameLoop {
             updated = false;
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     public Boolean isConsistent() {
         return !this.game.isOver();
     }

@@ -9,21 +9,25 @@ import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.api.World;
 
-public class GameStateManager implements IGameStateManager{
+/**
+ * Default implementation of the GameStateManager class for the management of the logic aspect of the application
+ */
+public final class GameStateManager implements IGameStateManager {
 
     private TransitionManager transitionManager;
     private UpdateManager updateManager;
 
-    public GameStateManager(final TransitionManager transitionManager, final UpdateManager updateManager) {
-        this.transitionManager = transitionManager;
-        this.updateManager = updateManager;
-    }
-
+    /**
+     * @param world world object used for the game
+     * @param party party object for the player
+     * @param mainMenu mainMenu object for the mainMenu state
+     * @param pauseMenu pauseMenu object for the pause state
+     */
     public GameStateManager(final World world, final IParty party, final MenuModel mainMenu, final  MenuModel pauseMenu) {
         this.transitionManager = new TransitionManagerImpl(world, party, mainMenu, pauseMenu);
         this.updateManager = new UpdateManagerImpl();
         this.transitionManager.init();
-        party.setCurrentRoom(world.getStartRoom());
+        party.setCurrentRoom(world.getStartRoom().get());
         transitionManager.onMenu();
     }
 
@@ -53,7 +57,7 @@ public class GameStateManager implements IGameStateManager{
      * {@inheritDoc}
      */
     @Override
-    public void updateState(long timePassed) {
+    public void updateState(final long timePassed) {
         this.updateManager.updateModel(this.getState(), this.getStateModel(), timePassed);
     }
 
@@ -62,6 +66,7 @@ public class GameStateManager implements IGameStateManager{
      */
     @Override
     public Boolean isOver() {
+        //return this.player.getMembers().stream().filter(l->l.getHealth()<=0).count()==this.player.getMembers().size();
         return false;
     }
 

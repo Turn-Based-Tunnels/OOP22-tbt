@@ -1,26 +1,21 @@
 package it.tbt.view.javaFx;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.controller.viewcontrollermanager.impl.MainMenuController;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuItem;
 import it.tbt.model.menu.impl.MenuSelect;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
-import javax.swing.text.View;
 import java.util.*;
 
 
@@ -35,20 +30,11 @@ public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implemen
         this.main = modelState;
     }
 
-    public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, Group root, MenuState menuState) {
-        super(menuController, stage, scene, root);
+    public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, MenuState menuState) {
+        super(menuController, stage, scene);
         this.scene = scene;
-        this.root = root;
         this.menuController = menuController;
         this.main = menuState;
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                System.out.println("ff15" + event.getCode());
-                menuController.onKeyPressed(event.getCode().getCode());
-            }
-        });
     }
 
     /*@Override
