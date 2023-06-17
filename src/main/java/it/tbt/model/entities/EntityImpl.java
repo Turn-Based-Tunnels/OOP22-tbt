@@ -22,4 +22,12 @@ public abstract class EntityImpl implements Entity {
     public String getName() {
         return name;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareTo(final Entity entity) {
+        return this.getName().compareTo(entity.getName());
+    }
 }
