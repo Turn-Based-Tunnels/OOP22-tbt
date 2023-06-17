@@ -1,11 +1,15 @@
 package it.tbt.view.api;
 
+import it.tbt.controller.modelmanager.InventoryState;
+import it.tbt.controller.modelmanager.InventoryStateImpl;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuState;
 
 /**
- * Interface for a Factory of GameViews. To be implemented with framework specific logic.
+ * Interface for a Factory of GameViews. To be implemented with framework
+ * specific logic.
  */
 
 public interface GameViewFactory {
@@ -30,5 +34,9 @@ public interface GameViewFactory {
      * @return the GameView for the Explore Game State
      */
     GameView createRoom(ViewController exploreController, ExploreState exploreState);
+
+    public GameView createFight(ViewController fightController, FightState fightState);
+
+    GameView createInventory(ViewController inventoryController, InventoryState inventoryState);
 
 }

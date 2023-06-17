@@ -10,6 +10,7 @@ import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.StateObserver;
+import javafx.util.Pair;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     private final Inventory inventory;
     private StateObserver stateObserver;
     private final InteractionComponent interactionComponent = new PartyInteractionComponent(this);
+    private Pair<String, String> dialogue;
 
     /**
      * Constructor without party members.
@@ -111,6 +113,26 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     }
 
     /**
+     * Add the given ally to the party.
+     * @param ally
+     * @return true if the ally has been added
+     */
+    @Override
+    public boolean addMember(final Ally ally) {
+        return members.add(ally);
+    }
+
+    /**
+     * Remove the given ally from the party.
+     * @param ally
+     * @return true if the ally has been removed
+     */
+    @Override
+    public boolean removeMember(final Ally ally) {
+        return members.remove(ally);
+    }
+
+    /**
      * Get the current amount of cash available to the party.
      * @return available cash
      */
@@ -169,5 +191,13 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     @Override
     public boolean removeItemFromInventory(final Item item) {
         return inventory.removeItem(item);
+    }
+    @Override
+    public Pair<String, String> getDialogue() {
+        return dialogue;
+    }
+    @Override
+    public void setDialogue(Pair<String, String> dialogue) {
+        this.dialogue = dialogue;
     }
 }

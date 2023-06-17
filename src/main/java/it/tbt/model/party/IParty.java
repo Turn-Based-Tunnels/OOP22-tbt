@@ -7,6 +7,7 @@ import it.tbt.model.entities.MovableEntity;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.world.api.Room;
+import javafx.util.Pair;
 
 /**
  * Generic Party.
@@ -39,6 +40,20 @@ public interface IParty extends MovableEntity {
     List<Ally> getMembers();
 
     /**
+     * Add the given ally to the party.
+     * @param ally
+     * @return true if the ally has been added
+     */
+    boolean addMember(Ally ally);
+
+    /**
+     * Remove the given ally from the party.
+     * @param ally
+     * @return true if the ally has been removed
+     */
+    boolean removeMember(Ally ally);
+
+    /**
      * Get the current amount of cash available to the party.
      * @return available cash
      */
@@ -68,4 +83,16 @@ public interface IParty extends MovableEntity {
      * @return true if the item was found and removed
      */
     boolean removeItemFromInventory(Item item);
+
+    /**
+     * Return the stored dialogue.
+     * @return Pair < Speaker, Content >
+     */
+    public Pair<String, String> getDialogue();
+
+    /**
+     * Set the stored dialogue.
+     * @param  dialogue Pair < Speaker, Content >
+     */
+    public void setDialogue(Pair<String, String> dialogue);
 }

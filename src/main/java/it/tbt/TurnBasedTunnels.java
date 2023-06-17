@@ -17,6 +17,7 @@ public final class TurnBasedTunnels {
      * Application entry point.
      * @param args
      */
+
     public static void main(final String[] args) {
         Application.launch(JavaFxLauncher.class, args);
     }

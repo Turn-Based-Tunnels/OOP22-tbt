@@ -1,10 +1,14 @@
 package it.tbt.controller.modelmanager.transitionmanager.impl;
 
 import it.tbt.controller.modelmanager.ExploreStateImpl;
+import it.tbt.controller.modelmanager.FightStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
+import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
 import it.tbt.model.GameState;
+import it.tbt.model.fight.api.FightModel;
+import it.tbt.model.entities.npc.api.FightNPC;
 import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.PauseTrigger;
@@ -27,7 +31,6 @@ public final class TransitionManagerImpl implements TransitionManager {
     private MenuModel pauseMenu;
     private Optional<ModelState> currentModelState;
     private Boolean stateChanged = false;
-
     /**
      * @param world
      * @param party
@@ -67,7 +70,10 @@ public final class TransitionManagerImpl implements TransitionManager {
                 }
             }
         }
-        for (var x: this.mainMenu.getItems()) {
+        if (this.pauseMenu instanceof StateTrigger) {
+            ((StateTrigger) pauseMenu).setStateObserver(this);
+        }
+        for (var x : this.mainMenu.getItems()) {
             if (x instanceof StateTrigger) {
                 ((StateTrigger) x).setStateObserver(this);
             }
@@ -126,8 +132,10 @@ public final class TransitionManagerImpl implements TransitionManager {
      * {@inheritDoc}
      */
     @Override
-    public void onFight() {
-        //TO-DO
+    public void onFight(FightModel fightModel) {
+        stateChanged = true;
+        this.currentGameState = Optional.of(GameState.FIGHT);
+        this.currentModelState = Optional.of(new FightStateImpl(fightModel));
     }
 
     @Override
@@ -142,5 +150,15 @@ public final class TransitionManagerImpl implements TransitionManager {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.PAUSE);
         this.currentModelState = Optional.of(new MenuStateImpl(pauseMenu));
+    }
+
+    @Override
+    public void onInventory(){
+        stateChanged= true;
+        this.currentGameState = Optional.of(GameState.INVENTORY);
+        this.currentModelState = Optional.of(new InventoryStateImpl(this.party));
+        if(this.getCurrentModelState() instanceof StateTrigger){
+            ((StateTrigger)this.getCurrentModelState()).setStateObserver(this);
+        }
     }
 }

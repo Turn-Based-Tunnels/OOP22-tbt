@@ -8,6 +8,7 @@ import it.tbt.model.menu.impl.MenuSelect;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,13 +23,8 @@ import java.util.*;
 public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implements GameView {
 
     private Scene scene;
-    private Group root;
     private ViewController menuController;
     private MenuState main;
-
-    public void setData(MenuState modelState){
-        this.main = modelState;
-    }
 
     public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, MenuState menuState) {
         super(menuController, stage, scene);
@@ -155,6 +151,7 @@ public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implemen
     @Override
     public void render() {
         Platform.runLater(() -> {
+            Group root = new Group();
             root.getChildren().clear();
             VBox vbox = new VBox();
             int count = 0;
@@ -186,12 +183,12 @@ public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implemen
                     button.setFocusTraversable(false);
                     vbox.getChildren().addAll(label, button);
                 }
-
-
                 count++;
             }
             vbox.setAlignment(Pos.CENTER);
             root.getChildren().add(vbox);
+            scene.setCursor(Cursor.NONE);
+            this.getScene().setRoot(root);
 
         });
     }

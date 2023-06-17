@@ -2,8 +2,9 @@ package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.MenuState;
-import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
+import it.tbt.controller.modelmanager.FightState;
+import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.model.command.api.Command;
@@ -25,7 +26,8 @@ public class GameViewManagerImpl implements ViewControllerManager {
     private GameView currentGameView;
 
     /**
-     * @param gameViewFactory the GameView factory which will be used to generate the GameViews.
+     * @param gameViewFactory the GameView factory which will be used to generate
+     *                        the GameViews.
      */
     public GameViewManagerImpl(final GameViewFactory gameViewFactory) {
         this.gameViewFactory = gameViewFactory;
@@ -60,7 +62,7 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     if (!(modelState instanceof MenuState)) {
                         throw new IllegalStateException("Data passed to View Manager inconsistent");
                     }
-                    MenuStateImpl menuState = (MenuStateImpl) modelState;
+                    MenuState menuState = (MenuState) modelState;
                     MainMenuController menuController = new MainMenuController(menuState);
                     var x = this.gameViewFactory.createMenu(menuController, menuState);
                     this.currentController = menuController;
@@ -70,16 +72,31 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     if (!(modelState instanceof MenuState)) {
                         throw new IllegalStateException("Data passed to View Manager inconsistent");
                     }
-                    MenuStateImpl menuState = (MenuStateImpl) modelState;
+
+                    MenuState menuState = (MenuState) modelState;
                     PauseMenuController menuController = new PauseMenuController(menuState);
-                    var x = this.gameViewFactory.createMenu(menuController, menuState);
+                    var x = this.gameViewFactory.createPause(menuController, menuState);
                     this.currentController = menuController;
                     this.currentGameView = x;
+                }
+                case FIGHT -> {
+                    FightState fightState = (FightState) modelState;
+                    ViewController fightController = new FightControllerImpl(fightState);
+                    var x = this.gameViewFactory.createFight(fightController, fightState);
+                    this.currentController = fightController;
+                    this.currentGameView = x;
+                }
+                case INVENTORY -> {
+                    InventoryState inventoryState = (InventoryState) modelState;
+                    InventoryViewController inventoryViewController = new InventoryViewController(inventoryState);
+                    var x = this.gameViewFactory.createInventory(inventoryViewController, inventoryState);
+                    this.currentController = inventoryViewController;
+                    this.currentGameView=x;
+
                 }
                 default -> {
                     throw new IllegalStateException("GameState not handled by ViewManager.");
                 }
-
             }
         }
         this.currentGameView.render();

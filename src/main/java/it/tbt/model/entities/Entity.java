@@ -3,7 +3,7 @@ package it.tbt.model.entities;
 /**
  * Generic entity.
  */
-public interface Entity {
+public interface Entity extends Comparable<Entity> {
 
     /**
      * Return the entity name.

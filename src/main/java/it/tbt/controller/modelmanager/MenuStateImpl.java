@@ -13,18 +13,27 @@ public class MenuStateImpl implements MenuState{
         this.menuModel = menu;
     }
 
+    @Override
     public void NextElement(){
         menuModel.setFocus((menuModel.getFocus()+1)%menuModel.getItems().size() );
     }
+    @Override
     public void PreviousElement(){
         menuModel.setFocus(Math.abs((menuModel.getFocus()-1)%menuModel.getItems().size()));
     }
 
+    @Override
     public List<it.tbt.model.menu.api.MenuItem> getItems(){
         return menuModel.getItems();
     }
 
+    @Override
     public int getFocus(){
         return menuModel.getFocus();
+    }
+
+    @Override
+    public void toExplore() {
+        menuModel.toExplore();
     }
 }

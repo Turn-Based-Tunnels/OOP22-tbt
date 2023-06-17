@@ -1,7 +1,9 @@
 package it.tbt.view.javaFx;
 
+import it.tbt.controller.modelmanager.InventoryState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.world.api.Room;
 import it.tbt.view.api.GameView;
@@ -73,5 +75,29 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.show();
         });
         return new JavaFxExploreView(exploreController, exploreState, this.stage, scene);
+    }
+
+    @Override
+    public GameView createFight(ViewController fightController, FightState fightState) {
+        Group group = new Group();
+        Scene scene = new Scene(group, 300, 300);
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
+        return new JavaFxFightView(stage, scene, fightController, fightState);
+    }
+
+    @Override
+    public GameView createInventory(ViewController inventoryController, InventoryState inventoryState) {
+        Group group = new Group();
+        Scene scene = new Scene(group, 300, 300);
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
+
+
+        return new JavaFxInventoryView(inventoryController, this.stage, scene, group, inventoryState);
     }
 }

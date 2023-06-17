@@ -23,7 +23,8 @@ public final class GameStateManager implements IGameStateManager {
      * @param mainMenu mainMenu object for the mainMenu state
      * @param pauseMenu pauseMenu object for the pause state
      */
-    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu, final  MenuModel pauseMenu) {
+    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu,
+            final MenuModel pauseMenu) {
         this.transitionManager = new TransitionManagerImpl(world, party, mainMenu, pauseMenu);
         this.updateManager = new UpdateManagerImpl();
         this.transitionManager.init();
@@ -38,6 +39,7 @@ public final class GameStateManager implements IGameStateManager {
     public ModelState getStateModel() {
         return this.transitionManager.getCurrentModelState();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -45,6 +47,7 @@ public final class GameStateManager implements IGameStateManager {
     public GameState getState() {
         return this.transitionManager.getState();
     }
+
     /**
      * {@inheritDoc}
      */
