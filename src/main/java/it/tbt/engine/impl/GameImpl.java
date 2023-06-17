@@ -1,15 +1,19 @@
 package it.tbt.engine.impl;
 
+import java.util.ArrayList;
+
 import it.tbt.commons.resourceloader.world.impl.WorldCreationDefault;
+import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.menu.impl.MenuFactory;
 import it.tbt.controller.modelmanager.GameStateManager;
 import it.tbt.controller.modelmanager.IGameStateManager;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.controller.viewcontrollermanager.impl.GameViewManagerImpl;
+import it.tbt.model.party.IParty;
+import it.tbt.model.party.Party;
 import it.tbt.model.party.PartyFactory;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
-
 
 public class GameImpl implements Game {
 
@@ -18,7 +22,14 @@ public class GameImpl implements Game {
 
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl(gvf);
-        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(), PartyFactory.createDefaultParty(), MenuFactory.getMainMenu(), MenuFactory.getPauseMenu());
+        ArrayList<Ally> allies = new ArrayList<>();
+        allies.add(new Ally("Roberto", 5, 5, 5));
+        allies.add(new Ally("Gianfranco", 10, 1, 7));
+        allies.add(new Ally("Caparezza", 3, 9, 2));
+        allies.add(new Ally("Robertino", 2, 2, 2));
+        Party p = new Party("party", 75, 75, 75, 75, allies);
+        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(),
+                p, MenuFactory.getMainMenu(), MenuFactory.getPauseMenu());
     }
 
     /**
@@ -26,7 +37,8 @@ public class GameImpl implements Game {
      */
     @Override
     public void initialize() {
-       this.viewControllerManager.renderView(this.gameStateManager.getState(), this.gameStateManager.getStateModel(), true);
+        this.viewControllerManager.renderView(this.gameStateManager.getState(), this.gameStateManager.getStateModel(),
+                true);
     }
 
     /**
@@ -42,7 +54,8 @@ public class GameImpl implements Game {
      */
     @Override
     public void render() {
-        this.viewControllerManager.renderView(this.gameStateManager.getState(), this.gameStateManager.getStateModel(), this.gameStateManager.hasStateChanged());
+        this.viewControllerManager.renderView(this.gameStateManager.getState(), this.gameStateManager.getStateModel(),
+                this.gameStateManager.hasStateChanged());
     }
 
     /**
@@ -51,7 +64,7 @@ public class GameImpl implements Game {
     @Override
     public Boolean handleInput() {
         Boolean r = this.viewControllerManager.getCommands().isEmpty();
-        if(r == false) {
+        if (r == false) {
             this.viewControllerManager.getCommands().get().stream().forEach(l -> l.execute());
             this.viewControllerManager.cleanCommands();
         }

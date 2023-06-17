@@ -2,10 +2,13 @@ package it.tbt.view.javaFx;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.modelmanager.ExploreState;
+import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ExploreController;
 import it.tbt.model.world.api.Room;
+import it.tbt.controller.viewcontrollermanager.api.FightController;
 import it.tbt.controller.viewcontrollermanager.impl.PauseMenuController;
+import it.tbt.engine.api.Game;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
 import javafx.application.Platform;
@@ -60,7 +63,6 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.show();
         });
 
-
         return new JavaFxMenuView(menuController, this.stage, scene, group, menuState);
     }
 
@@ -76,5 +78,16 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.show();
         });
         return new JavaFxExploreView(exploreController, exploreState, this.stage, scene, group);
+    }
+
+    @Override
+    public GameView createFight(ViewController fightController, FightState fightState) {
+        Group group = new Group();
+        Scene scene = new Scene(group, 300, 300);
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
+        return new JavaFxFightView(stage, scene, group, fightController, fightState);
     }
 }
