@@ -33,6 +33,7 @@ public class FightControllerImpl implements FightController {
     public void onKeyPressed(int key) {
         switch (key) {
             case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
                 // controller.handlePreviousTarget();
                 this.commands.add(new Command() {
 
@@ -43,6 +44,7 @@ public class FightControllerImpl implements FightController {
 
                 });
                 break;
+            case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
                 // controller.handleNextTarget();
                 this.commands.add(new Command() {
@@ -54,6 +56,7 @@ public class FightControllerImpl implements FightController {
 
                 });
                 break;
+            case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 // controller.handleCycleAction(true);
                 this.commands.add(new Command() {
@@ -65,6 +68,7 @@ public class FightControllerImpl implements FightController {
 
                 });
                 break;
+            case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
                 // controller.handleCycleAction(false);
                 this.commands.add(new Command() {
@@ -76,6 +80,7 @@ public class FightControllerImpl implements FightController {
 
                 });
                 break;
+            case KeyEvent.VK_E:
             case KeyEvent.VK_ENTER:
                 // controller.handlePerformAction();
                 this.commands.add(new Command() {

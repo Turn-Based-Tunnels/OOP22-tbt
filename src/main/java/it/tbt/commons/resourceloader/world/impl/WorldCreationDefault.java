@@ -1,8 +1,11 @@
 package it.tbt.commons.resourceloader.world.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import it.tbt.commons.resourceloader.world.api.WorldCreationStrategy;
-import it.tbt.model.entities.npc.api.FightNPC;
-import it.tbt.model.entities.npc.impl.FightNPCImpl;
+import it.tbt.model.entities.items.Item;
+import it.tbt.model.entities.items.Potion;
 import it.tbt.model.entities.npc.impl.NPCFactory;
 import it.tbt.model.fight.impl.FightModelImpl;
 import it.tbt.model.roomLink.RoomLink;
@@ -26,7 +29,9 @@ public class WorldCreationDefault implements WorldCreationStrategy {
         World w = new WorldImpl();
         Room startRoom = new RoomImpl("RoomStart");
         Room endRoom = new RoomImpl("EndRoom");
-        startRoom.addEntity(NPCFactory.createFightNPC("Roberto", 25, 25, 75, 75, new FightModelImpl(5)));
+        Map<Item, Double> drops = new HashMap<>();
+        drops.put(new Potion("Potion", 3, 50), 0.5);
+        startRoom.addEntity(NPCFactory.createFightNPC("Roberto", 25, 25, 75, 75, new FightModelImpl(5, drops)));
         RoomLink roomLink1 = new RoomLinkImpl("link", 200, 200, 75, 75, startRoom, endRoom);
         startRoom.addEntity(roomLink1);
         RoomLink roomLink2 = new RoomLinkImpl("link2", 150, 150, 50, 50, startRoom, endRoom);
