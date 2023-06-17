@@ -4,6 +4,7 @@ import it.tbt.controller.modelmanager.ExploreStateImpl;
 import it.tbt.controller.modelmanager.FightStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
+import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
 import it.tbt.model.GameState;
 import it.tbt.model.fight.api.FightModel;
@@ -76,6 +77,7 @@ public final class TransitionManagerImpl implements TransitionManager {
                 ((StateTrigger) x).setStateObserver(this);
             }
         }
+
     }
 
     /**
@@ -147,5 +149,15 @@ public final class TransitionManagerImpl implements TransitionManager {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.PAUSE);
         this.currentModelState = Optional.of(new MenuStateImpl(pauseMenu));
+    }
+
+    @Override
+    public void onInventory(){
+        stateChanged= true;
+        this.currentGameState = Optional.of(GameState.INVENTORY);
+        this.currentModelState = Optional.of(new InventoryStateImpl(this.party));
+        if(this.getCurrentModelState() instanceof StateTrigger){
+            ((StateTrigger)this.getCurrentModelState()).setStateObserver(this);
+        }
     }
 }
