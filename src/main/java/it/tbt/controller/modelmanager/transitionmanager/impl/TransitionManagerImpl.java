@@ -20,7 +20,6 @@ import it.tbt.model.world.api.World;
 
 import java.util.Optional;
 
-
 /**
  * Default implementation of a TransitionManager.
  */
@@ -34,13 +33,15 @@ public final class TransitionManagerImpl implements TransitionManager {
     private MenuModel pauseMenu;
     private Optional<ModelState> currentModelState;
     private Boolean stateChanged = false;
+
     /**
      * @param world
      * @param party
      * @param mainMenu
      * @param pauseMenu
      */
-    public TransitionManagerImpl(final World world, final IParty party, final MenuModel mainMenu, final MenuModel pauseMenu) {
+    public TransitionManagerImpl(final World world, final IParty party, final MenuModel mainMenu,
+            final MenuModel pauseMenu) {
         this.world = world;
         this.party = party;
         this.mainMenu = mainMenu;
@@ -66,8 +67,8 @@ public final class TransitionManagerImpl implements TransitionManager {
         if (this.party instanceof StateTrigger) {
             ((StateTrigger) this.party).setStateObserver(this);
         }
-        for (var x: this.world.getListRoom()) {
-            for (var y: x.getEntities()) {
+        for (var x : this.world.getListRoom()) {
+            for (var y : x.getEntities()) {
                 if (y instanceof StateTrigger) {
                     ((StateTrigger) y).setStateObserver(this);
                 }
@@ -105,7 +106,8 @@ public final class TransitionManagerImpl implements TransitionManager {
     @Override
     public ModelState getCurrentModelState() {
         if (this.currentModelState.isEmpty()) {
-            throw new IllegalStateException("Game Transition Manager not initialized properly. ModelState not present.");
+            throw new IllegalStateException(
+                    "Game Transition Manager not initialized properly. ModelState not present.");
         }
         return this.currentModelState.get();
     }
@@ -131,15 +133,15 @@ public final class TransitionManagerImpl implements TransitionManager {
     public void onExplore() {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.EXPLORE);
-        this.currentModelState =
-                Optional.of(new ExploreStateImpl(this.party.getCurrentRoom(), this.party, new PauseTrigger(this)));
+        this.currentModelState = Optional
+                .of(new ExploreStateImpl(this.party.getCurrentRoom(), this.party, new PauseTrigger(this)));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onFight(FightModel fightModel) {
+    public void onFight(final FightModel fightModel) {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.FIGHT);
         this.currentModelState = Optional.of(new FightStateImpl(fightModel));
@@ -160,12 +162,12 @@ public final class TransitionManagerImpl implements TransitionManager {
     }
 
     @Override
-    public void onInventory(){
-        stateChanged= true;
+    public void onInventory() {
+        stateChanged = true;
         this.currentGameState = Optional.of(GameState.INVENTORY);
         this.currentModelState = Optional.of(new InventoryStateImpl(this.party));
-        if(this.getCurrentModelState() instanceof StateTrigger){
-            ((StateTrigger)this.getCurrentModelState()).setStateObserver(this);
+        if (this.getCurrentModelState() instanceof StateTrigger) {
+            ((StateTrigger) this.getCurrentModelState()).setStateObserver(this);
         }
     }
 

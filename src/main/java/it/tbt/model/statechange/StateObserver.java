@@ -4,7 +4,8 @@ import it.tbt.model.fight.api.FightModel;
 import it.tbt.model.shop.Shop;
 
 /**
- * Interface implemented by the object who wants to be able to handle GameState transitions and define an appropriate response.
+ * Interface implemented by the object who wants to be able to handle GameState
+ * transitions and define an appropriate response.
  */
 public interface StateObserver {
 
@@ -12,16 +13,23 @@ public interface StateObserver {
      * Defines the action to be taken when the Explore GameState is to be triggered.
      */
     void onExplore();
+
     /**
-     * Defines the action to be taken when the Main menu GameState is to be triggered.
+     * Defines the action to be taken when the Main menu GameState is to be
+     * triggered.
      */
     void onMenu();
+
     /**
-     * Defines the action to be taken when the Pause menu GameState is to be triggered.
+     * Defines the action to be taken when the Pause menu GameState is to be
+     * triggered.
      */
     void onPause();
+
     /**
      * Defines the action to be taken when the Fight GameState is to be triggered.
+     * 
+     * @param fightModel interface of the model of the fight
      */
     void onFight(FightModel fightModel);
 
@@ -29,6 +37,7 @@ public interface StateObserver {
 
     /**
      * Defines the action to be taken when the Shop GameState is to be triggered.
+     * 
      * @param shop
      */
     void onShop(Shop shop);

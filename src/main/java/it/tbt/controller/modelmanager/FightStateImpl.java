@@ -8,9 +8,9 @@ import it.tbt.model.fight.api.FightModel;
 
 public class FightStateImpl implements FightState {
 
-    private FightModel model;
+    private final FightModel model;
 
-    public FightStateImpl(FightModel model) {
+    public FightStateImpl(final FightModel model) {
         this.model = model;
     }
 
@@ -19,9 +19,9 @@ public class FightStateImpl implements FightState {
         return model.getSelectedTargetIndex();
     }
 
+    @Override
     public void handlePreviousTarget() {
         model.selectPreviousTarget();
-        // view.updateSelectedTarget(model.getSelectedEnemy());
     }
 
     @Override
@@ -29,11 +29,13 @@ public class FightStateImpl implements FightState {
         model.selectNextTarget();
     }
 
+    @Override
     public void handlePerformAction() {
         model.performSelectedAction();
     }
 
-    public void handleCycleAction(boolean cycleUp) {
+    @Override
+    public void handleCycleAction(final boolean cycleUp) {
         if (cycleUp) {
             if (model.isUsingSkill()) {
                 model.selectAction(false, false, true);

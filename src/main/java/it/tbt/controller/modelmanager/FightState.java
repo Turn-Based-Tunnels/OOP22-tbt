@@ -7,26 +7,25 @@ import it.tbt.model.entities.characters.Enemy;
 
 public interface FightState extends ModelState {
 
-    public int getSelectedTargetIndex();
+    int getSelectedTargetIndex();
 
-    public void handlePreviousTarget();
+    void handlePreviousTarget();
 
-    public void handleNextTarget();
+    void handleNextTarget();
 
-    public void handlePerformAction();
+    void handlePerformAction();
 
-    public void handleCycleAction(boolean cycleUp);
+    void handleCycleAction(boolean cycleUp);
 
-    public Ally getCurrentAlly();
+    List<Ally> getAllies();
 
-    public List<Ally> getAllies();
+    List<Enemy> getEnemies();
 
-    public List<Enemy> getEnemies();
+    boolean isUsingSkill();
 
-    public boolean isUsingSkill();
+    boolean isUsingAntidote();
 
-    public boolean isUsingAntidote();
+    boolean isUsingPotion();
 
-    public boolean isUsingPotion();
-
+    Ally getCurrentAlly();
 }
