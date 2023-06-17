@@ -7,6 +7,7 @@ import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.shop.ShopStateImpl;
+import it.tbt.controller.viewcontrollermanager.impl.ShopController;
 
 /**
  * Interface for a Factory of GameViews. To be implemented with framework

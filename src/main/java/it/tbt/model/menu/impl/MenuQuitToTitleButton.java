@@ -22,7 +22,7 @@ public class MenuQuitToTitleButton extends  MenuButton implements StateTrigger {
         return new ButtonCommand() {
             @Override
             public void execute() {
-                stateObserver.onExplore();
+                stateObserver.onMenu();
             }
         };
     }

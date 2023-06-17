@@ -17,22 +17,22 @@ import javafx.stage.Stage;
 public class JavaFxShopView extends AbstractJavaFxView implements GameViewShop {
 
     private final ShopState shopState;
+    private Scene scene;
 
     protected JavaFxShopView(
         final ViewController viewController,
         final Stage stage,
         final Scene scene,
-        final Group root,
         final ShopState shopState
     ) {
-        super(viewController, stage, scene, root);
+        super(viewController, stage, scene);
         this.shopState = shopState;
     }
 
     @Override
     public void render() {
         Platform.runLater(() -> {
-            root.getChildren().clear();
+            Group root = new Group();
             final GridPane pane = new GridPane();
             // party items on the left
             int count = 0;
@@ -54,6 +54,7 @@ public class JavaFxShopView extends AbstractJavaFxView implements GameViewShop {
                 count = count + 1;
             }
             // TODO
+
         });
     }
 

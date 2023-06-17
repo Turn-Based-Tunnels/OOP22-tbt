@@ -73,7 +73,7 @@ public class PauseMenuController implements ViewController {
 
     @Override
     public List<Command> getCommands() {
-        return null;
+        return this.commands;
     }
 
     @Override
