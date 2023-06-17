@@ -11,10 +11,10 @@ import java.awt.event.KeyEvent;
 
 public class FightControllerImpl implements FightController {
 
-    private FightState model;
-    private List<Command> commands = new ArrayList<>();
+    private final FightState model;
+    private final List<Command> commands = new ArrayList<>();
 
-    public FightControllerImpl(FightState model) {
+    public FightControllerImpl(final FightState model) {
         this.model = model;
         this.clean();
     }
@@ -24,13 +24,12 @@ public class FightControllerImpl implements FightController {
         return List.copyOf(commands);
     }
 
-    @Override
     public void clean() {
         commands.clear();
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(final int key) {
         switch (key) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:

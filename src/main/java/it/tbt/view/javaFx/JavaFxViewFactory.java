@@ -62,7 +62,6 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.show();
         });
 
-
         return new JavaFxMenuView(menuController, this.stage, scene, menuState);
     }
 
@@ -80,7 +79,7 @@ public class JavaFxViewFactory implements GameViewFactory {
     }
 
     @Override
-    public GameView createFight(ViewController fightController, FightState fightState) {
+    public GameView createFight(final ViewController fightController, final FightState fightState) {
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
         Platform.runLater(() -> {
@@ -109,7 +108,6 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.setScene(scene);
             stage.show();
         });
-
 
         return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
     }

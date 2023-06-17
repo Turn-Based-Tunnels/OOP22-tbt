@@ -22,21 +22,22 @@ public class JavaFxFightView extends AbstractJavaFxView {
     private FightController fightController;
     private FightState main;
 
-    public JavaFxFightView(Stage stage, Scene scene, ViewController fightController, FightState main) {
+    public JavaFxFightView(final Stage stage, final Scene scene, final ViewController fightController,
+            final FightState main) {
         super(fightController, stage, scene);
         this.fightController = (FightController) fightController;
         this.main = main;
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event) {
+            public void handle(final KeyEvent event) {
                 System.out.println("ff15" + event.getCode());
                 fightController.onKeyPressed(event.getCode().getCode());
             }
         });
     }
 
-    private void setSelectedLable(Label l1, Label l2, Label l3, Label l4) {
+    private void setSelectedLable(final Label l1, final Label l2, final Label l3, final Label l4) {
         switch (main.getSelectedTargetIndex()) {
             case 0:
                 l1.setTextFill(Color.web("#0000FF"));
@@ -47,13 +48,13 @@ public class JavaFxFightView extends AbstractJavaFxView {
             case 2:
                 l3.setTextFill(Color.web("#0000FF"));
                 break;
-            case 3:
+            default:
                 l4.setTextFill(Color.web("#0000FF"));
                 break;
         }
     }
 
-    private void setLableTextAlly(Label name, Label hp, int i) {
+    private void setLableTextAlly(final Label name, final Label hp, final int i) {
         if (main.getAllies().get(i).getMaxHealth() != 0) {
             if (main.getAllies().get(i) == main.getCurrentAlly()) {
                 name.setTextFill(Color.web("#A020F0"));
@@ -66,7 +67,7 @@ public class JavaFxFightView extends AbstractJavaFxView {
         }
     }
 
-    private void setLableTextEnemy(Label name, Label hp, int i) {
+    private void setLableTextEnemy(final Label name, final Label hp, final int i) {
         if (main.getEnemies().get(i).getMaxHealth() != 0) {
             name.setText(main.getEnemies().get(i).getName());
             hp.setText(main.getEnemies().get(i).getHealth() + "/" + main.getEnemies().get(i).getMaxHealth());
