@@ -19,7 +19,7 @@ public class MenuStateImpl implements MenuState{
     }
     @Override
     public void PreviousElement(){
-        menuModel.setFocus(Math.abs((menuModel.getFocus()-1)%menuModel.getItems().size()));
+        menuModel.setFocus((menuModel.getFocus()-1)<0?menuModel.getItems().size()-1: menuModel.getFocus()-1);
     }
 
     @Override

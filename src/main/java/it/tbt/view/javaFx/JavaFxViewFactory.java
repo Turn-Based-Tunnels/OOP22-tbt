@@ -7,11 +7,6 @@ import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.world.api.Room;
 import it.tbt.controller.modelmanager.shop.ShopStateImpl;
-import it.tbt.controller.viewcontrollermanager.api.ExploreController;
-import it.tbt.model.world.api.Room;
-import it.tbt.controller.viewcontrollermanager.api.FightController;
-import it.tbt.controller.viewcontrollermanager.impl.PauseMenuController;
-import it.tbt.engine.api.Game;
 import it.tbt.controller.viewcontrollermanager.impl.ShopController;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
@@ -103,11 +98,11 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.setScene(scene);
             stage.show();
         });
-        return new JavaFxShopView(shopControler, stage, scene, group, shopState);
+        return new JavaFxShopView(shopControler, stage, scene, shopState);
     }
 
     @Override
-    public GameView createInventory(ViewController inventoryControlloer, InventoryState inventoryState) {
+    public GameView createInventory(ViewController inventoryController, InventoryState inventoryState) {
         Group group = new Group();
         Scene scene = new Scene(group, 300, 300);
         Platform.runLater(() -> {
@@ -116,6 +111,6 @@ public class JavaFxViewFactory implements GameViewFactory {
         });
 
 
-        return new JavaFxInventoryView(inventoryController, this.stage, scene, group, inventoryState);
+        return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
     }
 }

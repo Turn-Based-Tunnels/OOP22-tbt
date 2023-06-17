@@ -12,17 +12,13 @@ import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.StateObserver;
 import javafx.util.Pair;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Party implementation.
  */
 public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, StateTrigger {
-    private final Set<Ally> members;
+    private List<Ally> members;
     private Room currentRoom;
     private int wallet;
     private final Inventory inventory;
@@ -46,7 +42,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
         final int height
     ) {
         super(name, x, y, width, height);
-        this.members = new HashSet<>();
+        this.members = new ArrayList<>();
         this.inventory = new Inventory();
     }
 
@@ -68,7 +64,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
         final Collection<Ally> c
     ) {
         super(name, x, y, width, height);
-        this.members = new HashSet<>(c);
+        this.members = new ArrayList<>(c);
         this.inventory = new Inventory();
     }
 
@@ -199,5 +195,10 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     @Override
     public void setDialogue(Pair<String, String> dialogue) {
         this.dialogue = dialogue;
+    }
+
+    @Override
+    public void setMembers(List<Ally> members) {
+        this.members = members;
     }
 }

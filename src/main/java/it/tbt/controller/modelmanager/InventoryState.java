@@ -14,7 +14,9 @@ public interface InventoryState extends ModelState {
     public void previousElement();
     public void nextElement();
     public  void performAction();
-    public void switchPhase();
+    public void nextPhase();
+    public int getPartySize();
+    public void previousPhase();
     public void switchToExplore();
     public int getItemSelected();
     public int getItemFocus();

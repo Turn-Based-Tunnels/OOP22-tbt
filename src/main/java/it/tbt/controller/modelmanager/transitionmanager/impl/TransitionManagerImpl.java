@@ -80,6 +80,10 @@ public final class TransitionManagerImpl implements TransitionManager {
             if (x instanceof StateTrigger) {
                 ((StateTrigger) x).setStateObserver(this);
             }
+        }for (var x : this.pauseMenu.getItems()) {
+            if (x instanceof StateTrigger) {
+                ((StateTrigger) x).setStateObserver(this);
+            }
         }
 
     }

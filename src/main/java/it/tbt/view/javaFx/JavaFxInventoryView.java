@@ -21,6 +21,7 @@ import java.util.Map;
 
 public class JavaFxInventoryView extends AbstractJavaFxView implements GameView {
 
+    private Scene scene;
     private ViewController inventoryController;
     private InventoryState inventoryState;
 
@@ -28,11 +29,11 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
      * @param inventoryController
      * @param stage
      * @param scene
-     * @param root
      * @param inventoryState
      **/
-    protected JavaFxInventoryView(ViewController inventoryController, Stage stage, Scene scene, Group root, InventoryState inventoryState) {
+    protected JavaFxInventoryView(ViewController inventoryController, Stage stage, Scene scene, InventoryState inventoryState) {
         super(inventoryController, stage, scene);
+        this.scene = scene;
         this.inventoryController = inventoryController;
         this.inventoryState = inventoryState;
 
@@ -72,6 +73,10 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
                 inventoryList.getChildren().add(label);
                 counter++;
             }
+            if(inventoryList.getChildren().size() == 0){
+                Label label = new Label("Inventario vuoto");
+                inventoryList.getChildren().add(label);
+            }
 
             // Create a label for the inventory title
             Label inventoryTitle = new Label("Inventory");
@@ -88,22 +93,25 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
             for (Ally ally:
                     this.inventoryState.getPartyMembers()) {
                 Label label = new Label(ally.getName());
-                if(inventoryState.getPhase() == InventoryPhase.INVENTORY && inventoryState.getItemSelected() != 1){
+                if(counter<this.inventoryState.getPartySize()){
+                    label.setStyle("-fx-border-color: red;");
+                }
+                if(inventoryState.getPhase() == InventoryPhase.INVENTORY && inventoryState.getItemSelected() != -1){
                     if(counter == inventoryState.getAllyFocused()){
-                        label.setStyle("-fx-background-color: yellow;");
+                        label.setStyle(label.getStyle()+"-fx-background-color: yellow;");
                     }
                 }
                 if(inventoryState.getPhase() == InventoryPhase.MEMBERS && inventoryState.getAllySelected() == -1){
                     if(counter == inventoryState.getAllyFocused()){
-                        label.setStyle("-fx-background-color: yellow;");
+                        label.setStyle(label.getStyle()+"-fx-background-color: yellow;");
                     }
                 }
                 if(inventoryState.getPhase() == InventoryPhase.MEMBERS && inventoryState.getAllySelected() != -1){
                     if(counter == inventoryState.getAllySelected()){
-                        label.setStyle("-fx-background-color: lightblue;");
+                        label.setStyle(label.getStyle()+"-fx-background-color: lightblue;");
                     }
                     if(counter == inventoryState.getAllyFocused()){
-                        label.setStyle("-fx-background-color: yellow;");
+                        label.setStyle(label.getStyle()+"-fx-background-color: yellow;");
                     }
                 }
                 partyList.getChildren().add(label);
@@ -125,6 +133,7 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
             pane.setRight(partyBox);
             pane.setStyle("-fx-background-color: #F5F5F5;"); // Set background color
             root.getChildren().add(pane);
+            scene.setRoot(root);
 
         });
     }

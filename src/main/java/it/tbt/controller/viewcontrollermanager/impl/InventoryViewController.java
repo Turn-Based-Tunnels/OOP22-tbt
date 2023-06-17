@@ -28,7 +28,7 @@ public class InventoryViewController implements ViewController {
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        inventoryState.nextElement();
+                        inventoryState.previousElement();
                     }
                 });
                 break;
@@ -37,7 +37,7 @@ public class InventoryViewController implements ViewController {
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        inventoryState.previousElement();
+                        inventoryState.nextElement();
                     }
                 });
                 break;
@@ -51,13 +51,19 @@ public class InventoryViewController implements ViewController {
                 });
                 break;
             case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_D:
+            case KeyEvent.VK_D: this.commands.add(new Command() {
+                @Override
+                public void execute() {
+                    inventoryState.nextPhase();
+                }
+            });
+                break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        inventoryState.switchPhase();
+                        inventoryState.previousPhase();
                     }
                 });
                 break;
