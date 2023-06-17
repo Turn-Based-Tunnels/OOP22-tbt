@@ -31,6 +31,14 @@ public class Inventory {
     }
 
     /**
+     * Create a new inventory based on the given map<Item, Integer>.
+     * @param newItems
+     */
+    public Inventory(final Map<Item, Integer> newItems) {
+        this.items = new HashMap<>(newItems);
+    }
+
+    /**
      * Get inventory contents as a list of items.
      * @return list of items in the inventory
      */

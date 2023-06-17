@@ -1,6 +1,8 @@
 package it.tbt.model.statechange;
 
 import it.tbt.model.fight.api.FightModel;
+import it.tbt.model.shop.Shop;
+
 /**
  * Interface implemented by the object who wants to be able to handle GameState transitions and define an appropriate response.
  */
@@ -25,4 +27,9 @@ public interface StateObserver {
 
     void onInventory();
 
+    /**
+     * Defines the action to be taken when the Shop GameState is to be triggered.
+     * @param shop
+     */
+    void onShop(Shop shop);
 }

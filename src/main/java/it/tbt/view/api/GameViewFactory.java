@@ -6,6 +6,7 @@ import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.MenuState;
+import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 
 /**
  * Interface for a Factory of GameViews. To be implemented with framework
@@ -34,6 +35,7 @@ public interface GameViewFactory {
      * @return the GameView for the Explore Game State
      */
     GameView createRoom(ViewController exploreController, ExploreState exploreState);
+    GameView createShop(ShopController shopControler, ShopStateImpl shopState);
 
     public GameView createFight(ViewController fightController, FightState fightState);
 
