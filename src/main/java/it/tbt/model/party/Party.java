@@ -107,6 +107,26 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
     }
 
     /**
+     * Add the given ally to the party.
+     * @param ally
+     * @return true if the ally has been added
+     */
+    @Override
+    public boolean addMember(final Ally ally) {
+        return members.add(ally);
+    }
+
+    /**
+     * Remove the given ally from the party.
+     * @param ally
+     * @return true if the ally has been removed
+     */
+    @Override
+    public boolean removeMember(final Ally ally) {
+        return members.remove(ally);
+    }
+
+    /**
      * Get the current amount of cash available to the party.
      * @return available cash
      */
