@@ -1,45 +1,28 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
-import it.tbt.control.input.api.InputListener;
-import it.tbt.controller.modelmanager.MenuStateImpl;
+import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class MainMenuController implements ViewController {
 
-    private List<Command> commands;
+    private List<Command> commands = new ArrayList<>();
 
-    private MenuStateImpl modelState;
+    private MenuState modelState;
 
 
-    public MainMenuController(final MenuStateImpl menuStateImpl){
+    public MainMenuController(final MenuState menuStateImpl){
         this.modelState = menuStateImpl;
         this.clean();
     }
-
-    /*@Override*/
-    public void addCommand(Command c) {
-        this.commands.add(c);
-    }
-
-    /*@Override*/
-    public List<Command> getCommands() {
-        return this.commands;
-    }
-
-    /*@Override*/
-    public void clean() {
-        this.commands = new LinkedList<>();
-    }
-
-
 
     @Override
     public void onKeyPressed(int key) {
@@ -92,5 +75,15 @@ public class MainMenuController implements ViewController {
                     break;
             }
 
+    }
+
+    @Override
+    public List<Command> getCommands() {
+        return this.commands;
+    }
+
+    @Override
+    public void clean() {
+        this.commands.clear();
     }
 }

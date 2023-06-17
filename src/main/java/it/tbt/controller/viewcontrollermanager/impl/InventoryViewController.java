@@ -1,25 +1,24 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
+import it.tbt.controller.modelmanager.InventoryState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class PauseMenuController implements ViewController {
+public class InventoryViewController implements ViewController {
 
-    private MenuState modelState;
-    private List<Command> commands = new ArrayList<>();
-
-    public PauseMenuController(final MenuState menuStateImpl){
-        this.modelState = menuStateImpl;
+    List<Command> commands = new ArrayList<>();
+    private InventoryState inventoryState;
+    public InventoryViewController(final InventoryState inventoryState){
+        this.inventoryState = inventoryState;
         this.clean();
     }
-
     @Override
     public void onKeyPressed(int key) {
         switch (key) {
@@ -29,7 +28,7 @@ public class PauseMenuController implements ViewController {
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        modelState.PreviousElement();
+                        inventoryState.nextElement();
                     }
                 });
                 break;
@@ -38,47 +37,46 @@ public class PauseMenuController implements ViewController {
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        modelState.NextElement();
+                        inventoryState.previousElement();
                     }
                 });
                 break;
             case KeyEvent.VK_ENTER:
             case KeyEvent.VK_SPACE:
-                if(modelState.getItems().get(modelState.getFocus()) instanceof MenuButton){
-                    this.commands.add((Command) ((MenuButton) modelState.getItems().get(modelState.getFocus())).getAction());
-                }
+                this.commands.add(new Command() {
+                    @Override
+                    public void execute() {
+                        inventoryState.performAction();
+                    }
+                });
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                if(modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>){
-                    this.commands.add((Command) ((MenuSelect) modelState.getItems().get(modelState.getFocus())).nextOption());
-                }
-                break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                if(modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>){
-                    this.commands.add((Command)((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
-                }
+                this.commands.add(new Command() {
+                    @Override
+                    public void execute() {
+                        inventoryState.switchPhase();
+                    }
+                });
                 break;
             case KeyEvent.VK_ESCAPE:
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        modelState.toExplore();
+                        inventoryState.switchToExplore();
                     }
                 });
                 break;
         }
-
     }
-
     @Override
     public List<Command> getCommands() {
-        return null;
+        return this.commands;
     }
-
     @Override
     public void clean() {
-        this.commands = new LinkedList<>();
+        this.commands.clear();
     }
 }

@@ -4,5 +4,6 @@ public enum GameState {
     EXPLORE,
     FIGHT,
     MENU,
-    PAUSE
+    PAUSE,
+    INVENTORY
 }

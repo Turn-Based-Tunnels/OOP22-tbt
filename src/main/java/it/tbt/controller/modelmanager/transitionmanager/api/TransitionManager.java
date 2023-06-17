@@ -34,4 +34,6 @@ public interface TransitionManager extends StateObserver {
      * Returns false otherwise.
      */
     public Boolean hasStateChanged();
+
+    void onInventory();
 }
