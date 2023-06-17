@@ -20,5 +20,10 @@ public enum GameState {
      * Pause GameState, the player can choose from different options.
      */
     PAUSE,
+    /**
+     * Shop GameState.
+     */
+    SHOP,
     INVENTORY
+
 }

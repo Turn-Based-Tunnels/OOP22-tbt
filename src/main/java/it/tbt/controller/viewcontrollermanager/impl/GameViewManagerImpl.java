@@ -5,6 +5,7 @@ import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.modelmanager.*;
+import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.model.command.api.Command;
@@ -66,6 +67,13 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     MainMenuController menuController = new MainMenuController(menuState);
                     var x = this.gameViewFactory.createMenu(menuController, menuState);
                     this.currentController = menuController;
+                    this.currentGameView = x;
+                }
+                case SHOP -> {
+                    final ShopStateImpl shopState = (ShopStateImpl) modelState;
+                    final ShopController shopControler = new ShopController(shopState);
+                    final GameView x = this.gameViewFactory.createShop(shopControler, shopState);
+                    this.currentController = shopControler;
                     this.currentGameView = x;
                 }
                 case PAUSE -> {

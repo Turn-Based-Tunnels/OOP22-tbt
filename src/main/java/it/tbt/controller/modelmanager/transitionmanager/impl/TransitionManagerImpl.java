@@ -5,13 +5,16 @@ import it.tbt.controller.modelmanager.FightStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.modelmanager.*;
+import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
 import it.tbt.model.GameState;
 import it.tbt.model.fight.api.FightModel;
+import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.npc.api.FightNPC;
 import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.PauseTrigger;
+import it.tbt.model.shop.Shop;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.api.World;
 
@@ -160,5 +163,12 @@ public final class TransitionManagerImpl implements TransitionManager {
         if(this.getCurrentModelState() instanceof StateTrigger){
             ((StateTrigger)this.getCurrentModelState()).setStateObserver(this);
         }
+    }
+
+    @Override
+    public void onShop(final Shop shop) {
+        stateChanged = true;
+        this.currentGameState = Optional.of(GameState.SHOP);
+        this.currentModelState = Optional.of(new ShopStateImpl(shop));
     }
 }
