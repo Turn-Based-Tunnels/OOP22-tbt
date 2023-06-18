@@ -9,7 +9,6 @@ import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,24 +17,35 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import java.util.*;
 
 
+/**
+ * The {@code JavaFxMenuView} class represents a JavaFX implementation of the menu view.
+ * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
+ */
 public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implements GameView {
 
-    private Scene scene;
-    private ViewController menuController;
-    private MenuState main;
+    private final Scene scene;
+    private final MenuState main;
 
+    /**
+     * Creates a new instance of {@code JavaFxMenuView} with the specified menu controller, stage, scene, and menu state.
+     *
+     * @param menuController the menu controller
+     * @param stage          the stage
+     * @param scene          the scene
+     * @param menuState      the menu state
+     */
     public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, MenuState menuState) {
-        super(menuController, stage, scene);
-        this.scene = scene;
-        this.menuController = menuController;
-        this.main = menuState;
+            super(menuController, stage, scene);
+            this.scene = scene;
+            this.main = menuState;
     }
 
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         Platform.runLater(() -> {

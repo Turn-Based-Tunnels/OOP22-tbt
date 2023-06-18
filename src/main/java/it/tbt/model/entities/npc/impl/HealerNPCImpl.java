@@ -5,32 +5,50 @@ import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.interaction.Interactable;
 
-import java.util.Map;
-
+/**
+ * The {@code HealerNPCImpl} class is an implementation of the {@link it.tbt.model.entities.npc.api.HealerNPC} interface.
+ * It extends the {@link AbstractNPCImpl} class and represents an NPC that can heal allies.
+ */
 public class HealerNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.HealerNPC, Interactable {
-    private int healAmount;
 
-    public HealerNPCImpl(String name, int x, int y ,int height, int width, int healAmount) {
+    private final int healAmount;
+
+    /**
+     * Constructs a new instance of the HealerNPCImpl class with the specified name, position, dimensions, and heal amount.
+     *
+     * @param name       the name of the healer NPC
+     * @param x          the X coordinate of the healer NPC's position
+     * @param y          the Y coordinate of the healer NPC's position
+     * @param height     the height of the healer NPC
+     * @param width      the width of the healer NPC
+     * @param healAmount the amount of healing provided by the NPC
+     */
+    public HealerNPCImpl(final String name, final int x, final int y, final int height, final int width, final int healAmount) {
         super(name, x, y, height, width);
         this.healAmount = healAmount;
     }
 
-    public  int getHealAmount(){
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHealAmount() {
         return healAmount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void onInteraction(SpatialEntity interactable) {
-        if(interactable instanceof IParty){
-            for (Ally a:((IParty)interactable).getMembers()
-                 ) {
-                if(a.getHealth()+this.getHealAmount() <= a.getMaxHealth()){
-                    a.setHealth(a.getHealth()+this.getHealAmount());
-                }else{
-                    a.setHealth(a.getMaxHealth());
+    public void onInteraction(final SpatialEntity interactable) {
+        if (interactable instanceof IParty) {
+            for (Ally ally : ((IParty) interactable).getMembers()) {
+                if (ally.getHealth() + this.getHealAmount() <= ally.getMaxHealth()) {
+                    ally.setHealth(ally.getHealth() + this.getHealAmount());
+                } else {
+                    ally.setHealth(ally.getMaxHealth());
                 }
             }
-
         }
     }
 }

@@ -1,34 +1,37 @@
 package it.tbt.model.menu.impl;
 
-import it.tbt.model.command.api.Command;
 import it.tbt.model.command.menu.ButtonCommand;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * The {@code MenuNewGameButton} class represents a menu button for starting a new game.
+ * It extends the {@link MenuButton} class and implements the {@link StateTrigger} interface.
+ */
 public class MenuNewGameButton extends MenuButton implements StateTrigger {
-    public MenuNewGameButton(String text) {
-        super(text);
-    }
-    @Override
-    public ButtonCommand getAction(){
-        return new ButtonCommand() {
-            @Override
-            public void execute() {
-                stateObserver.onExplore();
-            }
-        };
-    }
-
-    StateObserver stateObserver;
+    private StateObserver stateObserver;
 
     /**
-     * @param stateObserver
+     * Creates a new instance of {@code MenuNewGameButton} with the specified text.
+     *
+     * @param text the text of the button
+     */
+    public MenuNewGameButton(final String text) {
+        super(text);
+    }
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public void setStateObserver(StateObserver stateObserver) {
+    public ButtonCommand getAction(){
+        return () -> stateObserver.onExplore();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;
     }
 }

@@ -5,7 +5,7 @@ import it.tbt.controller.modelmanager.transitionmanager.impl.TransitionManagerIm
 import it.tbt.controller.modelmanager.updatemanager.api.UpdateManager;
 import it.tbt.controller.modelmanager.updatemanager.impl.UpdateManagerImpl;
 import it.tbt.model.GameState;
-import it.tbt.model.menu.impl.MenuModel;
+import it.tbt.model.menu.impl.MenuModelImpl;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.api.World;
 
@@ -23,8 +23,8 @@ public final class GameStateManager implements IGameStateManager {
      * @param mainMenu mainMenu object for the mainMenu state
      * @param pauseMenu pauseMenu object for the pause state
      */
-    public GameStateManager(final World world, final IParty party, final MenuModel mainMenu,
-            final MenuModel pauseMenu) {
+    public GameStateManager(final World world, final IParty party, final MenuModelImpl mainMenu,
+            final MenuModelImpl pauseMenu) {
         this.transitionManager = new TransitionManagerImpl(world, party, mainMenu, pauseMenu);
         this.updateManager = new UpdateManagerImpl();
         this.transitionManager.init();

@@ -36,11 +36,6 @@ public class JavaFxViewFactory implements GameViewFactory {
                 System.exit(0);
             }
         });
-        stage.setMinHeight(HEIGHT_WINDOW);
-        stage.setMinWidth(WIDTH_WINDOW);
-        stage.setMaxHeight(HEIGHT_WINDOW);
-        stage.setMaxWidth(WIDTH_WINDOW);
-        stage.setResizable(false);
     }
 
     /**
@@ -72,7 +67,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createRoom(final ViewController exploreController, final ExploreState exploreState) {
-        Scene scene = new Scene(new Group(), WIDTH_WINDOW , HEIGHT_WINDOW);
+        Scene scene = new Scene(new Group(), Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();

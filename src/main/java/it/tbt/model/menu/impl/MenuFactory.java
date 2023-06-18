@@ -4,19 +4,41 @@ import it.tbt.model.menu.api.MenuItem;
 
 import java.util.*;
 
+/**
+ * The {@code MenuFactory} class provides factory methods to create different menus.
+ */
 public class MenuFactory {
-    public static MenuModel getMainMenu(){
-        List<MenuItem> test = new ArrayList<>();
 
-        test.addAll(Arrays.asList(new it.tbt.model.menu.impl.MenuNewGameButton("New Game"), new it.tbt.model.menu.impl.MenuQuitGameButton("Exit")));
-
-        return  new MenuModel("Main Menu",test);
-    }
-    public static MenuModel getPauseMenu(){
-        List<MenuItem> test = new ArrayList<>();
-        test.addAll(Arrays.asList(new it.tbt.model.menu.impl.MenuNewGameButton("Continue"), new MenuQuitToTitleButton("Quit to Title Screen"),new it.tbt.model.menu.impl.MenuQuitGameButton("Exit To Desktop")));
-
-        return  new MenuModel("Pause",test);
+    private MenuFactory() {
+        // Private constructor to prevent instantiation
     }
 
+    /**
+     * Creates and returns the main menu.
+     *
+     * @return the main menu
+     */
+    public static MenuModelImpl getMainMenu() {
+        final List<MenuItem> items = new ArrayList<>();
+
+        items.addAll(Arrays.asList(new MenuNewGameButton("New Game"),
+                new MenuQuitGameButton("Exit")));
+
+        return new MenuModelImpl ("Main Menu", items);
+    }
+
+    /**
+     * Creates and returns the pause menu.
+     *
+     * @return the pause menu
+     */
+    public static MenuModelImpl getPauseMenu() {
+        final List<MenuItem> items = new ArrayList<>();
+
+        items.addAll(Arrays.asList(new MenuNewGameButton("Continue"),
+                new MenuQuitToTitleButton("Quit to Title Screen"),
+                new MenuQuitGameButton("Exit To Desktop")));
+
+        return new MenuModelImpl ("Pause", items);
+    }
 }

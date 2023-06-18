@@ -4,14 +4,44 @@ import it.tbt.model.menu.api.MenuItem;
 
 import java.util.List;
 
-public interface MenuState extends ModelState{
-    public void NextElement();
-    public void PreviousElement();
+/**
+ * The {@code MenuState} interface represents the state of a menu in the application's controller.
+ * It provides methods to navigate through the menu options and trigger actions.
+ */
+public interface MenuState extends ModelState {
+    /**
+     * Moves the focus to the next menu item.
+     */
+    void NextElement();
 
-    public List<MenuItem> getItems();
+    /**
+     * Moves the focus to the previous menu item.
+     */
+    void PreviousElement();
 
-    public int getFocus();
+    /**
+     * Returns the list of menu items.
+     *
+     * @return the list of menu items
+     */
+    List<MenuItem> getItems();
 
-    public void toExplore();
-    public String getTitle();
+    /**
+     * Returns the index of the currently focused menu item.
+     *
+     * @return the index of the focused menu item
+     */
+    int getFocus();
+
+    /**
+     * Triggers the action associated with the selected menu item.
+     */
+    void triggerExplore();
+
+    /**
+     * Returns the title of the menu.
+     *
+     * @return the title of the menu
+     */
+    String getTitle();
 }
