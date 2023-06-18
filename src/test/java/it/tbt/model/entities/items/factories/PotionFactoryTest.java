@@ -25,8 +25,6 @@ class PotionFactoryTest {
         for (final Potion potion : factory1.getItems()) {
             logger.info(
                 potion.toString()
-                + ", Name: " + potion.getName()
-                + ", Heal Power: " + potion.getHealPower()
                 + ", Value: " + potion.getValue()
             );
         }

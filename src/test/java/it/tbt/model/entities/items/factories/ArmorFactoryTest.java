@@ -25,8 +25,6 @@ class ArmorFactoryTest {
         for (final Armor armor : factory1.getItems()) {
             logger.info(
                 armor.toString()
-                + ", Name: " + armor.getName()
-                + ", Defence: " + armor.getDefence()
                 + ", Value: " + armor.getValue()
             );
         }

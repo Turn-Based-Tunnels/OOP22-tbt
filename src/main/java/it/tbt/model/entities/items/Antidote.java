@@ -12,4 +12,12 @@ public class Antidote extends ItemImpl implements Consumable {
     public Antidote(final int value) {
         super("Antidote", value);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

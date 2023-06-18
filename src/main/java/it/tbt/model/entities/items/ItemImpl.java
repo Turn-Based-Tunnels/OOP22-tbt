@@ -26,4 +26,12 @@ class ItemImpl extends EntityImpl implements Item {
     public final int getValue() {
         return value;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "Item: " + getName();
+    }
 }
