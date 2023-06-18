@@ -26,7 +26,7 @@ public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrig
     }
 
     @Override
-    public Object getFightModel() {
+    public FightModel getFightModel() {
         return fightModel;
     }
 

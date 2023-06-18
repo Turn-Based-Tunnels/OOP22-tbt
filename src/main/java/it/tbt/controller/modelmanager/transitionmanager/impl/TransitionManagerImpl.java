@@ -71,6 +71,12 @@ public final class TransitionManagerImpl implements TransitionManager {
             for (var y : x.getEntities()) {
                 if (y instanceof StateTrigger) {
                     ((StateTrigger) y).setStateObserver(this);
+                    if (y instanceof FightNPC) {
+                        if (((FightNPC) y).getFightModel() instanceof StateTrigger) {
+                            ((StateTrigger) ((FightNPC) y).getFightModel()).setStateObserver(this);
+                        }
+
+                    }
                 }
             }
         }
