@@ -1,6 +1,7 @@
 package it.tbt.view.javaFx;
 
 import it.tbt.commons.customtypes.ItemPair;
+import it.tbt.commons.resourceloader.ImageLoader;
 import it.tbt.controller.modelmanager.InventoryPhase;
 import it.tbt.controller.modelmanager.InventoryState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
@@ -12,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -23,9 +25,10 @@ import java.util.Map;
  */
 public class JavaFxInventoryView extends AbstractJavaFxView implements GameView {
 
+    private static final double BORDER_SCALE = 25;
     private final Scene scene;
     private final InventoryState inventoryState;
-
+    private final Background bg;
     /**
      * Creates a new instance of {@code JavaFxInventoryView} with the specified inventory controller, stage, scene, and inventory state.
      *
@@ -38,7 +41,13 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
         super(inventoryController, stage, scene);
         this.scene = scene;
         this.inventoryState = inventoryState;
-
+        this.bg = new Background(
+                new BackgroundImage (
+                        new Image (ImageLoader.getInstance().getFilePath(inventoryState.getClass())),
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        new BackgroundSize(1.0, 1.0, true, true, false, false)));
     }
     /**
      * {@inheritDoc}
@@ -146,12 +155,18 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
             column2.setPercentWidth(33.33);
             column3.setPercentWidth(33.33);
             pane.getColumnConstraints().addAll(column1, column2, column3);
+            inventoryBox.setStyle ("-fx-background-color: white;");
+            memberBox.setStyle ("-fx-background-color: white;");
+            partyBox.setStyle ("-fx-background-color: white;");
             pane.add(inventoryBox, 0, 0);
             pane.add(partyBox, 1, 0);
             pane.add(memberBox, 2,0);
-            pane.setStyle("-fx-background-color: #F5F5F5;"); // Set background color
+            pane.setStyle("-fx-background-color: transparent;"); // Set background color
+            root.setBackground (this.bg);
+            pane.setMaxHeight(this.scene.getHeight() - (this.scene.getHeight() / JavaFxInventoryView.BORDER_SCALE));
+            pane.setMaxWidth(this.scene.getWidth() - (this.scene.getWidth() / JavaFxInventoryView.BORDER_SCALE));
             root.getChildren().add(pane);
-            root.setAlignment (Pos.TOP_CENTER);
+            root.setAlignment (Pos.CENTER);
             scene.setRoot(root);
 
         });

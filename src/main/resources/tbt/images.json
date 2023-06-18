@@ -18,5 +18,17 @@
   {
     "imagePath": "./tbt/shopping-cart.png",
     "objectClass": "it.tbt.model.entities.npc.impl.ShopNPCImpl"
+  },
+  {
+    "imagePath": "./tbt/menuBackground.png",
+    "objectClass": "it.tbt.controller.modelmanager.MenuStateImpl"
+  } ,
+  {
+    "imagePath": "./tbt/menuBackground.png",
+    "objectClass": "it.tbt.controller.modelmanager.InventoryStateImpl"
+  },
+  {
+    "imagePath": "./tbt/bricks.png",
+    "objectClass": "it.tbt.controller.modelmanager.ExploreStateImpl"
   }
 ]

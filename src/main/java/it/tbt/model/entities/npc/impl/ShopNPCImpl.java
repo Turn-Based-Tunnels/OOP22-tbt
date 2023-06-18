@@ -45,6 +45,7 @@ public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
     @Override
     public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
+            this.shop.setParty ((IParty) interactable);
             this.stateObserver.onShop(shop);
         }
     }
