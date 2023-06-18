@@ -4,18 +4,51 @@ import it.tbt.model.command.menu.ButtonCommand;
 
 import java.util.Map;
 
-public interface MenuSelect <I>{
+/**
+ * The {@code MenuSelect} interface represents a selectable menu with multiple options.
+ *
+ * @param <I> the type of the options in the menu
+ */
+public interface MenuSelect<I> {
+    /**
+     * Returns a map of options in the menu, where each option is associated with a unique key.
+     *
+     * @return a map of options in the menu
+     */
+    Map<String, I> getOptions();
 
-    public Map<String, I> getOptions();
-    public String getLabel();
+    /**
+     * Returns the label of the menu select.
+     *
+     * @return the label of the menu select
+     */
+    String getLabel();
 
-    public ButtonCommand nextOption();
+    /**
+     * Returns the button command to select the next option in the menu.
+     *
+     * @return the button command to select the next option
+     */
+    ButtonCommand nextOption();
 
-    public ButtonCommand previousOption();
+    /**
+     * Returns the button command to select the previous option in the menu.
+     *
+     * @return the button command to select the previous option
+     */
+    ButtonCommand previousOption();
 
-    public  void setSelectedOptionIndex(String key);
+    /**
+     * Sets the selected option index in the menu.
+     *
+     * @param key the key of the selected option
+     */
+    void setSelectedOptionIndex(String key);
 
-    public String getSelectedOptionIndex();
-
-
+    /**
+     * Returns the key of the currently selected option in the menu.
+     *
+     * @return the key of the selected option
+     */
+    String getSelectedOptionIndex();
 }

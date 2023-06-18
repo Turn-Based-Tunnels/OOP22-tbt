@@ -1,34 +1,46 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.controller.modelmanager.EndState;
-import it.tbt.controller.modelmanager.ModelState;
-import it.tbt.controller.modelmanager.shop.ShopState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code EndViewController} class represents the view controller for the end state.
+ * It handles user input and triggers actions associated with the end state.
+ */
 public class EndViewController implements ViewController {
 
-    private List<Command> commands;
+    private final List<Command> commands;
     private final EndState endState;
-
-    public EndViewController(EndState endState){
+    /**
+     * Constructs a new {@code EndViewController} with the specified end state.
+     *
+     * @param endState the end state
+     */
+    public EndViewController(final EndState endState){
        this.endState=endState;
        commands = new ArrayList<> ();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void onKeyPressed (int key) {
-        endState.toMainMenu ();
+    public void onKeyPressed (final int key) {
+        endState.triggerMainMenu ();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Command> getCommands () {
         return this.commands;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clean () {
         commands.clear ();

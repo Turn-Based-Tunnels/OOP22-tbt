@@ -10,9 +10,8 @@ import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
 import it.tbt.model.GameState;
 import it.tbt.model.entities.npc.api.ShopNPC;
 import it.tbt.model.fight.api.FightModel;
-import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.npc.api.FightNPC;
-import it.tbt.model.menu.impl.MenuModel;
+import it.tbt.model.menu.impl.MenuModelImpl;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.InventoryTrigger;
 import it.tbt.model.statechange.PauseTrigger;
@@ -31,8 +30,8 @@ public final class TransitionManagerImpl implements TransitionManager {
     private Optional<GameState> currentGameState;
     private World world;
     private IParty party;
-    private MenuModel mainMenu;
-    private MenuModel pauseMenu;
+    private MenuModelImpl mainMenu;
+    private MenuModelImpl pauseMenu;
     private Optional<ModelState> currentModelState;
     private Boolean stateChanged = false;
 
@@ -42,8 +41,8 @@ public final class TransitionManagerImpl implements TransitionManager {
      * @param mainMenu
      * @param pauseMenu
      */
-    public TransitionManagerImpl (final World world, final IParty party, final MenuModel mainMenu,
-                                  final MenuModel pauseMenu) {
+    public TransitionManagerImpl (final World world, final IParty party, final MenuModelImpl mainMenu,
+                                  final MenuModelImpl pauseMenu) {
         this.world = world;
         this.party = party;
         this.mainMenu = mainMenu;

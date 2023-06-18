@@ -1,44 +1,70 @@
 package it.tbt.controller.modelmanager;
 
-import it.tbt.model.menu.impl.MenuItem;
-import it.tbt.model.menu.impl.MenuModel;
+import it.tbt.model.menu.impl.MenuModelImpl;
 
 import java.util.List;
 
-public class MenuStateImpl implements MenuState{
+/**
+ * The {@code MenuStateImpl} class represents the implementation of the {@link MenuState} interface.
+ * It manages the state of a menu in the application's controller.
+ */
+public class MenuStateImpl implements MenuState {
+    private final MenuModelImpl menuModel;
 
-    private MenuModel menuModel;
-
-    public MenuStateImpl(final MenuModel menu){
+    /**
+     * Constructs a new {@code MenuStateImpl} with the specified menu model.
+     *
+     * @param menu the menu model
+     */
+    public MenuStateImpl(final MenuModelImpl menu) {
         this.menuModel = menu;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void NextElement(){
-        menuModel.setFocus((menuModel.getFocus()+1)%menuModel.getItems().size() );
-    }
-    @Override
-    public void PreviousElement(){
-        menuModel.setFocus((menuModel.getFocus()-1)<0?menuModel.getItems().size()-1: menuModel.getFocus()-1);
+    public void NextElement() {
+        menuModel.setFocus((menuModel.getFocus() + 1) % menuModel.getItems().size());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<it.tbt.model.menu.api.MenuItem> getItems(){
+    public void PreviousElement() {
+        menuModel.setFocus((menuModel.getFocus() - 1) < 0 ? menuModel.getItems().size() - 1 : menuModel.getFocus() - 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<it.tbt.model.menu.api.MenuItem> getItems() {
         return menuModel.getItems();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getFocus(){
+    public int getFocus() {
         return menuModel.getFocus();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void toExplore() {
+    public void triggerExplore() {
         menuModel.toExplore();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getTitle () {
-        return menuModel.getTitle ();
+    public String getTitle() {
+        return menuModel.getTitle();
     }
 }

@@ -1,27 +1,51 @@
 package it.tbt.controller.modelmanager;
 
-import it.tbt.controller.modelmanager.EndState;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
+/**
+ * The {@code EndStateImpl} class represents an implementation of the {@link EndState} interface
+ * and also implements the {@link StateTrigger} interface.
+ * <p>
+ * This class provides functionality for an end state in the application's controller.
+ * It holds a message associated with the end state and allows triggering the main menu.
+ * </p>
+ */
 public class EndStateImpl implements EndState, StateTrigger {
-    private String message;
+
+    private final String message;
     private StateObserver stateObserver;
-    public EndStateImpl(String message){
-        this.message=message;
+
+    /**
+     * Creates a new {@code EndStateImpl} object with the specified message.
+     *
+     * @param message The message associated with the end state.
+     */
+    public EndStateImpl(final String message) {
+        this.message = message;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setStateObserver (StateObserver stateObserver) {
-        this.stateObserver=stateObserver;
+    public void setStateObserver(final StateObserver stateObserver) {
+        this.stateObserver = stateObserver;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void toMainMenu(){
-        stateObserver.onMenu ();
+    public void triggerMainMenu() {
+        stateObserver.onMenu();
     }
 }

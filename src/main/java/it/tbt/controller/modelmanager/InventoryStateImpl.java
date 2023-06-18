@@ -14,21 +14,33 @@ import java.util.Map;
 
 import static it.tbt.model.party.IParty.PARTY_SIZE;
 
+/**
+ * The {@code InventoryStateImpl} class represents the implementation of the {@link InventoryState} interface.
+ * It manages the state of the inventory in the application's controller.
+ * <p>
+ * This class provides methods to access information about party members, inventory phase, inventory items,
+ * and perform actions related to the inventory state.
+ * </p>
+ */
 public class InventoryStateImpl implements InventoryState, StateTrigger {
     private static final int NOT_SELECTED = -1;
-    private IParty party;
+    final private IParty party;
     private InventoryPhase phase;
-    private boolean itemLocked;
-    private int inventoryCounter;
+    final private boolean itemLocked;
     private int membersCounter;
     private int memberSelected;
     private int itemCounter;
     private int itemSelected;
     private StateObserver stateObserver;
-    public InventoryStateImpl(IParty party){
+    /**
+     * Constructs a new {@code InventoryStateImpl} with the given party.
+     *
+     * @param party The party associated with the inventory state.
+     */
+    public InventoryStateImpl( final IParty party){
         this.party = party;
         this.phase = InventoryPhase.INVENTORY;
-        itemLocked = false;
+
         itemCounter=0;
         membersCounter=0;
         itemSelected=NOT_SELECTED;
@@ -36,23 +48,34 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
         if(party.getInventory().size() == 0){
             this.phase = InventoryPhase.MEMBERS;
             itemLocked=true;
+        }else {
+            itemLocked=false;
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Ally> getPartyMembers() {
         return this.party.getMembers();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InventoryPhase getPhase() {
         return phase;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Item, Integer> getInventory() {
         return this.party.getInventory();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void previousElement() {
         switch (this.getPhase()){
@@ -64,13 +87,13 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                     this.membersCounter = (this.membersCounter-1)<0?this.party.getMembers().size()-1:this.membersCounter-1;
                 }
             }
-            case MEMBERS -> {
-                this.membersCounter = (this.membersCounter-1)<0?this.party.getMembers().size()-1:this.membersCounter-1;
-            }
+            case MEMBERS -> this.membersCounter = (this.membersCounter-1)<0?this.party.getMembers().size()-1:this.membersCounter-1;
         }
 
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextElement() {
         switch (this.getPhase()){
@@ -82,13 +105,12 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                 }
 
             }
-            case MEMBERS -> {
-                this.membersCounter = (this.membersCounter+1)%this.getPartyMembers().size();
-
-            }
+            case MEMBERS -> this.membersCounter = (this.membersCounter+1)%this.getPartyMembers().size();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void performAction() {
         switch (this.getPhase()){
@@ -96,22 +118,19 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                 if(this.itemSelected == NOT_SELECTED){
                     this.itemSelected = this.itemCounter;
                 }else{
-                    List<Item> items = new ArrayList<>(this.getInventory().keySet());
+                    final List<Item> items = new ArrayList<>(this.getInventory().keySet());
                     if(items.get(this.itemSelected) instanceof Consumable){
-                        if(items.get(this.itemSelected) instanceof Potion){
-                            if(this.getPartyMembers().get(this.membersCounter).getMaxHealth() != this.getPartyMembers().get(this.membersCounter).getHealth()){
-                                this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getHealth()+((Potion)items.get(this.itemSelected)).getHealPower());
-                                if(this.getPartyMembers().get(this.membersCounter).getHealth() > this.getPartyMembers().get(this.membersCounter).getMaxHealth()){
-                                    this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getMaxHealth());
-                                }
-                                party.removeItemFromInventory(items.get(this.itemSelected));
+                        if((items.get(this.itemSelected) instanceof Potion) &&
+                            (this.getPartyMembers().get(this.membersCounter).getMaxHealth() != this.getPartyMembers().get(this.membersCounter).getHealth())){
+                            this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getHealth()+((Potion)items.get(this.itemSelected)).getHealPower());
+                            if(this.getPartyMembers().get(this.membersCounter).getHealth() > this.getPartyMembers().get(this.membersCounter).getMaxHealth()){
+                                this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getMaxHealth());
                             }
-
-
-                        }if(items.get(this.itemSelected) instanceof Antidote){
-                            if(this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED)){
-                                party.removeItemFromInventory(items.get(this.itemSelected));
-                            }
+                            party.removeItemFromInventory(items.get(this.itemSelected));
+                        }
+                        if((items.get(this.itemSelected) instanceof Antidote) &&
+                            (this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED))){
+                            party.removeItemFromInventory(items.get(this.itemSelected));
 
                         }
                     }
@@ -127,7 +146,8 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                                 party.addItemToInventory(old);
                             }
 
-                        }if(items.get(this.itemSelected) instanceof Weapon){
+                        }
+                        if(items.get(this.itemSelected) instanceof Weapon){
                             Weapon old = null;
                             if(this.getPartyMembers().get(this.membersCounter).getWeapon().isPresent()){
                                 old = this.getPartyMembers().get(this.membersCounter).getWeapon().get();
@@ -150,7 +170,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                     this.memberSelected = this.membersCounter;
                 }else{
                     if(this.memberSelected != this.membersCounter){
-                        ArrayList<Ally> temp = new ArrayList<>(this.getPartyMembers());
+                        final ArrayList<Ally> temp = new ArrayList<>(this.getPartyMembers());
                         Collections.swap(temp, this.membersCounter, this.memberSelected);
                         this.party.setMembers(temp);
 
@@ -161,6 +181,9 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
             }
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextPhase(){
         if(this.itemSelected == NOT_SELECTED && this.memberSelected==NOT_SELECTED){
@@ -171,12 +194,16 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
         }
 
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPartySize() {
         return PARTY_SIZE;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void previousPhase(){
         if(this.itemSelected == NOT_SELECTED && this.memberSelected==NOT_SELECTED){
@@ -187,35 +214,47 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
         }
 
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void switchToExplore() {
         this.stateObserver.onExplore();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemSelected() {
         return this.itemSelected;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemFocus() {
         return this.itemCounter;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getAllySelected() {
         return this.memberSelected;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getAllyFocused() {
         return this.membersCounter;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setStateObserver(StateObserver stateObserver) {
+    public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;
     }
 }

@@ -2,9 +2,7 @@ package it.tbt.view.javaFx;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.view.api.AbstractGameView;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -15,10 +13,8 @@ import javafx.stage.Stage;
  */
 
 public abstract class AbstractJavaFxView extends AbstractGameView {
-    private Stage stage;
+    private final Stage stage;
     private Scene scene;
-    public static final int WIDTH_WINDOW = 800;
-    public static final int HEIGHT_WINDOW = 600;
 
     /**
      * @param viewController

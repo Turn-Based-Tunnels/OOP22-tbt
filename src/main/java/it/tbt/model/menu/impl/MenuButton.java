@@ -1,27 +1,17 @@
 package it.tbt.model.menu.impl;
 
-import it.tbt.model.command.menu.ButtonCommand;
-
-import static java.awt.event.KeyEvent.*;
-
+/**
+ * The {@code MenuButton} class represents a button in a menu.
+ * It extends the {@link MenuItem} class and implements the {@link it.tbt.model.menu.api.MenuButton} interface.
+ */
 public abstract class MenuButton extends MenuItem implements it.tbt.model.menu.api.MenuButton {
 
-
-
-    public MenuButton(String text) {
+    /**
+     * Constructs a {@code MenuButton} with the specified text.
+     *
+     * @param text the text of the menu button
+     */
+    public MenuButton(final String text) {
         super(text);
     }
-
-    @Override
-    public ButtonCommand getAction() {
-        return new ButtonCommand() {
-            @Override
-            public void execute() {
-
-            }
-        };
-    }
-
-
-
 }
