@@ -20,6 +20,10 @@ public class ShopItem {
         this.value = value;
     }
 
+    /**
+     * Create a new item based on an existing item.
+     * @param item
+     */
     public ShopItem(final ShopItem item) {
         this.name = item.getName();
         this.count = 1;
@@ -27,6 +31,7 @@ public class ShopItem {
     }
 
     /**
+     * Get the item name.
      * @return the name
      */
     public String getName() {
@@ -34,27 +39,29 @@ public class ShopItem {
     }
 
     /**
-     * @return the count
+     * Get how many items of this type there are.
+     * @return item count
      */
     public int getCount() {
         return count;
     }
 
     /**
-     * increase counter;
+     * Increase counter.
      */
     public void incCount() {
-        count = count + 1;
+        count++;
     }
 
     /**
-     * decrease counter;
+     * Decrease counter.
      */
     public void decCount() {
-        count = count - 1;
+        count--;
     }
 
     /**
+     * Get the item value.
      * @return the value
      */
     public int getValue() {
