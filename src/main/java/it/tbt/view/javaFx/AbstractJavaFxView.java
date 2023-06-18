@@ -2,7 +2,9 @@ package it.tbt.view.javaFx;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.view.api.AbstractGameView;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -25,6 +27,9 @@ public abstract class AbstractJavaFxView extends AbstractGameView {
         super(viewController);
         this.stage = stage;
         this.scene = scene;
+        stage.setResizable (false);
+
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {

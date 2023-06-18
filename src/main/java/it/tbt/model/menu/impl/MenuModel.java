@@ -6,6 +6,7 @@ import it.tbt.model.statechange.StateTrigger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import static java.awt.event.KeyEvent.*;
@@ -13,11 +14,16 @@ import static java.awt.event.KeyEvent.*;
 public class MenuModel implements StateTrigger {
     private List<MenuItem> items;
     private StateObserver stateObserver;
+    private String title;
     private int focus = 0;
-    public MenuModel(List<it.tbt.model.menu.api.MenuItem> items) {
+    public MenuModel(String title,List<it.tbt.model.menu.api.MenuItem> items) {
         this.items = new ArrayList<>();
         this.items.addAll(items);
+        this.title  =title;
+    }
 
+    public String  getTitle(){
+        return this.title;
     }
 
     public int getFocus(){

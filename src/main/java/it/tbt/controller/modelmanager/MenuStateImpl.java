@@ -36,4 +36,9 @@ public class MenuStateImpl implements MenuState{
     public void toExplore() {
         menuModel.toExplore();
     }
+
+    @Override
+    public String getTitle () {
+        return menuModel.getTitle ();
+    }
 }
