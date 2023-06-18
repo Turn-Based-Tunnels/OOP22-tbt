@@ -24,4 +24,12 @@ public class Armor extends ItemImpl implements Equipement {
     public final int getDefence() {
         return defence;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return getName() + " - Defence: " + defence;
+    }
 }

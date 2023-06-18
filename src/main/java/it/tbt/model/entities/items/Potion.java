@@ -24,4 +24,12 @@ public class Potion extends ItemImpl implements Consumable {
     public int getHealPower() {
         return healPower;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return getName() + " - Heal: " + healPower;
+    }
 }

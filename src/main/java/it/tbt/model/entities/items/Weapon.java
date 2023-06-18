@@ -24,4 +24,12 @@ public class Weapon extends ItemImpl implements Equipement {
     public final int getAttack() {
         return attack;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return getName() + " - Attack: " + attack;
+    }
 }
