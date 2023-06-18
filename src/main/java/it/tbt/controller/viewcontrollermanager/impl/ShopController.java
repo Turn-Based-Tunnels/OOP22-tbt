@@ -21,7 +21,7 @@ public class ShopController implements ViewController {
      */
     public ShopController(final ShopState shopState) {
         this.shopState = shopState;
-        clean();
+        commands = new LinkedList<>();
     }
 
     /**
@@ -72,7 +72,7 @@ public class ShopController implements ViewController {
                 this.commands.add(new Command() {
                     @Override
                     public void execute() {
-                        shopState.toExplore();
+                        shopState.goToExplore();
                     }
                 });
                 break;

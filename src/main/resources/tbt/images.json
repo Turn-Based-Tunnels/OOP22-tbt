@@ -14,5 +14,9 @@
   {
     "imagePath": "./tbt/luigi.png",
     "objectClass": "it.tbt.model.entities.npc.impl.FightNPCImpl"
+  },
+  {
+    "imagePath": "./tbt/shopping-cart.png",
+    "objectClass": "it.tbt.model.entities.npc.impl.ShopNPCImpl"
   }
 ]

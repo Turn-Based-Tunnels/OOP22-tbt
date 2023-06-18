@@ -15,7 +15,7 @@ import it.tbt.model.statechange.StateTrigger;
  */
 public class Shop implements StateTrigger {
     private StateObserver stateObserver;
-    private final IParty party;
+    private IParty party;
     private final Inventory shopInventory;
     private int wallet;
 
@@ -29,6 +29,16 @@ public class Shop implements StateTrigger {
         this.party = party;
         this.shopInventory = new Inventory(shopItems);
         this.wallet = wallet;
+    }
+
+    /**
+     * Alternative party-less constructor.
+     * The party must be initialized later.
+     * @param shopItems
+     * @param wallet
+     */
+    public Shop(final Map<Item, Integer> shopItems, final int wallet) {
+        this(null, shopItems, wallet);
     }
 
     /**
@@ -49,7 +59,7 @@ public class Shop implements StateTrigger {
     /**
      * Go back to the explore state.
      */
-    public void toExplore(){
+    public void goToExplore() {
         this.stateObserver.onExplore();
     }
 
@@ -58,6 +68,9 @@ public class Shop implements StateTrigger {
      * @return the party items
      */
     public Map<Item, Integer> getPartyItems() {
+        if (party == null) {
+            throw new IllegalStateException("The shop does not have a reference to the party");
+        }
         return party.getInventory();
     }
 
@@ -75,6 +88,9 @@ public class Shop implements StateTrigger {
      * @return true if the transaction fails
      */
     public boolean sell(final String name) {
+        if (party == null) {
+            throw new IllegalStateException("The shop does not have a reference to the party");
+        }
         final Optional<Item> optItem = mapContainsItem(name, shopInventory.getItems());
         if (!optItem.isEmpty()) {
             final Item item = optItem.get();
@@ -98,9 +114,12 @@ public class Shop implements StateTrigger {
      * @return true if the fransaction fails
      */
     public boolean buy(final String name) {
-        Optional<Item> optItem = mapContainsItem(name, party.getInventory());
+        if (party == null) {
+            throw new IllegalStateException("The shop does not have a reference to the party");
+        }
+        final Optional<Item> optItem = mapContainsItem(name, party.getInventory());
         if (!optItem.isEmpty()) {
-            Item item = optItem.get();
+            final Item item = optItem.get();
             // check shop wallet and move item
             if (wallet - item.getValue() > 0 && party.removeItemFromInventory(item)) {
                 shopInventory.addItem(item);
@@ -115,10 +134,37 @@ public class Shop implements StateTrigger {
     }
 
     /**
+     * Get party's wallet.
+     * @return party's wallet
+     */
+    public int getPartyWallet() {
+        if (party == null) {
+            throw new IllegalStateException("The shop does not have a reference to the party");
+        }
+        return party.getWallet();
+    }
+
+    /**
+     * Get party's wallet.
+     * @return party's wallet
+     */
+    public int getShopWallet() {
+        return wallet;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;
+    }
+
+    /**
+     * Initialize party reference.
+     * @param party
+     */
+    public void setParty(final IParty party) {
+        this.party = party;
     }
 }

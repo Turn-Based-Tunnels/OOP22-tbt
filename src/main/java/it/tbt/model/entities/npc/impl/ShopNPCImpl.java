@@ -8,7 +8,6 @@ import it.tbt.model.statechange.StateTrigger;
 
 public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.ShopNPC, StateTrigger {
     private Shop shop;
-    private AbstractNPCImpl npc;
 
     private StateObserver stateObserver;
 
@@ -24,7 +23,8 @@ public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
     @Override
     public void onInteraction (SpatialEntity interactable) {
         if (interactable instanceof IParty) {
-            this.stateObserver.onShop (shop);
+            shop.setParty((IParty) interactable);
+            this.stateObserver.onShop(shop);
         }
     }
 
