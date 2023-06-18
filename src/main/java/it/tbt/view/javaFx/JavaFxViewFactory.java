@@ -67,7 +67,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createRoom(final ViewController exploreController, final ExploreState exploreState) {
-        Scene scene = new Scene(new Group(), Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        Scene scene = new Scene(new Group(), WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();

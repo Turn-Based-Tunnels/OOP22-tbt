@@ -48,6 +48,8 @@ public class JavaFxExploreView extends AbstractJavaFxView {
         super(exploreController, stage, scene);
         this.exploreState = exploreState;
         this.movingSpace.setPrefSize(Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        this.movingSpace.setMinSize (Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        this.movingSpace.setMaxSize (Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
         loadBackground();
         loadImagesRenderStatic();
     }
@@ -65,7 +67,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                 this.movingSpace.getChildren().add(x.getValue());
             }
             this.movingSpace.getChildren().addAll(staticImages);
-            this.total.setTop(this.movingSpace);
+            this.total.setCenter (this.movingSpace);
             this.getScene().setRoot(this.total);
         });
     }
@@ -105,6 +107,15 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                                 BackgroundPosition.DEFAULT,
                                 new BackgroundSize(1.0, 1.0, true, true, false, false)));
         this.movingSpace.setBackground(bg);
+        Background bg2 = new Background(
+                        new BackgroundImage(
+                        new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getClass())),
+                                BackgroundRepeat.NO_REPEAT,
+                                BackgroundRepeat.NO_REPEAT,
+                                BackgroundPosition.DEFAULT,
+                                new BackgroundSize(1.0, 1.0, true, true, false, false)));
+        this.total.setBackground(bg2);
+
     }
 }
 
