@@ -41,4 +41,6 @@ public interface StateObserver {
      * @param shop
      */
     void onShop(Shop shop);
+
+    void onEnding(String message);
 }
