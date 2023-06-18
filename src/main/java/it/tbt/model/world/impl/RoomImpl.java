@@ -1,5 +1,7 @@
 package it.tbt.model.world.impl;
 
+import it.tbt.model.entities.KillableEntity;
+import it.tbt.model.world.api.KillObserver;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.entities.SpatialEntity;
 
@@ -10,19 +12,20 @@ import java.util.Set;
  * Default implementation of the Room interface.
  */
 
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, KillObserver {
 
     private String roomName;
-    private int roomWidth = X_AXIS_UPPERBOUND;
-    private int roomHeight = Y_AXIS_UPPERBOUND;
-
+    private int roomWidth;
+    private int roomHeight;
     private Set<SpatialEntity> entities;
 
     /**
      * @param roomName the room's name
      */
-    public RoomImpl(final String roomName) {
+    public RoomImpl(final String roomName, final int roomWidth, final int roomHeight) {
         this.roomName = roomName;
+        this.roomHeight = roomHeight;
+        this.roomWidth = roomWidth;
         entities = new HashSet<>();
     }
 
@@ -31,7 +34,13 @@ public class RoomImpl implements Room {
      */
     @Override
     public void addEntity(final SpatialEntity entity) {
-        entities.add(entity);
+        if(isValidCoordinates(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight())) {
+            entities.add(entity);
+            if(entity instanceof KillableEntity) {
+                ((KillableEntity) entity).setKillObserver(this);
+            }
+
+        }
     }
 
     /**
@@ -54,4 +63,11 @@ public class RoomImpl implements Room {
         return !(left < 0 || right > this.roomWidth || top < 0 || bottom > this.roomHeight);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onKill(final SpatialEntity spatialEntity) {
+        this.entities.remove(spatialEntity);
+    }
 }

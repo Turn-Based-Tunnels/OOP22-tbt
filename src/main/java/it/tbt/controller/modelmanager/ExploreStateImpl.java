@@ -1,6 +1,7 @@
 package it.tbt.controller.modelmanager;
 
 import it.tbt.model.party.IParty;
+import it.tbt.model.statechange.InventoryTrigger;
 import it.tbt.model.statechange.PauseTrigger;
 import it.tbt.model.world.api.Room;
 
@@ -13,15 +14,22 @@ public final class ExploreStateImpl implements ExploreState {
     private IParty party;
     private PauseTrigger pauseTrigger;
 
+    private InventoryTrigger inventoryTrigger;
+
     /**
      * @param room the current room
      * @param party the party used by the player
      * @param pauseTrigger possibility of switching to Pause Game State
+     * @param inventoryTrigger possibility of switching to Inventory Game State
      */
-    public ExploreStateImpl(final Room room, final IParty party, final PauseTrigger pauseTrigger) {
+    public ExploreStateImpl(final Room room,
+                            final IParty party,
+                            final PauseTrigger pauseTrigger,
+                            final InventoryTrigger inventoryTrigger) {
         this.room = room;
         this.party = party;
         this.pauseTrigger = pauseTrigger;
+        this.inventoryTrigger = inventoryTrigger;
     }
     /**
      * {@inheritDoc}
@@ -41,6 +49,13 @@ public final class ExploreStateImpl implements ExploreState {
     @Override
     public PauseTrigger getTriggerPause() {
         return this.pauseTrigger;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public InventoryTrigger getTriggerInventory() {
+        return this.inventoryTrigger;
     }
 
 }

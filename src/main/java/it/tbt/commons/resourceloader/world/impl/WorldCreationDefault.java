@@ -27,11 +27,11 @@ public class WorldCreationDefault implements WorldCreationStrategy {
     @Override
     public World createWorld() {
         World w = new WorldImpl();
-        Room startRoom = new RoomImpl("RoomStart");
-        Room endRoom = new RoomImpl("EndRoom");
+        Room startRoom = new RoomImpl("RoomStart", Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        Room endRoom = new RoomImpl("EndRoom", Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
         Map<Item, Double> drops = new HashMap<>();
         drops.put(new Potion("Potion", 3, 50), 0.5);
-        startRoom.addEntity(NPCFactory.createFightNPC("Roberto", 25, 25, 75, 75, new FightModelImpl(5, drops)));
+        startRoom.addEntity(NPCFactory.createFightNPC("Roberto", 25, 25, 25, 25, new FightModelImpl(5, drops)));
         RoomLink roomLink1 = new RoomLinkImpl("link", 200, 200, 75, 75, startRoom, endRoom);
         startRoom.addEntity(roomLink1);
         RoomLink roomLink2 = new RoomLinkImpl("link2", 150, 150, 50, 50, startRoom, endRoom);

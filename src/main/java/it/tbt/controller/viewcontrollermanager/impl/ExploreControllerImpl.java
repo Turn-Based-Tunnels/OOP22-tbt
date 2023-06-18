@@ -4,6 +4,7 @@ import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.command.explore.CommandInteract;
+import it.tbt.model.command.explore.CommandInventory;
 import it.tbt.model.command.explore.CommandMove;
 import it.tbt.model.command.explore.CommandPause;
 import it.tbt.model.world.interaction.InteractionTrigger;
@@ -52,7 +53,6 @@ public final class ExploreControllerImpl implements ViewController {
      */
     private void moveRight() {
         this.commands.add(new CommandMove(this.modelState.getParty(), DEFAULT_MOVE_X, 0));
-        this.commands.add(new CommandMove(this.modelState.getParty(), DEFAULT_MOVE_X, 0));
     }
 
     /**
@@ -92,6 +92,8 @@ public final class ExploreControllerImpl implements ViewController {
         this.commands.add(new CommandPause(this.modelState.getTriggerPause()));
     }
 
+    private void triggerInventory() { this.commands.add(new CommandInventory(this.modelState.getTriggerInventory())); }
+
     @Override
     public void onKeyPressed(final int key) {
         if (key == KeyEvent.VK_D) {
@@ -106,6 +108,8 @@ public final class ExploreControllerImpl implements ViewController {
             this.interactWithProximity();
         } else if (key == KeyEvent.VK_ESCAPE) {
             this.triggerPause();
+        } else if (key == KeyEvent.VK_I) {
+            this.triggerInventory();
         }
     }
 }

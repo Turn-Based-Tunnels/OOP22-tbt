@@ -1,20 +1,22 @@
 package it.tbt.model.entities.npc.impl;
 
+import it.tbt.model.entities.KillableEntity;
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.npc.api.FightNPC;
 import it.tbt.model.fight.api.FightModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
+import it.tbt.model.world.api.KillObserver;
 
-public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrigger {
+public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrigger, KillableEntity {
     public FightNPCImpl(String name, int x, int y, int height, int width, FightModel fightModel) {
         super(name, x, y, height, width);
         this.fightModel = fightModel;
     }
 
     private FightModel fightModel;
-
+    private KillObserver killObserver;
     private StateObserver stateObserver;
 
     @Override
@@ -22,6 +24,8 @@ public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrig
         if (interactable instanceof IParty) {
             fightModel.initializeParty((IParty) interactable);
             this.stateObserver.onFight(fightModel);
+            this.killObserver.onKill(this);
+
         }
     }
 
@@ -33,5 +37,13 @@ public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrig
     @Override
     public void setStateObserver(StateObserver stateObserver) {
         this.stateObserver = stateObserver;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setKillObserver(final KillObserver killObserver) {
+        this.killObserver = killObserver;
     }
 }

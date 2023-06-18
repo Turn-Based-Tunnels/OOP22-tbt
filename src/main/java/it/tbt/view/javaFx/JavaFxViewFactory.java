@@ -23,8 +23,8 @@ import javafx.stage.WindowEvent;
 
 public class JavaFxViewFactory implements GameViewFactory {
 
-    private static final int HEIGHT_WINDOW = 300;
-    private static final int WIDTH_WINDOW = 300;
+    private static final int HEIGHT_WINDOW = 600;
+    private static final int WIDTH_WINDOW = 800;
     private Stage stage;
 
     /**
@@ -39,6 +39,11 @@ public class JavaFxViewFactory implements GameViewFactory {
                 System.exit(0);
             }
         });
+        stage.setMinHeight(HEIGHT_WINDOW);
+        stage.setMinWidth(WIDTH_WINDOW);
+        stage.setMaxHeight(HEIGHT_WINDOW);
+        stage.setMaxWidth(WIDTH_WINDOW);
+        stage.setResizable(false);
     }
 
     /**
@@ -70,7 +75,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createRoom(final ViewController exploreController, final ExploreState exploreState) {
-        Scene scene = new Scene(new Group(), Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        Scene scene = new Scene(new Group(), WIDTH_WINDOW , HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
@@ -81,7 +86,7 @@ public class JavaFxViewFactory implements GameViewFactory {
     @Override
     public GameView createFight(final ViewController fightController, final FightState fightState) {
         Group group = new Group();
-        Scene scene = new Scene(group, 300, 300);
+        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
@@ -92,7 +97,7 @@ public class JavaFxViewFactory implements GameViewFactory {
     @Override
     public GameView createShop(final ShopController shopControler, final ShopStateImpl shopState) {
         Group group = new Group();
-        Scene scene = new Scene(group, 300, 300);
+        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
@@ -103,7 +108,7 @@ public class JavaFxViewFactory implements GameViewFactory {
     @Override
     public GameView createInventory(ViewController inventoryController, InventoryState inventoryState) {
         Group group = new Group();
-        Scene scene = new Scene(group, 300, 300);
+        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
