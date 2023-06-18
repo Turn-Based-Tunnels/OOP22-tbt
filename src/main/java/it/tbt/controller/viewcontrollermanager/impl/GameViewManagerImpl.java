@@ -101,6 +101,13 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     this.currentController = inventoryViewController;
                     this.currentGameView=x;
 
+                }case ENDING -> {
+                    EndState endState = (EndState) modelState;
+                    EndViewController endViewController = new EndViewController (endState);
+                    var x = this.gameViewFactory.createEndScreen (endViewController, endState);
+                    this.currentController = endViewController;
+                    this.currentGameView=x;
+
                 }
                 default -> {
                     throw new IllegalStateException("GameState not handled by ViewManager.");

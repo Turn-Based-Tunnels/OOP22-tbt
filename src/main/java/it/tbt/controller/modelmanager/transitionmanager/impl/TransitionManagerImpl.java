@@ -189,4 +189,16 @@ public final class TransitionManagerImpl implements TransitionManager {
         this.currentGameState = Optional.of (GameState.SHOP);
         this.currentModelState = Optional.of (new ShopStateImpl (shop));
     }
+
+    @Override
+    public void onEnding (String message) {
+        stateChanged = true;
+        this.currentGameState = Optional.of (GameState.ENDING);
+        this.currentModelState = Optional.of (new EndStateImpl (message));
+        if (this.getCurrentModelState () instanceof StateTrigger) {
+            ((StateTrigger) this.getCurrentModelState ()).setStateObserver (this);
+        }
+    }
+
+
 }

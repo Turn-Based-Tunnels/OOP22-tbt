@@ -24,6 +24,7 @@ public enum GameState {
      * Shop GameState.
      */
     SHOP,
-    INVENTORY
+    INVENTORY,
+    ENDING
 
 }
