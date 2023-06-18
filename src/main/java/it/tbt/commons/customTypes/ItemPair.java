@@ -16,6 +16,6 @@ public class ItemPair extends Pair<Item, Integer> {
 
     @Override
     public String toString(){
-        return this.getKey().getName() + "\t\tx" + this.getValue();
+        return this.getKey().toString () + "\t\tx" + this.getValue();
     }
 }

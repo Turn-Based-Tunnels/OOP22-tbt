@@ -1,12 +1,9 @@
 package it.tbt.view.api;
 
-import it.tbt.controller.modelmanager.InventoryState;
-import it.tbt.controller.modelmanager.InventoryStateImpl;
+import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.controller.modelmanager.ExploreState;
-import it.tbt.controller.modelmanager.FightState;
-import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.shop.ShopStateImpl;
+import it.tbt.controller.viewcontrollermanager.impl.EndViewController;
 import it.tbt.controller.viewcontrollermanager.impl.ShopController;
 
 /**
@@ -41,5 +38,6 @@ public interface GameViewFactory {
     public GameView createFight(ViewController fightController, FightState fightState);
 
     GameView createInventory(ViewController inventoryController, InventoryState inventoryState);
+    GameView createEndScreen(ViewController endViewController, EndState endState);
 
 }

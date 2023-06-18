@@ -1,5 +1,7 @@
 package it.tbt.model.entities.npc.api;
 
-public interface ShopNPC extends NPC{
-    public String getShop();
+import it.tbt.model.shop.Shop;
+
+public interface ShopNPC extends NPC {
+    public Shop getShop ();
 }

@@ -25,8 +25,6 @@ class WeaponFactoryTest {
         for (final Weapon weapon : factory1.getItems()) {
             logger.info(
                 weapon.toString()
-                + ", Name: " + weapon.getName()
-                + ", Attack: " + weapon.getAttack()
                 + ", Value: " + weapon.getValue()
             );
         }

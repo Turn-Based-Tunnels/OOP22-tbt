@@ -1,10 +1,7 @@
 package it.tbt.view.javaFx;
 
-import it.tbt.controller.modelmanager.InventoryState;
+import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.controller.modelmanager.ExploreState;
-import it.tbt.controller.modelmanager.FightState;
-import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.world.api.Room;
 import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 import it.tbt.controller.viewcontrollermanager.impl.ShopController;
@@ -115,5 +112,16 @@ public class JavaFxViewFactory implements GameViewFactory {
         });
 
         return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
+    }
+    @Override
+    public GameView createEndScreen(ViewController endController, EndState endState){
+        Group group = new Group();
+        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
+
+        return new JavaFxEndingView (endController, this.stage, scene, endState);
     }
 }

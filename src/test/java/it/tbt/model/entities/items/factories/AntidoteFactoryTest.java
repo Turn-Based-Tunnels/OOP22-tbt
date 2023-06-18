@@ -34,7 +34,6 @@ class AntidoteFactoryTest {
         final Antidote antidote = factory1.getAntidote();
         logger.info(
             antidote.toString()
-            + ", Name: " + antidote.getName()
             + ", Value: " + antidote.getValue()
         );
     }
