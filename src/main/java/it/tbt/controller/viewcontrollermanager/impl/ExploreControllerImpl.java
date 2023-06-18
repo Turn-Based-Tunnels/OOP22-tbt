@@ -97,15 +97,11 @@ public final class ExploreControllerImpl implements ViewController {
         if (key == KeyEvent.VK_D) {
             this.moveRight();
         } else if (key == KeyEvent.VK_W) {
-        } else if (key == KeyEvent.VK_W) {
             this.moveUp();
-        } else if (key == KeyEvent.VK_A) {
         } else if (key == KeyEvent.VK_A) {
             this.moveLeft();
         } else if (key == KeyEvent.VK_S) {
-        } else if (key == KeyEvent.VK_S) {
             this.moveDown();
-        } else if (key == KeyEvent.VK_E) {
         } else if (key == KeyEvent.VK_E) {
             this.interactWithProximity();
         } else if (key == KeyEvent.VK_ESCAPE) {

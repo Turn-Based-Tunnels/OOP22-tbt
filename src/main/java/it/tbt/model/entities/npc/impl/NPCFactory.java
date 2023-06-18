@@ -1,5 +1,6 @@
 package it.tbt.model.entities.npc.impl;
 
+import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.npc.api.NPC;
 import it.tbt.model.fight.api.FightModel;
@@ -26,6 +27,10 @@ public class NPCFactory {
 
     public static NPC createFightNPC(String name, int x, int y, int height, int width, FightModel fightModel) {
         return new FightNPCImpl(name, x, y, height, width, fightModel);
+    }
+
+    public static NPC createAllyNPC(String name, int x, int y, int height, int width, Ally ally){
+        return new AllyNPCImpl(name, x, y, height, width, ally);
     }
 
 }
