@@ -76,6 +76,8 @@ public final class TransitionManagerImpl implements TransitionManager {
                         if (((FightNPC) y).getFightModel () instanceof StateTrigger) {
                             ((StateTrigger) ((FightNPC) y).getFightModel ()).setStateObserver (this);
                         }
+                    }
+                    if (y instanceof ShopNPC) {
                         if (((ShopNPC) y).getShop () instanceof StateTrigger) {
                             ((StateTrigger) ((ShopNPC) y).getShop ()).setStateObserver (this);
                         }
