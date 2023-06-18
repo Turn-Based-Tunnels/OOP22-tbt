@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 public abstract class AbstractJavaFxView extends AbstractGameView {
     private Stage stage;
     private Scene scene;
+    public static final int WIDTH_WINDOW = 800;
+    public static final int HEIGHT_WINDOW = 600;
 
     /**
      * @param viewController

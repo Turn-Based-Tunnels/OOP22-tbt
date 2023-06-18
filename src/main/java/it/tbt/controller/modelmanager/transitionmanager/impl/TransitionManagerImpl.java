@@ -14,6 +14,7 @@ import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.npc.api.FightNPC;
 import it.tbt.model.menu.impl.MenuModel;
 import it.tbt.model.party.IParty;
+import it.tbt.model.statechange.InventoryTrigger;
 import it.tbt.model.statechange.PauseTrigger;
 import it.tbt.model.shop.Shop;
 import it.tbt.model.statechange.StateTrigger;
@@ -145,8 +146,10 @@ public final class TransitionManagerImpl implements TransitionManager {
     public void onExplore () {
         stateChanged = true;
         this.currentGameState = Optional.of (GameState.EXPLORE);
-        this.currentModelState = Optional
-                .of (new ExploreStateImpl (this.party.getCurrentRoom (), this.party, new PauseTrigger (this)));
+        this.currentModelState = Optional.of(new ExploreStateImpl(this.party.getCurrentRoom(),
+                this.party,
+                new PauseTrigger(this),
+                new InventoryTrigger(this)));
     }
 
     /**

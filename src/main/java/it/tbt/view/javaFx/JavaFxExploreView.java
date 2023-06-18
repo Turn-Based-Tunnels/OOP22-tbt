@@ -4,23 +4,21 @@ import it.tbt.commons.resourceloader.ImageLoader;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.entities.MovableEntity;
+import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.world.api.Room;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -31,9 +29,9 @@ public class JavaFxExploreView extends AbstractJavaFxView {
 
     private final ExploreState exploreState;
     private final Pane movingSpace = new Pane();
-    private final BorderPane total = new BorderPane();
-    private final Map<MovableEntity, ImageView> images = new HashMap<>(); //Images of objects who can move
-    private final Group staticImages = new Group();
+    private final StackPane total = new StackPane();
+    private Map<MovableEntity, ImageView> images = new HashMap<>(); //Images of objects who can move
+    private final Pane staticImages = new Pane();
 
     /**
      * @param exploreController The exploreController that provides the input to this view
@@ -47,9 +45,10 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                              final Scene scene) {
         super(exploreController, stage, scene);
         this.exploreState = exploreState;
-        this.movingSpace.setPrefSize(Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        this.movingSpace.setMinSize(Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        this.movingSpace.setMaxSize(Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
         loadBackground();
-        loadImagesRenderStatic();
+        loadAllImages();
     }
 
     /**
@@ -57,15 +56,15 @@ public class JavaFxExploreView extends AbstractJavaFxView {
      */
     @Override
     public void render() {
+        if(!Stream.concat(this.exploreState.getRoom().getEntities().stream().filter(l->l instanceof MovableEntity),
+                Stream.of(this.exploreState.getParty())).collect(Collectors.toSet()).equals(this.images.keySet())) {
+           loadAllImages();
+        }
         Platform.runLater(() -> {
-            this.movingSpace.getChildren().clear();
-            for (var x: images.entrySet()) {
-                x.getValue().setX(x.getKey().getX() - (x.getKey().getWidth() / 2));
-                x.getValue().setY(x.getKey().getY() - (x.getKey().getHeight() / 2));
-                this.movingSpace.getChildren().add(x.getValue());
-            }
-            this.movingSpace.getChildren().addAll(staticImages);
-            this.total.setTop(this.movingSpace);
+            this.total.getChildren().clear();
+            loadImagesToRegion(this.movingSpace, this.images);
+            this.movingSpace.getChildren().addAll(this.staticImages);
+            this.total.getChildren().add(this.movingSpace);
             this.getScene().setRoot(this.total);
         });
     }
@@ -73,27 +72,22 @@ public class JavaFxExploreView extends AbstractJavaFxView {
     /**
      * Loads images, and populates the staticImages group with images of entities which
      * do not change overtime, so they do not need to be rendered more than one time.
+     * And populates the dynamic images, which need to change over time.
      */
-    private void loadImagesRenderStatic() {
-        //Load Image of Party
-        var party = new ImageView(ImageLoader.getInstance().getFilePath(this.exploreState.getParty().getClass()));
-        this.images.put(this.exploreState.getParty(), party);
-        party.setFitHeight(this.exploreState.getParty().getHeight());
-        party.setFitWidth(this.exploreState.getParty().getWidth());
-        //Iterates over all entities currently in the room
-        for (var x: this.exploreState.getRoom().getEntities()) {
-            //Loads Image of the entity
-            var img = new ImageView(ImageLoader.getInstance().getFilePath(x.getClass()));
-            //Adds it to the list of moving entities
-            if (x instanceof MovableEntity) {
-                this.images.put( (MovableEntity) x, img);
-            }
-            img.setFitWidth(x.getWidth());
-            img.setFitHeight(x.getHeight());
-            img.setX(x.getX() - x.getWidth() / 2);
-            img.setY(x.getY() - x.getHeight() / 2);
-            staticImages.getChildren().add(img);
-        }
+    private void loadAllImages() {
+        var x = getMapEntitiesImagesBasedOnPredicate(l -> true, Stream.concat(this.exploreState.getRoom().getEntities().stream(), Stream.of(this.exploreState.getParty())).collect(Collectors.toSet()));
+        loadImagesToRegion(this.staticImages, x.entrySet().stream().filter(l -> !(l.getKey() instanceof MovableEntity)).map(l->Map.entry(l.getKey(), l.getValue())).collect(Collectors.toMap(l->l.getKey(), l->l.getValue())));
+        loadImagesToRegion(this.movingSpace, x.entrySet().stream().filter(l->l.getKey() instanceof MovableEntity).map(l->Map.entry(l.getKey(),l.getValue())).collect(Collectors.toMap(l->l.getKey(), l->l.getValue())));
+        this.images = x.entrySet().stream().filter(l->l.getKey() instanceof MovableEntity).map(l->Map.entry((MovableEntity)l.getKey(),l.getValue())).collect(Collectors.toMap(l->l.getKey(), l->l.getValue()));
+    }
+
+    private void loadImagesToRegion(Pane r, Map<? extends SpatialEntity, ImageView> images) {
+        r.getChildren().clear();
+        images.entrySet().stream().forEach(l -> {
+            l.getValue().setX(l.getKey().getX() - l.getKey().getWidth() / 2);
+            l.getValue().setY(l.getKey().getY() - l.getKey().getWidth() / 2);
+            r.getChildren().add(l.getValue());
+        });
     }
 
     private void loadBackground() {
@@ -105,6 +99,18 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                                 BackgroundPosition.DEFAULT,
                                 new BackgroundSize(1.0, 1.0, true, true, false, false)));
         this.movingSpace.setBackground(bg);
+    }
+
+    private Map<SpatialEntity, ImageView> getMapEntitiesImagesBasedOnPredicate(final Predicate<SpatialEntity> predicate, final Set<SpatialEntity> entitySet) {
+        var x = entitySet.stream().
+                filter(l -> predicate.test(l)).
+                collect(Collectors.toMap(l->l, l-> new ImageView(ImageLoader.getInstance().getFilePath(l.getClass()))));
+
+        x.entrySet().stream().forEach(l -> {
+            l.getValue().setFitWidth(l.getKey().getWidth());
+            l.getValue().setFitHeight(l.getKey().getHeight());
+        });
+        return x;
     }
 }
 
