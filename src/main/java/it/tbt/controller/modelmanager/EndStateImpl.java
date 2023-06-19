@@ -1,5 +1,6 @@
 package it.tbt.controller.modelmanager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
@@ -11,10 +12,9 @@ import it.tbt.model.statechange.StateTrigger;
  * It holds a message associated with the end state and allows triggering the main menu.
  * </p>
  */
-public class EndStateImpl implements EndState, StateTrigger {
+public class EndStateImpl implements EndState {
 
     private final String message;
-    private StateObserver stateObserver;
 
     /**
      * Creates a new {@code EndStateImpl} object with the specified message.
@@ -23,7 +23,6 @@ public class EndStateImpl implements EndState, StateTrigger {
      */
     public EndStateImpl(final String message) {
         this.message = message;
-        this.stateObserver = null;
     }
 
     /**
@@ -34,19 +33,16 @@ public class EndStateImpl implements EndState, StateTrigger {
         return message;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setStateObserver(final StateObserver stateObserver) {
-        this.stateObserver = stateObserver;
-    }
 
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+            value = "Dm",
+            justification = "EndState needs to kill the application"
+    )
     @Override
-    public void triggerMainMenu() {
-        stateObserver.onMenu();
+    public void triggerExit() {
+        System.exit (0);
     }
 }
