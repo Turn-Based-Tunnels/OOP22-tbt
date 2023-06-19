@@ -1,30 +1,42 @@
 package it.tbt.model;
 
 /**
- * Enumeration for all the different GameStates which the Game can be in.
+ * The {@code GameState} enumeration represents the different states of the game.
+ * Each state corresponds to a specific gameplay scenario or interface.
  */
 public enum GameState {
     /**
-     * Explore GameState, the player moves around the environment.
+     * Explore state, where the player moves around the environment.
      */
     EXPLORE,
+
     /**
-     * Fight GameState, the player engages in fight.
+     * Fight state, where the player engages in combat.
      */
     FIGHT,
+
     /**
-     * MainMenu GameState, the player can choose from different options.
+     * Main menu state, where the player can choose from different options.
      */
     MENU,
+
     /**
-     * Pause GameState, the player can choose from different options.
+     * Pause state, where the game is paused and the player can choose from different options.
      */
     PAUSE,
+
     /**
-     * Shop GameState.
+     * Shop state, where the player can access a shop interface.
      */
     SHOP,
-    INVENTORY,
-    ENDING
 
+    /**
+     * Inventory state, where the player can manage their inventory.
+     */
+    INVENTORY,
+
+    /**
+     * Ending state, representing the end of the game.
+     */
+    ENDING
 }

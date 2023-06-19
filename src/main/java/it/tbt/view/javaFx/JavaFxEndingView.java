@@ -28,7 +28,8 @@ public class JavaFxEndingView extends AbstractJavaFxView implements GameView {
      * @param scene         the scene
      * @param endState      the end state
      */
-    public JavaFxEndingView(ViewController endController, Stage stage, Scene scene, EndState endState) {
+    public JavaFxEndingView(final ViewController endController, final Stage stage,
+                            final Scene scene, final EndState endState) {
         super(endController, stage, scene);
         this.scene = scene;
         this.main = endState;
@@ -40,17 +41,17 @@ public class JavaFxEndingView extends AbstractJavaFxView implements GameView {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            StackPane root = new StackPane ();
+            StackPane root = new StackPane();
             root.getChildren().clear();
             VBox vbox = new VBox();
-            Label title = new Label (main.getMessage ());
-            vbox.getChildren ().add (title);
+            Label title = new Label(main.getMessage());
+            vbox.getChildren().add(title);
             vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing (10);
+            vbox.setSpacing(10);
             root.getChildren().add(vbox);
-            root.setAlignment (Pos.CENTER);
+            root.setAlignment(Pos.CENTER);
             this.scene.setCursor(Cursor.NONE);
-            this.getScene ().setRoot(root);
+            this.getScene().setRoot(root);
 
         });
     }

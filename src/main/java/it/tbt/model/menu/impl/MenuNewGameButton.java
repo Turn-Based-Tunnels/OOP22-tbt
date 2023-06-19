@@ -1,14 +1,14 @@
 package it.tbt.model.menu.impl;
 
-import it.tbt.model.command.menu.ButtonCommand;
+import it.tbt.model.command.api.Command;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
 /**
  * The {@code MenuNewGameButton} class represents a menu button for starting a new game.
- * It extends the {@link MenuButton} class and implements the {@link StateTrigger} interface.
+ * It extends the {@link AbstractMenuButton} class and implements the {@link StateTrigger} interface.
  */
-public class MenuNewGameButton extends MenuButton implements StateTrigger {
+public class MenuNewGameButton extends AbstractMenuButton implements StateTrigger {
     private StateObserver stateObserver;
 
     /**
@@ -18,12 +18,14 @@ public class MenuNewGameButton extends MenuButton implements StateTrigger {
      */
     public MenuNewGameButton(final String text) {
         super(text);
+        stateObserver = null;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public ButtonCommand getAction(){
+    public Command getAction() {
+
         return () -> stateObserver.onExplore();
     }
 

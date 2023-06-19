@@ -109,7 +109,7 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
     }
     @Override
-    public GameView createEndScreen(ViewController endController, EndState endState){
+    public GameView createEndScreen(final ViewController endController, final EndState endState) {
         Group group = new Group();
         Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
@@ -117,6 +117,6 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.show();
         });
 
-        return new JavaFxEndingView (endController, this.stage, scene, endState);
+        return new JavaFxEndingView(endController, this.stage, scene, endState);
     }
 }

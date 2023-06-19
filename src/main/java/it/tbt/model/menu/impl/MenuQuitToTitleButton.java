@@ -1,14 +1,14 @@
 package it.tbt.model.menu.impl;
 
-import it.tbt.model.command.menu.ButtonCommand;
+import it.tbt.model.command.api.Command;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
 /**
  * The {@code MenuQuitToTitleButton} class represents a menu button for quitting to the title screen.
- * It extends the {@link MenuButton} class and implements the {@link StateTrigger} interface.
+ * It extends the {@link AbstractMenuButton} class and implements the {@link StateTrigger} interface.
  */
-public class MenuQuitToTitleButton extends  MenuButton implements StateTrigger {
+public class MenuQuitToTitleButton extends  AbstractMenuButton implements StateTrigger {
 
     private StateObserver stateObserver;
 
@@ -19,13 +19,14 @@ public class MenuQuitToTitleButton extends  MenuButton implements StateTrigger {
      */
     public MenuQuitToTitleButton(final String text) {
         super(text);
+        this.stateObserver = null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ButtonCommand getAction(){
+    public Command getAction() {
         return () -> stateObserver.onMenu();
     }
 

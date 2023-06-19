@@ -1,6 +1,6 @@
 package it.tbt.model.menu.api;
 
-import it.tbt.model.command.menu.ButtonCommand;
+import it.tbt.model.command.api.Command;
 
 /**
  * The {@code MenuButton} interface represents a button in a menu.
@@ -11,5 +11,5 @@ public interface MenuButton {
      *
      * @return the action associated with the menu button
      */
-    ButtonCommand getAction();
+    Command getAction();
 }

@@ -2,7 +2,6 @@ package it.tbt.model.command.explore;
 
 import it.tbt.model.command.api.Command;
 import it.tbt.model.statechange.InventoryTrigger;
-import it.tbt.model.statechange.PauseTrigger;
 
 public class CommandInventory implements Command {
 

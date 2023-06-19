@@ -2,14 +2,15 @@ package it.tbt.model.entities.npc.impl;
 
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.characters.Ally;
+import it.tbt.model.entities.npc.api.HealerNPC;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.interaction.Interactable;
 
 /**
- * The {@code HealerNPCImpl} class is an implementation of the {@link it.tbt.model.entities.npc.api.HealerNPC} interface.
+ * The {@code HealerNPCImpl} class is an implementation of the {@link HealerNPC} interface.
  * It extends the {@link AbstractNPCImpl} class and represents an NPC that can heal allies.
  */
-public class HealerNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.HealerNPC, Interactable {
+public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC {
 
     private final int healAmount;
 

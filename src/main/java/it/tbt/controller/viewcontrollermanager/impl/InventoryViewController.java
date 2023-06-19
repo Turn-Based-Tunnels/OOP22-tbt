@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class InventoryViewController implements ViewController {
 
-    List<Command> commands;
+    private final List<Command> commands;
     private final InventoryState inventoryState;
 
     /**

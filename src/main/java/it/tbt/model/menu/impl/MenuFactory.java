@@ -2,12 +2,14 @@ package it.tbt.model.menu.impl;
 
 import it.tbt.model.menu.api.MenuItem;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The {@code MenuFactory} class provides factory methods to create different menus.
  */
-public class MenuFactory {
+public final class MenuFactory {
 
     private MenuFactory() {
         // Private constructor to prevent instantiation
@@ -24,7 +26,7 @@ public class MenuFactory {
         items.addAll(Arrays.asList(new MenuNewGameButton("New Game"),
                 new MenuQuitGameButton("Exit")));
 
-        return new MenuModelImpl ("Main Menu", items);
+        return new MenuModelImpl("Main Menu", items);
     }
 
     /**
@@ -39,6 +41,6 @@ public class MenuFactory {
                 new MenuQuitToTitleButton("Quit to Title Screen"),
                 new MenuQuitGameButton("Exit To Desktop")));
 
-        return new MenuModelImpl ("Pause", items);
+        return new MenuModelImpl("Pause", items);
     }
 }
