@@ -29,7 +29,8 @@ public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrig
      * @param width      the width of the fight NPC
      * @param fightModel the fight model associated with the NPC
      */
-    public FightNPCImpl(final String name, final int x, final int y, final int height, final int width, final FightModel fightModel) {
+    public FightNPCImpl(final String name, final int x, final int y, final int height,
+                        final int width, final FightModel fightModel) {
         super(name, x, y, height, width);
         this.fightModel = fightModel;
     }

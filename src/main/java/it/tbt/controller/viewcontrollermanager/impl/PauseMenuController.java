@@ -39,8 +39,8 @@ public class PauseMenuController implements ViewController {
     @Override
     public void onKeyPressed(final int key) {
         switch (key) {
-            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.commands.add(() -> modelState.PreviousElement());
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.commands.add(() -> modelState.NextElement());
+            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.commands.add(() -> modelState.previousElement());
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.commands.add(() -> modelState.nextElement());
             case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
                 if (modelState.getItems().get(modelState.getFocus()) instanceof MenuButton) {
                     this.commands.add(((MenuButton) modelState.getItems().get(modelState.getFocus())).getAction());

@@ -1,6 +1,7 @@
 package it.tbt.model.entities.npc.impl;
 
 import it.tbt.model.entities.SpatialEntity;
+import it.tbt.model.entities.npc.api.ShopNPC;
 import it.tbt.model.party.IParty;
 import it.tbt.model.shop.Shop;
 import it.tbt.model.statechange.StateObserver;
@@ -9,7 +10,7 @@ import it.tbt.model.statechange.StateTrigger;
 /**
  * The {@code ShopNPCImpl} class represents an implementation of a shop NPC.
  */
-public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.ShopNPC, StateTrigger {
+public class ShopNPCImpl extends AbstractNPCImpl implements ShopNPC, StateTrigger {
 
     private final Shop shop;
     private StateObserver stateObserver;

@@ -2,15 +2,16 @@ package it.tbt.model.entities.npc.impl;
 
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.items.Item;
+import it.tbt.model.entities.npc.api.ItemNPC;
 import it.tbt.model.party.IParty;
 
 import java.util.Map;
 
 /**
- * The {@code ItemNPCImpl} class is an implementation of the {@link it.tbt.model.entities.npc.api.ItemNPC} interface.
+ * The {@code ItemNPCImpl} class is an implementation of the {@link ItemNPC} interface.
  * It extends the {@link AbstractNPCImpl} class and represents an NPC that provides items to the player's party.
  */
-public class ItemNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.ItemNPC {
+public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC {
 
     private final Map<Item, Integer> items;
 
@@ -25,7 +26,8 @@ public class ItemNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
      * @param items  the map of items provided by the NPC and their quantities
      * @throws IllegalArgumentException if name is null or empty, or if items is null
      */
-    public ItemNPCImpl(String name, int x, int y, int height, int width, Map<Item, Integer> items) {
+    public ItemNPCImpl(final String name, final int x, final int y, final int height,
+                       final int width, final Map<Item, Integer> items) {
         super(name, x, y, height, width);
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
@@ -48,7 +50,7 @@ public class ItemNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
      * {@inheritDoc}
      */
     @Override
-    public void onInteraction(SpatialEntity interactable) {
+    public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
             for (Map.Entry<Item, Integer> entry : items.entrySet()) {
                 while (entry.getValue() > 0) {

@@ -193,7 +193,7 @@ public final class TransitionManagerImpl implements TransitionManager {
     }
 
     @Override
-    public void onEnding(String message) {
+    public void onEnding(final String message) {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.ENDING);
         this.currentModelState = Optional.of(new EndStateImpl(message));

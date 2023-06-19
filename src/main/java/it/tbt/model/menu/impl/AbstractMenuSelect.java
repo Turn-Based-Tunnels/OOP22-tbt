@@ -1,14 +1,16 @@
 package it.tbt.model.menu.impl;
 
+import it.tbt.model.menu.api.MenuSelect;
+
 import java.util.NavigableMap;
 
 /**
  * The {@code MenuSelect} class represents a selectable menu with options.
- * It extends the {@link MenuItem} class and implements the {@link it.tbt.model.menu.api.MenuSelect} interface.
+ * It extends the {@link AbstractMenuItem} class and implements the {@link it.tbt.model.menu.api.MenuSelect} interface.
  *
  * @param <I> the type of the menu options
  */
-public abstract class MenuSelect<I> extends MenuItem implements it.tbt.model.menu.api.MenuSelect {
+public abstract class AbstractMenuSelect<I> extends AbstractMenuItem implements MenuSelect {
 
     private final NavigableMap<String, I> options;
     private String selectedOptionIndex;
@@ -19,7 +21,7 @@ public abstract class MenuSelect<I> extends MenuItem implements it.tbt.model.men
      * @param text    the text of the menu
      * @param options the map of options
      */
-    public MenuSelect(final String text, final NavigableMap<String, I> options) {
+    public AbstractMenuSelect(final String text, final NavigableMap<String, I> options) {
         super(text);
         // Add exception handling code for invalid arguments here
         if (options == null || options.isEmpty()) {
