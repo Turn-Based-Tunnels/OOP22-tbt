@@ -6,6 +6,7 @@ import it.tbt.model.command.api.Command;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public class InventoryViewController implements ViewController {
      */
     @Override
     public List<Command> getCommands() {
-        return this.commands;
+        return new LinkedList<>(this.commands);
     }
 
     /**

@@ -19,6 +19,9 @@ public class RoomImpl implements Room, KillObserver {
     private int roomHeight;
     private Set<SpatialEntity> entities;
 
+    public static final int DEFAULT_HEIGHT_ROOM = 300;
+    public static final int DEFAULT_WIDTH_ROOM = 300;
+
     /**
      * @param roomName the room's name
      */
@@ -49,6 +52,22 @@ public class RoomImpl implements Room, KillObserver {
     @Override
     public Set<SpatialEntity> getEntities() {
         return entities;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHeight() {
+        return this.roomHeight;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getWidth() {
+        return this.roomWidth;
     }
 
     /**

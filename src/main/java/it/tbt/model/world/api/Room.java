@@ -9,16 +9,6 @@ import java.util.Set;
  */
 
 public interface Room {
-
-    /**
-     * Length of the Room.
-     */
-    int X_AXIS_UPPERBOUND = 300;
-    /**
-     * Height of the Room.
-     */
-    int Y_AXIS_UPPERBOUND = 300;
-
     /**
      * @param entity to be added to the Room.
      */
@@ -28,6 +18,16 @@ public interface Room {
      * @return the entities in the Room as a Set.
      */
     Set<SpatialEntity> getEntities();
+
+    /**
+     * @return Height of the room.
+     */
+    int getHeight();
+
+    /**
+     * @return Width of the room.
+     */
+    int getWidth();
 
     /**
      * @param xCenter

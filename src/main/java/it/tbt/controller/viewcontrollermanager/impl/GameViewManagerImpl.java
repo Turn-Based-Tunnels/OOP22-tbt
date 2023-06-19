@@ -99,14 +99,15 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     InventoryViewController inventoryViewController = new InventoryViewController(inventoryState);
                     var x = this.gameViewFactory.createInventory(inventoryViewController, inventoryState);
                     this.currentController = inventoryViewController;
-                    this.currentGameView=x;
+                    this.currentGameView = x;
 
-                }case ENDING -> {
+                }
+                case ENDING -> {
                     EndState endState = (EndState) modelState;
                     EndViewController endViewController = new EndViewController (endState);
                     var x = this.gameViewFactory.createEndScreen (endViewController, endState);
                     this.currentController = endViewController;
-                    this.currentGameView=x;
+                    this.currentGameView = x;
 
                 }
                 default -> {

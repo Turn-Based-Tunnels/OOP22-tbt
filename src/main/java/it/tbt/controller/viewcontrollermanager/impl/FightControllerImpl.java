@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.tbt.controller.modelmanager.FightState;
-import it.tbt.controller.viewcontrollermanager.api.FightController;
+import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 
 import java.awt.event.KeyEvent;
 
 /**
- * Implementation of the {@link FightController} interface.
+ * Implementation of the {@link ViewController} interface.
  * This class handles user input during a fight and triggers corresponding
  * actions in the fight model.
  */
-public final class FightControllerImpl implements FightController {
+public final class FightControllerImpl implements ViewController {
 
     private final FightState model;
     private final List<Command> commands = new ArrayList<>();

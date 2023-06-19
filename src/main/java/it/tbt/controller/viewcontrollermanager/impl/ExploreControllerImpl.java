@@ -9,6 +9,8 @@ import it.tbt.model.command.explore.CommandMove;
 import it.tbt.model.command.explore.CommandPause;
 import it.tbt.model.world.interaction.InteractionTrigger;
 import java.awt.event.KeyEvent;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,9 +37,10 @@ public final class ExploreControllerImpl implements ViewController {
     /**
      * @return the list of Commands intercepted.
      */
+
     @Override
     public List<Command> getCommands() {
-        return this.commands;
+        return new LinkedList<>(this.commands);
     }
 
     /**
