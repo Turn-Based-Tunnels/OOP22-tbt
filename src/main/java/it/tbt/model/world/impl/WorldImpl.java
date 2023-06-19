@@ -39,7 +39,9 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Room> getStartRoom() { return this.start; }
+    public Optional<Room> getStartRoom() {
+        return this.start;
+    }
 
     /**
      * {@inheritDoc}

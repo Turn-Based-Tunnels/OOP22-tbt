@@ -18,8 +18,8 @@ public final class CommandMove implements Command {
      * @param yVar
      */
 
-    //Justification: The Command pattern encapsulates the objects on which perform the operations.
-    @SuppressFBWarnings("EI2")
+    @SuppressFBWarnings(value = "EI2",
+            justification = "The Command pattern encapsulates the objects on which perform the operations.")
     public CommandMove(final IParty party, final int xVar, final int yVar) {
         this.party = party;
         this.xVar = xVar;

@@ -28,7 +28,7 @@ public interface StateObserver {
      */
     void onFight(FightModel fightModel);
     /**
-     * Defines the action to be taken when the {@link it.tbt.model.GameState#INVENTORY} GameState is to be triggered
+     * Defines the action to be taken when the {@link it.tbt.model.GameState#INVENTORY} GameState is to be triggered.
      */
     void onInventory();
     /**

@@ -2,9 +2,8 @@ package it.tbt.view.javaFx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.*;
+import it.tbt.controller.modelmanager.shop.ShopState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.model.world.api.Room;
-import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 import it.tbt.controller.viewcontrollermanager.impl.ShopController;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
@@ -30,8 +29,8 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @SuppressFBWarnings (
             value = { "EI2 "},
-            justification = "The Factory creates the Views in JavaFx so it needs a Stage, and this Stage" +
-                    " is the one loaded at start of the javaFx application."
+            justification = "The Factory creates the Views in JavaFx so it needs a Stage, and this Stage"
+                    + " is the one loaded at start of the javaFx application."
     )
     public JavaFxViewFactory(final Stage stage) {
         this.stage = stage;
@@ -57,6 +56,9 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new JavaFxMenuView(menuController, this.stage, scene, menuState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameView createPause(final ViewController menuController, final MenuState menuState) {
         Scene scene = new Scene(new Group(), WIDTH_WINDOW, HEIGHT_WINDOW);
@@ -81,6 +83,9 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new JavaFxExploreView(exploreController, exploreState, this.stage, scene);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameView createFight(final ViewController fightController, final FightState fightState) {
         Group group = new Group();
@@ -92,8 +97,11 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new JavaFxFightView(stage, scene, fightController, fightState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameView createShop(final ShopController shopController, final ShopStateImpl shopState) {
+    public GameView createShop(final ShopController shopController, final ShopState shopState) {
         Group group = new Group();
         Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
@@ -103,8 +111,11 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new JavaFxShopView(shopController, stage, scene, shopState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameView createInventory(ViewController inventoryController, InventoryState inventoryState) {
+    public GameView createInventory(final ViewController inventoryController, final InventoryState inventoryState) {
         Group group = new Group();
         Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
@@ -114,6 +125,10 @@ public class JavaFxViewFactory implements GameViewFactory {
 
         return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameView createEndScreen(final ViewController endController, final EndState endState) {
         Group group = new Group();

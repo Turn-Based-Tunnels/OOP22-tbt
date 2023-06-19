@@ -6,7 +6,6 @@ import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuItem;
 import it.tbt.model.menu.api.MenuSelect;
-import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;

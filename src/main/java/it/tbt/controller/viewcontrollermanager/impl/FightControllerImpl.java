@@ -1,8 +1,5 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.tbt.controller.modelmanager.FightState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
