@@ -22,7 +22,11 @@
   {
     "imagePath": "./tbt/images/menuBackground.png",
     "objectClass": "it.tbt.controller.modelmanager.MenuStateImpl"
-  } ,
+  },
+  {
+    "imagePath": "./tbt/images/menuBackground.png",
+    "objectClass": "it.tbt.controller.modelmanager.shop.ShopStateImpl"
+  },
   {
     "imagePath": "./tbt/images/menuBackground.png",
     "objectClass": "it.tbt.controller.modelmanager.InventoryStateImpl"
