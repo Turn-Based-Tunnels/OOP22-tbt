@@ -42,8 +42,6 @@ public class FixedTimeGameLoop implements GameLoop {
         }
 
         while (timeAccumulator > timeSlice) {
-            this.game.update(timeSlice);
-            updated = true;
             timeAccumulator -= timeSlice;
         }
 

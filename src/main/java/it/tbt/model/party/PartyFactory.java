@@ -47,6 +47,6 @@ public final class PartyFactory {
                (DEFAULT_WIDTH / 2),
                (DEFAULT_HEIGHT / 2),
                DEFAULT_WIDTH,
-               DEFAULT_HEIGHT);
+               DEFAULT_HEIGHT, allies);
     }
 }

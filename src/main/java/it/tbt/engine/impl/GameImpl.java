@@ -61,15 +61,6 @@ public final class GameImpl implements Game {
      * {@inheritDoc}
      */
     @Override
-    public void update(final long deltaTime) {
-        checkInit();
-        this.gameStateManager.updateState(deltaTime);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void render() {
         checkInit();
         this.viewControllerManager.renderView(

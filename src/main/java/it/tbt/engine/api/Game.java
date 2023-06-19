@@ -11,11 +11,6 @@ public interface Game {
      */
     void initialize();
     /**
-     * Updates the Model.
-     * @param deltaTime
-     */
-    void update(long deltaTime);
-    /**
      * Renders the current view.
      */
     void render();
