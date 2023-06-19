@@ -28,7 +28,7 @@ public final class AntidoteFactory implements ItemFactory<Antidote> {
         if (optItems.isEmpty()) {
             throw new IllegalStateException("Failed loading antidote.json");
         } else {
-            antidote = optItems.get();
+            antidote = new Antidote(optItems.get().getValue()); // Ugly bugfix
         }
     }
 
