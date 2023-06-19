@@ -5,8 +5,10 @@ import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
 /**
- * The {@code MenuNewGameButton} class represents a menu button for starting a new game.
- * It extends the {@link AbstractMenuButton} class and implements the {@link StateTrigger} interface.
+ * The {@code MenuNewGameButton} class represents a menu button for starting a
+ * new game.
+ * It extends the {@link AbstractMenuButton} class and implements the
+ * {@link StateTrigger} interface.
  */
 public class MenuNewGameButton extends AbstractMenuButton implements StateTrigger {
     private StateObserver stateObserver;
@@ -20,6 +22,7 @@ public class MenuNewGameButton extends AbstractMenuButton implements StateTrigge
         super(text);
         stateObserver = null;
     }
+
     /**
      * {@inheritDoc}
      */

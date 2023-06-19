@@ -23,14 +23,16 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- *  Factory with static methods for creation of World objects.
+ * Factory with static methods for creation of World objects.
  */
 public final class WorldFactory {
 
     /**
-     * Private constructor not to give the possibility to instantiate a utility class.
+     * Private constructor not to give the possibility to instantiate a utility
+     * class.
      */
-    private WorldFactory() { }
+    private WorldFactory() {
+    }
 
     /**
      * Create World implementation with default implementation.
@@ -40,7 +42,7 @@ public final class WorldFactory {
         final World w = new WorldImpl();
         Room startRoom = new RoomImpl("RoomStart", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
         Room endRoom = new RoomImpl("EndRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
-        endRoom.addEntity(new EndEntity("EntityEnd", 200,200,30,30));
+        endRoom.addEntity(new EndEntity("EntityEnd", 200, 200, 30, 30));
         Map<Item, Double> drops = new HashMap<>();
         drops.put(new Potion("Potion", 3, 50), 0.5);
         startRoom.addEntity(NPCFactory.createFightNPC("Roberto", 25, 25, 50, 50, new FightModelImpl(5, drops)));
@@ -52,11 +54,11 @@ public final class WorldFactory {
         }
         shopItems.put(AntidoteFactory.getInstance().getAntidote(), 10);
         final Set<Weapon> weapons = WeaponFactory.getInstance().getItems();
-        shopItems.put(weapons.stream().skip(rnd.nextInt(weapons.size()-1)).findFirst().get(), 1); // a random weapon
-        shopItems.put(weapons.stream().skip(rnd.nextInt(weapons.size()-1)).findFirst().get(), 1); // a random weapon
+        shopItems.put(weapons.stream().skip(rnd.nextInt(weapons.size() - 1)).findFirst().get(), 1); // a random weapon
+        shopItems.put(weapons.stream().skip(rnd.nextInt(weapons.size() - 1)).findFirst().get(), 1); // a random weapon
         final Set<Armor> armors = ArmorFactory.getInstance().getItems();
-        shopItems.put(armors.stream().skip(rnd.nextInt(armors.size()-1)).findFirst().get(), 1); // a random weapon
-        shopItems.put(armors.stream().skip(rnd.nextInt(armors.size()-1)).findFirst().get(), 1); // a random weapon
+        shopItems.put(armors.stream().skip(rnd.nextInt(armors.size() - 1)).findFirst().get(), 1); // a random weapon
+        shopItems.put(armors.stream().skip(rnd.nextInt(armors.size() - 1)).findFirst().get(), 1); // a random weapon
         int wallet = 10000;
         shopRoom.addEntity(NPCFactory.createShopNPC("Merchant", 50, 50, 75, 75, new Shop(shopItems, wallet)));
         // Room links

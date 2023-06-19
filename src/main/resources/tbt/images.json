@@ -8,15 +8,15 @@
     "objectClass": "it.tbt.model.roomLink.RoomLinkImpl"
   },
   {
-    "imagePath": "./tbt/images/room.jpg",
+    "imagePath": "./tbt/images/Room.png",
     "objectClass": "it.tbt.model.world.impl.RoomImpl"
   },
   {
-    "imagePath": "./tbt/images/luigi.png",
+    "imagePath": "./tbt/images/enemy.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.FightNPCImpl"
   },
   {
-    "imagePath": "./tbt/images/shopping-cart.png",
+    "imagePath": "./tbt/images/shop.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.ShopNPCImpl"
   },
   {
@@ -28,19 +28,19 @@
     "objectClass": "it.tbt.controller.modelmanager.InventoryStateImpl"
   },
   {
-    "imagePath": "./tbt/images/bricks.png",
+    "imagePath": "./tbt/images/wall.png",
     "objectClass": "it.tbt.controller.modelmanager.ExploreStateImpl"
   },
   {
-    "imagePath": "./tbt/images/mario.png",
+    "imagePath": "./tbt/images/ally.gif",
     "objectClass": "it.tbt.model.entities.characters.Ally"
   },
   {
-    "imagePath": "./tbt/images/luigi.png",
+    "imagePath": "./tbt/images/enemy.gif",
     "objectClass": "it.tbt.model.entities.characters.Enemy"
   },
   {
-    "imagePath": "./tbt/images/beans.jpg",
+    "imagePath": "./tbt/images/bricks.png",
     "objectClass": "it.tbt.controller.modelmanager.FightStateImpl"
   },
   {
