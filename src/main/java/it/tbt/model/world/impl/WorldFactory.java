@@ -1,11 +1,5 @@
-package it.tbt.commons.resourceloader.world.impl;
+package it.tbt.model.world.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
-import it.tbt.commons.resourceloader.world.api.WorldCreationStrategy;
 import it.tbt.model.EndEntity;
 import it.tbt.model.entities.items.Armor;
 import it.tbt.model.entities.items.Item;
@@ -22,22 +16,28 @@ import it.tbt.model.roomLink.RoomLinkImpl;
 import it.tbt.model.shop.Shop;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.world.api.World;
-import it.tbt.model.world.impl.RoomImpl;
-import it.tbt.model.world.impl.WorldImpl;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 /**
- * Hard coded default World Setup.
+ *  Factory with static methods for creation of World objects.
  */
-
-public class WorldCreationDefault implements WorldCreationStrategy {
-    private final Random rnd = new Random();
+public final class WorldFactory {
 
     /**
-     * {@inheritDoc}
+     * Private constructor not to give the possibility to instantiate a utility class.
      */
-    @Override
-    public World createWorld() {
-        World w = new WorldImpl();
+    private WorldFactory() { }
+
+    /**
+     * Create World implementation with default implementation.
+     */
+    public static World createWorldDefault() {
+        final Random rnd = new Random();
+        final World w = new WorldImpl();
         Room startRoom = new RoomImpl("RoomStart", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
         Room endRoom = new RoomImpl("EndRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
         endRoom.addEntity(new EndEntity("EntityEnd", 200,200,30,30));
@@ -57,7 +57,7 @@ public class WorldCreationDefault implements WorldCreationStrategy {
         final Set<Armor> armors = ArmorFactory.getInstance().getItems();
         shopItems.put(armors.stream().skip(rnd.nextInt(armors.size()-1)).findFirst().get(), 1); // a random weapon
         shopItems.put(armors.stream().skip(rnd.nextInt(armors.size()-1)).findFirst().get(), 1); // a random weapon
-		int wallet = 10000;
+        int wallet = 10000;
         shopRoom.addEntity(NPCFactory.createShopNPC("Merchant", 50, 50, 75, 75, new Shop(shopItems, wallet)));
         // Room links
         RoomLink roomLink1 = new RoomLinkImpl("link", 200, 200, 75, 75, startRoom, shopRoom);
@@ -72,4 +72,5 @@ public class WorldCreationDefault implements WorldCreationStrategy {
         w.setStartRoom(startRoom);
         return w;
     }
+
 }

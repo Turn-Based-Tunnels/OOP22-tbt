@@ -5,7 +5,7 @@ import it.tbt.model.command.api.Command;
 import it.tbt.model.statechange.InventoryTrigger;
 
 /**
- * Command to switch to {@link it.tbt.model.GameState#INVENTORY}
+ * Command to switch to {@link it.tbt.model.GameState#INVENTORY}.
  */
 
 public class CommandInventory implements Command {
@@ -16,13 +16,13 @@ public class CommandInventory implements Command {
      * @param inventoryTrigger which will be used to trigger the Inventory GameState.
      */
     @SuppressFBWarnings(value = "EI2",
-            justification = "The Command pattern encapsulates the objects on which perform the operations." )
+            justification = "The Command pattern encapsulates the objects on which perform the operations.")
     public CommandInventory(final InventoryTrigger inventoryTrigger) {
         this.inventoryTrigger = inventoryTrigger;
     }
 
     /**
-     * Triggers the {@link it.tbt.model.GameState#INVENTORY}
+     * Triggers the {@link it.tbt.model.GameState#INVENTORY}.
      */
     @Override
     public void execute() {

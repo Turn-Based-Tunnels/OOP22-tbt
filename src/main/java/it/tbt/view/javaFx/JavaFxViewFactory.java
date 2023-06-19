@@ -1,7 +1,11 @@
 package it.tbt.view.javaFx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.tbt.controller.modelmanager.*;
+import it.tbt.controller.modelmanager.MenuState;
+import it.tbt.controller.modelmanager.FightState;
+import it.tbt.controller.modelmanager.EndState;
+import it.tbt.controller.modelmanager.InventoryState;
+import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.shop.ShopState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.viewcontrollermanager.impl.ShopController;

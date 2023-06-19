@@ -42,8 +42,6 @@ public class FixedTimeGameLoop implements GameLoop {
         }
 
         while (timeAccumulator > timeSlice) {
-            this.game.update(timeSlice);
-            updated = true;
             timeAccumulator -= timeSlice;
         }
 
@@ -52,10 +50,5 @@ public class FixedTimeGameLoop implements GameLoop {
             updated = false;
         }
     }
-    /**
-     * {@inheritDoc}
-     */
-    public Boolean isConsistent() {
-        return !this.game.isOver();
-    }
+
 }

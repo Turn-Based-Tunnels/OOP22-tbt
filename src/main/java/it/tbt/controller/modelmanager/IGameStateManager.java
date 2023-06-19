@@ -22,10 +22,5 @@ public interface IGameStateManager {
      * False otherwise.
      */
     Boolean hasStateChanged();
-    void updateState(long timePassed);
-    /**
-     * @return true if the condition on which the game is declared over is met.
-     * False otherwise.
-     */
-    Boolean isOver();
+
 }

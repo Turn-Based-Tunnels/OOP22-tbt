@@ -29,7 +29,7 @@ public class EndEntity extends SpatialEntityImpl implements Interactable, StateT
                      final int width,
                      final int height) {
         super(name, x, y, width, height);
-        this.stateObserver = null;
+        this.stateObserver = Optional.empty();
     }
 
     /**

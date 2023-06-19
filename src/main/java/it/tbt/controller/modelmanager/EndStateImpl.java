@@ -1,7 +1,6 @@
 package it.tbt.controller.modelmanager;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
 /**
@@ -43,6 +42,6 @@ public class EndStateImpl implements EndState {
     )
     @Override
     public void triggerExit() {
-        System.exit (0);
+        System.exit(0);
     }
 }

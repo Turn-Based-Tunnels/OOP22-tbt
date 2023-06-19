@@ -28,7 +28,7 @@ public class EndViewController extends AbstractViewController {
      */
     @Override
     public void onKeyPressed(final int key) {
-        endState.triggerMainMenu();
+        endState.triggerExit();
     }
 
 }
