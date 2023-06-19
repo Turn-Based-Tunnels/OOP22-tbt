@@ -30,7 +30,7 @@ public class ShopStateImpl implements ShopState {
                 (Map.Entry<Item, Integer> item) -> {
                     return new ShopItem(
                         item.getKey().getName(),
-                        item.getValue(),
+                        item.getValue(), // item count
                         item.getKey().getValue()
                     );
 
@@ -42,7 +42,7 @@ public class ShopStateImpl implements ShopState {
                 (Map.Entry<Item, Integer> item) -> {
                     return new ShopItem(
                         item.getKey().getName(),
-                        item.getValue(),
+                        item.getValue(), // item count
                         item.getKey().getValue()
                     );
 
@@ -139,39 +139,60 @@ public class ShopStateImpl implements ShopState {
         return shop.getShopWallet();
     }
 
+    private int searchItem(final String name, final List<ShopItem> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getName().equals(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void execute() {
         if (selector) {
-            // party buy from shop
-            if (partyItems.get(focusParty).getCount() > 0) {
-                final ShopItem removedItem = partyItems.remove(focusShop);
-                shop.buy(removedItem.getName());
-                if (shopItems.contains(removedItem)) {
-                    shopItems.get(focusShop).incCount();
-                } else {
-                    shopItems.add(new ShopItem(removedItem));
-                }
-                partyItems.get(focusParty).decCount();
-                if (partyItems.get(focusParty).getCount() <= 0) {
-                    partyItems.remove(focusParty);
+            // party sell to shop
+            if (!partyItems.isEmpty() && partyItems.get(focusParty).getCount() > 0) {
+                final ShopItem item = partyItems.get(focusParty);
+                if (!shop.buy(item.getName())) {
+                    final int index = searchItem(item.getName(), shopItems);
+                    if (index >= 0) {
+                        shopItems.get(index).incCount();
+                    } else {
+                        shopItems.add(new ShopItem(item));
+                    }
+                    partyItems.get(focusParty).decCount();
+                    if (partyItems.get(focusParty).getCount() <= 0) {
+                        partyItems.remove(focusParty);
+                    }
+                    // reposition the focus
+                    if (partyItems.size() <= focusParty) {
+                        focusParty = partyItems.size() - 1;
+                    }
                 }
             }
         } else {
-            // party sell to shop
-            if (shopItems.get(focusShop).getCount() > 0) {
-                final ShopItem removedItem = shopItems.remove(focusShop);
-                shop.buy(removedItem.getName());
-                if (partyItems.contains(removedItem)) {
-                    partyItems.get(focusParty).incCount();
-                } else {
-                    partyItems.add(new ShopItem(removedItem));
-                }
-                shopItems.get(focusShop).decCount();
-                if (shopItems.get(focusShop).getCount() <= 0) {
-                    shopItems.remove(focusShop);
+            // party buy from shop
+            if (!shopItems.isEmpty() && shopItems.get(focusShop).getCount() > 0) {
+                final ShopItem item = shopItems.get(focusShop);
+                if (!shop.sell(item.getName())) {
+                    final int index = searchItem(item.getName(), partyItems);
+                    if (index >= 0) {
+                        partyItems.get(index).incCount();
+                    } else {
+                        partyItems.add(new ShopItem(item));
+                    }
+                    shopItems.get(focusShop).decCount();
+                    if (shopItems.get(focusShop).getCount() <= 0) {
+                        shopItems.remove(focusShop);
+                    }
+                    // reposition the focus
+                    if (shopItems.size() <= focusShop) {
+                        focusShop = shopItems.size() - 1;
+                    }
                 }
             }
         }

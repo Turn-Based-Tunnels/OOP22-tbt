@@ -12,10 +12,4 @@ public interface Item extends Entity {
      * @return item's value
      */
     int getValue();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    String toString();
 }
