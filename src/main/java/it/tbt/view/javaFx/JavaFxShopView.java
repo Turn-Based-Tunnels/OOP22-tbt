@@ -87,13 +87,13 @@ public class JavaFxShopView extends AbstractJavaFxView {
             final Label partyTitle = new Label("Party");
             partyTitle.setStyle("-fx-font-weight: bold;");
             final Label partySubTitle = new Label("wallet: " + shopState.getPartyWallet());
-            partySubTitle.setStyle("-fx-font-weight: light;");
+            partySubTitle.setStyle("-fx-font-weight: lighter;");
             final VBox partyBox = new VBox(10, partyTitle, partySubTitle, partyItemsBox);
 
             final Label shopTitle = new Label("Shop");
             shopTitle.setStyle("-fx-font-weight: bold;");
             final Label shopSubTitle = new Label("wallet: " + shopState.getShopWallet());
-            shopSubTitle.setStyle("-fx-font-weight: light;");
+            shopSubTitle.setStyle("-fx-font-weight: lighter;");
             final VBox shopBox = new VBox(10, shopTitle, shopSubTitle, shopItemsBox);
 
             // main pane
