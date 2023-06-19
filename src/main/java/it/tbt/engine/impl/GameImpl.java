@@ -27,9 +27,13 @@ public final class GameImpl implements Game {
     private IGameStateManager gameStateManager;
 
     /**
-     * This implementation uses a ViewControllerManager and an GameStateManager as helper classes to delegate responsibility.
-     * Creates both the World, the IParty and the Menus object with default implementations.
-     * @param gvf the GameViewFactory which is used to create views different based on the graphical framework chosen.
+     * This implementation uses a ViewControllerManager and an GameStateManager as
+     * helper classes to delegate responsibility.
+     * Creates both the World, the IParty and the Menus object with default
+     * implementations.
+     * 
+     * @param gvf the GameViewFactory which is used to create views different based
+     *            on the graphical framework chosen.
      */
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl(gvf);
@@ -41,14 +45,15 @@ public final class GameImpl implements Game {
         ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
 
         allies.add(new Ally("Roberto", 50, 50, 50, new ArrayList<>(Arrays.asList(skills.get(0)))));
-        allies.add(new Ally("Gianfranco", 100, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
+        allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
         allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
         allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
         Party p = new Party("party", 75, 75, 75, 75, allies);
         p.addItemToInventory(new Potion("Potion", 3, 10));
         p.addItemToInventory(new Potion("Potion", 3, 10));
         p.addItemToInventory(new Potion("Potion", 3, 10));
-        p.addItemToInventory(new Antidote(5));;
+        p.addItemToInventory(new Antidote(5));
+        ;
         gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(),
                 p, MenuFactory.getMainMenu(), MenuFactory.getPauseMenu());
     }
@@ -58,10 +63,10 @@ public final class GameImpl implements Game {
      */
     @Override
     public void initialize() {
-       this.viewControllerManager.renderView(
-               this.gameStateManager.getState(),
-               this.gameStateManager.getStateModel(),
-               true);
+        this.viewControllerManager.renderView(
+                this.gameStateManager.getState(),
+                this.gameStateManager.getStateModel(),
+                true);
     }
 
     /**
@@ -80,8 +85,7 @@ public final class GameImpl implements Game {
         this.viewControllerManager.renderView(
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
-                this.gameStateManager.hasStateChanged()
-                );
+                this.gameStateManager.hasStateChanged());
     }
 
     /**

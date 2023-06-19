@@ -6,34 +6,60 @@ import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.characters.Enemy;
 import it.tbt.model.fight.api.FightModel;
 
-public class FightStateImpl implements FightState {
+/**
+ * Implementation of the {@link FightState} interface.
+ * This class provides the implementation for managing the state of a fight in
+ * the game.
+ */
+public final class FightStateImpl implements FightState {
 
     private final FightModel model;
 
+    /**
+     * Constructs a new instance of the {@link FightStateImpl} class with the
+     * specified {@link FightModel}.
+     *
+     * @param model the {@link FightModel} representing the fight
+     */
     public FightStateImpl(final FightModel model) {
         this.model = model;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSelectedTargetIndex() {
         return model.getSelectedTargetIndex();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handlePreviousTarget() {
         model.selectPreviousTarget();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleNextTarget() {
         model.selectNextTarget();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handlePerformAction() {
         model.performSelectedAction();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleCycleAction(final boolean cycleUp) {
         if (cycleUp) {
@@ -59,31 +85,49 @@ public class FightStateImpl implements FightState {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Ally> getAllies() {
         return model.getAllies();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Enemy> getEnemies() {
         return model.getEnemies();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isUsingSkill() {
         return model.isUsingSkill();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isUsingAntidote() {
         return model.isUsingAntidote();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isUsingPotion() {
         return model.isUsingPotion();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Ally getCurrentAlly() {
         return model.getCurrentAlly();

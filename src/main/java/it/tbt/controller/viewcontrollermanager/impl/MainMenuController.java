@@ -5,81 +5,72 @@ import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The {@code MainMenuController} class represents the view controller for the main menu state.
+ * It handles user input and triggers actions associated with the main menu state.
+ */
 public class MainMenuController implements ViewController {
 
-    private List<Command> commands = new ArrayList<>();
+    private final List<Command> commands;
+    private final MenuState modelState;
 
-    private MenuState modelState;
-
-
-    public MainMenuController(final MenuState menuStateImpl){
+    /**
+     * Constructs a new {@code MainMenuController} with the specified menu state.
+     *
+     * @param menuStateImpl the menu state implementation
+     */
+    public MainMenuController(final MenuState menuStateImpl) {
         this.modelState = menuStateImpl;
-        this.clean();
+        commands = new ArrayList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void onKeyPressed(int key) {
-
-            switch (key) {
-
-                case KeyEvent.VK_UP:
-                case KeyEvent.VK_W:
-                    this.commands.add(new Command() {
-                        @Override
-                        public void execute() {
-                            modelState.PreviousElement();
-                        }
-                    });
-                    break;
-                case KeyEvent.VK_S:
-                case KeyEvent.VK_DOWN:
-                    this.commands.add(new Command() {
-                        @Override
-                        public void execute() {
-                            modelState.NextElement();
-                        }
-                    });
-                    break;
-                case KeyEvent.VK_ENTER:
-                case KeyEvent.VK_SPACE:
-                    if(modelState.getItems().get(modelState.getFocus()) instanceof MenuButton){
-                        this.commands.add((Command) ((MenuButton) modelState.getItems().get(modelState.getFocus())).getAction());
-                    }
-                    break;
-                case KeyEvent.VK_RIGHT:
-                case KeyEvent.VK_D:
-                    if(modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>){
-                        this.commands.add((Command) ((MenuSelect) modelState.getItems().get(modelState.getFocus())).nextOption());
-                    }
-                    break;
-                case KeyEvent.VK_LEFT:
-                case KeyEvent.VK_A:
-                    if(modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>){
-                        this.commands.add((Command)((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
-                    }
-                    break;
-                case KeyEvent.VK_ESCAPE:
-                    this.commands.add(new Command() {
-                        @Override
-                        public void execute() {
-                            System.exit(0);
-                        }
-                    });
-                    break;
+    public void onKeyPressed(final int key) {
+        switch (key) {
+            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.commands.add(() -> modelState.PreviousElement());
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.commands.add(() -> modelState.NextElement());
+            case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
+                if (modelState.getItems().get(modelState.getFocus()) instanceof MenuButton) {
+                    this.commands.add(((MenuButton) modelState.getItems().get(modelState.getFocus())).getAction());
+                }
             }
-
+            case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> {
+                if (modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>) {
+                    this.commands.add(((MenuSelect) modelState.getItems().get(modelState.getFocus())).nextOption());
+                }
+            }
+            case KeyEvent.VK_LEFT, KeyEvent.VK_A -> {
+                if (modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>) {
+                    this.commands.add(((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
+                }
+            }
+            case KeyEvent.VK_ESCAPE -> this.commands.add(() -> System.exit(0));
+            default -> {
+                // Throw an exception for an unrecognized key if needed
+                // throw new IllegalArgumentException("Unrecognized key: " + key);
+            }
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Command> getCommands() {
         return this.commands;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clean() {
         this.commands.clear();

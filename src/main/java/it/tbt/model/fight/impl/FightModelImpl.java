@@ -20,11 +20,17 @@ import it.tbt.model.fight.api.FightModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateObserver;
 
-public class FightModelImpl implements FightModel {
+/**
+ * This class represents an implementation of the FightModel interface in a
+ * JavaFX application.
+ * It handles the logic and functionality of a fight between allies and enemies.
+ */
+public final class FightModelImpl implements FightModel {
     private static final double BASECRITCHANCE = 0.05;
     private static final double ENEMYPOISONCHANCE = 0.03;
     private static final double POISONDAMAGE = 0.05;
     private static final double BOOSTEDCRITCHANCE = 0.25;
+    private static final int ENEMYLIMIT = 5;
 
     private Map<Item, Double> drops;
     private StateObserver stateObserver;
@@ -39,11 +45,17 @@ public class FightModelImpl implements FightModel {
     private boolean usingPotion;
     private boolean usingAntidote;
 
+    /**
+     * Constructs a FightModelImpl object with the provided average enemy stat and
+     * item drops.
+     *
+     * @param averageEnemyStat the average stat of the enemies
+     * @param drops            a map of items and their drop rates
+     */
     public FightModelImpl(final int averageEnemyStat, final Map<Item, Double> drops) {
         this.enemies = new ArrayList<>();
-        for (int c = 1; c < 5; c++) {
-            this.addEnemy(CharacterFactory.createEnemy("Enemy " + c,
-                    100, 10, 20));
+        for (int c = 1; c < ENEMYLIMIT; c++) {
+            this.addEnemy(CharacterFactory.createRandomEnemy("Enemy " + c, averageEnemyStat));
         }
         this.selectedTargetIndex = 0;
         this.usingSkill = false;
@@ -52,17 +64,28 @@ public class FightModelImpl implements FightModel {
         this.drops = drops;
     }
 
+    /**
+     * Constructs a FightModelImpl object with the provided party, average enemy
+     * stat, and item drops.
+     *
+     * @param party            the party participating in the fight
+     * @param averageEnemyStat the average stat of the enemies
+     * @param drops            a map of items and their drop rates
+     */
     public FightModelImpl(final IParty party, final int averageEnemyStat, final Map<Item, Double> drops) {
         this(averageEnemyStat, drops);
         initializeParty(party);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initializeParty(final IParty party) {
         this.party = party;
-        List<Ally> tmpAllies = new ArrayList<>(party.getMembers());
+        final List<Ally> tmpAllies = new ArrayList<>(party.getMembers());
         this.allies = new ArrayList<>();
-        int limit = Math.min(4, tmpAllies.size());
+        final int limit = Math.min(4, tmpAllies.size());
         for (int i = 0; i < limit; i++) {
             if (tmpAllies.get(i) != null) {
                 // per curare gli alleati quando inizia un fight
@@ -94,61 +117,99 @@ public class FightModelImpl implements FightModel {
         } else {
             enemyAttack();
         }
-
-        party.addItemToInventory(new Potion("Potion", 3, 10));
-        party.addItemToInventory(new Potion("Potion", 3, 10));
-        party.addItemToInventory(new Potion("Potion", 3, 10));
-        party.addItemToInventory(new Antidote(5));
         // System.out.println(party.getInventory().isEmpty());
     }
 
+    /**
+     * Adds an enemy to the fight.
+     *
+     * @param enemy the enemy character to add
+     */
     public void addEnemy(final Enemy enemy) {
         this.enemies.add(enemy);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Ally> getAllies() {
         return allies;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Enemy> getEnemies() {
         return enemies;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Ally getCurrentAlly() {
         return this.currentAlly;
     }
 
+    /**
+     * Returns the currently selected ally.
+     *
+     * @return the selected ally
+     */
     public Ally getSelectedAlly() {
         return this.allies.get(selectedTargetIndex);
     }
 
+    /**
+     * Returns the currently selected enemy.
+     *
+     * @return the selected enemy
+     */
     public Enemy getSelectedEnemy() {
         return this.enemies.get(selectedTargetIndex);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSelectedTargetIndex() {
         return this.selectedTargetIndex;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isUsingSkill() {
         return this.usingSkill;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isUsingPotion() {
         return this.usingPotion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isUsingAntidote() {
         return this.usingAntidote;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void selectPreviousTarget() {
-        int previousTarget = Math.max(0, selectedTargetIndex - 1);
-        if ((isUsingSkill() || (!isUsingAntidote() && !isUsingPotion() && !isUsingSkill()))
+        final int previousTarget = Math.max(0, selectedTargetIndex - 1);
+        if (isUsingSkill() || (!isUsingAntidote() && !isUsingPotion() && !isUsingSkill())
                 && getEnemies().get(previousTarget).getMaxHealth() != 0) {
             this.selectedTargetIndex = previousTarget;
         } else if ((isUsingAntidote() || isUsingPotion()) && getAllies().get(previousTarget).getMaxHealth() != 0) {
@@ -156,9 +217,13 @@ public class FightModelImpl implements FightModel {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void selectNextTarget() {
-        int nextTarget = Math.min(enemies.size() - 1, selectedTargetIndex + 1);
-        if ((isUsingSkill() || (!isUsingAntidote() && !isUsingPotion() && !isUsingSkill()))
+        final int nextTarget = Math.min(enemies.size() - 1, selectedTargetIndex + 1);
+        if (isUsingSkill() || (!isUsingAntidote() && !isUsingPotion() && !isUsingSkill())
                 && getEnemies().get(nextTarget).getMaxHealth() != 0) {
             this.selectedTargetIndex = nextTarget;
         } else if ((isUsingAntidote() || isUsingPotion()) && getAllies().get(nextTarget).getMaxHealth() != 0) {
@@ -166,6 +231,10 @@ public class FightModelImpl implements FightModel {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void selectAction(final boolean changeUsingSkillState, final boolean changeUsingPotionState,
             final boolean changeUsingAntidoteState) {
         selectedTargetIndex = 0;
@@ -174,22 +243,26 @@ public class FightModelImpl implements FightModel {
         this.usingAntidote = changeUsingAntidoteState;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void performSelectedAction() {
-        Character character = (Character) getCurrentAlly();
-        Character selectedAlly = (Character) getSelectedAlly();
-        Character target = (Enemy) getSelectedEnemy();
+        final Character character = (Character) getCurrentAlly();
+        final Character selectedAlly = (Character) getSelectedAlly();
+        final Character target = (Enemy) getSelectedEnemy();
 
         if (usingSkill && currentAlly.getSkills() != null && currentAlly.getSkills().size() != 0
                 && currentAlly.getSkills().get(0) != null && target.getHealth() != 0) {
-            Skill skill = currentAlly.getSkills().get(0); // prende la skill equipaggiata (quella in posizione 0)
+            final Skill skill = currentAlly.getSkills().get(0); // prende la skill equipaggiata (quella in posizione 0)
             if (skill.getRemainingCooldown() == 0) {
                 double damage = (character.getAttack() + character.getWeaponAttack()) * skill.getAttackMultiplier();
-                Random crit = new Random();
-                Double critProb = crit.nextDouble();
-                if (critProb <= this.BASECRITCHANCE
-                        || (skill.isIncProbCritical() && critProb <= this.BOOSTEDCRITCHANCE)) {
+                final Random crit = new Random();
+                final Double critProb = crit.nextDouble();
+                if (critProb <= FightModelImpl.BASECRITCHANCE
+                        || skill.isIncProbCritical() && critProb <= FightModelImpl.BOOSTEDCRITCHANCE) {
                     damage *= 2.0;
-                    System.out.println("Critical Hit!");
+                    // System.out.println("Critical Hit!");
                 }
                 target.takeDamage((int) damage);
                 if (skill.getPossibleStatus() != null && skill.getPossibleStatus().get() == Status.POISONED) {
@@ -209,9 +282,10 @@ public class FightModelImpl implements FightModel {
                 return;
             }
 
-            List<Potion> potions = new ArrayList<>();
-            for (Map.Entry<Item, Integer> item : party.getInventory().entrySet()) { // si tira giù tutte le pozioni
-                Item key = item.getKey();
+            final List<Potion> potions = new ArrayList<>();
+            for (final Map.Entry<Item, Integer> item : party.getInventory().entrySet()) { // si tira giù tutte le
+                                                                                          // pozioni
+                final Item key = item.getKey();
                 if (key instanceof Potion && item.getValue() > 0) {
                     potions.add((Potion) key);
                 }
@@ -221,9 +295,9 @@ public class FightModelImpl implements FightModel {
                 return; // se non ha pozioni non fa nulla
             }
 
-            int missingHealth = selectedAlly.getMaxHealth() - selectedAlly.getHealth();
+            final int missingHealth = selectedAlly.getMaxHealth() - selectedAlly.getHealth();
             Potion currenPotion = null;
-            for (Potion p : potions) {
+            for (final Potion p : potions) {
                 if (currenPotion == null) {
                     currenPotion = p;
                 } else if (currenPotion.getHealPower() > p.getHealPower() && p.getHealPower() > missingHealth
@@ -246,7 +320,7 @@ public class FightModelImpl implements FightModel {
             }
 
             int healAmount = selectedAlly.getHealth() + currenPotion.getHealPower();
-            int scartoHeal = healAmount - selectedAlly.getMaxHealth();
+            final int scartoHeal = healAmount - selectedAlly.getMaxHealth();
             if (scartoHeal > 0) {
                 healAmount -= scartoHeal;
             }
@@ -254,42 +328,42 @@ public class FightModelImpl implements FightModel {
 
             party.removeItemFromInventory(currenPotion);
 
-            System.out.println(potions.size());
+            // System.out.println(potions.size());
 
             usingPotion = false;
         } else if (usingAntidote) { // codice che gestisce l'uso di antidoti
             Antidote antidote = null;
-            for (Map.Entry<Item, Integer> item : party.getInventory().entrySet()) {
-                Item key = item.getKey();
+            for (final Map.Entry<Item, Integer> item : party.getInventory().entrySet()) {
+                final Item key = item.getKey();
                 if (key instanceof Antidote && item.getValue() > 0) {
                     antidote = (Antidote) key;
                 }
             }
 
             if (antidote == null || !selectedAlly.getStatuses().contains(Status.POISONED)) {
-                System.out.println("O non è avvelenato o non hai antidoti");
+                // System.out.println("O non è avvelenato o non hai antidoti");
                 return; // se non ha antitodi non fa nulla
             }
 
             selectedAlly.removeStatus(Status.POISONED);
             party.removeItemFromInventory(antidote); // rimuove l'antidoto dall'inventario
-            System.out.println("Hai usato un antidoto");
+            // System.out.println("Hai usato un antidoto");
             usingAntidote = false;
         } else if (!usingSkill && !usingAntidote && !usingPotion && target.getHealth() != 0) { // codice che gestisce
                                                                                                // l'attacco normale
             double damage = character.getAttack() + character.getWeaponAttack();
-            Random crit = new Random();
-            Double critProb = crit.nextDouble();
-            if (critProb <= this.BASECRITCHANCE) {
+            final Random crit = new Random();
+            final Double critProb = crit.nextDouble();
+            if (critProb <= FightModelImpl.BASECRITCHANCE) {
                 damage *= 2.0;
-                System.out.println("Critical Hit!");
+                // System.out.println("Critical Hit!");
             }
             target.takeDamage((int) damage);
         } else if (target.getHealth() == 0) {
-            System.out.println("Stai attaccando un nemico con 0 hp");
+            // System.out.println("Stai attaccando un nemico con 0 hp");
             return;
         } else {
-            System.out.println("???");
+            // System.out.println("???");
             return;
         }
 
@@ -298,65 +372,76 @@ public class FightModelImpl implements FightModel {
         }
     }
 
+    /**
+     * Decreases the cooldowns of skills for all allies.
+     */
     private void decreaseCooldowns() {
-        for (Ally ally : allies) {
-            if (ally.getSkills() != null) {
-                if (ally.getSkills().size() >= 1) {
-                    Skill skill = ally.getSkills().get(0);
-                    skill.decreaseCooldown();
-                }
+        for (final Ally ally : allies) {
+            if (ally.getSkills() != null && ally.getSkills().size() >= 1) {
+                final Skill skill = ally.getSkills().get(0);
+                skill.decreaseCooldown();
             }
         }
     }
 
+    /**
+     * Applies poison damage to all allies and enemies that are poisoned.
+     */
     private void applyPoisonDamage() {
-        for (Enemy enemy : enemies) {
+        for (final Enemy enemy : enemies) {
             if (enemy.getStatuses().contains(Status.POISONED)) {
-                double poisonDamage = (enemy.getMaxHealth() * this.POISONDAMAGE) + 1;
+                final double poisonDamage = enemy.getMaxHealth() * FightModelImpl.POISONDAMAGE + 1;
                 enemy.takeDamage((int) poisonDamage);
             }
         }
-        for (Ally ally : allies) {
+        for (final Ally ally : allies) {
             if (ally.getStatuses().contains(Status.POISONED)) {
-                double poisonDamage = (ally.getMaxHealth() * this.POISONDAMAGE) + 1;
+                final double poisonDamage = ally.getMaxHealth() * FightModelImpl.POISONDAMAGE + 1;
                 ally.takeDamage((int) poisonDamage);
             }
         }
     }
 
+    /**
+     * Performs an attack by the enemy.
+     */
     public void enemyAttack() {
         if (checkBattleEnd()) {
             return;
         }
-        Random random = new Random();
-        Enemy currentEnemy = (Enemy) this.currentCharacter;
+        final Random random = new Random();
+        final Enemy currentEnemy = (Enemy) this.currentCharacter;
         int currentTarget = random.nextInt(0, 4);
         while (this.allies.get(currentTarget).getHealth() == 0) {
             currentTarget = random.nextInt(0, 4);
         }
         double damage = currentEnemy.getAttack();
-        Double critProb = random.nextDouble();
-        if (critProb <= this.BASECRITCHANCE) {
+        final Double critProb = random.nextDouble();
+        if (critProb <= FightModelImpl.BASECRITCHANCE) {
             damage *= 2.0;
-            System.out.println("Critical Hit!");
+            // System.out.println("Critical Hit!");
         }
         this.allies.get(currentTarget)
                 .takeDamage(Math.max(((int) damage) - this.allies.get(currentTarget).getArmorDefence(), 0));
-        Double poisonProb = random.nextDouble();
-        if (poisonProb <= this.ENEMYPOISONCHANCE) {
+        final Double poisonProb = random.nextDouble();
+        if (poisonProb <= FightModelImpl.ENEMYPOISONCHANCE) {
             this.allies.get(currentTarget).addStatus(Status.POISONED);
-            System.out.println(this.allies.get(currentTarget).getName() + " è stato avvelenato!");
+            // System.out.println(this.allies.get(currentTarget).getName() + " è stato
+            // avvelenato!");
         }
         if (!checkBattleEnd()) {
             advanceTurn();
         }
     }
 
+    /**
+     * Advances the turn to the next character in the turn order.
+     */
     public void advanceTurn() {
         if (checkBattleEnd()) {
             return;
         }
-        int currentIndex = turnOrder.indexOf(this.currentCharacter);
+        final int currentIndex = turnOrder.indexOf(this.currentCharacter);
         int nextIndex = (currentIndex + 1) % this.turnOrder.size();
         while (this.turnOrder.get(nextIndex).getHealth() == 0) {
             nextIndex++;
@@ -366,7 +451,7 @@ public class FightModelImpl implements FightModel {
         if ((nextIndex) % this.turnOrder.size() == 0) {
             decreaseCooldowns();
             applyPoisonDamage();
-            System.out.println("cooldown skill diminuito e danno da veleno applicato");
+            // System.out.println("cooldown skill diminuito e danno da veleno applicato");
             if (checkBattleEnd()) {
                 return;
             }
@@ -378,38 +463,49 @@ public class FightModelImpl implements FightModel {
         }
     }
 
+    /**
+     * Checks if the battle has ended.
+     *
+     * @return true if the battle has ended, false otherwise
+     */
     private boolean checkBattleEnd() {
         boolean allAlliesDefeated = true;
         boolean allEnemiesDefeated = true;
-        for (Ally ally : allies) {
+        for (final Ally ally : allies) {
             if (ally.getHealth() > 0) {
                 allAlliesDefeated = false;
                 break;
             }
         }
-        for (Enemy enemy : enemies) {
+        for (final Enemy enemy : enemies) {
             if (enemy.getHealth() > 0) {
                 allEnemiesDefeated = false;
                 break;
             }
         }
         if (allAlliesDefeated) {
-            System.out.println("Enemies win!");
-            this.stateObserver.onExplore();
+            // System.out.println("Enemies win!");
+            this.stateObserver.onEnding("Oh no hai perso, premi un tasto per tornare nel menu");
         } else if (allEnemiesDefeated) {
-            System.out.println("Allies win!");
-            Random dropDropped = new Random();
-            for (Map.Entry<Item, Double> e : this.drops.entrySet()) {
+            // System.out.println("Allies win!");
+            final Random dropDropped = new Random();
+            for (final Map.Entry<Item, Double> e : this.drops.entrySet()) {
                 if (dropDropped.nextDouble() <= (Double) e.getValue()) {
                     party.addItemToInventory((Item) e.getKey());
-                    System.out.println("Hai droppato " + e.getKey().toString());
+                    // System.out.println("Hai droppato " + e.getKey().toString());
                 }
+            }
+            for (final Enemy e : this.getEnemies()) {
+                this.party.addCash(e.getMaxHealth());
             }
             this.stateObserver.onExplore();
         }
-        return (allAlliesDefeated || allEnemiesDefeated);
+        return allAlliesDefeated || allEnemiesDefeated;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;

@@ -1,56 +1,57 @@
 package it.tbt.view.javaFx;
 
-import it.tbt.commons.customTypes.ItemPair;
+import it.tbt.commons.customtypes.ItemPair;
+import it.tbt.commons.resourceloader.ImageLoader;
 import it.tbt.controller.modelmanager.InventoryPhase;
 import it.tbt.controller.modelmanager.InventoryState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.entities.characters.Ally;
-import it.tbt.model.entities.characters.Status;
 import it.tbt.model.entities.items.Item;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.Map;
 
-import static java.lang.Integer.MAX_VALUE;
-
+/**
+ * The {@code JavaFxInventoryView} class represents a JavaFX implementation of the inventory view.
+ * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
+ */
 public class JavaFxInventoryView extends AbstractJavaFxView implements GameView {
 
-    private Scene scene;
-    private ViewController inventoryController;
-    private InventoryState inventoryState;
-
+    private static final double BORDER_SCALE = 25;
+    private final Scene scene;
+    private final InventoryState inventoryState;
+    private final Background bg;
     /**
-     * @param inventoryController
-     * @param stage
-     * @param scene
-     * @param inventoryState
-     **/
+     * Creates a new instance of {@code JavaFxInventoryView} with the specified inventory controller, stage, scene, and inventory state.
+     *
+     * @param inventoryController the inventory controller
+     * @param stage               the stage
+     * @param scene               the scene
+     * @param inventoryState      the inventory state
+     */
     protected JavaFxInventoryView(ViewController inventoryController, Stage stage, Scene scene, InventoryState inventoryState) {
         super(inventoryController, stage, scene);
         this.scene = scene;
-        this.inventoryController = inventoryController;
         this.inventoryState = inventoryState;
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                System.out.println("ff15" + event.getCode());
-                inventoryController.onKeyPressed(event.getCode().getCode());
-            }
-        });
-
+        this.bg = new Background(
+                new BackgroundImage (
+                        new Image (ImageLoader.getInstance().getFilePath(inventoryState.getClass())),
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        new BackgroundSize(1.0, 1.0, true, true, false, false)));
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         Platform.runLater(() -> {
@@ -154,12 +155,18 @@ public class JavaFxInventoryView extends AbstractJavaFxView implements GameView 
             column2.setPercentWidth(33.33);
             column3.setPercentWidth(33.33);
             pane.getColumnConstraints().addAll(column1, column2, column3);
+            inventoryBox.setStyle ("-fx-background-color: white;");
+            memberBox.setStyle ("-fx-background-color: white;");
+            partyBox.setStyle ("-fx-background-color: white;");
             pane.add(inventoryBox, 0, 0);
             pane.add(partyBox, 1, 0);
             pane.add(memberBox, 2,0);
-            pane.setStyle("-fx-background-color: #F5F5F5;"); // Set background color
+            pane.setStyle("-fx-background-color: transparent;"); // Set background color
+            root.setBackground (this.bg);
+            pane.setMaxHeight(this.scene.getHeight() - (this.scene.getHeight() / JavaFxInventoryView.BORDER_SCALE));
+            pane.setMaxWidth(this.scene.getWidth() - (this.scene.getWidth() / JavaFxInventoryView.BORDER_SCALE));
             root.getChildren().add(pane);
-            root.setAlignment (Pos.TOP_CENTER);
+            root.setAlignment (Pos.CENTER);
             scene.setRoot(root);
 
         });

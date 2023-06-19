@@ -11,7 +11,7 @@ public final class TurnBasedTunnels {
     /**
      * Entry-point class not instantiable.
      */
-    private TurnBasedTunnels() { };
+    private TurnBasedTunnels() { }
 
     /**
      * Application entry point.

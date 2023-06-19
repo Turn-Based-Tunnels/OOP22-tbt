@@ -19,6 +19,10 @@ public class ShopStateImpl implements ShopState {
     private final List<ShopItem> partyItems;
     private final List<ShopItem> shopItems;
 
+    /**
+     * Default constructor.
+     * @param shop
+     */
     public ShopStateImpl(final Shop shop) {
         this.shop = shop;
         partyItems = new ArrayList<>(
@@ -47,6 +51,9 @@ public class ShopStateImpl implements ShopState {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void nextElement() {
         if (selector) {
@@ -56,6 +63,9 @@ public class ShopStateImpl implements ShopState {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void previousElement() {
         if (selector) {
@@ -65,55 +75,111 @@ public class ShopStateImpl implements ShopState {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getFocus() {
-        return selector ? focusParty : focusShop;
+    public int getPartyFocus() {
+        return focusParty;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void toExplore() {
-        shop.toExplore();
+    public int getShopFocus() {
+        return focusShop;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPartyListFocused() {
+        return selector;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void goToExplore() {
+        shop.goToExplore();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getPartyItems() {
         return List.copyOf(partyItems);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getShopItems() {
         return List.copyOf(shopItems);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPartyWallet() {
+        return shop.getPartyWallet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getShopWallet() {
+        return shop.getShopWallet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         if (selector) {
+            // party buy from shop
+            if (partyItems.get(focusParty).getCount() > 0) {
+                final ShopItem removedItem = partyItems.remove(focusShop);
+                shop.buy(removedItem.getName());
+                if (shopItems.contains(removedItem)) {
+                    shopItems.get(focusShop).incCount();
+                } else {
+                    shopItems.add(new ShopItem(removedItem));
+                }
+                partyItems.get(focusParty).decCount();
+                if (partyItems.get(focusParty).getCount() <= 0) {
+                    partyItems.remove(focusParty);
+                }
+            }
+        } else {
             // party sell to shop
-            if(shopItems.get(focusParty).getCount() > 0) {
-                final ShopItem removedItem = shopItems.remove(focusParty);
+            if (shopItems.get(focusShop).getCount() > 0) {
+                final ShopItem removedItem = shopItems.remove(focusShop);
                 shop.buy(removedItem.getName());
                 if (partyItems.contains(removedItem)) {
                     partyItems.get(focusParty).incCount();
                 } else {
                     partyItems.add(new ShopItem(removedItem));
                 }
-                shopItems.get(focusParty).decCount();
-            }
-        } else {
-            // party buy from shop
-            if(partyItems.get(focusParty).getCount() > 0) {
-                final ShopItem removedItem = shopItems.remove(focusParty);
-                shop.buy(removedItem.getName());
-                if (shopItems.contains(removedItem)) {
-                    shopItems.get(focusParty).incCount();
-                } else {
-                    shopItems.add(new ShopItem(removedItem));
+                shopItems.get(focusShop).decCount();
+                if (shopItems.get(focusShop).getCount() <= 0) {
+                    shopItems.remove(focusShop);
                 }
-                partyItems.get(focusParty).decCount();
             }
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void toggleList() {
         selector = !selector;

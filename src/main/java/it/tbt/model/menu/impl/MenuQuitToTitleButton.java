@@ -4,34 +4,36 @@ import it.tbt.model.command.menu.ButtonCommand;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * The {@code MenuQuitToTitleButton} class represents a menu button for quitting to the title screen.
+ * It extends the {@link MenuButton} class and implements the {@link StateTrigger} interface.
+ */
 public class MenuQuitToTitleButton extends  MenuButton implements StateTrigger {
 
-    List<StateObserver> observers = new ArrayList<>();
     private StateObserver stateObserver;
 
-    public MenuQuitToTitleButton(String text) {
+    /**
+     * Creates a new instance of {@code MenuQuitToTitleButton} with the specified text.
+     *
+     * @param text the text of the button
+     */
+    public MenuQuitToTitleButton(final String text) {
         super(text);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ButtonCommand getAction(){
-        return new ButtonCommand() {
-            @Override
-            public void execute() {
-                stateObserver.onMenu();
-            }
-        };
+        return () -> stateObserver.onMenu();
     }
 
     /**
-     * @param stateObserver
+     * {@inheritDoc}
      */
     @Override
-    public void setStateObserver(StateObserver stateObserver) {
+    public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;
     }
 }

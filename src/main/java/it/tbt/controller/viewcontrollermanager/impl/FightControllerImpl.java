@@ -9,25 +9,46 @@ import it.tbt.model.command.api.Command;
 
 import java.awt.event.KeyEvent;
 
-public class FightControllerImpl implements FightController {
+/**
+ * Implementation of the {@link FightController} interface.
+ * This class handles user input during a fight and triggers corresponding
+ * actions in the fight model.
+ */
+public final class FightControllerImpl implements FightController {
 
     private final FightState model;
     private final List<Command> commands = new ArrayList<>();
 
+    /**
+     * Constructs a new instance of the {@link FightControllerImpl} class with the
+     * specified {@link FightState}.
+     *
+     * @param model the {@link FightState} representing the fight state
+     */
     public FightControllerImpl(final FightState model) {
         this.model = model;
         this.clean();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Command> getCommands() {
         return List.copyOf(commands);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void clean() {
         commands.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onKeyPressed(final int key) {
         switch (key) {

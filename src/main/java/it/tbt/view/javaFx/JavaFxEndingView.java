@@ -1,47 +1,42 @@
 package it.tbt.view.javaFx;
 
 import it.tbt.controller.modelmanager.EndState;
-import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.model.menu.api.MenuButton;
-import it.tbt.model.menu.api.MenuItem;
-import it.tbt.model.menu.impl.MenuSelect;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class JavaFxEndingView extends /*ResizableApp*/ AbstractJavaFxView implements GameView {
+/**
+ * The {@code JavaFxEndingView} class represents a JavaFX implementation of the game ending view.
+ * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
+ */
+public class JavaFxEndingView extends AbstractJavaFxView implements GameView {
 
-    private Scene scene;
-    private ViewController endController;
-    private EndState main;
-
+    private final Scene scene;
+    private final EndState main;
+    /**
+     * Creates a new instance of {@code JavaFxEndingView} with the specified end controller, stage, scene, and end state.
+     *
+     * @param endController the end controller
+     * @param stage         the stage
+     * @param scene         the scene
+     * @param endState      the end state
+     */
     public JavaFxEndingView(ViewController endController, Stage stage, Scene scene, EndState endState) {
         super(endController, stage, scene);
         this.scene = scene;
-        this.endController = endController;
         this.main = endState;
     }
 
     /**
-     * @param viewController
-     * @param stage
-     * @param scene
+     * {@inheritDoc}
      */
-    protected JavaFxEndingView (ViewController viewController, Stage stage, Scene scene) {
-        super (viewController, stage, scene);
-    }
-
-
     @Override
     public void render() {
         Platform.runLater(() -> {
@@ -55,7 +50,7 @@ public class JavaFxEndingView extends /*ResizableApp*/ AbstractJavaFxView implem
             root.getChildren().add(vbox);
             root.setAlignment (Pos.CENTER);
             this.scene.setCursor(Cursor.NONE);
-            this.getScene().setRoot(root);
+            this.getScene ().setRoot(root);
 
         });
     }
