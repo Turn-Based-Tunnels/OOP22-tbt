@@ -95,7 +95,7 @@ public class Shop implements StateTrigger {
         if (!optItem.isEmpty()) {
             final Item item = optItem.get();
             // check party wallet and move item
-            if (party.getWallet() - item.getValue() > 0 && shopInventory.removeItem(item)) {
+            if (party.getWallet() - item.getValue() >= 0 && shopInventory.removeItem(item)) {
                 party.addItemToInventory(item);
                 //payment
                 wallet = wallet + item.getValue();
@@ -121,8 +121,9 @@ public class Shop implements StateTrigger {
         if (!optItem.isEmpty()) {
             final Item item = optItem.get();
             // check shop wallet and move item
-            if (wallet - item.getValue() > 0 && party.removeItemFromInventory(item)) {
+            if (wallet - item.getValue() >= 0 && party.removeItemFromInventory(item)) {
                 shopInventory.addItem(item);
+                // payment
                 wallet = wallet - item.getValue();
                 party.addCash(item.getValue());
                 return false;

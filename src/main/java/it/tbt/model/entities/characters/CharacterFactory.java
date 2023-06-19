@@ -21,7 +21,7 @@ public final class CharacterFactory {
 
     /**
      * Create an ally with skills.
-     * 
+     *
      * @param name
      * @param health
      * @param attack
@@ -40,7 +40,7 @@ public final class CharacterFactory {
 
     /**
      * Create an ally without skills.
-     * 
+     *
      * @param name
      * @param health
      * @param attack
@@ -57,7 +57,7 @@ public final class CharacterFactory {
 
     /**
      * Create an enemy.
-     * 
+     *
      * @param name
      * @param health
      * @param attack
@@ -75,8 +75,8 @@ public final class CharacterFactory {
     /**
      * Create an enemy with random stats.
      * The sum of all the stats must be statSum (circa), this will help defining
-     * how hard is defeating the enemy
-     * 
+     * how hard is defeating the enemy.
+     * Every stats will be at least 10% of statsSum
      * @param name
      * @param statsSum
      * @return new random nemy
@@ -86,10 +86,13 @@ public final class CharacterFactory {
         final long tmpAttack = Math.abs(RND.nextInt());
         final long tmpSpeed = Math.abs(RND.nextInt());
         final long sum = tmpHealth + tmpAttack + tmpSpeed;
+        final int statsSumPart = (int) (statsSum * 0.7); // ~70%
+        final int res = statsSum / 10; // ~10%
         return new Enemy(
-                name,
-                (int) (tmpHealth * statsSum / sum + 1),
-                (int) (tmpAttack * statsSum / sum),
-                (int) (tmpSpeed * statsSum / sum));
+            name,
+            (int) (tmpHealth * statsSumPart / sum) + res,
+            (int) (tmpAttack * statsSumPart / sum) + res,
+            (int) (tmpSpeed * statsSumPart / sum) + res
+        );
     }
 }
