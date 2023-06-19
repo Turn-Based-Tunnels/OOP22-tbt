@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class RoomImpl implements Room, KillObserver {
 
-    private String roomName;
+    //private String roomName;
     private int roomWidth;
     private int roomHeight;
     private Set<SpatialEntity> entities;
@@ -32,7 +32,7 @@ public class RoomImpl implements Room, KillObserver {
      * @param roomHeight the room's height
      */
     public RoomImpl(final String roomName, final int roomWidth, final int roomHeight) {
-        this.roomName = roomName;
+        //this.roomName = roomName;
         this.roomHeight = roomHeight;
         this.roomWidth = roomWidth;
         entities = new HashSet<>();

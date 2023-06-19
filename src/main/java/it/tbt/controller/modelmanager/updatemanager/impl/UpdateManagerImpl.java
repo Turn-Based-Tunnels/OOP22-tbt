@@ -1,5 +1,6 @@
 package it.tbt.controller.modelmanager.updatemanager.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.modelmanager.updatemanager.api.UpdateManager;
@@ -11,6 +12,8 @@ public final class UpdateManagerImpl implements UpdateManager {
     /**
      * @param gameState
      */
+    @SuppressFBWarnings(value = "BC",
+            justification = "The cast is checked previously")
     @Override
     public void updateModel(final GameState gameState, final ModelState modelState, final long timeTransition) {
         switch (gameState) {

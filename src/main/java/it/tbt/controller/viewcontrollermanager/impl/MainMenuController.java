@@ -1,5 +1,6 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
@@ -26,6 +27,10 @@ public class MainMenuController extends AbstractViewController {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+            value = "Dm",
+            justification = "Menu needs to kill the application"
+    )
     @Override
     public void onKeyPressed(final int key) {
         switch (key) {
