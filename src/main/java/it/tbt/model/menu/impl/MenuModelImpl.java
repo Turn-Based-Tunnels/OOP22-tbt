@@ -23,33 +23,44 @@ public class MenuModelImpl implements MenuModel, StateTrigger {
      *
      * @param title the title of the menu
      * @param items the list of menu items
+     * @throws IllegalArgumentException if title is null or empty, or if items is null
      */
-    public MenuModelImpl (final String title, final List<it.tbt.model.menu.api.MenuItem> items) {
+    public MenuModelImpl(final String title, final List<it.tbt.model.menu.api.MenuItem> items) {
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be null or empty");
+        }
+        if (items == null) {
+            throw new IllegalArgumentException("Items cannot be null");
+        }
         this.items = new ArrayList<>();
         this.items.addAll(items);
-        this.title  =title;
+        this.title = title;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public String  getTitle(){
+    public String getTitle() {
         return this.title;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getFocus(){
+    public int getFocus() {
         return focus;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setFocus(final int focus){
+    public void setFocus(final int focus) {
         this.focus = focus;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -57,13 +68,18 @@ public class MenuModelImpl implements MenuModel, StateTrigger {
     public List<MenuItem> getItems() {
         return items;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void toExplore(){
+    public void toExplore() {
+        if (stateObserver == null) {
+            throw new IllegalStateException("StateObserver not set");
+        }
         this.stateObserver.onExplore();
     }
+
     /**
      * {@inheritDoc}
      */

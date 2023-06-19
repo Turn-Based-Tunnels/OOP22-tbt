@@ -23,9 +23,16 @@ public class ItemNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
      * @param height the height of the item NPC
      * @param width  the width of the item NPC
      * @param items  the map of items provided by the NPC and their quantities
+     * @throws IllegalArgumentException if name is null or empty, or if items is null
      */
     public ItemNPCImpl(String name, int x, int y, int height, int width, Map<Item, Integer> items) {
         super(name, x, y, height, width);
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        if (items == null) {
+            throw new IllegalArgumentException("Items cannot be null");
+        }
         this.items = items;
     }
 

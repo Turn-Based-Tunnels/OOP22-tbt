@@ -15,34 +15,42 @@ public class EndViewController implements ViewController {
 
     private final List<Command> commands;
     private final EndState endState;
+
     /**
      * Constructs a new {@code EndViewController} with the specified end state.
      *
      * @param endState the end state
+     * @throws IllegalArgumentException if the endState is null
      */
-    public EndViewController(final EndState endState){
-       this.endState=endState;
-       commands = new ArrayList<> ();
+    public EndViewController(final EndState endState) {
+        if (endState == null) {
+            throw new IllegalArgumentException("EndState cannot be null");
+        }
+        this.endState = endState;
+        commands = new ArrayList<>();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onKeyPressed (final int key) {
-        endState.triggerMainMenu ();
+    public void onKeyPressed(final int key) {
+        endState.triggerMainMenu();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Command> getCommands () {
+    public List<Command> getCommands() {
         return this.commands;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void clean () {
-        commands.clear ();
+    public void clean() {
+        commands.clear();
     }
 }

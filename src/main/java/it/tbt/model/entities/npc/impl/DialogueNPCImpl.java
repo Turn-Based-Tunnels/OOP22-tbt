@@ -5,7 +5,6 @@ import it.tbt.model.entities.npc.api.DialogueNPC;
 import it.tbt.model.party.IParty;
 import javafx.util.Pair;
 
-
 /**
  * The {@code DialogueNPCImpl} class is an implementation of the {@link DialogueNPC} interface.
  * It extends the {@link AbstractNPCImpl} class and represents an NPC with dialogue.
@@ -23,10 +22,14 @@ public class DialogueNPCImpl extends AbstractNPCImpl implements DialogueNPC {
      * @param height   the height of the dialogue NPC
      * @param width    the width of the dialogue NPC
      * @param dialogue the dialogue associated with the NPC
+     * @throws IllegalArgumentException if name or dialogue is null or empty, or if height or width is negative
      */
-    public DialogueNPCImpl(final String name, final int x, final int y , final int height, final int width, final String dialogue) {
+    public DialogueNPCImpl(final String name, final int x, final int y, final int height, final int width, final String dialogue) {
         super(name, x, y, height, width);
-        this.dialogue=dialogue;
+        if (dialogue == null || dialogue.isEmpty()) {
+            throw new IllegalArgumentException("Dialogue cannot be null or empty");
+        }
+        this.dialogue = dialogue;
     }
 
     /**
@@ -43,7 +46,7 @@ public class DialogueNPCImpl extends AbstractNPCImpl implements DialogueNPC {
     @Override
     public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
-            ((IParty)interactable).setDialogue (new Pair<> (this.getName (), this.getDialogue ()));
+            ((IParty) interactable).setDialogue(new Pair<>(this.getName(), this.getDialogue()));
         }
     }
 }

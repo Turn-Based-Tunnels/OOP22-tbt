@@ -11,7 +11,6 @@ import it.tbt.model.statechange.StateTrigger;
  */
 public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entities.npc.api.ShopNPC, StateTrigger {
 
-
     private final Shop shop;
     private StateObserver stateObserver;
 
@@ -24,9 +23,13 @@ public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
      * @param height the height of the NPC
      * @param width  the width of the NPC
      * @param shop   the shop associated with the NPC
+     * @throws IllegalArgumentException if the name or shop is null
      */
     public ShopNPCImpl(final String name, final int x, final int y, final int height, final int width, final Shop shop) {
         super(name, x, y, height, width);
+        if (shop == null) {
+            throw new IllegalArgumentException("Shop cannot be null");
+        }
         this.shop = shop;
     }
 
@@ -45,7 +48,10 @@ public class ShopNPCImpl extends AbstractNPCImpl implements it.tbt.model.entitie
     @Override
     public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
-            this.shop.setParty ((IParty) interactable);
+            this.shop.setParty((IParty) interactable);
+            if (stateObserver == null) {
+                throw new IllegalStateException("StateObserver not set");
+            }
             this.stateObserver.onShop(shop);
         }
     }

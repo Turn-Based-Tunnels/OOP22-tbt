@@ -34,19 +34,23 @@ public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrig
         this.fightModel = fightModel;
     }
 
-
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void onInteraction(final SpatialEntity interactable) {
-        if (interactable instanceof IParty) {
-            fightModel.initializeParty((IParty) interactable);
-            this.stateObserver.onFight(fightModel);
-            this.killObserver.onKill(this);
-
+        if (!(interactable instanceof IParty)) {
+            throw new IllegalArgumentException("Interactable must be an instance of IParty");
         }
+        if (stateObserver == null) {
+            throw new IllegalStateException("StateObserver not set"); // throw IllegalStateException if stateObserver is not set
+        }
+        if (killObserver == null) {
+            throw new IllegalStateException("KillObserver not set"); // throw IllegalStateException if killObserver is not set
+        }
+        fightModel.initializeParty((IParty) interactable);
+        this.stateObserver.onFight(fightModel);
+        this.killObserver.onKill(this);
     }
 
     /**

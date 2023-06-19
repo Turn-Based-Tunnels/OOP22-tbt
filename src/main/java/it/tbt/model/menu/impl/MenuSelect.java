@@ -21,32 +21,42 @@ public abstract class MenuSelect<I> extends MenuItem implements it.tbt.model.men
      */
     public MenuSelect(final String text, final NavigableMap<String, I> options) {
         super(text);
+        // Add exception handling code for invalid arguments here
+        if (options == null || options.isEmpty()) {
+            throw new IllegalArgumentException("Options cannot be null or empty");
+        }
         this.options = options;
         selectedOptionIndex = options.keySet().iterator().next();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public  void setSelectedOptionIndex(final String key){
+    public void setSelectedOptionIndex(final String key) {
+        // Add exception handling code for invalid argument here
+        if (!options.containsKey(key)) {
+            throw new IllegalArgumentException("Invalid option key: " + key);
+        }
         this.selectedOptionIndex = String.copyValueOf(key.toCharArray());
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getSelectedOptionIndex(){
+    public String getSelectedOptionIndex() {
         return this.selectedOptionIndex;
     }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     public NavigableMap<String, I> getOptions() {
-        return (options);
+        return options;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -54,6 +64,4 @@ public abstract class MenuSelect<I> extends MenuItem implements it.tbt.model.men
     public String getLabel() {
         return selectedOptionIndex;
     }
-
-
 }
