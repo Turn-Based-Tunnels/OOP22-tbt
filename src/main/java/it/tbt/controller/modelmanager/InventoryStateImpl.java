@@ -32,26 +32,32 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     private int itemCounter;
     private int itemSelected;
     private StateObserver stateObserver;
+
     /**
      * Constructs a new {@code InventoryStateImpl} with the given party.
      *
      * @param party The party associated with the inventory state.
+     * @throws IllegalArgumentException if the party is null
      */
-    public InventoryStateImpl( final IParty party){
+    public InventoryStateImpl(final IParty party) {
+        if (party == null) {
+            throw new IllegalArgumentException("Party cannot be null");
+        }
         this.party = party;
         this.phase = InventoryPhase.INVENTORY;
 
-        itemCounter=0;
-        membersCounter=0;
-        itemSelected=NOT_SELECTED;
-        memberSelected=NOT_SELECTED;
-        if(party.getInventory().size() == 0){
+        itemCounter = 0;
+        membersCounter = 0;
+        itemSelected = NOT_SELECTED;
+        memberSelected = NOT_SELECTED;
+        if (party.getInventory().size() == 0) {
             this.phase = InventoryPhase.MEMBERS;
-            itemLocked=true;
-        }else {
-            itemLocked=false;
+            itemLocked = true;
+        } else {
+            itemLocked = false;
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -59,6 +65,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public List<Ally> getPartyMembers() {
         return this.party.getMembers();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -66,6 +73,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public InventoryPhase getPhase() {
         return phase;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -73,127 +81,122 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public Map<Item, Integer> getInventory() {
         return this.party.getInventory();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void previousElement() {
-        switch (this.getPhase()){
+        switch (this.getPhase()) {
             case INVENTORY -> {
-                if(this.itemSelected ==  NOT_SELECTED){
-                    this.itemCounter = (this.itemCounter-1)<0?this.party.getInventory().size()-1:this.itemCounter-1;
-
-                }else{
-                    this.membersCounter = (this.membersCounter-1)<0?this.party.getMembers().size()-1:this.membersCounter-1;
+                if (this.itemSelected == NOT_SELECTED) {
+                    this.itemCounter = (this.itemCounter - 1) < 0 ? this.party.getInventory().size() - 1 : this.itemCounter - 1;
+                } else {
+                    this.membersCounter = (this.membersCounter - 1) < 0 ? this.party.getMembers().size() - 1 : this.membersCounter - 1;
                 }
             }
-            case MEMBERS -> this.membersCounter = (this.membersCounter-1)<0?this.party.getMembers().size()-1:this.membersCounter-1;
+            case MEMBERS -> this.membersCounter = (this.membersCounter - 1) < 0 ? this.party.getMembers().size() - 1 : this.membersCounter - 1;
         }
-
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void nextElement() {
-        switch (this.getPhase()){
+        switch (this.getPhase()) {
             case INVENTORY -> {
-                if(this.itemSelected ==  NOT_SELECTED){
-                    this.itemCounter = (this.itemCounter+1)%this.getInventory().size();
-                }else {
-                    this.membersCounter = (this.membersCounter+1)%this.getPartyMembers().size();
+                if (this.itemSelected == NOT_SELECTED) {
+                    this.itemCounter = (this.itemCounter + 1) % this.getInventory().size();
+                } else {
+                    this.membersCounter = (this.membersCounter + 1) % this.getPartyMembers().size();
                 }
-
             }
-            case MEMBERS -> this.membersCounter = (this.membersCounter+1)%this.getPartyMembers().size();
+            case MEMBERS -> this.membersCounter = (this.membersCounter + 1) % this.getPartyMembers().size();
         }
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void performAction() {
-        switch (this.getPhase()){
+        switch (this.getPhase()) {
             case INVENTORY -> {
-                if(this.itemSelected == NOT_SELECTED){
+                if (this.itemSelected == NOT_SELECTED) {
                     this.itemSelected = this.itemCounter;
-                }else{
+                } else {
                     final List<Item> items = new ArrayList<>(this.getInventory().keySet());
-                    if(items.get(this.itemSelected) instanceof Consumable){
-                        if((items.get(this.itemSelected) instanceof Potion) &&
-                            (this.getPartyMembers().get(this.membersCounter).getMaxHealth() != this.getPartyMembers().get(this.membersCounter).getHealth())){
-                            this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getHealth()+((Potion)items.get(this.itemSelected)).getHealPower());
-                            if(this.getPartyMembers().get(this.membersCounter).getHealth() > this.getPartyMembers().get(this.membersCounter).getMaxHealth()){
+                    if (items.get(this.itemSelected) instanceof Consumable) {
+                        if ((items.get(this.itemSelected) instanceof Potion) &&
+                                (this.getPartyMembers().get(this.membersCounter).getMaxHealth() != this.getPartyMembers().get(this.membersCounter).getHealth())) {
+                            this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getHealth() + ((Potion) items.get(this.itemSelected)).getHealPower());
+                            if (this.getPartyMembers().get(this.membersCounter).getHealth() > this.getPartyMembers().get(this.membersCounter).getMaxHealth()) {
                                 this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getMaxHealth());
                             }
                             party.removeItemFromInventory(items.get(this.itemSelected));
                         }
-                        if((items.get(this.itemSelected) instanceof Antidote) &&
-                            (this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED))){
+                        if ((items.get(this.itemSelected) instanceof Antidote) &&
+                                (this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED))) {
                             party.removeItemFromInventory(items.get(this.itemSelected));
-
                         }
                     }
-                    if(items.get(this.itemSelected) instanceof Equipement){
-                        if(items.get(this.itemSelected) instanceof Armor){
+                    if (items.get(this.itemSelected) instanceof Equipement) {
+                        if (items.get(this.itemSelected) instanceof Armor) {
                             Armor old = null;
-                            if(this.getPartyMembers().get(this.membersCounter).getArmor().isPresent()){
+                            if (this.getPartyMembers().get(this.membersCounter).getArmor().isPresent()) {
                                 old = this.getPartyMembers().get(this.membersCounter).getArmor().get();
                             }
                             this.getPartyMembers().get(this.membersCounter).equipeArmor((Armor) items.get(this.itemSelected));
                             party.removeItemFromInventory(items.get(this.itemSelected));
-                            if(old != null){
+                            if (old != null) {
                                 party.addItemToInventory(old);
                             }
-
                         }
-                        if(items.get(this.itemSelected) instanceof Weapon){
+                        if (items.get(this.itemSelected) instanceof Weapon) {
                             Weapon old = null;
-                            if(this.getPartyMembers().get(this.membersCounter).getWeapon().isPresent()){
+                            if (this.getPartyMembers().get(this.membersCounter).getWeapon().isPresent()) {
                                 old = this.getPartyMembers().get(this.membersCounter).getWeapon().get();
                             }
                             this.getPartyMembers().get(this.membersCounter).equipeWeapon((Weapon) items.get(this.itemSelected));
                             party.removeItemFromInventory(items.get(this.itemSelected));
-                            if(old != null){
+                            if (old != null) {
                                 party.addItemToInventory(old);
                             }
-
                         }
                     }
                     this.itemSelected = NOT_SELECTED;
                     this.itemCounter = 0;
                 }
-
             }
             case MEMBERS -> {
-                if(this.memberSelected == NOT_SELECTED){
+                if (this.memberSelected == NOT_SELECTED) {
                     this.memberSelected = this.membersCounter;
-                }else{
-                    if(this.memberSelected != this.membersCounter){
+                } else {
+                    if (this.memberSelected != this.membersCounter) {
                         final ArrayList<Ally> temp = new ArrayList<>(this.getPartyMembers());
                         Collections.swap(temp, this.membersCounter, this.memberSelected);
                         this.party.setMembers(temp);
-
                     }
                     this.memberSelected = NOT_SELECTED;
                 }
-
             }
         }
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void nextPhase(){
-        if(this.itemSelected == NOT_SELECTED && this.memberSelected==NOT_SELECTED){
+    public void nextPhase() {
+        if (this.itemSelected == NOT_SELECTED && this.memberSelected == NOT_SELECTED) {
             this.phase = this.phase.next();
-            if (itemLocked && this.phase == InventoryPhase.INVENTORY){
-                this.phase= this.phase.next();
+            if (itemLocked && this.phase == InventoryPhase.INVENTORY) {
+                this.phase = this.phase.next();
             }
         }
-
     }
+
     /**
      * {@inheritDoc}
      */
@@ -201,26 +204,30 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public int getPartySize() {
         return PARTY_SIZE;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void previousPhase(){
-        if(this.itemSelected == NOT_SELECTED && this.memberSelected==NOT_SELECTED){
+    public void previousPhase() {
+        if (this.itemSelected == NOT_SELECTED && this.memberSelected == NOT_SELECTED) {
             this.phase = this.phase.previous();
-            if (itemLocked && this.phase == InventoryPhase.INVENTORY){
-                this.phase= this.phase.previous();
+            if (itemLocked && this.phase == InventoryPhase.INVENTORY) {
+                this.phase = this.phase.previous();
             }
         }
-
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void switchToExplore() {
-        this.stateObserver.onExplore();
+        if (this.stateObserver != null) {
+            this.stateObserver.onExplore();
+        }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -228,6 +235,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public int getItemSelected() {
         return this.itemSelected;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -235,6 +243,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public int getItemFocus() {
         return this.itemCounter;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -242,6 +251,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     public int getAllySelected() {
         return this.memberSelected;
     }
+
     /**
      * {@inheritDoc}
      */

@@ -11,7 +11,6 @@ import it.tbt.model.party.IParty;
  */
 public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
 
-
     private final Ally ally;
 
     /**
@@ -23,12 +22,18 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
      * @param height the height of the ally NPC
      * @param width  the width of the ally NPC
      * @param ally   the ally associated with the NPC
+     * @throws IllegalArgumentException if the name is null or empty, or if the ally is null
      */
-    public AllyNPCImpl(String name, int x, int y, int height, int width, Ally ally){
+    public AllyNPCImpl(String name, int x, int y, int height, int width, Ally ally) {
         super(name, x, y, height, width);
-        this.ally = ally;
 
+        if (ally == null) {
+            throw new IllegalArgumentException("Ally cannot be null");
+        }
+
+        this.ally = ally;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -36,14 +41,14 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
     public Ally getAlly() {
         return this.ally;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void onInteraction(final SpatialEntity interactionTrigger) {
         if (interactionTrigger instanceof IParty) {
-            ((IParty)interactionTrigger).addMember(ally);
+            ((IParty) interactionTrigger).addMember(ally);
         }
-
     }
 }

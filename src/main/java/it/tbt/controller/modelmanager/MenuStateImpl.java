@@ -1,5 +1,6 @@
 package it.tbt.controller.modelmanager;
 
+import it.tbt.model.menu.api.MenuItem;
 import it.tbt.model.menu.impl.MenuModelImpl;
 
 import java.util.List;
@@ -15,8 +16,12 @@ public class MenuStateImpl implements MenuState {
      * Constructs a new {@code MenuStateImpl} with the specified menu model.
      *
      * @param menu the menu model
+     * @throws IllegalArgumentException if the menu is null
      */
     public MenuStateImpl(final MenuModelImpl menu) {
+        if (menu == null) {
+            throw new IllegalArgumentException("Menu cannot be null");
+        }
         this.menuModel = menu;
     }
 
@@ -25,7 +30,12 @@ public class MenuStateImpl implements MenuState {
      */
     @Override
     public void NextElement() {
-        menuModel.setFocus((menuModel.getFocus() + 1) % menuModel.getItems().size());
+        List<MenuItem> items = menuModel.getItems();
+        if (items.isEmpty()) {
+            throw new IllegalStateException("Menu has no items");
+        }
+        int focus = menuModel.getFocus();
+        menuModel.setFocus((focus + 1) % items.size());
     }
 
     /**
@@ -33,14 +43,19 @@ public class MenuStateImpl implements MenuState {
      */
     @Override
     public void PreviousElement() {
-        menuModel.setFocus((menuModel.getFocus() - 1) < 0 ? menuModel.getItems().size() - 1 : menuModel.getFocus() - 1);
+        List<MenuItem> items = menuModel.getItems();
+        if (items.isEmpty()) {
+            throw new IllegalStateException("Menu has no items");
+        }
+        int focus = menuModel.getFocus();
+        menuModel.setFocus((focus - 1) < 0 ? items.size() - 1 : focus - 1);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<it.tbt.model.menu.api.MenuItem> getItems() {
+    public List<MenuItem> getItems() {
         return menuModel.getItems();
     }
 
@@ -57,6 +72,9 @@ public class MenuStateImpl implements MenuState {
      */
     @Override
     public void triggerExplore() {
+        if (menuModel == null) {
+            throw new IllegalStateException("Menu model not set");
+        }
         menuModel.toExplore();
     }
 

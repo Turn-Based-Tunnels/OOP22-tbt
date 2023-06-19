@@ -22,9 +22,13 @@ public class HealerNPCImpl extends AbstractNPCImpl implements it.tbt.model.entit
      * @param height     the height of the healer NPC
      * @param width      the width of the healer NPC
      * @param healAmount the amount of healing provided by the NPC
+     * @throws IllegalArgumentException if name is null or empty, or if healAmount is negative
      */
     public HealerNPCImpl(final String name, final int x, final int y, final int height, final int width, final int healAmount) {
         super(name, x, y, height, width);
+        if (healAmount < 0) {
+            throw new IllegalArgumentException("Heal amount cannot be negative");
+        }
         this.healAmount = healAmount;
     }
 

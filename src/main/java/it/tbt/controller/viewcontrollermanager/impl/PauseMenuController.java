@@ -23,8 +23,12 @@ public class PauseMenuController implements ViewController {
      * Constructs a new {@code PauseMenuController} with the specified menu state.
      *
      * @param menuStateImpl the menu state
+     * @throws IllegalArgumentException if menuStateImpl is null
      */
-    public PauseMenuController(final MenuState menuStateImpl){
+    public PauseMenuController(final MenuState menuStateImpl) {
+        if (menuStateImpl == null) {
+            throw new IllegalArgumentException("MenuState cannot be null");
+        }
         this.modelState = menuStateImpl;
         commands = new ArrayList<>();
     }
@@ -35,28 +39,27 @@ public class PauseMenuController implements ViewController {
     @Override
     public void onKeyPressed(final int key) {
         switch (key) {
-            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.commands.add (() -> modelState.PreviousElement ());
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.commands.add (() -> modelState.NextElement ());
+            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.commands.add(() -> modelState.PreviousElement());
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.commands.add(() -> modelState.NextElement());
             case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
-                if (modelState.getItems ().get (modelState.getFocus ()) instanceof MenuButton) {
-                    this.commands.add (((MenuButton) modelState.getItems ().get (modelState.getFocus ())).getAction ());
+                if (modelState.getItems().get(modelState.getFocus()) instanceof MenuButton) {
+                    this.commands.add(((MenuButton) modelState.getItems().get(modelState.getFocus())).getAction());
                 }
             }
             case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> {
-                if (modelState.getItems ().get (modelState.getFocus ()) instanceof MenuSelect<?>) {
-                    this.commands.add (((MenuSelect) modelState.getItems ().get (modelState.getFocus ())).nextOption ());
+                if (modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>) {
+                    this.commands.add(((MenuSelect) modelState.getItems().get(modelState.getFocus())).nextOption());
                 }
             }
             case KeyEvent.VK_LEFT, KeyEvent.VK_A -> {
-                if (modelState.getItems ().get (modelState.getFocus ()) instanceof MenuSelect<?>) {
-                    this.commands.add (((MenuSelect) modelState.getItems ().get (modelState.getFocus ())).previousOption ());
+                if (modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>) {
+                    this.commands.add(((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
                 }
             }
-            case KeyEvent.VK_ESCAPE -> this.commands.add (modelState::triggerExplore);
+            case KeyEvent.VK_ESCAPE -> this.commands.add(modelState::triggerExplore);
             default -> {
             }
         }
-
     }
 
     /**
@@ -66,11 +69,12 @@ public class PauseMenuController implements ViewController {
     public List<Command> getCommands() {
         return this.commands;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void clean() {
-        this.commands.clear ();
+        this.commands.clear();
     }
 }
