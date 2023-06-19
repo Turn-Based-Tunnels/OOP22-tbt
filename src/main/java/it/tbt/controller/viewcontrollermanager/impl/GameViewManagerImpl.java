@@ -71,9 +71,9 @@ public class GameViewManagerImpl implements ViewControllerManager {
                 }
                 case SHOP -> {
                     final ShopStateImpl shopState = (ShopStateImpl) modelState;
-                    final ShopController shopControler = new ShopController(shopState);
-                    final GameView x = this.gameViewFactory.createShop(shopControler, shopState);
-                    this.currentController = shopControler;
+                    final ShopController shopController = new ShopController(shopState);
+                    final GameView x = this.gameViewFactory.createShop(shopController, shopState);
+                    this.currentController = shopController;
                     this.currentGameView = x;
                 }
                 case PAUSE -> {
@@ -99,14 +99,15 @@ public class GameViewManagerImpl implements ViewControllerManager {
                     InventoryViewController inventoryViewController = new InventoryViewController(inventoryState);
                     var x = this.gameViewFactory.createInventory(inventoryViewController, inventoryState);
                     this.currentController = inventoryViewController;
-                    this.currentGameView=x;
+                    this.currentGameView = x;
 
-                }case ENDING -> {
+                }
+                case ENDING -> {
                     EndState endState = (EndState) modelState;
                     EndViewController endViewController = new EndViewController (endState);
                     var x = this.gameViewFactory.createEndScreen (endViewController, endState);
                     this.currentController = endViewController;
-                    this.currentGameView=x;
+                    this.currentGameView = x;
 
                 }
                 default -> {

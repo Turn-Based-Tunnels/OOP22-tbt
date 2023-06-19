@@ -2,7 +2,6 @@ package it.tbt.view.javaFx;
 
 import it.tbt.controller.modelmanager.EndState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
  * The {@code JavaFxEndingView} class represents a JavaFX implementation of the game ending view.
  * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
  */
-public class JavaFxEndingView extends AbstractJavaFxView implements GameView {
+public class JavaFxEndingView extends AbstractJavaFxView {
 
     private final Scene scene;
     private final EndState main;
@@ -52,7 +51,6 @@ public class JavaFxEndingView extends AbstractJavaFxView implements GameView {
             root.setAlignment(Pos.CENTER);
             this.scene.setCursor(Cursor.NONE);
             this.getScene().setRoot(root);
-
         });
     }
 }

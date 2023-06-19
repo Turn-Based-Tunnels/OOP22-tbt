@@ -11,10 +11,10 @@ import it.tbt.model.entities.MovableEntityImpl;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.statechange.StateObserver;
 import javafx.util.Pair;
-
-import java.util.Collection;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class Party extends MovableEntityImpl implements IParty, InteractionTrigger, StateTrigger {
     private List<Ally> members;
-    private Room currentRoom;
+    private Optional<Room> currentRoom;
     private int wallet;
     private final Inventory inventory;
     private StateObserver stateObserver;
@@ -43,6 +43,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
         super(name, x, y, width, height);
         this.members = new ArrayList<>();
         this.inventory = new Inventory();
+        this.currentRoom = Optional.empty();
     }
 
     /**
@@ -68,7 +69,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public void setCurrentRoom(final Room room) {
-        this.currentRoom = room;
+        this.currentRoom = Optional.of(room);
         this.stateObserver.onExplore();
     }
 
@@ -79,7 +80,10 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public Room getCurrentRoom() {
-        return this.currentRoom;
+        if (this.currentRoom.isEmpty()) {
+            throw new IllegalStateException("Player has no room assigned to it.");
+        }
+        return this.currentRoom.get();
     }
 
     /**
@@ -90,7 +94,7 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public void move(final int xv, final int yv) {
-        if (this.currentRoom.isValidCoordinates(xv + getX(), yv + getY(), getWidth(), getHeight())) {
+        if (this.getCurrentRoom().isValidCoordinates(xv + getX(), yv + getY(), getWidth(), getHeight())) {
             setX(getX() + xv);
             setY(getY() + yv);
         }

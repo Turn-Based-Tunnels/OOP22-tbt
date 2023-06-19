@@ -25,9 +25,7 @@ public abstract class AbstractJavaFxView extends AbstractGameView {
         super(viewController);
         this.stage = stage;
         this.scene = scene;
-        stage.setResizable (false);
-
-
+        stage.setResizable(false);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {

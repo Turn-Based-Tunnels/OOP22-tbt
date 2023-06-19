@@ -1,5 +1,6 @@
 package it.tbt.controller.modelmanager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.InventoryTrigger;
 import it.tbt.model.statechange.PauseTrigger;
@@ -22,6 +23,7 @@ public final class ExploreStateImpl implements ExploreState {
      * @param pauseTrigger possibility of switching to Pause Game State
      * @param inventoryTrigger possibility of switching to Inventory Game State
      */
+    @SuppressFBWarnings("EI2")
     public ExploreStateImpl(final Room room,
                             final IParty party,
                             final PauseTrigger pauseTrigger,
@@ -34,28 +36,41 @@ public final class ExploreStateImpl implements ExploreState {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings (
+            value = {
+                    "EI"
+            },
+            justification = "The rest of the components need the exact object of the party to queue changes."
+                    + "And the synchronization is based on the changes in this object."
+    )
     public IParty getParty() {
         return party; }
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings (value = {
+            "EI"
+            },
+            justification = "The rest of the components need the exact object of the room to queue changes."
+                    + "And the synchronization is based on the changes in this object.")
     @Override
     public Room getRoom() {
         return this.room;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public PauseTrigger getTriggerPause() {
-        return this.pauseTrigger;
+        return new PauseTrigger(this.pauseTrigger);
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public InventoryTrigger getTriggerInventory() {
-        return this.inventoryTrigger;
+        return new InventoryTrigger(this.inventoryTrigger);
     }
 
 }

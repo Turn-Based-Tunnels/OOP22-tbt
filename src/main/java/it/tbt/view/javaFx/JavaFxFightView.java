@@ -64,7 +64,7 @@ public final class JavaFxFightView extends AbstractJavaFxView {
         this.scene = scene;
         this.main = main;
         this.defeatedImage = new Image(
-                getClass().getClassLoader().getResource("./tbt/transparent.png").toExternalForm());
+                getClass().getClassLoader().getResource("tbt/images/transparent.png").toExternalForm());
         this.enemyImage = new Image(ImageLoader.getInstance().getFilePath(Enemy.class));
         this.allyImage = new Image(ImageLoader.getInstance().getFilePath(Ally.class));
         this.bg = new Background(

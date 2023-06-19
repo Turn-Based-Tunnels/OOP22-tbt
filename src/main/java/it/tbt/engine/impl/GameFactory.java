@@ -26,6 +26,9 @@ public final class GameFactory {
         return new GameImpl(viewFactory);
     }
 
+    /**
+     * @return the Game object with a Java Swing graphical framework.
+     */
     public static Game createJavaSwingGame() {
         return null;
     }

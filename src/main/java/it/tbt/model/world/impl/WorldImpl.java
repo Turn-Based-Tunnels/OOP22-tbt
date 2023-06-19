@@ -14,11 +14,8 @@ public class WorldImpl implements World {
     private Set<Room> rooms;
     private Optional<Room> start;
     /**
-     * @param rooms set of Rooms to be added on creation of the World.
+     * Default constructor of the World object.
      */
-    public WorldImpl(final Set<Room> rooms) {
-        this.rooms = rooms;
-    }
     public WorldImpl() {
         this.rooms = new HashSet<>();
     }

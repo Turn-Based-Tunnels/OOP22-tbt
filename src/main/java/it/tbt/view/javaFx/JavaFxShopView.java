@@ -3,7 +3,6 @@ package it.tbt.view.javaFx;
 import it.tbt.controller.modelmanager.shop.ShopItem;
 import it.tbt.controller.modelmanager.shop.ShopState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.view.api.GameViewShop;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * UI of the shop.
  */
-public class JavaFxShopView extends AbstractJavaFxView implements GameViewShop {
+public class JavaFxShopView extends AbstractJavaFxView {
 
     private final ShopState shopState;
     private final Scene scene;

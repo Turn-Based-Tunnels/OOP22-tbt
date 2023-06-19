@@ -1,5 +1,6 @@
 package it.tbt.model.roomLink;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.world.api.Room;
 import it.tbt.model.world.interaction.Interactable;
 import it.tbt.model.entities.SpatialEntity;
@@ -27,6 +28,10 @@ public class RoomLinkImpl extends SpatialEntityImpl implements RoomLink, Interac
      * @param secondRoom
      */
 
+    @SuppressFBWarnings(value = {
+            "EI2"
+    },
+    justification = "the room link needs the real Room object because it is then given to the Party.")
     public RoomLinkImpl(final String name,
                         final int x,
                         final int y,

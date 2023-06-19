@@ -10,7 +10,7 @@ import it.tbt.model.party.IParty;
 import it.tbt.model.world.api.World;
 
 /**
- * Default implementation of the GameStateManager class for the management of the logic aspect of the application
+ * Default implementation of the GameStateManager class for the management of the logic aspect of the application.
  */
 public final class GameStateManager implements IGameStateManager {
 

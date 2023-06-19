@@ -18,9 +18,18 @@ public class RoomImpl implements Room, KillObserver {
     private int roomWidth;
     private int roomHeight;
     private Set<SpatialEntity> entities;
-
+    /**
+     * default Height of this RoomImpl as integer.
+     */
+    public static final int DEFAULT_HEIGHT_ROOM = 300;
+    /**
+     * default Width of this RoomImpl as integer.
+     */
+    public static final int DEFAULT_WIDTH_ROOM = 300;
     /**
      * @param roomName the room's name
+     * @param roomWidth the room's width
+     * @param roomHeight the room's height
      */
     public RoomImpl(final String roomName, final int roomWidth, final int roomHeight) {
         this.roomName = roomName;
@@ -34,9 +43,9 @@ public class RoomImpl implements Room, KillObserver {
      */
     @Override
     public void addEntity(final SpatialEntity entity) {
-        if(isValidCoordinates(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight())) {
+        if (isValidCoordinates(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight())) {
             entities.add(entity);
-            if(entity instanceof KillableEntity) {
+            if (entity instanceof KillableEntity) {
                 ((KillableEntity) entity).setKillObserver(this);
             }
 
@@ -48,7 +57,23 @@ public class RoomImpl implements Room, KillObserver {
      */
     @Override
     public Set<SpatialEntity> getEntities() {
-        return entities;
+        return Set.copyOf(entities);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHeight() {
+        return this.roomHeight;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getWidth() {
+        return this.roomWidth;
     }
 
     /**

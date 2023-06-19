@@ -15,6 +15,14 @@ public class InventoryTrigger implements StateTrigger {
     }
 
     /**
+     * Constructor replace of clone.
+     * @param inventoryTrigger to clone.
+     */
+    public InventoryTrigger(final InventoryTrigger inventoryTrigger) {
+        this.stateObserver = inventoryTrigger.stateObserver;
+    }
+
+    /**
      * Notifies the stateObserver of the will on changing the GameState.
      */
     public void triggerInventory() {

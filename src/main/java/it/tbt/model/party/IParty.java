@@ -14,7 +14,7 @@ import javafx.util.Pair;
  */
 public interface IParty extends MovableEntity {
     /**
-     * Active party size
+     * Active party size.
      */
     int PARTY_SIZE = 4;
     /**

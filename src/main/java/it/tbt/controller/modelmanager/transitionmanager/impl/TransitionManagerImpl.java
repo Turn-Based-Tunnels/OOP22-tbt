@@ -1,12 +1,14 @@
 package it.tbt.controller.modelmanager.transitionmanager.impl;
 
+import it.tbt.controller.modelmanager.InventoryStateImpl;
+import it.tbt.controller.modelmanager.ModelState;
+import it.tbt.controller.modelmanager.EndStateImpl;
 import it.tbt.controller.modelmanager.ExploreStateImpl;
 import it.tbt.controller.modelmanager.FightStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
-import it.tbt.controller.modelmanager.ModelState;
-import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.GameState;
 import it.tbt.model.entities.npc.api.ShopNPC;
 import it.tbt.model.fight.api.FightModel;
@@ -18,7 +20,6 @@ import it.tbt.model.statechange.PauseTrigger;
 import it.tbt.model.shop.Shop;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.api.World;
-
 import java.util.Optional;
 
 /**
@@ -41,6 +42,9 @@ public final class TransitionManagerImpl implements TransitionManager {
      * @param mainMenu
      * @param pauseMenu
      */
+    @SuppressFBWarnings(value = "EI2",
+    justification = "This is the class which contains all the model, and performs operations on them,"
+            + " so it should have their references.")
     public TransitionManagerImpl(final World world, final IParty party, final MenuModelImpl mainMenu,
             final MenuModelImpl pauseMenu) {
         this.world = world;
@@ -73,21 +77,15 @@ public final class TransitionManagerImpl implements TransitionManager {
                 if (y instanceof StateTrigger) {
                     ((StateTrigger) y).setStateObserver(this);
                     if (y instanceof FightNPC) {
-                        if (((FightNPC) y).getFightModel() instanceof StateTrigger) {
-                            ((StateTrigger) ((FightNPC) y).getFightModel()).setStateObserver(this);
-                        }
+                        (((FightNPC) y).getFightModel()).setStateObserver(this);
                     }
                     if (y instanceof ShopNPC) {
-                        if (((ShopNPC) y).getShop() instanceof StateTrigger) {
-                            ((StateTrigger) ((ShopNPC) y).getShop()).setStateObserver(this);
-                        }
+                        ((StateTrigger) ((ShopNPC) y).getShop()).setStateObserver(this);
                     }
                 }
             }
         }
-        if (this.pauseMenu instanceof StateTrigger) {
-            ((StateTrigger) pauseMenu).setStateObserver(this);
-        }
+        pauseMenu.setStateObserver(this);
         for (var x : this.mainMenu.getItems()) {
             if (x instanceof StateTrigger) {
                 ((StateTrigger) x).setStateObserver(this);

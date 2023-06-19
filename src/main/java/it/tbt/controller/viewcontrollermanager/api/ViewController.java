@@ -1,6 +1,5 @@
 package it.tbt.controller.viewcontrollermanager.api;
 
-import it.tbt.control.input.api.InputListener;
 import it.tbt.model.command.api.Command;
 import java.util.List;
 

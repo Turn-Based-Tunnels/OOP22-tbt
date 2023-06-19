@@ -6,9 +6,9 @@ import it.tbt.controller.viewcontrollermanager.api.ViewController;
  * Abstract GameView for all graphical frameworks.
  */
 public abstract class AbstractGameView implements GameView {
-    private ViewController viewController;
+    private final ViewController viewController;
     /**
-     * @param viewController il controller per la view.
+     * @param viewController controller for the view.
      */
     protected AbstractGameView(final ViewController viewController) {
         this.viewController = viewController;

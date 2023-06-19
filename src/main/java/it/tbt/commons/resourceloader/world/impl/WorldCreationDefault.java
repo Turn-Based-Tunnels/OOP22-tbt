@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 import it.tbt.commons.resourceloader.world.api.WorldCreationStrategy;
+import it.tbt.model.EndEntity;
 import it.tbt.model.entities.items.Armor;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.items.Potion;
@@ -37,13 +38,14 @@ public class WorldCreationDefault implements WorldCreationStrategy {
     @Override
     public World createWorld() {
         World w = new WorldImpl();
-        Room startRoom = new RoomImpl("RoomStart", Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
-        Room endRoom = new RoomImpl("EndRoom", Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        Room startRoom = new RoomImpl("RoomStart", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room endRoom = new RoomImpl("EndRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        endRoom.addEntity(new EndEntity("EntityEnd", 200,200,30,30));
         Map<Item, Double> drops = new HashMap<>();
         drops.put(new Potion("Potion", 3, 50), 0.5);
         startRoom.addEntity(NPCFactory.createFightNPC("Roberto", 25, 25, 50, 50, new FightModelImpl(5, drops)));
         // shop
-        Room shopRoom = new RoomImpl("ShopRoom", Room.X_AXIS_UPPERBOUND, Room.Y_AXIS_UPPERBOUND);
+        Room shopRoom = new RoomImpl("ShopRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
         Map<Item, Integer> shopItems = new HashMap<>();
         for (final Item item : PotionFactory.getInstance().getItems()) {
             shopItems.put(item, 10); // 10 of each potions

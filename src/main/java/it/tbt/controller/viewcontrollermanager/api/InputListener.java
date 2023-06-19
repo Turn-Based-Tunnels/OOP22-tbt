@@ -1,4 +1,4 @@
-package it.tbt.control.input.api;
+package it.tbt.controller.viewcontrollermanager.api;
 
 /**
  * The {@code InputListener} interface represents an input listener that handles key press events.
