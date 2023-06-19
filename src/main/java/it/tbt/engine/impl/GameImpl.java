@@ -9,8 +9,9 @@ import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.characters.Status;
 import it.tbt.model.entities.characters.skills.Skill;
 import it.tbt.model.entities.characters.skills.SkillFactory;
-import it.tbt.model.entities.items.Antidote;
 import it.tbt.model.entities.items.Potion;
+import it.tbt.model.entities.items.factories.AntidoteFactory;
+import it.tbt.model.entities.items.factories.PotionFactory;
 import it.tbt.model.menu.impl.MenuFactory;
 import it.tbt.controller.modelmanager.GameStateManager;
 import it.tbt.controller.modelmanager.IGameStateManager;
@@ -52,11 +53,12 @@ public final class GameImpl implements Game {
         allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
         allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
         Party p = new Party("party", 75, 75, 75, 75, allies);
-        p.addItemToInventory(new Potion("Potion", 3, 10));
-        p.addItemToInventory(new Potion("Potion", 3, 10));
-        p.addItemToInventory(new Potion("Potion", 3, 10));
-        p.addItemToInventory(new Antidote(5));
-        ;
+        for(final Potion potion : PotionFactory.getInstance().getItems()) {
+            p.addItemToInventory(potion);
+            p.addItemToInventory(potion);
+        }
+        p.addItemToInventory(AntidoteFactory.getInstance().getAntidote());
+        p.addCash(5000);
         gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(),
                 p, MenuFactory.getMainMenu(), MenuFactory.getPauseMenu());
     }
