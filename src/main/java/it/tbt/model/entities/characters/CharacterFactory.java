@@ -21,6 +21,7 @@ public final class CharacterFactory {
 
     /**
      * Create an ally with skills.
+     * 
      * @param name
      * @param health
      * @param attack
@@ -29,17 +30,17 @@ public final class CharacterFactory {
      * @return new ally
      */
     public static Ally createAlly(
-        final String name,
-        final int health,
-        final int attack,
-        final int speed,
-        final Collection<Skill> skills
-    ) {
+            final String name,
+            final int health,
+            final int attack,
+            final int speed,
+            final Collection<Skill> skills) {
         return new Ally(name, health, attack, speed, skills);
     }
 
     /**
      * Create an ally without skills.
+     * 
      * @param name
      * @param health
      * @param attack
@@ -47,16 +48,16 @@ public final class CharacterFactory {
      * @return new ally
      */
     public static Ally createAlly(
-        final String name,
-        final int health,
-        final int attack,
-        final int speed
-    ) {
+            final String name,
+            final int health,
+            final int attack,
+            final int speed) {
         return new Ally(name, health, attack, speed, new ArrayList<Skill>());
     }
 
     /**
      * Create an enemy.
+     * 
      * @param name
      * @param health
      * @param attack
@@ -64,18 +65,18 @@ public final class CharacterFactory {
      * @return new enemy
      */
     public static Enemy createEnemy(
-        final String name,
-        final int health,
-        final int attack,
-        final int speed
-    ) {
+            final String name,
+            final int health,
+            final int attack,
+            final int speed) {
         return new Enemy(name, health, attack, speed);
     }
 
     /**
      * Create an enemy with random stats.
      * The sum of all the stats must be statSum (circa), this will help defining
-     * how hard is defeating the enemy 
+     * how hard is defeating the enemy
+     * 
      * @param name
      * @param statsSum
      * @return new random nemy
@@ -86,10 +87,9 @@ public final class CharacterFactory {
         final long tmpSpeed = Math.abs(RND.nextInt());
         final long sum = tmpHealth + tmpAttack + tmpSpeed;
         return new Enemy(
-            name,
-            (int) (tmpHealth * statsSum / sum),
-            (int) (tmpAttack * statsSum / sum),
-            (int) (tmpSpeed * statsSum / sum)
-        );
+                name,
+                (int) (tmpHealth * statsSum / sum + 1),
+                (int) (tmpAttack * statsSum / sum),
+                (int) (tmpSpeed * statsSum / sum));
     }
 }
