@@ -235,9 +235,9 @@ public final class FightModelImpl implements FightModel {
     public void selectPreviousTarget() {
         final int previousTarget = Math.max(0, selectedTargetIndex - 1);
         if (isUsingSkill() || (!isUsingAntidote() && !isUsingPotion() && !isUsingSkill())
-                && getEnemies().get(previousTarget).getMaxHealth() != 0) {
+                && this.enemies.get(previousTarget).getMaxHealth() != 0) {
             this.selectedTargetIndex = previousTarget;
-        } else if ((isUsingAntidote() || isUsingPotion()) && getAllies().get(previousTarget).getMaxHealth() != 0) {
+        } else if ((isUsingAntidote() || isUsingPotion()) && this.allies.get(previousTarget).getMaxHealth() != 0) {
             this.selectedTargetIndex = previousTarget;
         }
     }
@@ -249,9 +249,9 @@ public final class FightModelImpl implements FightModel {
     public void selectNextTarget() {
         final int nextTarget = Math.min(enemies.size() - 1, selectedTargetIndex + 1);
         if (isUsingSkill() || (!isUsingAntidote() && !isUsingPotion() && !isUsingSkill())
-                && getEnemies().get(nextTarget).getMaxHealth() != 0) {
+                && this.enemies.get(nextTarget).getMaxHealth() != 0) {
             this.selectedTargetIndex = nextTarget;
-        } else if ((isUsingAntidote() || isUsingPotion()) && getAllies().get(nextTarget).getMaxHealth() != 0) {
+        } else if ((isUsingAntidote() || isUsingPotion()) && this.allies.get(nextTarget).getMaxHealth() != 0) {
             this.selectedTargetIndex = nextTarget;
         }
     }
@@ -547,8 +547,10 @@ public final class FightModelImpl implements FightModel {
         }
         if (allAlliesDefeated) {
             // System.out.println("Enemies win!");
-            this.stateObserver.onEnding("Oh no hai perso, premi un tasto per tornare nel menu");
+            this.party.setMembers(this.allies);
+            this.stateObserver.onEnding("Hai perso. Premi un tasto per uscire");
         } else if (allEnemiesDefeated) {
+            this.party.setMembers(this.allies);
             // System.out.println("Allies win!");
             for (final Map.Entry<Item, Double> e : this.drops.entrySet()) {
                 if (RANDOM.nextDouble() <= (Double) e.getValue()) {
@@ -556,7 +558,7 @@ public final class FightModelImpl implements FightModel {
                     // System.out.println("Hai droppato " + e.getKey().toString());
                 }
             }
-            for (final Enemy e : this.getEnemies()) {
+            for (final Enemy e : this.enemies) {
                 this.party.addCash(e.getMaxHealth());
             }
             this.stateObserver.onExplore();
