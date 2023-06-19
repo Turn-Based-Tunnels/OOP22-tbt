@@ -42,8 +42,7 @@ public final class TransitionManagerImpl implements TransitionManager {
      * @param mainMenu
      * @param pauseMenu
      */
-    @SuppressFBWarnings(value = "EI2",
-    justification = "This is the class which contains all the model, and performs operations on them,"
+    @SuppressFBWarnings(value = "EI2", justification = "This is the class which contains all the model, and performs operations on them,"
             + " so it should have their references.")
     public TransitionManagerImpl(final World world, final IParty party, final MenuModelImpl mainMenu,
             final MenuModelImpl pauseMenu) {
@@ -102,7 +101,6 @@ public final class TransitionManagerImpl implements TransitionManager {
     /**
      * {@inheritDoc}
      */
-    @Override
     public GameState getState() {
         if (this.currentGameState.isEmpty()) {
             throw new IllegalStateException("Game Transition Manager not initialized properly. GameState not present.");
@@ -133,7 +131,6 @@ public final class TransitionManagerImpl implements TransitionManager {
             this.stateChanged = false;
         }
         return x;
-
     }
 
     /**

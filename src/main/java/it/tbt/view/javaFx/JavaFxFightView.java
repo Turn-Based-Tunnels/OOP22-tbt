@@ -61,6 +61,11 @@ public final class JavaFxFightView extends AbstractJavaFxView {
     public JavaFxFightView(final Stage stage, final Scene scene, final ViewController fightController,
             final FightState main) {
         super(fightController, stage, scene);
+        if (fightController == null || main == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito alla creazione di JavaFxFightView");
+        }
+
         this.scene = scene;
         this.main = main;
         this.defeatedImage = new Image(
@@ -117,6 +122,9 @@ public final class JavaFxFightView extends AbstractJavaFxView {
      * @param i    the index of the ally entity
      */
     private void setLableTextAlly(final Label name, final Label hp, final int i) {
+        if (name == null || hp == null || i < 0) {
+            throw new IllegalArgumentException("è stato passato un argomento non lecito a setLableTextAlly");
+        }
         if (main.getAllies().get(i).getMaxHealth() != 0) {
             if (main.getAllies().get(i).equals(main.getCurrentAlly())) {
                 name.setTextFill(Color.web("#A020F0"));
@@ -137,6 +145,9 @@ public final class JavaFxFightView extends AbstractJavaFxView {
      * @param i    the index of the enemy entity
      */
     private void setLableTextEnemy(final Label name, final Label hp, final int i) {
+        if (name == null || hp == null || i < 0) {
+            throw new IllegalArgumentException("è stato passato un argomento non lecito a setLableTextEnemy");
+        }
         if (main.getEnemies().get(i).getMaxHealth() != 0) {
             name.setText(main.getEnemies().get(i).getName());
             hp.setText(main.getEnemies().get(i).getHealth() + "/" + main.getEnemies().get(i).getMaxHealth());
@@ -280,6 +291,10 @@ public final class JavaFxFightView extends AbstractJavaFxView {
             pane.setTop(enemyGrid);
             pane.setCenter(buttonBox);
             pane.setBottom(allyGrid);
+            pane.setBottom(allyGrid);
+
+            root.setAlignment(Pos.CENTER);
+            this.scene.setCursor(Cursor.NONE);
 
             root.setAlignment(Pos.CENTER);
             this.scene.setCursor(Cursor.NONE);

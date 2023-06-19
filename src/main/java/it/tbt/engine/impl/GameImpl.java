@@ -35,6 +35,15 @@ public final class GameImpl implements Game {
      * 
      * @param gvf the GameViewFactory which is used to create views different based
      *            on the graphical framework chosen.
+     *            This implementation uses a ViewControllerManager and an
+     *            GameStateManager as
+     *            helper classes to delegate responsibility.
+     *            Creates both the World, the IParty and the Menus object with
+     *            default
+     *            implementations.
+     * 
+     * @param gvf the GameViewFactory which is used to create views different based
+     *            on the graphical framework chosen.
      */
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl(gvf);
@@ -47,10 +56,11 @@ public final class GameImpl implements Game {
 
         allies.add(new Ally("Roberto", 50, 50, 50, new ArrayList<>(Arrays.asList(skills.get(0)))));
         allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
+        allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
         allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
         allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
         Party p = new Party("party", 75, 75, 75, 75, allies);
-        for(final Potion potion : PotionFactory.getInstance().getItems()) {
+        for (final Potion potion : PotionFactory.getInstance().getItems()) {
             p.addItemToInventory(potion);
             p.addItemToInventory(potion);
         }
@@ -65,6 +75,10 @@ public final class GameImpl implements Game {
      */
     @Override
     public void initialize() {
+        this.viewControllerManager.renderView(
+                this.gameStateManager.getState(),
+                this.gameStateManager.getStateModel(),
+                true);
         this.viewControllerManager.renderView(
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
@@ -88,6 +102,7 @@ public final class GameImpl implements Game {
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
                 this.gameStateManager.hasStateChanged());
+        this.gameStateManager.hasStateChanged();
     }
 
     /**
