@@ -7,7 +7,6 @@ import it.tbt.controller.modelmanager.InventoryState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.items.Item;
-import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

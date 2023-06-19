@@ -4,17 +4,18 @@ import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.ModelState;
 import it.tbt.controller.modelmanager.FightState;
-import it.tbt.controller.modelmanager.*;
-import it.tbt.controller.modelmanager.shop.ShopStateImpl;
+import it.tbt.controller.modelmanager.InventoryState;
+import it.tbt.controller.modelmanager.EndState;
+import it.tbt.controller.modelmanager.shop.ShopState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.GameState;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * Default implementation of a ViewControllerManager.
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 public class GameViewManagerImpl implements ViewControllerManager {
 
-    private GameViewFactory gameViewFactory;
+    private final GameViewFactory gameViewFactory;
     private ViewController currentController;
     private GameView currentGameView;
 
@@ -50,65 +51,47 @@ public class GameViewManagerImpl implements ViewControllerManager {
         if (hasChanged) {
             switch (gameState) {
                 case EXPLORE -> {
-                    if (!(modelState instanceof ExploreState)) {
-                        throw new IllegalStateException("Data passed to View Manager inconsistent");
-                    }
-                    ExploreState exploreState = (ExploreState) modelState;
-                    ViewController exploreControllerImpl = new ExploreControllerImpl(exploreState);
-                    var x = this.gameViewFactory.createRoom(exploreControllerImpl, exploreState);
-                    this.currentController = exploreControllerImpl;
-                    this.currentGameView = x;
+                    handleViewState(modelState,
+                            ExploreState.class,
+                            ExploreControllerImpl.class,
+                            (controller, state) -> this.gameViewFactory.createRoom(state, controller));
                 }
                 case MENU -> {
-                    if (!(modelState instanceof MenuState)) {
-                        throw new IllegalStateException("Data passed to View Manager inconsistent");
-                    }
-                    MenuState menuState = (MenuState) modelState;
-                    MainMenuController menuController = new MainMenuController(menuState);
-                    var x = this.gameViewFactory.createMenu(menuController, menuState);
-                    this.currentController = menuController;
-                    this.currentGameView = x;
+                    handleViewState(modelState,
+                            MenuState.class,
+                            MainMenuController.class,
+                            (controller, state) -> this.gameViewFactory.createMenu(state, controller));
                 }
                 case SHOP -> {
-                    final ShopStateImpl shopState = (ShopStateImpl) modelState;
-                    final ShopController shopController = new ShopController(shopState);
-                    final GameView x = this.gameViewFactory.createShop(shopController, shopState);
-                    this.currentController = shopController;
-                    this.currentGameView = x;
+                    handleViewState(modelState,
+                            ShopState.class,
+                            ShopController.class,
+                            (controller, state) -> this.gameViewFactory.createShop(state, controller));
                 }
                 case PAUSE -> {
-                    if (!(modelState instanceof MenuState)) {
-                        throw new IllegalStateException("Data passed to View Manager inconsistent");
-                    }
-
-                    MenuState menuState = (MenuState) modelState;
-                    PauseMenuController menuController = new PauseMenuController(menuState);
-                    var x = this.gameViewFactory.createPause(menuController, menuState);
-                    this.currentController = menuController;
-                    this.currentGameView = x;
+                    handleViewState(modelState,
+                            MenuState.class,
+                            PauseMenuController.class,
+                            (controller, state) -> this.gameViewFactory.createPause(state, controller));
                 }
                 case FIGHT -> {
-                    FightState fightState = (FightState) modelState;
-                    ViewController fightController = new FightControllerImpl(fightState);
-                    var x = this.gameViewFactory.createFight(fightController, fightState);
-                    this.currentController = fightController;
-                    this.currentGameView = x;
+                    handleViewState(modelState,
+                            FightState.class,
+                            FightControllerImpl.class,
+                            (controller, state) -> this.gameViewFactory.createFight(state, controller));
                 }
                 case INVENTORY -> {
-                    InventoryState inventoryState = (InventoryState) modelState;
-                    InventoryViewController inventoryViewController = new InventoryViewController(inventoryState);
-                    var x = this.gameViewFactory.createInventory(inventoryViewController, inventoryState);
-                    this.currentController = inventoryViewController;
-                    this.currentGameView = x;
+                    handleViewState(modelState,
+                            InventoryState.class,
+                            InventoryViewController.class,
+                            (controller, state) -> this.gameViewFactory.createInventory(state, controller));
 
                 }
                 case ENDING -> {
-                    EndState endState = (EndState) modelState;
-                    EndViewController endViewController = new EndViewController (endState);
-                    var x = this.gameViewFactory.createEndScreen (endViewController, endState);
-                    this.currentController = endViewController;
-                    this.currentGameView = x;
-
+                    handleViewState(modelState,
+                            EndState.class,
+                            EndViewController.class,
+                            (controller, state) -> this.gameViewFactory.createEndScreen(state, controller));
                 }
                 default -> {
                     throw new IllegalStateException("GameState not handled by ViewManager.");
@@ -124,5 +107,25 @@ public class GameViewManagerImpl implements ViewControllerManager {
     @Override
     public void cleanCommands() {
         this.currentController.clean();
+    }
+
+    private <T extends ModelState, C extends ViewController> void handleViewState(
+            final ModelState modelState,
+            final Class<T> stateClass,
+            final Class<C> controllerClass,
+            final BiFunction<T, C, GameView> createViewFunction) {
+        if (!stateClass.isInstance(modelState)) {
+            throw new IllegalStateException("Data passed to View Manager inconsistent");
+        }
+        T state = stateClass.cast(modelState);
+        C controller;
+        try {
+            controller = controllerClass.getConstructor(stateClass).newInstance(state);
+        } catch (Exception e) {
+            throw new IllegalStateException("Data inconsistent ViewManager.");
+        }
+        var x = createViewFunction.apply(state, controller);
+        this.currentController = controller;
+        this.currentGameView = x;
     }
 }

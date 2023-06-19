@@ -13,8 +13,8 @@ import java.awt.event.KeyEvent;
  */
 public final class ExploreControllerImpl extends AbstractViewController {
 
-    public static final int DEFAULT_MOVE_X = 5;
-    public static final int DEFAULT_MOVE_Y = 5;
+    private static final int DEFAULT_MOVE_X = 5;
+    private static final int DEFAULT_MOVE_Y = 5;
     private ExploreState modelState;
 
     /**
@@ -63,12 +63,15 @@ public final class ExploreControllerImpl extends AbstractViewController {
     }
 
     /**
-     * Triggers the Pause GameState.
+     * Triggers the {@link it.tbt.model.GameState#PAUSE} GameState.
      */
     private void triggerPause() {
         this.addCommand(new CommandPause(this.modelState.getTriggerPause()));
     }
 
+    /**
+     * Trigger the {@link it.tbt.model.GameState#INVENTORY} GameState.
+     */
     private void triggerInventory() { this.addCommand(new CommandInventory(this.modelState.getTriggerInventory())); }
 
     @Override

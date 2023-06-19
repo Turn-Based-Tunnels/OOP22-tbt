@@ -15,8 +15,7 @@ public final class UpdateManagerImpl implements UpdateManager {
     public void updateModel(final GameState gameState, final ModelState modelState, final long timeTransition) {
         switch (gameState) {
             case EXPLORE -> {
-                if (modelState instanceof ExploreState) {
-                    var state = (ExploreState) modelState;
+                if (modelState instanceof ExploreState state) {
                     if (state.getParty() instanceof TimeAffected) {
                         ((TimeAffected) state.getParty()).affect(timeTransition);
                     }

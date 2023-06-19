@@ -118,7 +118,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
         this.images = x.entrySet().
                 stream().
                 filter(l -> l.getKey() instanceof MovableEntity).
-                map(l->Map.entry((MovableEntity) l.getKey(), l.getValue()))
+                map(l -> Map.entry((MovableEntity) l.getKey(), l.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 

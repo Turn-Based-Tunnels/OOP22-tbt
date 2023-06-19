@@ -30,7 +30,7 @@ import it.tbt.model.world.impl.WorldImpl;
  */
 
 public class WorldCreationDefault implements WorldCreationStrategy {
-    final Random rnd = new Random();
+    private final Random rnd = new Random();
 
     /**
      * {@inheritDoc}
