@@ -1,7 +1,6 @@
 package it.tbt.controller.modelmanager;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 
 /**

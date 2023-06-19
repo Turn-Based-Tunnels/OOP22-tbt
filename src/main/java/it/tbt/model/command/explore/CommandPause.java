@@ -13,8 +13,8 @@ public class CommandPause implements Command {
     /**
      * @param pauseTrigger the pause trigger which will be used to trigger the Pause GameState.
      */
-    @SuppressFBWarnings(value = "EI2"
-            , justification = "The Command pattern encapsulates the objects on which perform the operations.")
+    @SuppressFBWarnings(value = "EI2",
+            justification = "The Command pattern encapsulates the objects on which perform the operations.")
     public CommandPause(final PauseTrigger pauseTrigger) {
         this.pauseTrigger = pauseTrigger;
     }

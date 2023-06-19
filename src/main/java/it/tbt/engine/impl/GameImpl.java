@@ -16,7 +16,6 @@ import it.tbt.engine.api.Game;
 public final class GameImpl implements Game {
     private ViewControllerManager viewControllerManager;
     private IGameStateManager gameStateManager;
-    private GameViewFactory gameViewFactory;
     private Boolean initialized = false;
 
     /**
@@ -36,7 +35,11 @@ public final class GameImpl implements Game {
      *            on the graphical framework chosen.
      */
     public GameImpl(final GameViewFactory gvf) {
-        this.gameViewFactory = gvf;
+        viewControllerManager = new GameViewManagerImpl(gvf);
+        gameStateManager = new GameStateManager(WorldFactory.createWorldDefault(),
+                PartyFactory.createDefaultParty(),
+                MenuFactory.getMainMenu(),
+                MenuFactory.getPauseMenu());
     }
 
     /**
@@ -45,11 +48,6 @@ public final class GameImpl implements Game {
 
     @Override
     public void initialize() {
-        viewControllerManager = new GameViewManagerImpl(this.gameViewFactory);
-        gameStateManager = new GameStateManager(WorldFactory.createWorldDefault(),
-                PartyFactory.createDefaultParty(),
-                MenuFactory.getMainMenu(),
-                MenuFactory.getPauseMenu());
         this.viewControllerManager.renderView(
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
@@ -84,7 +82,7 @@ public final class GameImpl implements Game {
         return !r;
     }
     private void checkInit() {
-        if(this.initialized == false) {
+        if (!this.initialized) {
             throw new IllegalStateException("Game object has not been initialized.");
         }
     }

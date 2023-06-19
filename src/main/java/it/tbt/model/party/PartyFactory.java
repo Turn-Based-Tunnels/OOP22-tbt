@@ -37,7 +37,7 @@ public final class PartyFactory {
         allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
         allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
         Party p = new Party("party", 75, 75, 75, 75, allies);
-        for(final Potion potion : PotionFactory.getInstance().getItems()) {
+        for (final Potion potion : PotionFactory.getInstance().getItems()) {
             p.addItemToInventory(potion);
             p.addItemToInventory(potion);
         }
