@@ -90,9 +90,9 @@ public final class CharacterFactory {
         final int res = statsSum / 10; // ~10%
         return new Enemy(
             name,
-            (int) (tmpHealth * statsSumPart / sum) + res,
-            (int) (tmpAttack * statsSumPart / sum) + res,
-            (int) (tmpSpeed * statsSumPart / sum) + res
+            (int) (tmpHealth * statsSumPart / sum) + res + 1,
+            (int) (tmpAttack * statsSumPart / sum) + res + 1,
+            (int) (tmpSpeed * statsSumPart / sum) + res + 1
         );
     }
 }

@@ -1,6 +1,6 @@
 [
   {
-    "imagePath": "./tbt/images/party.png",
+    "imagePath": "./tbt/images/ally.gif",
     "objectClass": "it.tbt.model.party.Party"
   },
   {
@@ -18,6 +18,14 @@
   {
     "imagePath": "./tbt/images/shop.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.ShopNPCImpl"
+  },
+  {
+    "imagePath": "./tbt/images/itemnpc.gif",
+    "objectClass": "it.tbt.model.entities.npc.impl.ItemNPCImpl"
+  },
+  {
+    "imagePath": "./tbt/images/heal.gif",
+    "objectClass": "it.tbt.model.entities.npc.impl.HealerNPCImpl"
   },
   {
     "imagePath": "./tbt/images/menuBackground.png",
@@ -38,6 +46,10 @@
   {
     "imagePath": "./tbt/images/ally.gif",
     "objectClass": "it.tbt.model.entities.characters.Ally"
+  },
+  {
+    "imagePath": "./tbt/images/allyNPC.gif",
+    "objectClass": "it.tbt.model.entities.npc.impl.AllyNPCImpl"
   },
   {
     "imagePath": "./tbt/images/enemy.gif",

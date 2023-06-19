@@ -13,6 +13,7 @@ import java.util.Optional;
 public class EndEntity extends SpatialEntityImpl implements Interactable, StateTrigger {
 
     private Optional<StateObserver> stateObserver;
+    private final String message;
 
     /**
      * Default constructor.
@@ -22,13 +23,16 @@ public class EndEntity extends SpatialEntityImpl implements Interactable, StateT
      * @param y
      * @param width
      * @param height
+     * @param message
      */
     public EndEntity(final String name,
                      final int x,
                      final int y,
                      final int width,
-                     final int height) {
+                     final int height,
+                     final String message) {
         super(name, x, y, width, height);
+        this.message = message;
         this.stateObserver = Optional.empty();
     }
 
@@ -41,7 +45,7 @@ public class EndEntity extends SpatialEntityImpl implements Interactable, StateT
         if (stateObserver.isEmpty()) {
             throw new IllegalStateException("Entity not properly initialized.");
         }
-        stateObserver.get().onEnding("You have reached an end entity!");
+        stateObserver.get().onEnding(this.message);
     }
 
     /**
