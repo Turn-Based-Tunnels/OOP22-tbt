@@ -74,21 +74,15 @@ public final class TransitionManagerImpl implements TransitionManager {
                 if (y instanceof StateTrigger) {
                     ((StateTrigger) y).setStateObserver(this);
                     if (y instanceof FightNPC) {
-                        if (((FightNPC) y).getFightModel () instanceof StateTrigger) {
-                            (((FightNPC) y).getFightModel()).setStateObserver(this);
-                        }
+                        (((FightNPC) y).getFightModel()).setStateObserver(this);
                     }
                     if (y instanceof ShopNPC) {
-                        if (((ShopNPC) y).getShop() instanceof StateTrigger) {
-                            ((StateTrigger) ((ShopNPC) y).getShop()).setStateObserver(this);
-                        }
+                        ((StateTrigger) ((ShopNPC) y).getShop()).setStateObserver(this);
                     }
                 }
             }
         }
-        if (this.pauseMenu instanceof StateTrigger) {
-            ((StateTrigger) pauseMenu).setStateObserver(this);
-        }
+        pauseMenu.setStateObserver(this);
         for (var x : this.mainMenu.getItems()) {
             if (x instanceof StateTrigger) {
                 ((StateTrigger) x).setStateObserver(this);

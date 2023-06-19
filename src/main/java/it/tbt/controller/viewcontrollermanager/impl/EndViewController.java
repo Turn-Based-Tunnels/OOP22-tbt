@@ -11,9 +11,8 @@ import java.util.List;
  * The {@code EndViewController} class represents the view controller for the end state.
  * It handles user input and triggers actions associated with the end state.
  */
-public class EndViewController implements ViewController {
+public class EndViewController extends AbstractViewController {
 
-    private final List<Command> commands;
     private final EndState endState;
 
     /**
@@ -27,7 +26,6 @@ public class EndViewController implements ViewController {
             throw new IllegalArgumentException("EndState cannot be null");
         }
         this.endState = endState;
-        commands = new ArrayList<>();
     }
 
     /**
@@ -38,19 +36,4 @@ public class EndViewController implements ViewController {
         endState.triggerMainMenu();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Command> getCommands() {
-        return this.commands;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clean() {
-        commands.clear();
-    }
 }

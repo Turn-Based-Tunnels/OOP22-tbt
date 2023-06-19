@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * The {@code JavaFxMenuView} class represents a JavaFX implementation of the menu view.
  * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
  */
-public class JavaFxMenuView extends /*ResizableApp*/ AbstractJavaFxView implements GameView {
+public class JavaFxMenuView extends AbstractJavaFxView {
 
     private final Scene scene;
     private final MenuState main;

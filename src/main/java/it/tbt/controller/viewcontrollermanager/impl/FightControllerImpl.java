@@ -14,10 +14,9 @@ import java.awt.event.KeyEvent;
  * This class handles user input during a fight and triggers corresponding
  * actions in the fight model.
  */
-public final class FightControllerImpl implements ViewController {
+public final class FightControllerImpl extends AbstractViewController {
 
     private final FightState model;
-    private final List<Command> commands = new ArrayList<>();
 
     /**
      * Constructs a new instance of the {@link FightControllerImpl} class with the
@@ -26,24 +25,9 @@ public final class FightControllerImpl implements ViewController {
      * @param model the {@link FightState} representing the fight state
      */
     public FightControllerImpl(final FightState model) {
+        super();
         this.model = model;
         this.clean();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Command> getCommands() {
-        return List.copyOf(commands);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clean() {
-        commands.clear();
     }
 
     /**
@@ -55,7 +39,7 @@ public final class FightControllerImpl implements ViewController {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
                 // controller.handlePreviousTarget();
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
 
                     @Override
                     public void execute() {
@@ -67,7 +51,7 @@ public final class FightControllerImpl implements ViewController {
             case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
                 // controller.handleNextTarget();
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
 
                     @Override
                     public void execute() {
@@ -79,7 +63,7 @@ public final class FightControllerImpl implements ViewController {
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 // controller.handleCycleAction(true);
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
 
                     @Override
                     public void execute() {
@@ -91,7 +75,7 @@ public final class FightControllerImpl implements ViewController {
             case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
                 // controller.handleCycleAction(false);
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
 
                     @Override
                     public void execute() {
@@ -103,7 +87,7 @@ public final class FightControllerImpl implements ViewController {
             case KeyEvent.VK_E:
             case KeyEvent.VK_ENTER:
                 // controller.handlePerformAction();
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
 
                     @Override
                     public void execute() {

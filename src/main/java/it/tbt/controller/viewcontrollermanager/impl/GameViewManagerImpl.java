@@ -71,9 +71,9 @@ public class GameViewManagerImpl implements ViewControllerManager {
                 }
                 case SHOP -> {
                     final ShopStateImpl shopState = (ShopStateImpl) modelState;
-                    final ShopController shopControler = new ShopController(shopState);
-                    final GameView x = this.gameViewFactory.createShop(shopControler, shopState);
-                    this.currentController = shopControler;
+                    final ShopController shopController = new ShopController(shopState);
+                    final GameView x = this.gameViewFactory.createShop(shopController, shopState);
+                    this.currentController = shopController;
                     this.currentGameView = x;
                 }
                 case PAUSE -> {

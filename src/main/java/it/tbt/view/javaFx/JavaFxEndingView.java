@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * The {@code JavaFxEndingView} class represents a JavaFX implementation of the game ending view.
  * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
  */
-public class JavaFxEndingView extends AbstractJavaFxView implements GameView {
+public class JavaFxEndingView extends AbstractJavaFxView {
 
     private final Scene scene;
     private final EndState main;

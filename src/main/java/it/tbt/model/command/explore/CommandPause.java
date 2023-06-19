@@ -23,4 +23,5 @@ public class CommandPause implements Command {
     public void execute() {
         pauseTrigger.triggerPause();
     }
+
 }

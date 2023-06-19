@@ -23,7 +23,7 @@ import java.util.Map;
  * The {@code JavaFxInventoryView} class represents a JavaFX implementation of the inventory view.
  * It extends the {@code AbstractJavaFxView} class and implements the {@code GameView} interface.
  */
-public class JavaFxInventoryView extends AbstractJavaFxView implements GameView {
+public class JavaFxInventoryView extends AbstractJavaFxView {
 
     private static final double BORDER_SCALE = 25;
     private final Scene scene;

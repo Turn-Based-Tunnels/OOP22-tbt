@@ -11,8 +11,7 @@ import it.tbt.model.command.api.Command;
 /**
  * ViewController for the shop.
  */
-public class ShopController implements ViewController {
-    private List<Command> commands;
+public class ShopController extends AbstractViewController {
     private final ShopState shopState;
 
     /**
@@ -20,8 +19,8 @@ public class ShopController implements ViewController {
      * @param shopState
      */
     public ShopController(final ShopState shopState) {
+        super();
         this.shopState = shopState;
-        commands = new LinkedList<>();
     }
 
     /**
@@ -32,7 +31,7 @@ public class ShopController implements ViewController {
         switch (key) {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
                     @Override
                     public void execute() {
                         shopState.previousElement();
@@ -41,7 +40,7 @@ public class ShopController implements ViewController {
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
                     @Override
                     public void execute() {
                         shopState.nextElement();
@@ -52,7 +51,7 @@ public class ShopController implements ViewController {
             case KeyEvent.VK_A:
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
                     @Override
                     public void execute() {
                         shopState.toggleList();
@@ -61,7 +60,7 @@ public class ShopController implements ViewController {
                 break;
             case KeyEvent.VK_ENTER:
             case KeyEvent.VK_SPACE:
-            this.commands.add(new Command() {
+                this.addCommand(new Command() {
                 @Override
                 public void execute() {
                     shopState.execute();
@@ -69,7 +68,7 @@ public class ShopController implements ViewController {
             });
                 break;
             case KeyEvent.VK_ESCAPE:
-                this.commands.add(new Command() {
+                this.addCommand(new Command() {
                     @Override
                     public void execute() {
                         shopState.goToExplore();
@@ -80,21 +79,5 @@ public class ShopController implements ViewController {
                 // ignore input
                 break;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Command> getCommands() {
-        return List.copyOf(commands);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clean() {
-        this.commands = new LinkedList<>();
     }
 }

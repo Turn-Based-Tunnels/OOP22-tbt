@@ -47,7 +47,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
         this.movingSpace.setMinSize (exploreState.getRoom().getWidth(), exploreState.getRoom().getHeight());
         this.movingSpace.setMaxSize (exploreState.getRoom().getWidth(), exploreState.getRoom().getHeight());
         loadBackground();
-        loadAllImages();
+        //loadAllImages();
     }
 
     /**

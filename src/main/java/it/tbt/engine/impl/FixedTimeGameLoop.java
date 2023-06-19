@@ -15,7 +15,6 @@ public class FixedTimeGameLoop implements GameLoop {
     private long lastUpdateTime;
     private long timeAccumulator;
     private Boolean updated = false;
-    private Boolean consistent = true;
     private final Game game;
 
     /**
@@ -26,7 +25,6 @@ public class FixedTimeGameLoop implements GameLoop {
         this.game = game;
         this.lastUpdateTime = System.nanoTime();
         this.game.initialize();
-        //this.game.render();
     }
 
     /**

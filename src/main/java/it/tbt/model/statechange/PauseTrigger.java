@@ -14,10 +14,15 @@ public class PauseTrigger {
         this.stateObserver = stateObserver;
     }
 
+    public PauseTrigger(final PauseTrigger pauseTrigger) {
+        this.stateObserver = pauseTrigger.stateObserver;
+    }
+
     /**
      * Triggers the Pause GameState.
      */
     public void triggerPause() {
         this.stateObserver.onPause();
     }
+
 }

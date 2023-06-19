@@ -13,9 +13,8 @@ import java.util.List;
  * The {@code InventoryViewController} class represents the view controller for the inventory state.
  * It handles user input and triggers actions associated with the inventory state.
  */
-public class InventoryViewController implements ViewController {
+public class InventoryViewController extends AbstractViewController {
 
-    List<Command> commands;
     private final InventoryState inventoryState;
 
     /**
@@ -25,11 +24,11 @@ public class InventoryViewController implements ViewController {
      * @throws IllegalArgumentException if inventoryState is null
      */
     public InventoryViewController(final InventoryState inventoryState) {
+        super();
         if (inventoryState == null) {
             throw new IllegalArgumentException("InventoryState cannot be null");
         }
         this.inventoryState = inventoryState;
-        commands = new ArrayList<>();
     }
 
     /**
@@ -38,12 +37,12 @@ public class InventoryViewController implements ViewController {
     @Override
     public void onKeyPressed(final int key) {
         switch (key) {
-            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.commands.add(() -> inventoryState.previousElement());
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.commands.add(() -> inventoryState.nextElement());
-            case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> this.commands.add(() -> inventoryState.performAction());
-            case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> this.commands.add(() -> inventoryState.nextPhase());
-            case KeyEvent.VK_LEFT, KeyEvent.VK_A -> this.commands.add(() -> inventoryState.previousPhase());
-            case KeyEvent.VK_ESCAPE -> this.commands.add(() -> inventoryState.switchToExplore());
+            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.addCommand(() -> inventoryState.previousElement());
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.addCommand(() -> inventoryState.nextElement());
+            case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> this.addCommand(() -> inventoryState.performAction());
+            case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> this.addCommand(() -> inventoryState.nextPhase());
+            case KeyEvent.VK_LEFT, KeyEvent.VK_A -> this.addCommand(() -> inventoryState.previousPhase());
+            case KeyEvent.VK_ESCAPE -> this.addCommand(() -> inventoryState.switchToExplore());
             default -> {
                 // Throw an IllegalArgumentException for invalid key input
                 throw new IllegalArgumentException("Invalid key: " + key);
@@ -51,19 +50,4 @@ public class InventoryViewController implements ViewController {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Command> getCommands() {
-        return new LinkedList<>(this.commands);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clean() {
-        this.commands.clear();
-    }
 }
