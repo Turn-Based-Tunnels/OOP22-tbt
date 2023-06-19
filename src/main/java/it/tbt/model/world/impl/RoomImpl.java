@@ -1,5 +1,6 @@
 package it.tbt.model.world.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.KillableEntity;
 import it.tbt.model.world.api.KillObserver;
 import it.tbt.model.world.api.Room;
@@ -51,7 +52,7 @@ public class RoomImpl implements Room, KillObserver {
      */
     @Override
     public Set<SpatialEntity> getEntities() {
-        return entities;
+        return Set.copyOf(entities);
     }
 
     /**

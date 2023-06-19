@@ -14,6 +14,10 @@ public class InventoryTrigger implements StateTrigger {
         this.stateObserver = stateObserver;
     }
 
+    public InventoryTrigger(final InventoryTrigger inventoryTrigger) {
+        this.stateObserver = inventoryTrigger.stateObserver;
+    }
+
     /**
      * Notifies the stateObserver of the will on changing the GameState.
      */

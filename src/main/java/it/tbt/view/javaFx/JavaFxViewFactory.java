@@ -1,5 +1,6 @@
 package it.tbt.view.javaFx;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.world.api.Room;
@@ -22,11 +23,16 @@ public class JavaFxViewFactory implements GameViewFactory {
 
     private static final int HEIGHT_WINDOW = 600;
     private static final int WIDTH_WINDOW = 800;
-    private Stage stage;
+    private final Stage stage;
 
     /**
      * @param stage used as reference to where the GameViews will reside.
      */
+    @SuppressFBWarnings (
+            value = { "EI2 "},
+            justification = "The Factory creates the Views in JavaFx so it needs a Stage, and this Stage" +
+                    " is the one loaded at start of the javaFx application."
+    )
     public JavaFxViewFactory(final Stage stage) {
         this.stage = stage;
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

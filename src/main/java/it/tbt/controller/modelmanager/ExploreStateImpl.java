@@ -36,19 +36,31 @@ public final class ExploreStateImpl implements ExploreState {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings (
+            value = {
+                    "EI"
+            },
+            justification = "The rest of the components need the exact object of the party to queue changes." +
+                    "And the synchronization is based on the changes in this object."
+    )
     public IParty getParty() {
         return party; }
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings (value = {
+            "EI"
+            },
+            justification = "The rest of the components need the exact object of the room to queue changes." +
+                    "And the synchronization is based on the changes in this object.")
     @Override
     public Room getRoom() {
         return this.room;
     }
+
     /**
      * {@inheritDoc}
      */
-    //@SuppressFBWarnings("EI")
     @Override
     public PauseTrigger getTriggerPause() {
         return new PauseTrigger(this.pauseTrigger);
@@ -56,10 +68,9 @@ public final class ExploreStateImpl implements ExploreState {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings("EI")
     @Override
     public InventoryTrigger getTriggerInventory() {
-        return this.inventoryTrigger;
+        return new InventoryTrigger(this.inventoryTrigger);
     }
 
 }

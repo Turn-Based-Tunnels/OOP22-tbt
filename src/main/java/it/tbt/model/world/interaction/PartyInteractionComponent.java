@@ -1,5 +1,6 @@
 package it.tbt.model.world.interaction;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.world.collision.CollisionDetector;
 import it.tbt.model.world.collision.CollisionDetectorImpl;
 import it.tbt.model.party.IParty;
@@ -13,12 +14,16 @@ import java.util.List;
 
 public class PartyInteractionComponent implements InteractionComponent {
 
-    private IParty party;
-    private CollisionDetector collisionDetector = new CollisionDetectorImpl();
+    private final IParty party;
+    private final CollisionDetector collisionDetector = new CollisionDetectorImpl();
 
     /**
      * @param party the party object onto which this component is attached to.
      */
+    @SuppressFBWarnings (
+            value = { "EI2" },
+            justification = "The Component needs to access the exact instance of the Party the game is using."
+    )
     public PartyInteractionComponent(final IParty party) {
         this.party = party;
     }

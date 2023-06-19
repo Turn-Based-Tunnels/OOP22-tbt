@@ -1,5 +1,6 @@
 package it.tbt.controller.modelmanager.transitionmanager.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.ExploreStateImpl;
 import it.tbt.controller.modelmanager.FightStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
@@ -42,6 +43,9 @@ public final class TransitionManagerImpl implements TransitionManager {
      * @param mainMenu
      * @param pauseMenu
      */
+    @SuppressFBWarnings(value = "EI2",
+    justification = "This is the class which contains all the model, and performs operations on them," +
+            " so it should have their references.")
     public TransitionManagerImpl(final World world, final IParty party, final MenuModelImpl mainMenu,
             final MenuModelImpl pauseMenu) {
         this.world = world;
