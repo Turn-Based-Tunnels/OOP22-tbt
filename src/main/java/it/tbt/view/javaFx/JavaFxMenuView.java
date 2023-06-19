@@ -5,7 +5,7 @@ import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuItem;
-import it.tbt.model.menu.impl.MenuSelect;
+import it.tbt.model.menu.api.MenuSelect;
 import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -14,7 +14,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -38,13 +44,13 @@ public class JavaFxMenuView extends AbstractJavaFxView {
      * @param scene          the scene
      * @param menuState      the menu state
      */
-    public JavaFxMenuView(ViewController menuController, Stage stage, Scene scene, MenuState menuState) {
+    public JavaFxMenuView(final ViewController menuController, final Stage stage, final Scene scene, final MenuState menuState) {
             super(menuController, stage, scene);
             this.scene = scene;
             this.main = menuState;
             this.bg = new Background(
-                new BackgroundImage (
-                        new Image (ImageLoader.getInstance().getFilePath(menuState.getClass())),
+                new BackgroundImage(
+                        new Image(ImageLoader.getInstance().getFilePath(menuState.getClass())),
                         BackgroundRepeat.NO_REPEAT,
                         BackgroundRepeat.NO_REPEAT,
                         BackgroundPosition.DEFAULT,
@@ -58,20 +64,20 @@ public class JavaFxMenuView extends AbstractJavaFxView {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            StackPane root = new StackPane ();
+            StackPane root = new StackPane();
             root.getChildren().clear();
             VBox vbox = new VBox();
-            Label title = new Label (main.getTitle ());
-            title.setStyle ("-fx-text-fill: white; -fx-font-size: 25px;");
-            vbox.getChildren ().add (title);
+            Label title = new Label(main.getTitle());
+            title.setStyle("-fx-text-fill: white; -fx-font-size: 25px;");
+            vbox.getChildren().add(title);
             int count = 0;
             System.out.println(main.getFocus());
-            for (MenuItem item:
-                    main.getItems()) {
-                if(item instanceof MenuButton){
+            for (MenuItem item
+                    : main.getItems()) {
+                if (item instanceof MenuButton) {
                     Button button = new Button(item.getText());
                     Font buttonFont = Font.font("Arial", FontWeight.BOLD, 16);
-                    if(count == main.getFocus()){
+                    if (count == main.getFocus()) {
                         button.setStyle("-fx-background-color: lightblue;");
                     }
                     button.setOnAction((event) -> {
@@ -79,30 +85,29 @@ public class JavaFxMenuView extends AbstractJavaFxView {
                     });
                     button.setFont(buttonFont);
                     button.setFocusTraversable(false);
-                    button.setMinWidth (vbox.getPrefWidth());
+                    button.setMinWidth(vbox.getPrefWidth());
                     vbox.getChildren().add(button);
-                }
-                else if(item instanceof it.tbt.model.menu.api.MenuSelect){
+                } else if (item instanceof it.tbt.model.menu.api.MenuSelect) {
                     Label label = new Label(item.getText());
                     label.setFocusTraversable(false);
-                    Button button = new Button("<      " + ((MenuSelect)item).getLabel() + "      >");
+                    Button button = new Button("<      " + ((MenuSelect) item).getLabel() + "      >");
                     Font buttonFont = Font.font("Arial", FontWeight.BOLD, 16);
-                    if(count == main.getFocus()){
+                    if (count == main.getFocus()) {
                         button.setStyle("-fx-background-color: lightblue;");
                     }
                     button.setFont(buttonFont);
                     button.setFocusTraversable(false);
-                    button.setMinWidth (vbox.getPrefWidth());
+                    button.setMinWidth(vbox.getPrefWidth());
                     vbox.getChildren().addAll(label, button);
 
                 }
                 count++;
             }
             vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing (10);
+            vbox.setSpacing(10);
             root.getChildren().add(vbox);
-            root.setAlignment (Pos.CENTER);
-            root.setBackground (this.bg);
+            root.setAlignment(Pos.CENTER);
+            root.setBackground(this.bg);
             this.scene.setCursor(Cursor.NONE);
             this.getScene().setRoot(root);
 

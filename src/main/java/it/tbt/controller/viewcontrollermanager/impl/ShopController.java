@@ -1,11 +1,7 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
-import java.util.List;
-
 import it.tbt.controller.modelmanager.shop.ShopState;
-import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import it.tbt.model.command.api.Command;
 
 /**

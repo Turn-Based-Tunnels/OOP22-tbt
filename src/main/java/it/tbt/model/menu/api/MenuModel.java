@@ -26,7 +26,7 @@ public interface MenuModel {
      *
      * @param focus the index of the item to set as the focus
      */
-    void setFocus(final int focus);
+    void setFocus(int focus);
 
     /**
      * Returns the list of menu items.

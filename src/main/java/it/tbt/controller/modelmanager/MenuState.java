@@ -12,12 +12,12 @@ public interface MenuState extends ModelState {
     /**
      * Moves the focus to the next menu item.
      */
-    void NextElement();
+    void nextElement();
 
     /**
      * Moves the focus to the previous menu item.
      */
-    void PreviousElement();
+    void previousElement();
 
     /**
      * Returns the list of menu items.

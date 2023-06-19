@@ -13,6 +13,9 @@ import java.util.Set;
 public class WorldImpl implements World {
     private Set<Room> rooms;
     private Optional<Room> start;
+    /**
+     * Default constructor of the World object.
+     */
     public WorldImpl() {
         this.rooms = new HashSet<>();
     }

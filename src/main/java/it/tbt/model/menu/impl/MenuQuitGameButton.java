@@ -1,12 +1,12 @@
 package it.tbt.model.menu.impl;
 
-import it.tbt.model.command.menu.ButtonCommand;
+import it.tbt.model.command.api.Command;
 
 /**
  * The {@code MenuQuitGameButton} class represents a menu button for quitting the game.
- * It extends the {@link MenuButton} class.
+ * It extends the {@link AbstractMenuButton} class.
  */
-public class MenuQuitGameButton extends MenuButton{
+public class MenuQuitGameButton extends AbstractMenuButton {
     /**
      * Creates a new instance of {@code MenuQuitGameButton} with the specified text.
      *
@@ -19,8 +19,7 @@ public class MenuQuitGameButton extends MenuButton{
      * {@inheritDoc}
      */
     @Override
-    public ButtonCommand getAction(){
+    public Command getAction() {
         return () -> System.exit(0);
-
     }
 }

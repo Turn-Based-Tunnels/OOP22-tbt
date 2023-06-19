@@ -40,8 +40,8 @@ public final class ExploreStateImpl implements ExploreState {
             value = {
                     "EI"
             },
-            justification = "The rest of the components need the exact object of the party to queue changes." +
-                    "And the synchronization is based on the changes in this object."
+            justification = "The rest of the components need the exact object of the party to queue changes."
+                    + "And the synchronization is based on the changes in this object."
     )
     public IParty getParty() {
         return party; }
@@ -51,8 +51,8 @@ public final class ExploreStateImpl implements ExploreState {
     @SuppressFBWarnings (value = {
             "EI"
             },
-            justification = "The rest of the components need the exact object of the room to queue changes." +
-                    "And the synchronization is based on the changes in this object.")
+            justification = "The rest of the components need the exact object of the room to queue changes."
+                    + "And the synchronization is based on the changes in this object.")
     @Override
     public Room getRoom() {
         return this.room;

@@ -2,7 +2,6 @@ package it.tbt.view.javaFx;
 
 import it.tbt.controller.modelmanager.EndState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.view.api.GameView;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -28,7 +27,8 @@ public class JavaFxEndingView extends AbstractJavaFxView {
      * @param scene         the scene
      * @param endState      the end state
      */
-    public JavaFxEndingView(ViewController endController, Stage stage, Scene scene, EndState endState) {
+    public JavaFxEndingView(final ViewController endController, final Stage stage,
+                            final Scene scene, final EndState endState) {
         super(endController, stage, scene);
         this.scene = scene;
         this.main = endState;

@@ -2,7 +2,14 @@ package it.tbt.controller.modelmanager;
 
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.characters.Status;
-import it.tbt.model.entities.items.*;
+
+import it.tbt.model.entities.items.Armor;
+import it.tbt.model.entities.items.Potion;
+import it.tbt.model.entities.items.Weapon;
+import it.tbt.model.entities.items.Antidote;
+import it.tbt.model.entities.items.Item;
+import it.tbt.model.entities.items.Consumable;
+import it.tbt.model.entities.items.Equipement;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
@@ -24,9 +31,9 @@ import static it.tbt.model.party.IParty.PARTY_SIZE;
  */
 public class InventoryStateImpl implements InventoryState, StateTrigger {
     private static final int NOT_SELECTED = -1;
-    final private IParty party;
+    private final IParty party;
     private InventoryPhase phase;
-    final private boolean itemLocked;
+    private final boolean itemLocked;
     private int membersCounter;
     private int memberSelected;
     private int itemCounter;
@@ -90,12 +97,18 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
         switch (this.getPhase()) {
             case INVENTORY -> {
                 if (this.itemSelected == NOT_SELECTED) {
-                    this.itemCounter = (this.itemCounter - 1) < 0 ? this.party.getInventory().size() - 1 : this.itemCounter - 1;
+                    this.itemCounter = (this.itemCounter - 1) < 0
+                            ? this.party.getInventory().size() - 1 : this.itemCounter - 1;
                 } else {
-                    this.membersCounter = (this.membersCounter - 1) < 0 ? this.party.getMembers().size() - 1 : this.membersCounter - 1;
+                    this.membersCounter = (this.membersCounter - 1) < 0
+                            ? this.party.getMembers().size() - 1 : this.membersCounter - 1;
                 }
             }
-            case MEMBERS -> this.membersCounter = (this.membersCounter - 1) < 0 ? this.party.getMembers().size() - 1 : this.membersCounter - 1;
+            case MEMBERS -> {
+                this.membersCounter = (this.membersCounter - 1) < 0
+                    ? this.party.getMembers().size() - 1 : this.membersCounter - 1;
+            }
+            default -> { }
         }
     }
 
@@ -112,7 +125,10 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                     this.membersCounter = (this.membersCounter + 1) % this.getPartyMembers().size();
                 }
             }
-            case MEMBERS -> this.membersCounter = (this.membersCounter + 1) % this.getPartyMembers().size();
+            case MEMBERS -> {
+                this.membersCounter = (this.membersCounter + 1) % this.getPartyMembers().size();
+            }
+            default -> { }
         }
     }
 
@@ -128,16 +144,23 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                 } else {
                     final List<Item> items = new ArrayList<>(this.getInventory().keySet());
                     if (items.get(this.itemSelected) instanceof Consumable) {
-                        if ((items.get(this.itemSelected) instanceof Potion) &&
-                                (this.getPartyMembers().get(this.membersCounter).getMaxHealth() != this.getPartyMembers().get(this.membersCounter).getHealth())) {
-                            this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getHealth() + ((Potion) items.get(this.itemSelected)).getHealPower());
-                            if (this.getPartyMembers().get(this.membersCounter).getHealth() > this.getPartyMembers().get(this.membersCounter).getMaxHealth()) {
-                                this.getPartyMembers().get(this.membersCounter).setHealth(this.getPartyMembers().get(this.membersCounter).getMaxHealth());
+                        if ((items.get(this.itemSelected) instanceof Potion)
+                                && (this.getPartyMembers().get(this.membersCounter).getMaxHealth()
+                                != this.getPartyMembers().get(this.membersCounter).getHealth())) {
+                            this.getPartyMembers().get(this.membersCounter).setHealth(
+                                    this.getPartyMembers().get(this.membersCounter).getHealth()
+                                    + ((Potion) items.get(this.itemSelected)).getHealPower()
+                            );
+                            if (this.getPartyMembers().get(this.membersCounter).getHealth()
+                                    > this.getPartyMembers().get(this.membersCounter).getMaxHealth()) {
+                                this.getPartyMembers().get(this.membersCounter).setHealth(
+                                        this.getPartyMembers().get(this.membersCounter).getMaxHealth()
+                                );
                             }
                             party.removeItemFromInventory(items.get(this.itemSelected));
                         }
-                        if ((items.get(this.itemSelected) instanceof Antidote) &&
-                                (this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED))) {
+                        if ((items.get(this.itemSelected) instanceof Antidote)
+                                && (this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED))) {
                             party.removeItemFromInventory(items.get(this.itemSelected));
                         }
                     }
@@ -181,6 +204,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                     this.memberSelected = NOT_SELECTED;
                 }
             }
+            default -> { }
         }
     }
 

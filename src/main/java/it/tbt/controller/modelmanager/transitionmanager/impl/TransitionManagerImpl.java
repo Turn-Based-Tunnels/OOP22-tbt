@@ -1,13 +1,14 @@
 package it.tbt.controller.modelmanager.transitionmanager.impl;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.tbt.controller.modelmanager.InventoryStateImpl;
+import it.tbt.controller.modelmanager.ModelState;
+import it.tbt.controller.modelmanager.EndStateImpl;
 import it.tbt.controller.modelmanager.ExploreStateImpl;
 import it.tbt.controller.modelmanager.FightStateImpl;
 import it.tbt.controller.modelmanager.MenuStateImpl;
-import it.tbt.controller.modelmanager.ModelState;
-import it.tbt.controller.modelmanager.*;
 import it.tbt.controller.modelmanager.shop.ShopStateImpl;
 import it.tbt.controller.modelmanager.transitionmanager.api.TransitionManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.GameState;
 import it.tbt.model.entities.npc.api.ShopNPC;
 import it.tbt.model.fight.api.FightModel;
@@ -19,9 +20,7 @@ import it.tbt.model.statechange.PauseTrigger;
 import it.tbt.model.shop.Shop;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.api.World;
-
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Default implementation of a TransitionManager.
@@ -44,8 +43,8 @@ public final class TransitionManagerImpl implements TransitionManager {
      * @param pauseMenu
      */
     @SuppressFBWarnings(value = "EI2",
-    justification = "This is the class which contains all the model, and performs operations on them," +
-            " so it should have their references.")
+    justification = "This is the class which contains all the model, and performs operations on them,"
+            + " so it should have their references.")
     public TransitionManagerImpl(final World world, final IParty party, final MenuModelImpl mainMenu,
             final MenuModelImpl pauseMenu) {
         this.world = world;
@@ -192,7 +191,7 @@ public final class TransitionManagerImpl implements TransitionManager {
     }
 
     @Override
-    public void onEnding(String message) {
+    public void onEnding(final String message) {
         stateChanged = true;
         this.currentGameState = Optional.of(GameState.ENDING);
         this.currentModelState = Optional.of(new EndStateImpl(message));

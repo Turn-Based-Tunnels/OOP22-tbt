@@ -13,7 +13,10 @@ import javafx.util.Pair;
  * Generic Party.
  */
 public interface IParty extends MovableEntity {
-    public final int PARTY_SIZE = 4;
+    /**
+     * Active party size.
+     */
+    int PARTY_SIZE = 4;
     /**
      * Set current room.
      * @param room
@@ -88,13 +91,16 @@ public interface IParty extends MovableEntity {
      * Return the stored dialogue.
      * @return Pair < Speaker, Content >
      */
-    public Pair<String, String> getDialogue();
+    Pair<String, String> getDialogue();
 
     /**
      * Set the stored dialogue.
      * @param  dialogue Pair < Speaker, Content >
      */
-    public void setDialogue(Pair<String, String> dialogue);
-
-    public void setMembers(List<Ally> members);
+    void setDialogue(Pair<String, String> dialogue);
+    /**
+     * Set party members.
+     * @param  members List < Ally >
+     */
+    void setMembers(List<Ally> members);
 }

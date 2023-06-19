@@ -5,9 +5,11 @@ import it.tbt.model.entities.SpatialEntityImpl;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.interaction.Interactable;
-
 import java.util.Optional;
 
+/**
+ * Entity which on interaction triggers the {@link GameState#ENDING} GameState.
+ */
 public class EndEntity extends SpatialEntityImpl implements Interactable, StateTrigger {
 
     private Optional<StateObserver> stateObserver;
@@ -21,31 +23,31 @@ public class EndEntity extends SpatialEntityImpl implements Interactable, StateT
      * @param width
      * @param height
      */
-    public EndEntity(String name, int x, int y, int width, int height) {
+    public EndEntity(final String name,
+                     final int x,
+                     final int y,
+                     final int width,
+                     final int height) {
         super(name, x, y, width, height);
     }
 
     /**
-     * Performs the operation on its interaction .
-     * Different outcomes can be achieved based on the type of the parameter.
-     *
+     * Triggers the {@link GameState#ENDING} GameState.
      * @param interactionTrigger
      */
     @Override
     public void onInteraction(final SpatialEntity interactionTrigger) {
-        if(stateObserver.isEmpty()) {
+        if (stateObserver.isEmpty()) {
             throw new IllegalStateException("Entity not properly initialized.");
         }
         stateObserver.get().onEnding("You have reached an end entity!");
     }
 
     /**
-     * This object shall have a reference to a StateObserver in order to notify it for changes of the GameState.
-     *
-     * @param stateObserver
+     * {@inheritDoc}
      */
     @Override
-    public void setStateObserver(StateObserver stateObserver) {
+    public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = Optional.of(stateObserver);
     }
 }

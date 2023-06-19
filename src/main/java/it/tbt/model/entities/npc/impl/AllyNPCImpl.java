@@ -24,7 +24,7 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
      * @param ally   the ally associated with the NPC
      * @throws IllegalArgumentException if the name is null or empty, or if the ally is null
      */
-    public AllyNPCImpl(String name, int x, int y, int height, int width, Ally ally) {
+    public AllyNPCImpl(final String name, final int x, final int y, final int height, final int width, final Ally ally) {
         super(name, x, y, height, width);
 
         if (ally == null) {

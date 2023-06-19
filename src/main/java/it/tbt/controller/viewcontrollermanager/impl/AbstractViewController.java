@@ -6,10 +6,15 @@ import it.tbt.model.command.api.Command;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * AbstractViewController for all ViewController objects.
+ */
 public abstract class AbstractViewController implements ViewController {
-
     private List<Command> commands;
 
+    /**
+     * Creates the command list.
+     */
     protected AbstractViewController() {
         this.commands = new LinkedList<>();
     }
@@ -29,6 +34,10 @@ public abstract class AbstractViewController implements ViewController {
     public void clean() {
         this.commands.clear();
     }
+
+    /**
+     * @param command to add to the list.
+     */
     protected void addCommand(final Command command) {
         this.commands.add(command);
     }

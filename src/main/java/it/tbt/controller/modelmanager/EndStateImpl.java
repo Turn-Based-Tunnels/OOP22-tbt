@@ -23,6 +23,7 @@ public class EndStateImpl implements EndState, StateTrigger {
      */
     public EndStateImpl(final String message) {
         this.message = message;
+        this.stateObserver = null;
     }
 
     /**

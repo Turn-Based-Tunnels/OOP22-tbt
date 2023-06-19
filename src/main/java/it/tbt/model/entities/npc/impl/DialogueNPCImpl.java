@@ -24,7 +24,8 @@ public class DialogueNPCImpl extends AbstractNPCImpl implements DialogueNPC {
      * @param dialogue the dialogue associated with the NPC
      * @throws IllegalArgumentException if name or dialogue is null or empty, or if height or width is negative
      */
-    public DialogueNPCImpl(final String name, final int x, final int y, final int height, final int width, final String dialogue) {
+    public DialogueNPCImpl(final String name, final int x, final int y, final int height,
+                           final int width, final String dialogue) {
         super(name, x, y, height, width);
         if (dialogue == null || dialogue.isEmpty()) {
             throw new IllegalArgumentException("Dialogue cannot be null or empty");

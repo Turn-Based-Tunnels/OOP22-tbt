@@ -28,7 +28,7 @@ public class RoomLinkImpl extends SpatialEntityImpl implements RoomLink, Interac
      * @param secondRoom
      */
 
-    @SuppressFBWarnings( value = {
+    @SuppressFBWarnings(value = {
             "EI2"
     },
     justification = "the room link needs the real Room object because it is then given to the Party.")

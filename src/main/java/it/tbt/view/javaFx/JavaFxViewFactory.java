@@ -58,7 +58,7 @@ public class JavaFxViewFactory implements GameViewFactory {
     }
 
     @Override
-    public GameView createPause(ViewController menuController, MenuState menuState) {
+    public GameView createPause(final ViewController menuController, final MenuState menuState) {
         Scene scene = new Scene(new Group(), WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
@@ -93,14 +93,14 @@ public class JavaFxViewFactory implements GameViewFactory {
     }
 
     @Override
-    public GameView createShop(final ShopController shopControler, final ShopStateImpl shopState) {
+    public GameView createShop(final ShopController shopController, final ShopStateImpl shopState) {
         Group group = new Group();
         Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
         });
-        return new JavaFxShopView(shopControler, stage, scene, shopState);
+        return new JavaFxShopView(shopController, stage, scene, shopState);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class JavaFxViewFactory implements GameViewFactory {
         return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
     }
     @Override
-    public GameView createEndScreen(ViewController endController, EndState endState){
+    public GameView createEndScreen(final ViewController endController, final EndState endState) {
         Group group = new Group();
         Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
         Platform.runLater(() -> {
@@ -123,6 +123,6 @@ public class JavaFxViewFactory implements GameViewFactory {
             stage.show();
         });
 
-        return new JavaFxEndingView (endController, this.stage, scene, endState);
+        return new JavaFxEndingView(endController, this.stage, scene, endState);
     }
 }

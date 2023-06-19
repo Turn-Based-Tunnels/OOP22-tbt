@@ -1,6 +1,6 @@
 package it.tbt.model.menu.api;
 
-import it.tbt.model.command.menu.ButtonCommand;
+import it.tbt.model.command.api.Command;
 
 import java.util.Map;
 
@@ -29,14 +29,14 @@ public interface MenuSelect<I> {
      *
      * @return the button command to select the next option
      */
-    ButtonCommand nextOption();
+    Command nextOption();
 
     /**
      * Returns the button command to select the previous option in the menu.
      *
      * @return the button command to select the previous option
      */
-    ButtonCommand previousOption();
+    Command previousOption();
 
     /**
      * Sets the selected option index in the menu.

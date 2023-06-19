@@ -1,13 +1,7 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.controller.modelmanager.InventoryState;
-import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.model.command.api.Command;
-
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * The {@code InventoryViewController} class represents the view controller for the inventory state.

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * The {@code NPCFactory} class provides static methods for creating different types of NPCs.
  */
-public class NPCFactory {
+public final class NPCFactory {
 
     private NPCFactory() {
     }
@@ -27,7 +27,8 @@ public class NPCFactory {
      * @param dialogue the dialogue of the NPC
      * @return the created dialogue NPC
      */
-    public static NPC createDialogueNPC(final String name, final int x, final int y, final int height, final int width, final String dialogue) {
+    public static NPC createDialogueNPC(final String name, final int x, final int y,
+                                        final int height, final int width, final String dialogue) {
         return new DialogueNPCImpl(name, x, y, height, width, dialogue);
     }
 
@@ -42,7 +43,8 @@ public class NPCFactory {
      * @param items  the map of items provided by the NPC and their quantities
      * @return the created item NPC
      */
-    public static NPC createItemNPC(final String name, final int x, final int y, final int height, final int width, final Map<Item, Integer> items) {
+    public static NPC createItemNPC(final String name, final int x, final int y,
+                                    final int height, final int width, final Map<Item, Integer> items) {
         return new ItemNPCImpl(name, x, y, height, width, items);
     }
 
@@ -57,7 +59,8 @@ public class NPCFactory {
      * @param shop   the shop associated with the NPC
      * @return the created shop NPC
      */
-    public static NPC createShopNPC(final String name, final int x, final int y, final int height, final int width, final Shop shop) {
+    public static NPC createShopNPC(final String name, final int x, final int y,
+                                    final int height, final int width, final Shop shop) {
         return new ShopNPCImpl(name, x, y, height, width, shop);
     }
 
@@ -72,7 +75,8 @@ public class NPCFactory {
      * @param healAmount the amount of health the NPC can heal
      * @return the created healer NPC
      */
-    public static NPC createHealerNPC(final String name, final int x, final int y, final int height, final int width, final int healAmount) {
+    public static NPC createHealerNPC(final String name, final int x, final int y,
+                                      final int height, final int width, final int healAmount) {
         return new HealerNPCImpl(name, x, y, height, width, healAmount);
     }
 
@@ -87,7 +91,8 @@ public class NPCFactory {
      * @param fightModel the fight model associated with the NPC
      * @return the created fight NPC
      */
-    public static NPC createFightNPC(final String name, final int x, final int y, final int height, final int width, final FightModel fightModel) {
+    public static NPC createFightNPC(final String name, final int x, final int y,
+                                     final int height, final int width, final FightModel fightModel) {
         return new FightNPCImpl(name, x, y, height, width, fightModel);
     }
 
@@ -102,7 +107,8 @@ public class NPCFactory {
      * @param ally   the ally associated with the NPC
      * @return the created ally NPC
      */
-    public static NPC createAllyNPC(final String name, final int x, final int y, final int height, final int width, final Ally ally) {
+    public static NPC createAllyNPC(final String name, final int x, final int y,
+                                    final int height, final int width, final Ally ally) {
         return new AllyNPCImpl(name, x, y, height, width, ally);
     }
 }

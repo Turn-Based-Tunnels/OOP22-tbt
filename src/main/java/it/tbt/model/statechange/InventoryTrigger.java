@@ -5,7 +5,7 @@ package it.tbt.model.statechange;
  */
 public class InventoryTrigger implements StateTrigger {
 
-    public StateObserver stateObserver;
+    private StateObserver stateObserver;
 
     /**
      * @param stateObserver the state observer to be notified.
@@ -14,6 +14,10 @@ public class InventoryTrigger implements StateTrigger {
         this.stateObserver = stateObserver;
     }
 
+    /**
+     * Constructor replace of clone.
+     * @param inventoryTrigger to clone.
+     */
     public InventoryTrigger(final InventoryTrigger inventoryTrigger) {
         this.stateObserver = inventoryTrigger.stateObserver;
     }
@@ -31,7 +35,7 @@ public class InventoryTrigger implements StateTrigger {
      * @param stateObserver
      */
     @Override
-    public void setStateObserver(StateObserver stateObserver) {
+    public void setStateObserver(final StateObserver stateObserver) {
         this.stateObserver = stateObserver;
     }
 }

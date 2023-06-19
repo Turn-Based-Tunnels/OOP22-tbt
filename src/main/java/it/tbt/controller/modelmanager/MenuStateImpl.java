@@ -29,7 +29,7 @@ public class MenuStateImpl implements MenuState {
      * {@inheritDoc}
      */
     @Override
-    public void NextElement() {
+    public void nextElement() {
         List<MenuItem> items = menuModel.getItems();
         if (items.isEmpty()) {
             throw new IllegalStateException("Menu has no items");
@@ -42,7 +42,7 @@ public class MenuStateImpl implements MenuState {
      * {@inheritDoc}
      */
     @Override
-    public void PreviousElement() {
+    public void previousElement() {
         List<MenuItem> items = menuModel.getItems();
         if (items.isEmpty()) {
             throw new IllegalStateException("Menu has no items");

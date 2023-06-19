@@ -1,11 +1,6 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
 import it.tbt.controller.modelmanager.EndState;
-import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.model.command.api.Command;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The {@code EndViewController} class represents the view controller for the end state.
@@ -37,3 +32,4 @@ public class EndViewController extends AbstractViewController {
     }
 
 }
+

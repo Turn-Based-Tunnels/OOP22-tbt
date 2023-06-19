@@ -1,9 +1,7 @@
 package it.tbt.model.command.explore;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.command.api.Command;
 import it.tbt.model.statechange.InventoryTrigger;
-import it.tbt.model.statechange.PauseTrigger;
 
 public class CommandInventory implements Command {
 

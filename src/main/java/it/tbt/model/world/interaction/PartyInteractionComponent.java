@@ -41,7 +41,7 @@ public class PartyInteractionComponent implements InteractionComponent {
                 }
             }
         }
-        if(y.size()>0) {
+        if (y.size() > 0) {
             y.stream().findFirst().get().onInteraction(this.party);
         }
 
