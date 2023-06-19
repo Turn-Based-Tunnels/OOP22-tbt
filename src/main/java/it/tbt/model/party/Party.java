@@ -228,6 +228,6 @@ public class Party extends MovableEntityImpl implements IParty, InteractionTrigg
      */
     @Override
     public void setMembers(final List<Ally> members) {
-        this.members = members;
+        this.members = List.copyOf(members);
     }
 }

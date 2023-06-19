@@ -1,5 +1,6 @@
 package it.tbt.model.menu.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.command.api.Command;
 
 /**
@@ -12,6 +13,10 @@ public class MenuQuitGameButton extends AbstractMenuButton {
      *
      * @param text the text of the button
      */
+    @SuppressFBWarnings(
+            value = { "Dm" },
+            justification = "The quit button have to close the app"
+    )
     public MenuQuitGameButton(final String text) {
         super(text);
     }

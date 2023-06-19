@@ -22,6 +22,10 @@ public final class FightStateImpl implements FightState {
      * @param model the {@link FightModel} representing the fight
      */
     public FightStateImpl(final FightModel model) {
+        if (model == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito alla creazione di FightStateImpl");
+        }
         this.model = model;
     }
 

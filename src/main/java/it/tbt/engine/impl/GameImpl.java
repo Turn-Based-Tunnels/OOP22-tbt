@@ -25,6 +25,15 @@ public final class GameImpl implements Game {
      * 
      * @param gvf the GameViewFactory which is used to create views different based
      *            on the graphical framework chosen.
+     *            This implementation uses a ViewControllerManager and an
+     *            GameStateManager as
+     *            helper classes to delegate responsibility.
+     *            Creates both the World, the IParty and the Menus object with
+     *            default
+     *            implementations.
+     * 
+     * @param gvf the GameViewFactory which is used to create views different based
+     *            on the graphical framework chosen.
      */
     public GameImpl(final GameViewFactory gvf) {
         this.gameViewFactory = gvf;
@@ -67,6 +76,7 @@ public final class GameImpl implements Game {
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
                 this.gameStateManager.hasStateChanged());
+        this.gameStateManager.hasStateChanged();
     }
 
     /**

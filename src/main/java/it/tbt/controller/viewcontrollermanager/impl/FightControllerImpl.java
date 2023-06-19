@@ -21,8 +21,18 @@ public final class FightControllerImpl extends AbstractViewController {
      *
      * @param model the {@link FightState} representing the fight state
      */
+    /**
+     * Constructs a new instance of the {@link FightControllerImpl} class with the
+     * specified {@link FightState}.
+     *
+     * @param model the {@link FightState} representing the fight state
+     */
     public FightControllerImpl(final FightState model) {
         super();
+        if (model == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito alla creazione di FightControllerImpl");
+        }
         this.model = model;
         this.clean();
     }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.characters.Character;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.characters.CharacterFactory;
@@ -16,6 +17,7 @@ import it.tbt.model.entities.characters.skills.Skill;
 import it.tbt.model.entities.items.Potion;
 import it.tbt.model.entities.items.Antidote;
 import it.tbt.model.entities.items.Item;
+import it.tbt.model.entities.npc.impl.AllyNPCImpl;
 import it.tbt.model.fight.api.FightModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateObserver;
@@ -31,6 +33,7 @@ public final class FightModelImpl implements FightModel {
     private static final double POISONDAMAGE = 0.05;
     private static final double BOOSTEDCRITCHANCE = 0.25;
     private static final int ENEMYLIMIT = 5;
+    private static final Random RANDOM = new Random();
 
     private Map<Item, Double> drops;
     private StateObserver stateObserver;
@@ -53,6 +56,10 @@ public final class FightModelImpl implements FightModel {
      * @param drops            a map of items and their drop rates
      */
     public FightModelImpl(final int averageEnemyStat, final Map<Item, Double> drops) {
+        if (averageEnemyStat < 1 || drops == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito alla creazione di FightModelImpl");
+        }
         this.enemies = new ArrayList<>();
         for (int c = 1; c < ENEMYLIMIT; c++) {
             this.addEnemy(CharacterFactory.createRandomEnemy("Enemy " + c, averageEnemyStat));
@@ -61,7 +68,7 @@ public final class FightModelImpl implements FightModel {
         this.usingSkill = false;
         this.usingPotion = false;
         this.usingAntidote = false;
-        this.drops = drops;
+        this.drops = Map.copyOf(drops);
     }
 
     /**
@@ -74,15 +81,28 @@ public final class FightModelImpl implements FightModel {
      */
     public FightModelImpl(final IParty party, final int averageEnemyStat, final Map<Item, Double> drops) {
         this(averageEnemyStat, drops);
+        if (party == null || averageEnemyStat < 1 || drops == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito alla creazione di FightModelImpl");
+        }
         initializeParty(party);
     }
 
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = {
+            "EI2" }, justification = "The Component needs to access the exact instance of the Party the game is using.")
     @Override
     public void initializeParty(final IParty party) {
+        if (party == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito a initializeParty");
+        }
         this.party = party;
+        if (party.getMembers() == null) {
+            throw new IllegalStateException("La lista dei membri del party è null");
+        }
         final List<Ally> tmpAllies = new ArrayList<>(party.getMembers());
         this.allies = new ArrayList<>();
         final int limit = Math.min(4, tmpAllies.size());
@@ -126,6 +146,10 @@ public final class FightModelImpl implements FightModel {
      * @param enemy the enemy character to add
      */
     public void addEnemy(final Enemy enemy) {
+        if (enemy == null) {
+            throw new IllegalArgumentException(
+                    "è stato passato un argomento non lecito a addEnemy");
+        }
         this.enemies.add(enemy);
     }
 
@@ -134,7 +158,7 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public List<Ally> getAllies() {
-        return allies;
+        return List.copyOf(allies);
     }
 
     /**
@@ -142,12 +166,14 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public List<Enemy> getEnemies() {
-        return enemies;
+        return List.copyOf(enemies);
     }
 
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = {
+            "EI2" }, justification = "The Component needs to access the exact instance of the selected Ally.")
     @Override
     public Ally getCurrentAlly() {
         return this.currentAlly;
@@ -159,7 +185,7 @@ public final class FightModelImpl implements FightModel {
      * @return the selected ally
      */
     public Ally getSelectedAlly() {
-        return this.allies.get(selectedTargetIndex);
+        return this.allies.get(this.selectedTargetIndex);
     }
 
     /**
@@ -168,7 +194,7 @@ public final class FightModelImpl implements FightModel {
      * @return the selected enemy
      */
     public Enemy getSelectedEnemy() {
-        return this.enemies.get(selectedTargetIndex);
+        return this.enemies.get(this.selectedTargetIndex);
     }
 
     /**
@@ -248,30 +274,38 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public void performSelectedAction() {
+        if (currentAlly.getSkills() == null) {
+            throw new IllegalStateException("L'alleato corrente non ha la lista di skills istanziata");
+        }
+
         final Character character = (Character) getCurrentAlly();
         final Character selectedAlly = (Character) getSelectedAlly();
-        final Character target = (Enemy) getSelectedEnemy();
+        final Character target = (Character) getSelectedEnemy();
 
-        if (usingSkill && currentAlly.getSkills() != null && currentAlly.getSkills().size() != 0
-                && currentAlly.getSkills().get(0) != null && target.getHealth() != 0) {
-            final Skill skill = currentAlly.getSkills().get(0); // prende la skill equipaggiata (quella in posizione 0)
-            if (skill.getRemainingCooldown() == 0) {
-                double damage = (character.getAttack() + character.getWeaponAttack()) * skill.getAttackMultiplier();
-                final Random crit = new Random();
-                final Double critProb = crit.nextDouble();
-                if (critProb <= FightModelImpl.BASECRITCHANCE
-                        || skill.isIncProbCritical() && critProb <= FightModelImpl.BOOSTEDCRITCHANCE) {
-                    damage *= 2.0;
-                    // System.out.println("Critical Hit!");
+        if (usingSkill && currentAlly.getSkills().size() != 0) {
+            if (currentAlly.getSkills().get(0) == null) {
+                throw new IllegalStateException("La prima skill dell'alleato corrente non è istanziata");
+            }
+            if (target.getHealth() != 0) {
+                final Skill skill = currentAlly.getSkills().get(0); // prende la skill equipaggiata (quella in posizione
+                                                                    // 0)
+                if (skill.getRemainingCooldown() == 0) {
+                    double damage = (character.getAttack() + character.getWeaponAttack()) * skill.getAttackMultiplier();
+                    final Double critProb = RANDOM.nextDouble();
+                    if (critProb <= FightModelImpl.BASECRITCHANCE
+                            || skill.isIncProbCritical() && critProb <= FightModelImpl.BOOSTEDCRITCHANCE) {
+                        damage *= 2.0;
+                        // System.out.println("Critical Hit!");
+                    }
+                    target.takeDamage((int) damage);
+                    if (skill.getPossibleStatus() != null && skill.getPossibleStatus().get() == Status.POISONED) {
+                        target.addStatus(Status.POISONED);
+                    }
+                    skill.resetCooldown();
+                    usingSkill = false;
+                } else {
+                    return;
                 }
-                target.takeDamage((int) damage);
-                if (skill.getPossibleStatus() != null && skill.getPossibleStatus().get() == Status.POISONED) {
-                    target.addStatus(Status.POISONED);
-                }
-                skill.resetCooldown();
-                usingSkill = false;
-            } else {
-                return;
             }
         } else if (usingSkill) { // se il player sta provando ad usare una skill mentre è in cooldown
             return;
@@ -282,10 +316,19 @@ public final class FightModelImpl implements FightModel {
                 return;
             }
 
+            if (party.getInventory() == null) {
+                throw new IllegalStateException("L'inventario del party non è istanziato");
+            }
             final List<Potion> potions = new ArrayList<>();
             for (final Map.Entry<Item, Integer> item : party.getInventory().entrySet()) { // si tira giù tutte le
                                                                                           // pozioni
+                if (item == null) {
+                    throw new IllegalStateException("Un'entry della mappa dell'inventario è null");
+                }
                 final Item key = item.getKey();
+                if (key == null) {
+                    throw new IllegalStateException("C'è un oggetto non è istanziato");
+                }
                 if (key instanceof Potion && item.getValue() > 0) {
                     potions.add((Potion) key);
                 }
@@ -349,12 +392,9 @@ public final class FightModelImpl implements FightModel {
             party.removeItemFromInventory(antidote); // rimuove l'antidoto dall'inventario
             // System.out.println("Hai usato un antidoto");
             usingAntidote = false;
-        } else if (!usingSkill && !usingAntidote && !usingPotion && target.getHealth() != 0) { // codice che gestisce
-                                                                                               // l'attacco normale
+        } else if (target.getHealth() != 0) { // codice che gestisce l'attacco normale
             double damage = character.getAttack() + character.getWeaponAttack();
-            final Random crit = new Random();
-            final Double critProb = crit.nextDouble();
-            if (critProb <= FightModelImpl.BASECRITCHANCE) {
+            if (RANDOM.nextDouble() <= FightModelImpl.BASECRITCHANCE) {
                 damage *= 2.0;
                 // System.out.println("Critical Hit!");
             }
@@ -376,10 +416,18 @@ public final class FightModelImpl implements FightModel {
      * Decreases the cooldowns of skills for all allies.
      */
     private void decreaseCooldowns() {
-        for (final Ally ally : allies) {
-            if (ally.getSkills() != null && ally.getSkills().size() >= 1) {
-                final Skill skill = ally.getSkills().get(0);
-                skill.decreaseCooldown();
+        for (final Ally ally : this.allies) {
+            if (ally == null) {
+                throw new IllegalStateException("C'è un alleato non istanziato");
+            }
+            if (ally.getSkills() == null) {
+                throw new IllegalStateException("La lista di skills di un alleato non è istanziata");
+            }
+            if (ally.getSkills().size() >= 1) {
+                if (ally.getSkills().get(0) == null) {
+                    throw new IllegalStateException("La prima skill si un alleato non è istanziata");
+                }
+                ally.getSkills().get(0).decreaseCooldown();
             }
         }
     }
@@ -389,12 +437,24 @@ public final class FightModelImpl implements FightModel {
      */
     private void applyPoisonDamage() {
         for (final Enemy enemy : enemies) {
+            if (enemy == null) {
+                throw new IllegalStateException("C'è un nemico non istanziato");
+            }
+            if (enemy.getStatuses() == null) {
+                throw new IllegalStateException("La lista di status di un nemico non è istanziata");
+            }
             if (enemy.getStatuses().contains(Status.POISONED)) {
                 final double poisonDamage = enemy.getMaxHealth() * FightModelImpl.POISONDAMAGE + 1;
                 enemy.takeDamage((int) poisonDamage);
             }
         }
         for (final Ally ally : allies) {
+            if (ally == null) {
+                throw new IllegalStateException("C'è un alleato non istanziato");
+            }
+            if (ally.getStatuses() == null) {
+                throw new IllegalStateException("La lista di status di un alleato non è istanziata");
+            }
             if (ally.getStatuses().contains(Status.POISONED)) {
                 final double poisonDamage = ally.getMaxHealth() * FightModelImpl.POISONDAMAGE + 1;
                 ally.takeDamage((int) poisonDamage);
@@ -409,22 +469,19 @@ public final class FightModelImpl implements FightModel {
         if (checkBattleEnd()) {
             return;
         }
-        final Random random = new Random();
         final Enemy currentEnemy = (Enemy) this.currentCharacter;
-        int currentTarget = random.nextInt(0, 4);
+        int currentTarget = RANDOM.nextInt(0, 4);
         while (this.allies.get(currentTarget).getHealth() == 0) {
-            currentTarget = random.nextInt(0, 4);
+            currentTarget = RANDOM.nextInt(0, 4);
         }
         double damage = currentEnemy.getAttack();
-        final Double critProb = random.nextDouble();
-        if (critProb <= FightModelImpl.BASECRITCHANCE) {
+        if (RANDOM.nextDouble() <= FightModelImpl.BASECRITCHANCE) {
             damage *= 2.0;
             // System.out.println("Critical Hit!");
         }
         this.allies.get(currentTarget)
                 .takeDamage(Math.max(((int) damage) - this.allies.get(currentTarget).getArmorDefence(), 0));
-        final Double poisonProb = random.nextDouble();
-        if (poisonProb <= FightModelImpl.ENEMYPOISONCHANCE) {
+        if (RANDOM.nextDouble() <= FightModelImpl.ENEMYPOISONCHANCE) {
             this.allies.get(currentTarget).addStatus(Status.POISONED);
             // System.out.println(this.allies.get(currentTarget).getName() + " è stato
             // avvelenato!");
@@ -470,14 +527,20 @@ public final class FightModelImpl implements FightModel {
      */
     private boolean checkBattleEnd() {
         boolean allAlliesDefeated = true;
-        boolean allEnemiesDefeated = true;
         for (final Ally ally : allies) {
+            if (ally == null) {
+                throw new IllegalStateException("C'è un alleato non istanziato");
+            }
             if (ally.getHealth() > 0) {
                 allAlliesDefeated = false;
                 break;
             }
         }
+        boolean allEnemiesDefeated = true;
         for (final Enemy enemy : enemies) {
+            if (enemy == null) {
+                throw new IllegalStateException("C'è un nemico non istanziato");
+            }
             if (enemy.getHealth() > 0) {
                 allEnemiesDefeated = false;
                 break;
@@ -488,9 +551,8 @@ public final class FightModelImpl implements FightModel {
             this.stateObserver.onEnding("Oh no hai perso, premi un tasto per tornare nel menu");
         } else if (allEnemiesDefeated) {
             // System.out.println("Allies win!");
-            final Random dropDropped = new Random();
             for (final Map.Entry<Item, Double> e : this.drops.entrySet()) {
-                if (dropDropped.nextDouble() <= (Double) e.getValue()) {
+                if (RANDOM.nextDouble() <= (Double) e.getValue()) {
                     party.addItemToInventory((Item) e.getKey());
                     // System.out.println("Hai droppato " + e.getKey().toString());
                 }
@@ -508,6 +570,9 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public void setStateObserver(final StateObserver stateObserver) {
+        if (stateObserver == null) {
+            throw new IllegalArgumentException("è stato passato uno stateObserver null");
+        }
         this.stateObserver = stateObserver;
     }
 

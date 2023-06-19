@@ -35,7 +35,7 @@ public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC {
         if (items == null) {
             throw new IllegalArgumentException("Items cannot be null");
         }
-        this.items = items;
+        this.items = Map.copyOf(items);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC {
      */
     @Override
     public Map<Item, Integer> getItems() {
-        return items;
+        return Map.copyOf(items);
     }
 
     /**
