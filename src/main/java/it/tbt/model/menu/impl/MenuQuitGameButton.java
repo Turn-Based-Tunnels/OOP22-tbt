@@ -13,16 +13,18 @@ public class MenuQuitGameButton extends AbstractMenuButton {
      *
      * @param text the text of the button
      */
-    @SuppressFBWarnings(
-            value = { "Dm" },
-            justification = "The quit button have to close the app"
-    )
+
     public MenuQuitGameButton(final String text) {
         super(text);
     }
     /**
      * {@inheritDoc}
      */
+
+    @SuppressFBWarnings(
+            value = { "Dm" },
+            justification = "The quit button have to close the app"
+    )
     @Override
     public Command getAction() {
         return () -> System.exit(0);

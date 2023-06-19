@@ -31,7 +31,7 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
             throw new IllegalArgumentException("Ally cannot be null");
         }
 
-        this.ally = new Ally (ally.getName(), ally.getMaxHealth(), ally.getAttack(), ally.getSpeed(), ally.getSkills());
+        this.ally = new Ally(ally.getName(), ally.getMaxHealth(), ally.getAttack(), ally.getSpeed(), ally.getSkills());
     }
 
     /**
@@ -39,7 +39,8 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
      */
     @Override
     public Ally getAlly() {
-        return new Ally (this.ally.getName(), this.ally.getMaxHealth(), this.ally.getAttack(), this.ally.getSpeed(), this.ally.getSkills());
+        return new Ally(this.ally.getName(), this.ally.getMaxHealth(),
+                this.ally.getAttack(), this.ally.getSpeed(), this.ally.getSkills());
     }
 
     /**

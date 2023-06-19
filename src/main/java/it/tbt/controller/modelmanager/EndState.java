@@ -17,7 +17,7 @@ public interface EndState extends ModelState {
     String getMessage();
 
     /**
-     * Triggers the main menu, transitioning to the main menu state.
+     * Triggers the exit from the game.
      */
-    void triggerMainMenu();
+    void triggerExit();
 }

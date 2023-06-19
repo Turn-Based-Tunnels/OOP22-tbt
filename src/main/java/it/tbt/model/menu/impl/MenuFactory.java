@@ -38,7 +38,6 @@ public final class MenuFactory {
         final List<MenuItem> items = new ArrayList<>();
 
         items.addAll(Arrays.asList(new MenuNewGameButton("Continue"),
-                new MenuQuitToTitleButton("Quit to Title Screen"),
                 new MenuQuitGameButton("Exit To Desktop")));
 
         return new MenuModelImpl("Pause", items);

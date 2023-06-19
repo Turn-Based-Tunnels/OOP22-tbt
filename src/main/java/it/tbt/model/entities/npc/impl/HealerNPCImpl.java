@@ -4,7 +4,6 @@ import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.npc.api.HealerNPC;
 import it.tbt.model.party.IParty;
-import it.tbt.model.world.interaction.Interactable;
 
 /**
  * The {@code HealerNPCImpl} class is an implementation of the {@link HealerNPC} interface.
