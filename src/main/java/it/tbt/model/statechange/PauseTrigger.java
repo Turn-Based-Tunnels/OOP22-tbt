@@ -14,6 +14,9 @@ public class PauseTrigger {
         this.stateObserver = stateObserver;
     }
 
+    /**
+     * @param pauseTrigger clone alternative constructor.
+     */
     public PauseTrigger(final PauseTrigger pauseTrigger) {
         this.stateObserver = pauseTrigger.stateObserver;
     }

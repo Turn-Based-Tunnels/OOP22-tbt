@@ -89,8 +89,7 @@ public class GameViewManagerImpl implements ViewControllerManager {
                 }
                 case ENDING -> {
                     handleViewState(modelState,
-                            EndState.class,
-                            EndViewController.class,
+                            EndState.class, EndViewController.class,
                             (controller, state) -> this.gameViewFactory.createEndScreen(state, controller));
                 }
                 default -> {
@@ -109,23 +108,33 @@ public class GameViewManagerImpl implements ViewControllerManager {
         this.currentController.clean();
     }
 
+    /**
+     * @param modelState the modelState object of the current {@link GameState}.
+     * @param stateClass the interface which extends modelState, the one specific to the current GameState.
+     * @param controllerClass the controller class which shall be used to create the {@link ViewController}.
+     *                        It MUST contain at least a constructor of only one parameter: the {@link ModelState}
+     *                        appropriate for the ViewController.
+     * @param createViewFunction function which create a GameView, will use the {@link GameViewFactory}
+     * @param <T> generic type for the ModelState specific implementation/interface.
+     * @param <C> generic type for the ViewController specific implementation/interface.
+     */
     private <T extends ModelState, C extends ViewController> void handleViewState(
             final ModelState modelState,
             final Class<T> stateClass,
             final Class<C> controllerClass,
             final BiFunction<T, C, GameView> createViewFunction) {
-        if (!stateClass.isInstance(modelState)) {
-            throw new IllegalStateException("Data passed to View Manager inconsistent");
-        }
-        T state = stateClass.cast(modelState);
-        C controller;
         try {
+            if (!stateClass.isInstance(modelState)) {
+                throw new IllegalStateException("Data passed to View Manager inconsistent");
+            }
+            T state = stateClass.cast(modelState);
+            C controller;
             controller = controllerClass.getConstructor(stateClass).newInstance(state);
+            var x = createViewFunction.apply(state, controller);
+            this.currentController = controller;
+            this.currentGameView = x;
         } catch (Exception e) {
-            throw new IllegalStateException("Data inconsistent ViewManager.");
+            e.printStackTrace();;
         }
-        var x = createViewFunction.apply(state, controller);
-        this.currentController = controller;
-        this.currentGameView = x;
     }
 }

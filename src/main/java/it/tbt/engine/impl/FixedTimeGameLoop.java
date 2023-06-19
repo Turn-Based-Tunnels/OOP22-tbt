@@ -52,10 +52,5 @@ public class FixedTimeGameLoop implements GameLoop {
             updated = false;
         }
     }
-    /**
-     * {@inheritDoc}
-     */
-    public Boolean isConsistent() {
-        return !this.game.isOver();
-    }
+
 }

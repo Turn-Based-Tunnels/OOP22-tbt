@@ -141,9 +141,7 @@ public final class TransitionManagerImpl implements TransitionManager {
      */
     @Override
     public void onExplore() {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.EXPLORE);
-        this.currentModelState = Optional.of(new ExploreStateImpl(this.party.getCurrentRoom(),
+        stateUpdate(GameState.EXPLORE, new ExploreStateImpl(this.party.getCurrentRoom(),
                 this.party,
                 new PauseTrigger(this),
                 new InventoryTrigger(this)));
@@ -154,30 +152,22 @@ public final class TransitionManagerImpl implements TransitionManager {
      */
     @Override
     public void onFight(final FightModel fightModel) {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.FIGHT);
-        this.currentModelState = Optional.of(new FightStateImpl(fightModel));
+        stateUpdate(GameState.FIGHT, new FightStateImpl(fightModel));
     }
 
     @Override
     public void onMenu() {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.MENU);
-        this.currentModelState = Optional.of(new MenuStateImpl(mainMenu));
+        stateUpdate(GameState.MENU, new MenuStateImpl(mainMenu));
     }
 
     @Override
     public void onPause() {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.PAUSE);
-        this.currentModelState = Optional.of(new MenuStateImpl(pauseMenu));
+        stateUpdate(GameState.PAUSE, new MenuStateImpl(pauseMenu));
     }
 
     @Override
     public void onInventory() {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.INVENTORY);
-        this.currentModelState = Optional.of(new InventoryStateImpl(this.party));
+        stateUpdate(GameState.INVENTORY, new InventoryStateImpl(this.party));
         if (this.getCurrentModelState() instanceof StateTrigger) {
             ((StateTrigger) this.getCurrentModelState()).setStateObserver(this);
         }
@@ -185,19 +175,21 @@ public final class TransitionManagerImpl implements TransitionManager {
 
     @Override
     public void onShop(final Shop shop) {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.SHOP);
-        this.currentModelState = Optional.of(new ShopStateImpl(shop));
+        stateUpdate(GameState.SHOP, new ShopStateImpl(shop));
     }
 
     @Override
     public void onEnding(final String message) {
-        stateChanged = true;
-        this.currentGameState = Optional.of(GameState.ENDING);
-        this.currentModelState = Optional.of(new EndStateImpl(message));
+        stateUpdate(GameState.ENDING, new EndStateImpl(message));
         if (this.getCurrentModelState() instanceof StateTrigger) {
             ((StateTrigger) this.getCurrentModelState()).setStateObserver(this);
         }
+    }
+
+    private void stateUpdate(final GameState gameState, final ModelState modelState) {
+        stateChanged = true;
+        this.currentGameState = Optional.of(gameState);
+        this.currentModelState = Optional.of(modelState);
     }
 
 }

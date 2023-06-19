@@ -18,11 +18,7 @@ public class AnimationTimerGameLoopManager {
         var gameLoopAnimationTimer = new AnimationTimer() {
             @Override
             public void handle(final long now) {
-                if (loop.isConsistent()) {
-                    loop.loop();
-                } else {
-                    this.stop();
-                }
+                loop.loop();
             }
         };
         this.gameLoopAnimationTimer = gameLoopAnimationTimer;

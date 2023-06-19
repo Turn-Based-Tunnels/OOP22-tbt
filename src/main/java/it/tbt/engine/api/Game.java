@@ -23,9 +23,4 @@ public interface Game {
      * @return true if any input has been discovered, false otherwise.
      */
     Boolean handleInput();
-    /**
-     * @return true if the conditions for the game to be considered over are met.
-     * False otherwise.
-     */
-    Boolean isOver();
 }

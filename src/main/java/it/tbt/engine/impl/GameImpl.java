@@ -1,22 +1,12 @@
 package it.tbt.engine.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import it.tbt.commons.resourceloader.world.impl.WorldCreationDefault;
-import it.tbt.model.entities.characters.Ally;
-import it.tbt.model.entities.characters.skills.Skill;
-import it.tbt.model.entities.characters.skills.SkillFactory;
-import it.tbt.model.entities.items.Potion;
-import it.tbt.model.entities.items.factories.AntidoteFactory;
-import it.tbt.model.entities.items.factories.PotionFactory;
 import it.tbt.model.menu.impl.MenuFactory;
 import it.tbt.controller.modelmanager.GameStateManager;
 import it.tbt.controller.modelmanager.IGameStateManager;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.controller.viewcontrollermanager.impl.GameViewManagerImpl;
-import it.tbt.model.party.Party;
 import it.tbt.model.party.PartyFactory;
+import it.tbt.model.world.impl.WorldFactory;
 import it.tbt.view.api.GameViewFactory;
 import it.tbt.engine.api.Game;
 
@@ -26,49 +16,36 @@ import it.tbt.engine.api.Game;
 public final class GameImpl implements Game {
     private ViewControllerManager viewControllerManager;
     private IGameStateManager gameStateManager;
+    private GameViewFactory gameViewFactory;
+    private Boolean initialized = false;
 
     /**
      * This implementation uses a ViewControllerManager and an GameStateManager as
      * helper classes to delegate responsibility.
-     * Creates both the World, the IParty and the Menus object with default
-     * implementations.
      * 
      * @param gvf the GameViewFactory which is used to create views different based
      *            on the graphical framework chosen.
      */
     public GameImpl(final GameViewFactory gvf) {
-        viewControllerManager = new GameViewManagerImpl(gvf);
-        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(),
-                PartyFactory.createDefaultParty(),
-                MenuFactory.getMainMenu(),
-                MenuFactory.getPauseMenu());
-        ArrayList<Ally> allies = new ArrayList<>();
-        ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
-
-        allies.add(new Ally("Roberto", 50, 50, 50, new ArrayList<>(Arrays.asList(skills.get(0)))));
-        allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
-        allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
-        allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
-        Party p = new Party("party", 75, 75, 75, 75, allies);
-        for(final Potion potion : PotionFactory.getInstance().getItems()) {
-            p.addItemToInventory(potion);
-            p.addItemToInventory(potion);
-        }
-        p.addItemToInventory(AntidoteFactory.getInstance().getAntidote());
-        p.addCash(5000);
-        gameStateManager = new GameStateManager(new WorldCreationDefault().createWorld(),
-                p, MenuFactory.getMainMenu(), MenuFactory.getPauseMenu());
+        this.gameViewFactory = gvf;
     }
 
     /**
      * {@inheritDoc}
      */
+
     @Override
     public void initialize() {
+        viewControllerManager = new GameViewManagerImpl(this.gameViewFactory);
+        gameStateManager = new GameStateManager(WorldFactory.createWorldDefault(),
+                PartyFactory.createDefaultParty(),
+                MenuFactory.getMainMenu(),
+                MenuFactory.getPauseMenu());
         this.viewControllerManager.renderView(
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
                 true);
+        this.initialized = true;
     }
 
     /**
@@ -76,6 +53,7 @@ public final class GameImpl implements Game {
      */
     @Override
     public void update(final long deltaTime) {
+        checkInit();
         this.gameStateManager.updateState(deltaTime);
     }
 
@@ -84,6 +62,7 @@ public final class GameImpl implements Game {
      */
     @Override
     public void render() {
+        checkInit();
         this.viewControllerManager.renderView(
                 this.gameStateManager.getState(),
                 this.gameStateManager.getStateModel(),
@@ -95,6 +74,7 @@ public final class GameImpl implements Game {
      */
     @Override
     public Boolean handleInput() {
+        checkInit();
         Boolean r = this.viewControllerManager.getCommands().isEmpty();
         if (!r) {
             this.viewControllerManager.getCommands().get().stream().forEach(l -> l.execute());
@@ -102,13 +82,10 @@ public final class GameImpl implements Game {
         }
         return !r;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Boolean isOver() {
-        return this.gameStateManager.isOver();
+    private void checkInit() {
+        if(this.initialized == false) {
+            throw new IllegalStateException("Game object has not been initialized.");
+        }
     }
 
 }

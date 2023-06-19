@@ -11,16 +11,16 @@ public class CommandPause implements Command {
     private PauseTrigger pauseTrigger;
 
     /**
-     * @param pauseTrigger the pause trigger which will be used to trigger the Pause GameState
+     * @param pauseTrigger the pause trigger which will be used to trigger the Pause GameState.
      */
     @SuppressFBWarnings(value = "EI2"
-            , justification = "The Command pattern encapsulates the objects on which perform the operations." )
+            , justification = "The Command pattern encapsulates the objects on which perform the operations.")
     public CommandPause(final PauseTrigger pauseTrigger) {
         this.pauseTrigger = pauseTrigger;
     }
 
     /**
-     * Triggers the {@link it.tbt.model.GameState#PAUSE}
+     * Triggers the {@link it.tbt.model.GameState#PAUSE}.
      */
     @Override
     public void execute() {
