@@ -30,5 +30,17 @@
   {
     "imagePath": "./tbt/bricks.png",
     "objectClass": "it.tbt.controller.modelmanager.ExploreStateImpl"
+  },
+  {
+    "imagePath": "./tbt/mario.png",
+    "objectClass": "it.tbt.model.entities.characters.Ally"
+  },
+  {
+    "imagePath": "./tbt/luigi.png",
+    "objectClass": "it.tbt.model.entities.characters.Enemy"
+  },
+  {
+    "imagePath": "./tbt/beans.jpg",
+    "objectClass": "it.tbt.controller.modelmanager.FightStateImpl"
   }
 ]
