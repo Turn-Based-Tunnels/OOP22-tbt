@@ -17,7 +17,6 @@ import it.tbt.model.entities.characters.skills.Skill;
 import it.tbt.model.entities.items.Potion;
 import it.tbt.model.entities.items.Antidote;
 import it.tbt.model.entities.items.Item;
-import it.tbt.model.entities.npc.impl.AllyNPCImpl;
 import it.tbt.model.fight.api.FightModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateObserver;
@@ -173,7 +172,7 @@ public final class FightModelImpl implements FightModel {
      * {@inheritDoc}
      */
     @SuppressFBWarnings(value = {
-            "EI2" }, justification = "The Component needs to access the exact instance of the selected Ally.")
+            "EI2, EI" }, justification = "The Component needs to access the exact instance of the selected Ally.")
     @Override
     public Ally getCurrentAlly() {
         return this.currentAlly;
