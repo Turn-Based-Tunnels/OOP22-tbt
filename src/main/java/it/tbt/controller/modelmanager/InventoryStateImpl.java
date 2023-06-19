@@ -1,5 +1,6 @@
 package it.tbt.controller.modelmanager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.characters.Status;
 
@@ -46,6 +47,10 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
      * @param party The party associated with the inventory state.
      * @throws IllegalArgumentException if the party is null
      */
+    @SuppressFBWarnings(
+            value = { "EI2" },
+            justification = "The Component needs to access the exact instance of the Party the game is using."
+    )
     public InventoryStateImpl(final IParty party) {
         if (party == null) {
             throw new IllegalArgumentException("Party cannot be null");

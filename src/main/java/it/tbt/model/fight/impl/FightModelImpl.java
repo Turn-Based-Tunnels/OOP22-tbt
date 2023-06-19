@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.characters.Character;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.characters.CharacterFactory;
@@ -16,6 +17,7 @@ import it.tbt.model.entities.characters.skills.Skill;
 import it.tbt.model.entities.items.Potion;
 import it.tbt.model.entities.items.Antidote;
 import it.tbt.model.entities.items.Item;
+import it.tbt.model.entities.npc.impl.AllyNPCImpl;
 import it.tbt.model.fight.api.FightModel;
 import it.tbt.model.party.IParty;
 import it.tbt.model.statechange.StateObserver;
@@ -80,6 +82,10 @@ public final class FightModelImpl implements FightModel {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+            value = { "EI2" },
+            justification = "The Component needs to access the exact instance of the Party the game is using."
+    )
     @Override
     public void initializeParty(final IParty party) {
         this.party = party;
@@ -134,7 +140,7 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public List<Ally> getAllies() {
-        return allies;
+        return List.copyOf (allies);
     }
 
     /**
@@ -142,12 +148,16 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public List<Enemy> getEnemies() {
-        return enemies;
+        return List.copyOf (enemies);
     }
 
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+            value = { "EI2" },
+            justification = "The Component needs to access the exact instance of the selected Ally."
+    )
     @Override
     public Ally getCurrentAlly() {
         return this.currentAlly;
@@ -248,9 +258,9 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public void performSelectedAction() {
-        final Character character = (Character) getCurrentAlly();
-        final Character selectedAlly = (Character) getSelectedAlly();
-        final Character target = (Enemy) getSelectedEnemy();
+        final Character character = getCurrentAlly();
+        final Character selectedAlly = getSelectedAlly();
+        final Character target = getSelectedEnemy();
 
         if (usingSkill && currentAlly.getSkills() != null && currentAlly.getSkills().size() != 0
                 && currentAlly.getSkills().get(0) != null && target.getHealth() != 0) {

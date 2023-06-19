@@ -28,9 +28,10 @@ public class JavaFxViewFactory implements GameViewFactory {
      * @param stage used as reference to where the GameViews will reside.
      */
     @SuppressFBWarnings (
-            value = { "EI2 "},
+            value = { "EI2 ", "Dm"},
             justification = "The Factory creates the Views in JavaFx so it needs a Stage, and this Stage"
-                    + " is the one loaded at start of the javaFx application."
+                    + " is the one loaded at start of the javaFx application. And it needs to close the application"
+
     )
     public JavaFxViewFactory(final Stage stage) {
         this.stage = stage;

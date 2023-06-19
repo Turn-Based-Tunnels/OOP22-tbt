@@ -66,7 +66,7 @@ public class MenuModelImpl implements MenuModel, StateTrigger {
      */
     @Override
     public List<MenuItem> getItems() {
-        return items;
+        return List.copyOf(items);
     }
 
     /**
