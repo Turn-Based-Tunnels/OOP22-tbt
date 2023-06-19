@@ -134,7 +134,7 @@ public class GameViewManagerImpl implements ViewControllerManager {
             this.currentController = controller;
             this.currentGameView = x;
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
     }
 }

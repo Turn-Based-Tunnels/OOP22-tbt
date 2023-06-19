@@ -42,6 +42,6 @@ public class EndStateImpl implements EndState {
     )
     @Override
     public void triggerExit() {
-        System.exit (0);
+        System.exit(0);
     }
 }

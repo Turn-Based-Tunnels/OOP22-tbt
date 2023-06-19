@@ -28,6 +28,11 @@ import java.util.Set;
 public final class WorldFactory {
 
     /**
+     * Private constructor not to give the possibility to instantiate a utility class.
+     */
+    private WorldFactory() { }
+
+    /**
      * Create World implementation with default implementation.
      */
     public static World createWorldDefault() {
