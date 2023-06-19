@@ -21,6 +21,7 @@ import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.api.World;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Default implementation of a TransitionManager.
@@ -58,14 +59,14 @@ public final class TransitionManagerImpl implements TransitionManager {
         if (world == null || party == null) {
             throw new IllegalStateException ("Null objects have been passed to the transition manager.");
         } else {
-            this.startObserving ();
+            this.startObserving();
         }
     }
 
     /**
      * Subscribes to model objects who can trigger a GameState change.
      */
-    private void startObserving () {
+    private void startObserving() {
         if (this.party instanceof StateTrigger) {
             ((StateTrigger) this.party).setStateObserver (this);
         }
@@ -75,7 +76,7 @@ public final class TransitionManagerImpl implements TransitionManager {
                     ((StateTrigger) y).setStateObserver (this);
                     if (y instanceof FightNPC) {
                         if (((FightNPC) y).getFightModel () instanceof StateTrigger) {
-                            ((StateTrigger) ((FightNPC) y).getFightModel ()).setStateObserver (this);
+                            (((FightNPC) y).getFightModel()).setStateObserver(this);
                         }
                     }
                     if (y instanceof ShopNPC) {

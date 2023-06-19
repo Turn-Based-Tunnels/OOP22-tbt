@@ -2,11 +2,9 @@ package it.tbt.engine.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 
 import it.tbt.commons.resourceloader.world.impl.WorldCreationDefault;
 import it.tbt.model.entities.characters.Ally;
-import it.tbt.model.entities.characters.Status;
 import it.tbt.model.entities.characters.skills.Skill;
 import it.tbt.model.entities.characters.skills.SkillFactory;
 import it.tbt.model.entities.items.Antidote;
@@ -16,7 +14,6 @@ import it.tbt.controller.modelmanager.GameStateManager;
 import it.tbt.controller.modelmanager.IGameStateManager;
 import it.tbt.controller.viewcontrollermanager.api.ViewControllerManager;
 import it.tbt.controller.viewcontrollermanager.impl.GameViewManagerImpl;
-import it.tbt.model.party.IParty;
 import it.tbt.model.party.Party;
 import it.tbt.model.party.PartyFactory;
 import it.tbt.view.api.GameViewFactory;
