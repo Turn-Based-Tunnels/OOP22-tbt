@@ -1,12 +1,21 @@
 package it.tbt.view.javaFx;
 
+import it.tbt.commons.resourceloader.ImageLoader;
 import it.tbt.controller.modelmanager.shop.ShopItem;
 import it.tbt.controller.modelmanager.shop.ShopState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,8 +24,10 @@ import javafx.stage.Stage;
  */
 public class JavaFxShopView extends AbstractJavaFxView {
 
+    private static final double BORDER_SCALE = 25;
     private final ShopState shopState;
     private final Scene scene;
+    private final Background bg;
 
     /**
      * Default constructor.
@@ -34,6 +45,13 @@ public class JavaFxShopView extends AbstractJavaFxView {
         super(viewController, stage, scene);
         this.scene = scene;
         this.shopState = shopState;
+        this.bg = new Background(new BackgroundImage(
+            new Image(ImageLoader.getInstance().getFilePath(shopState.getClass())),
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            new BackgroundSize(1.0, 1.0, true, true, false, false)
+        ));
     }
 
     /**
@@ -42,7 +60,8 @@ public class JavaFxShopView extends AbstractJavaFxView {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            final BorderPane root = new BorderPane();
+            // setup root
+            final VBox root = new VBox();
             root.getChildren().clear();
 
             // party items on the left
@@ -89,18 +108,33 @@ public class JavaFxShopView extends AbstractJavaFxView {
             final Label partySubTitle = new Label("wallet: " + shopState.getPartyWallet());
             partySubTitle.setStyle("-fx-font-weight: lighter;");
             final VBox partyBox = new VBox(10, partyTitle, partySubTitle, partyItemsBox);
+            partyBox.setStyle("-fx-background-color: #F5F5F5;");
 
             final Label shopTitle = new Label("Shop");
             shopTitle.setStyle("-fx-font-weight: bold;");
             final Label shopSubTitle = new Label("wallet: " + shopState.getShopWallet());
             shopSubTitle.setStyle("-fx-font-weight: lighter;");
             final VBox shopBox = new VBox(10, shopTitle, shopSubTitle, shopItemsBox);
+            shopBox.setStyle("-fx-background-color: #F5F5F5;");
 
             // main pane
-            root.setLeft(partyBox);
-            root.setRight(shopBox);
-            root.setStyle("-fx-background-color: #F5F5F5;");
+            final GridPane pane = new GridPane();
+            ColumnConstraints column1 = new ColumnConstraints();
+            column1.setPercentWidth(50);
+            ColumnConstraints column2 = new ColumnConstraints();
+            column2.setPercentWidth(50);
+            pane.getColumnConstraints().addAll(column1, column2);
+            pane.setHgap(50);
+            pane.add(partyBox, 0, 0);
+            pane.add(shopBox, 1, 0);
+            pane.setStyle("-fx-background-color: transparent;");
+            pane.setMaxHeight(this.scene.getHeight() - (this.scene.getHeight() / BORDER_SCALE));
+            pane.setMaxWidth(this.scene.getWidth() - (this.scene.getWidth() / BORDER_SCALE));
 
+            // setup root
+            root.getChildren().add(pane);
+            root.setBackground(bg);
+            root.setAlignment(Pos.CENTER);
             scene.setRoot(root);
         });
     }
