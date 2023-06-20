@@ -33,7 +33,9 @@ public class JavaFxInventoryView extends AbstractJavaFxView {
 
     private static final double BORDER_SCALE = 25;
     private static final double COLUMN_WIDTH = 100.0 / 3.0;
-    private final Scene scene;
+    private final double viewWidth;
+    private final double viewHeight;
+
     private final InventoryState inventoryState;
     private final Background bg;
     /**
@@ -48,8 +50,9 @@ public class JavaFxInventoryView extends AbstractJavaFxView {
     protected JavaFxInventoryView(final ViewController inventoryController, final Stage stage,
                                   final Scene scene, final InventoryState inventoryState) {
         super(inventoryController, stage, scene);
-        this.scene = scene;
         this.inventoryState = inventoryState;
+        viewWidth = scene.getWidth() - (scene.getWidth() / JavaFxInventoryView.BORDER_SCALE);
+        viewHeight = scene.getHeight() - (scene.getHeight() / JavaFxInventoryView.BORDER_SCALE);
         this.bg = new Background(
                 new BackgroundImage(
                         new Image(ImageLoader.getInstance().getFilePath(inventoryState.getClass())),
@@ -178,12 +181,11 @@ public class JavaFxInventoryView extends AbstractJavaFxView {
             pane.add(memberBox, 2, 0);
             pane.setStyle("-fx-background-color: transparent;"); // Set background color
             root.setBackground(this.bg);
-            pane.setMaxHeight(this.scene.getHeight() - (this.scene.getHeight() / JavaFxInventoryView.BORDER_SCALE));
-            pane.setMaxWidth(this.scene.getWidth() - (this.scene.getWidth() / JavaFxInventoryView.BORDER_SCALE));
+            pane.setMaxHeight(viewHeight);
+            pane.setMaxWidth(viewWidth);
             root.getChildren().add(pane);
             root.setAlignment(Pos.CENTER);
-            scene.setRoot(root);
-
+            this.getScene().setRoot(root);
         });
     }
 }

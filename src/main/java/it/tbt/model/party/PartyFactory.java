@@ -15,8 +15,16 @@ import java.util.Arrays;
  */
 public final class PartyFactory {
 
+    //constant to suppress checkstyles
     private static final int DEFAULT_WIDTH = 50;
     private static final int DEFAULT_HEIGHT = 50;
+    private static final int INT_CONST_10 = 10;
+    private static final int INT_CONST_20 = 20;
+    private static final int INT_CONST_30 = 30;
+    private static final int INT_CONST_50 = 50;
+    private static final int INT_CONST_70 = 70;
+    private static final int INT_CONST_90 = 90;
+    private static final int INT_CONST_5000 = 5000;
     private static final String DEFAULT_PARTY_NAME = "PARTY";
 
     /**
@@ -39,10 +47,14 @@ public final class PartyFactory {
         ArrayList<Ally> allies = new ArrayList<>();
         ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
 
-        allies.add(new Ally("Roberto", 50, 50, 50, new ArrayList<>(Arrays.asList(skills.get(0)))));
-        allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
-        allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
-        allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
+        allies.add(new Ally("Roberto", INT_CONST_50, INT_CONST_50, INT_CONST_50,
+                new ArrayList<>(Arrays.asList(skills.get(0)))));
+        allies.add(new Ally("Gianfranco", INT_CONST_10, INT_CONST_10, INT_CONST_70,
+                new ArrayList<>(Arrays.asList(skills.get(1)))));
+        allies.add(new Ally("Caparezza", INT_CONST_30, INT_CONST_90, INT_CONST_20,
+                new ArrayList<>(Arrays.asList(skills.get(2)))));
+        allies.add(new Ally("Robertino", INT_CONST_20, INT_CONST_20, INT_CONST_20,
+                new ArrayList<>(Arrays.asList(skills.get(3)))));
         party.setMembers(allies);
 
         for (final Potion potion : PotionFactory.getInstance().getItems()) {
@@ -50,7 +62,7 @@ public final class PartyFactory {
             party.addItemToInventory(potion);
         }
         party.addItemToInventory(AntidoteFactory.getInstance().getAntidote());
-        party.addCash(5000);
+        party.addCash(INT_CONST_5000);
         return party;
     }
 }

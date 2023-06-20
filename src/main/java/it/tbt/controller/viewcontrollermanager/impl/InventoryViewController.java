@@ -37,10 +37,7 @@ public class InventoryViewController extends AbstractViewController {
             case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> this.addCommand(() -> inventoryState.nextPhase());
             case KeyEvent.VK_LEFT, KeyEvent.VK_A -> this.addCommand(() -> inventoryState.previousPhase());
             case KeyEvent.VK_ESCAPE -> this.addCommand(() -> inventoryState.switchToExplore());
-            default -> {
-                // Throw an IllegalArgumentException for invalid key input
-                throw new IllegalArgumentException("Invalid key: " + key);
-            }
+            default -> { }
         }
     }
 

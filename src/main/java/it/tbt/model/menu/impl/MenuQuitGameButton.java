@@ -27,6 +27,15 @@ public class MenuQuitGameButton extends AbstractMenuButton {
     )
     @Override
     public Command getAction() {
-        return () -> System.exit(0);
+        return new Command() {
+            @SuppressFBWarnings(
+                    value = "Dm",
+                    justification = "Menu Quit Game Button needs to kill the application"
+            )
+            @Override
+            public void execute() {
+                System.exit(0);
+            }
+        };
     }
 }

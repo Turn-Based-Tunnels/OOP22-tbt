@@ -2,6 +2,7 @@ package it.tbt.controller.viewcontrollermanager.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.MenuState;
+import it.tbt.model.command.api.Command;
 import it.tbt.model.menu.api.MenuButton;
 import it.tbt.model.menu.api.MenuSelect;
 import java.awt.event.KeyEvent;
@@ -51,9 +52,17 @@ public class MainMenuController extends AbstractViewController {
                     this.addCommand(((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
                 }
             }
-            case KeyEvent.VK_ESCAPE -> this.addCommand(() -> System.exit(0));
-            default -> {
-            }
+            case KeyEvent.VK_ESCAPE -> this.addCommand(new Command() {
+                @SuppressFBWarnings(
+                        value = "Dm",
+                        justification = "Menu needs to kill the application"
+                )
+                @Override
+                public void execute() {
+                    System.exit(0);
+                }
+            });
+            default -> { }
         }
     }
 }
