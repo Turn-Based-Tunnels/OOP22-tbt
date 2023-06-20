@@ -46,7 +46,7 @@ public final class WorldFactory {
 
     //constants to suppress checkstyle
     private static final int INT_CONST_10 = 10;
-    private static final int INT_CONST_5 = 5;
+    private static final int INT_CONST_70 = 70;
 
     private static final int INT_CONST_50 = 50;
     private static final int INT_CONST_10000 = 10_000;
@@ -92,7 +92,7 @@ public final class WorldFactory {
         }
 
         fightRoom.addEntity(NPCFactory.createFightNPC("Roberto", TOP_LEFT_X, TOP_LEFT_Y, STANDARD_ENTITY_HEIGHT,
-                STANDARTD_ENTITY_WIDTH, new FightModelImpl(INT_CONST_5, drops)));
+                STANDARTD_ENTITY_WIDTH, new FightModelImpl(INT_CONST_70, drops)));
 
         // shop
         final Map<Item, Integer> shopItems = new HashMap<>();
