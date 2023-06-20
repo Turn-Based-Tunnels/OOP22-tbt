@@ -1,4 +1,4 @@
-package it.tbt.model.roomLink;
+package it.tbt.model.roomlink;
 
 import it.tbt.model.world.api.Room;
 import it.tbt.model.entities.SpatialEntity;

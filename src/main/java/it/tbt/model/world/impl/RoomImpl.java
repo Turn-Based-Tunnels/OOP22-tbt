@@ -14,9 +14,9 @@ import java.util.Set;
 
 public class RoomImpl implements Room, KillObserver {
 
-    private int roomWidth;
-    private int roomHeight;
-    private Set<SpatialEntity> entities;
+    private final int roomWidth;
+    private final int roomHeight;
+    private final Set<SpatialEntity> entities;
     /**
      * default Height of this RoomImpl as integer.
      */

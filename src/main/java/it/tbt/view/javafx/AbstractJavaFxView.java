@@ -1,7 +1,7 @@
-package it.tbt.view.javaFx;
+package it.tbt.view.javafx;
 
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
-import it.tbt.view.api.AbstractGameView;
+import it.tbt.view.api.GameView;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -13,16 +13,15 @@ import javafx.stage.Stage;
  * made in JavaFx.
  */
 
-public abstract class AbstractJavaFxView extends AbstractGameView {
-    private Scene scene;
+public abstract class AbstractJavaFxView implements GameView {
+    private final Scene scene;
 
     /**
-     * @param viewController
-     * @param stage
-     * @param scene
+     * @param viewController the viewController used to map this view input to the handle input in the controller.
+     * @param stage the stage onto which this view's scene is shown upon.
+     * @param scene the scene onto which the view's render is drawn upon.
      */
     protected AbstractJavaFxView(final ViewController viewController, final Stage stage, final Scene scene) {
-        super(viewController);
         this.scene = scene;
         scene.setCursor(Cursor.NONE);
         stage.setResizable(false);

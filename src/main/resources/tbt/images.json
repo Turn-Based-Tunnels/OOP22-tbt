@@ -5,7 +5,7 @@
   },
   {
     "imagePath": "tbt/images/roomLink.png",
-    "objectClass": "it.tbt.model.roomLink.RoomLinkImpl"
+    "objectClass": "it.tbt.model.roomlink.RoomLinkImpl"
   },
   {
     "imagePath": "tbt/images/Room.png",

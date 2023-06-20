@@ -14,8 +14,8 @@ import it.tbt.engine.api.Game;
  * Default implementation of the Game interface.
  */
 public final class GameImpl implements Game {
-    private ViewControllerManager viewControllerManager;
-    private IGameStateManager gameStateManager;
+    private final ViewControllerManager viewControllerManager;
+    private final IGameStateManager gameStateManager;
     private Boolean initialized = false;
 
     /**
@@ -71,7 +71,7 @@ public final class GameImpl implements Game {
     @Override
     public Boolean handleInput() {
         checkInit();
-        Boolean r = this.viewControllerManager.getCommands().isEmpty();
+        final Boolean r = this.viewControllerManager.getCommands().isEmpty();
         if (!r) {
             this.viewControllerManager.getCommands().get().stream().forEach(l -> l.execute());
             this.viewControllerManager.cleanCommands();

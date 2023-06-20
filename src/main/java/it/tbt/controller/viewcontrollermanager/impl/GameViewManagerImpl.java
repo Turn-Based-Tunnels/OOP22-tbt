@@ -131,8 +131,8 @@ public class GameViewManagerImpl implements ViewControllerManager {
             if (!stateClass.isInstance(modelState)) {
                 throw new IllegalStateException("Data passed to View Manager inconsistent");
             }
-            T state = stateClass.cast(modelState);
-            C controller;
+            final T state = stateClass.cast(modelState);
+            final C controller;
             controller = controllerClass.getConstructor(stateClass).newInstance(state);
             final var x = createViewFunction.apply(state, controller);
             this.currentController = controller;

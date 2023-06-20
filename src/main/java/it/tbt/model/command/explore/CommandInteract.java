@@ -7,7 +7,7 @@ import it.tbt.model.world.interaction.InteractionTrigger;
  * Command for the interaction for any object who wants to interact with the environment.
  */
 public final class CommandInteract implements Command {
-    private InteractionTrigger interactionTrigger;
+    private final InteractionTrigger interactionTrigger;
 
     /**
      * @param interactionTrigger

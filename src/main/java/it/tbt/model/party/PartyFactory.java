@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 public final class PartyFactory {
 
-    //constant to suppress checkstyles
+    //constant to suppress checkstyle
     private static final int DEFAULT_WIDTH = 50;
     private static final int DEFAULT_HEIGHT = 50;
     private static final int INT_CONST_10 = 10;
@@ -39,13 +39,13 @@ public final class PartyFactory {
      */
     @SuppressWarnings("MagicNumber")
     public static IParty createDefaultParty() {
-        IParty party = new Party(DEFAULT_PARTY_NAME,
-                (DEFAULT_WIDTH / 2),
-                (DEFAULT_HEIGHT / 2),
+        final IParty party = new Party(DEFAULT_PARTY_NAME,
+                DEFAULT_WIDTH / 2,
+                DEFAULT_HEIGHT / 2,
                 DEFAULT_WIDTH,
                 DEFAULT_HEIGHT);
-        ArrayList<Ally> allies = new ArrayList<>();
-        ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
+        final ArrayList<Ally> allies = new ArrayList<>();
+        final ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
 
         allies.add(new Ally("Roberto", INT_CONST_50, INT_CONST_50, INT_CONST_50,
                 new ArrayList<>(Arrays.asList(skills.get(0)))));

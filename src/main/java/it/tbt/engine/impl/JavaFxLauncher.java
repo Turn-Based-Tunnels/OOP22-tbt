@@ -26,7 +26,7 @@ public class JavaFxLauncher extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        var x = new AnimationTimerGameLoopManager(new FixedTimeGameLoop(GameFactory.createJavaFxGame(primaryStage)));
+        final var x = new AnimationTimerGameLoopManager(new FixedTimeGameLoop(GameFactory.createJavaFxGame(primaryStage)));
         x.startLoop();
     }
 }

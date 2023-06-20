@@ -10,7 +10,7 @@ import it.tbt.model.statechange.InventoryTrigger;
 
 public class CommandInventory implements Command {
 
-    private InventoryTrigger inventoryTrigger;
+    private final InventoryTrigger inventoryTrigger;
 
     /**
      * @param inventoryTrigger which will be used to trigger the Inventory GameState.

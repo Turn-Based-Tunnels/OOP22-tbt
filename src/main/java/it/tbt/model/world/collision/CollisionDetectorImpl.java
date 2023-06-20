@@ -5,7 +5,7 @@ import it.tbt.model.entities.SpatialEntity;
 import java.util.List;
 
 /**
- *
+ * CollisionDetector simple implementation, checks if the rectangles made by the spatial entities overlap.
  */
 
 public class CollisionDetectorImpl implements CollisionDetector {
@@ -15,8 +15,8 @@ public class CollisionDetectorImpl implements CollisionDetector {
      */
     @Override
     public Boolean checkCollision(final SpatialEntity sp1, final SpatialEntity sp2) {
-        var first = this.getVertices(sp1);
-        var second = this.getVertices(sp2);
+        final var first = this.getVertices(sp1);
+        final var second = this.getVertices(sp2);
         return !(first.get(2) < second.get(0)
                 ||
                 second.get(2) < first.get(0)

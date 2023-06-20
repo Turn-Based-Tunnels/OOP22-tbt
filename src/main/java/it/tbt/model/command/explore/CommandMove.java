@@ -8,14 +8,14 @@ import it.tbt.model.party.IParty;
  * Command for moving the IParty.
  */
 public final class CommandMove implements Command {
-    private IParty party;
-    private int xVar;
-    private int yVar;
+    private final IParty party;
+    private final int xVar;
+    private final int yVar;
 
     /**
-     * @param party
-     * @param xVar
-     * @param yVar
+     * @param party the party on which this command is mapped.
+     * @param xVar the x value to be moved.
+     * @param yVar the y value to be moved.
      */
 
     @SuppressFBWarnings(value = "EI2",

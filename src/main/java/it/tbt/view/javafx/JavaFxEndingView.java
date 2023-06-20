@@ -1,4 +1,4 @@
-package it.tbt.view.javaFx;
+package it.tbt.view.javafx;
 
 import it.tbt.controller.modelmanager.EndState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;

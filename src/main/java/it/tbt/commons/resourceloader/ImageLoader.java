@@ -58,7 +58,7 @@ public final class ImageLoader {
      */
     private void loadMappingsFromFile() {
         try {
-            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tbt/images.json");
+            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filepath);
             final InputStreamReader inputStreamReader = new InputStreamReader(inputStream, CHARSET);
             // Parse the JSON file
             final JsonElement jsonElement = JsonParser.parseReader(inputStreamReader);
