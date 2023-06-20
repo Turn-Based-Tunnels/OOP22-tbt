@@ -31,7 +31,6 @@ import javafx.stage.Stage;
  */
 public class JavaFxMenuView extends AbstractJavaFxView {
 
-    private final Scene scene;
     private final MenuState main;
     private final Background bg;
 
@@ -45,7 +44,6 @@ public class JavaFxMenuView extends AbstractJavaFxView {
      */
     public JavaFxMenuView(final ViewController menuController, final Stage stage, final Scene scene, final MenuState menuState) {
             super(menuController, stage, scene);
-            this.scene = scene;
             this.main = menuState;
             this.bg = new Background(
                 new BackgroundImage(
@@ -107,7 +105,7 @@ public class JavaFxMenuView extends AbstractJavaFxView {
             root.getChildren().add(vbox);
             root.setAlignment(Pos.CENTER);
             root.setBackground(this.bg);
-            this.scene.setCursor(Cursor.NONE);
+            this.getScene().setCursor(Cursor.NONE);
             this.getScene().setRoot(root);
 
         });

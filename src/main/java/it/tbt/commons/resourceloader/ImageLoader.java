@@ -4,9 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,32 +15,21 @@ import java.util.Map;
  */
 
 public final class ImageLoader {
-
-    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
     private static final String CHARSET = "UTF-8";
     /**
      * Path to the file that contains the paths for images and their mapping classes.
      */
-    private static String filepath =
-            new StringBuilder()
-                    .append(System.getProperty("user.dir"))
-                    .append(FILE_SEPARATOR).append("src")
-                    .append(FILE_SEPARATOR).append("main")
-                    .append(FILE_SEPARATOR).append("resources")
-                    .append(FILE_SEPARATOR).append("tbt")
-                    .append(FILE_SEPARATOR).append("images.json")
-                    .toString();
+    private static String filepath = "tbt/images.json";
     private static ImageLoader instance = new ImageLoader();
     private Map<Class<?>, String> imageObjectMap;
 
     /**
-     *
+     * Utility class should not have public constructor.
      */
     private ImageLoader() {
         // Initialize the map and populate it from a JSON file
         imageObjectMap = new HashMap<>();
         loadMappingsFromFile(filepath);
-
     }
 
     /**
@@ -66,8 +54,8 @@ public final class ImageLoader {
      */
     private void loadMappingsFromFile(final String filePath) {
         try {
-            FileInputStream fileInputStream = new FileInputStream(filePath);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, CHARSET);
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tbt/images.json");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, CHARSET);
             // Parse the JSON file
             JsonElement jsonElement = JsonParser.parseReader(inputStreamReader);
             if (jsonElement.isJsonArray()) {
