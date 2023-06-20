@@ -7,6 +7,10 @@ import java.util.Set;
 import it.tbt.controller.resources.ConfigManager;
 import it.tbt.model.entities.items.Potion;
 
+/**
+ * Singleton potions factory.
+ * Reads tbt/entities/potions.json
+ */
 public final class PotionFactory implements ItemFactory<Potion> {
     private final Set<Potion> items;
 
@@ -19,7 +23,7 @@ public final class PotionFactory implements ItemFactory<Potion> {
 
     private PotionFactory() {
         items = new HashSet<>();
-        
+
         // load potions
         final Optional<Potion[]> optItems = ConfigManager.parseJsonConfig(
             "tbt/entities/potions.json",

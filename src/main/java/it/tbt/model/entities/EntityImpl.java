@@ -33,14 +33,24 @@ public abstract class EntityImpl implements Entity {
         return this.getName().compareTo(entity.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EntityImpl entity = (EntityImpl) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final EntityImpl entity = (EntityImpl) o;
         return Objects.equals(name, entity.name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name);

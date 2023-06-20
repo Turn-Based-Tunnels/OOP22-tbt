@@ -83,9 +83,9 @@ public final class CharacterFactory {
      * @return new random nemy
      */
     public static Enemy createRandomEnemy(final String name, final int statsSum) {
-        final long tmpHealth = Math.abs(RND.nextInt());
-        final long tmpAttack = Math.abs(RND.nextInt());
-        final long tmpSpeed = Math.abs(RND.nextInt());
+        final long tmpHealth = Math.abs((long) RND.nextInt());
+        final long tmpAttack = Math.abs((long) RND.nextInt());
+        final long tmpSpeed = Math.abs((long) RND.nextInt());
         final long sum = tmpHealth + tmpAttack + tmpSpeed;
         final int statsSumPart = (int) (statsSum * 0.7); // ~70%
         final int res = statsSum / 10; // ~10%

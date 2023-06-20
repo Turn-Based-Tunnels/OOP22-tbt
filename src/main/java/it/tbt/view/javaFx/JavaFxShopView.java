@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 public class JavaFxShopView extends AbstractJavaFxView {
 
     private static final double BORDER_SCALE = 25;
+    private static final double GAP_WIDTH = 50;
+    private static final double COLUMN_WIDTH_P = 50.0; // 50%
     private final ShopState shopState;
     private final Scene scene;
     private final Background bg;
@@ -119,12 +121,12 @@ public class JavaFxShopView extends AbstractJavaFxView {
 
             // main pane
             final GridPane pane = new GridPane();
-            ColumnConstraints column1 = new ColumnConstraints();
-            column1.setPercentWidth(50);
-            ColumnConstraints column2 = new ColumnConstraints();
-            column2.setPercentWidth(50);
+            final ColumnConstraints column1 = new ColumnConstraints();
+            column1.setPercentWidth(COLUMN_WIDTH_P);
+            final ColumnConstraints column2 = new ColumnConstraints();
+            column2.setPercentWidth(COLUMN_WIDTH_P);
             pane.getColumnConstraints().addAll(column1, column2);
-            pane.setHgap(50);
+            pane.setHgap(GAP_WIDTH);
             pane.add(partyBox, 0, 0);
             pane.add(shopBox, 1, 0);
             pane.setStyle("-fx-background-color: transparent;");

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.shop.Shop;
 
@@ -23,6 +24,10 @@ public class ShopStateImpl implements ShopState {
      * Default constructor.
      * @param shop
      */
+    @SuppressFBWarnings(
+        value = "EI2",
+        justification = "ShopStateImpl needs to access the exact instance of the current Shop."
+    )
     public ShopStateImpl(final Shop shop) {
         this.shop = shop;
         partyItems = new ArrayList<>(

@@ -6,7 +6,7 @@ import it.tbt.model.entities.items.Item;
 
 /**
  * Item Factory.
- * @param T generic class that extends Item
+ * @param <T> generic class that extends Item
  */
 public interface ItemFactory<T extends Item> {
 

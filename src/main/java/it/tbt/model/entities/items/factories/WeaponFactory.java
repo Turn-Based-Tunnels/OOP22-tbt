@@ -7,6 +7,10 @@ import java.util.Set;
 import it.tbt.controller.resources.ConfigManager;
 import it.tbt.model.entities.items.Weapon;
 
+/**
+ * Singleton weapons factory.
+ * Reads tbt/entities/weapons.json
+ */
 public final class WeaponFactory implements ItemFactory<Weapon> {
     private final Set<Weapon> items;
 
@@ -19,7 +23,7 @@ public final class WeaponFactory implements ItemFactory<Weapon> {
 
     private WeaponFactory() {
         items = new HashSet<>();
-        
+
         // load potions
         final Optional<Weapon[]> optItems = ConfigManager.parseJsonConfig(
             "tbt/entities/weapons.json",
