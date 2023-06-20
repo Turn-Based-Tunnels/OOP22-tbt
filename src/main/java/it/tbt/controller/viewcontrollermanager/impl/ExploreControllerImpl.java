@@ -15,7 +15,7 @@ public final class ExploreControllerImpl extends AbstractViewController {
 
     private static final int DEFAULT_MOVE_X = 5;
     private static final int DEFAULT_MOVE_Y = 5;
-    private ExploreState modelState;
+    private final ExploreState modelState;
 
     /**
      * @param exploreStateImpl the state on which the controller maps the input to the commands to the state.

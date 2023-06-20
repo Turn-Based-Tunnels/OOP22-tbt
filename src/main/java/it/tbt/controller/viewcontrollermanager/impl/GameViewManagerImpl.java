@@ -1,5 +1,6 @@
 package it.tbt.controller.viewcontrollermanager.impl;
 
+import it.tbt.controller.SimpleLogger;
 import it.tbt.controller.modelmanager.ExploreState;
 import it.tbt.controller.modelmanager.MenuState;
 import it.tbt.controller.modelmanager.ModelState;
@@ -18,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.logging.Level;
 
 /**
  * Default implementation of a ViewControllerManager.
@@ -129,20 +131,17 @@ public class GameViewManagerImpl implements ViewControllerManager {
             if (!stateClass.isInstance(modelState)) {
                 throw new IllegalStateException("Data passed to View Manager inconsistent");
             }
-            T state = stateClass.cast(modelState);
-            C controller;
+            final T state = stateClass.cast(modelState);
+            final C controller;
             controller = controllerClass.getConstructor(stateClass).newInstance(state);
-            var x = createViewFunction.apply(state, controller);
+            final var x = createViewFunction.apply(state, controller);
             this.currentController = controller;
             this.currentGameView = x;
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+        } catch (InvocationTargetException
+                 | InstantiationException
+                 | IllegalAccessException
+                 | NoSuchMethodException e) {
+            SimpleLogger.getLogger("GameViewManagerImpl", Level.SEVERE).severe("Error type: " + e);
         }
     }
 }

@@ -5,9 +5,6 @@ import it.tbt.model.world.collision.CollisionDetector;
 import it.tbt.model.world.collision.CollisionDetectorImpl;
 import it.tbt.model.party.IParty;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Interaction component implementation for the IParty objects.
  */
@@ -33,17 +30,12 @@ public class PartyInteractionComponent implements InteractionComponent {
      */
     @Override
     public void interactLogic() {
-        List<Interactable> y = new LinkedList<>();
-        for (var x: party.getCurrentRoom().getEntities()) {
-            if (collisionDetector.checkCollision(party, x)) {
-                if (x instanceof Interactable) {
-                    y.add((Interactable) x);
-                }
-            }
-        }
-        if (y.size() > 0) {
-            y.stream().findFirst().get().onInteraction(this.party);
-        }
+        party.getCurrentRoom().getEntities().
+                stream().
+                filter(l -> l instanceof Interactable).
+                filter(l -> collisionDetector.checkCollision(l, this.party)).
+                findFirst().
+                ifPresent(l -> ((Interactable) l).onInteraction(this.party));
 
     }
 }

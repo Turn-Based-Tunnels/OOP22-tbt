@@ -5,7 +5,7 @@ package it.tbt.model.statechange;
  */
 public class PauseTrigger {
 
-    private StateObserver stateObserver;
+    private final StateObserver stateObserver;
 
     /**
      * @param stateObserver which needs to be notified.

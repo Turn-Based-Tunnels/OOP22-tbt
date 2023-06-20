@@ -1,7 +1,7 @@
 package it.tbt.engine.impl;
 
 import it.tbt.view.api.GameViewFactory;
-import it.tbt.view.javaFx.JavaFxViewFactory;
+import it.tbt.view.javafx.JavaFxViewFactory;
 import it.tbt.engine.api.Game;
 import javafx.stage.Stage;
 
@@ -22,7 +22,7 @@ public final class GameFactory {
      * In JavaFx graphical framework.
      */
     public static Game createJavaFxGame(final Stage stage) {
-        GameViewFactory viewFactory = new JavaFxViewFactory(stage);
+        final GameViewFactory viewFactory = new JavaFxViewFactory(stage);
         return new GameImpl(viewFactory);
     }
 

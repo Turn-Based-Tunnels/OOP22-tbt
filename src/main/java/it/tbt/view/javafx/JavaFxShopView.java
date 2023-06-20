@@ -1,4 +1,4 @@
-package it.tbt.view.javaFx;
+package it.tbt.view.javafx;
 
 import it.tbt.commons.resourceloader.ImageLoader;
 import it.tbt.controller.modelmanager.shop.ShopItem;

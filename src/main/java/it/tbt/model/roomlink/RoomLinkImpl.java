@@ -1,4 +1,4 @@
-package it.tbt.model.roomLink;
+package it.tbt.model.roomlink;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.world.api.Room;
@@ -15,8 +15,8 @@ import java.util.function.Predicate;
  */
 public class RoomLinkImpl extends SpatialEntityImpl implements RoomLink, Interactable {
 
-    private Room room1;
-    private Room room2;
+    private final Room room1;
+    private final Room room2;
 
     /**
      * @param name

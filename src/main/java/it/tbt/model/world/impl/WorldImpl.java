@@ -11,7 +11,7 @@ import java.util.Set;
  * Default implementation for World interface.
  */
 public class WorldImpl implements World {
-    private Set<Room> rooms;
+    private final Set<Room> rooms;
     private Optional<Room> start;
     /**
      * Default constructor of the World object.

@@ -8,7 +8,7 @@ import it.tbt.model.statechange.PauseTrigger;
  * Command for triggering a Pause GameState.
  */
 public class CommandPause implements Command {
-    private PauseTrigger pauseTrigger;
+    private final PauseTrigger pauseTrigger;
 
     /**
      * @param pauseTrigger the pause trigger which will be used to trigger the Pause GameState.

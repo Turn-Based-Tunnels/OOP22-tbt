@@ -11,7 +11,7 @@ public class FixedTimeGameLoop implements GameLoop {
     private static final long SECOND_IN_MILLISECOND = 1_000_000_000;
 
     private static final long TARGET_FPS = 60;
-    private long timeSlice = SECOND_IN_MILLISECOND / TARGET_FPS;
+    private static final long TIME_SLICE = SECOND_IN_MILLISECOND / TARGET_FPS;
     private long lastUpdateTime;
     private long timeAccumulator;
     private Boolean updated = false;
@@ -41,8 +41,8 @@ public class FixedTimeGameLoop implements GameLoop {
             updated = true;
         }
 
-        while (timeAccumulator > timeSlice) {
-            timeAccumulator -= timeSlice;
+        while (timeAccumulator > TIME_SLICE) {
+            timeAccumulator -= TIME_SLICE;
         }
 
         if (updated) {

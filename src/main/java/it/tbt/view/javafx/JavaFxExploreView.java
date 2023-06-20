@@ -1,4 +1,4 @@
-package it.tbt.view.javaFx;
+package it.tbt.view.javafx;
 
 import it.tbt.commons.resourceloader.ImageLoader;
 import it.tbt.controller.modelmanager.ExploreState;
@@ -79,15 +79,15 @@ public class JavaFxExploreView extends AbstractJavaFxView {
      * Creates the background.
      */
     private void loadBackground() {
-        Background bg = new Background(
+        final Background backgroundSpace = new Background(
                         new BackgroundImage(
                         new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getRoom().getClass())),
                                 BackgroundRepeat.NO_REPEAT,
                                 BackgroundRepeat.NO_REPEAT,
                                 BackgroundPosition.DEFAULT,
                                 new BackgroundSize(1.0, 1.0, true, true, false, false)));
-        this.movingSpace.setBackground(bg);
-        Background bg2 = new Background(
+        this.movingSpace.setBackground(backgroundSpace);
+        Background backgroundScene = new Background(
                         new BackgroundImage(
                         new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getClass())),
                                 BackgroundRepeat.NO_REPEAT,
@@ -100,7 +100,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                                         true,
                                         false,
                                         false)));
-        this.total.setBackground(bg2);
+        this.total.setBackground(backgroundScene);
 
     }
 
@@ -108,16 +108,16 @@ public class JavaFxExploreView extends AbstractJavaFxView {
      * Loads all the images.
      */
     private void loadAllImages() {
-        var x = getMapEntitiesImagesBasedOnPredicate(l -> true,
+        final var allEntities = getMapEntitiesImagesBasedOnPredicate(l -> true,
                 Stream.concat(this.exploreState.getRoom().getEntities().stream(),
                         Stream.of(this.exploreState.getParty())).collect(Collectors.toSet()));
         loadImagesToRegion(this.staticImages,
-                x.entrySet().
+                allEntities.entrySet().
                         stream().
                         filter(l -> !(l.getKey() instanceof MovableEntity)).
                         map(l -> Map.entry(l.getKey(), l.getValue())).
                         collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
-        this.images = x.entrySet().
+        this.images = allEntities.entrySet().
                 stream().
                 filter(l -> l.getKey() instanceof MovableEntity).
                 map(l -> Map.entry((MovableEntity) l.getKey(), l.getValue()))
@@ -146,15 +146,15 @@ public class JavaFxExploreView extends AbstractJavaFxView {
      */
     private Map<SpatialEntity, ImageView> getMapEntitiesImagesBasedOnPredicate(final Predicate<SpatialEntity> predicate,
                                                                                final Set<SpatialEntity> entitySet) {
-        var x = entitySet.stream().
+        final var map = entitySet.stream().
                 filter(predicate).
                 collect(Collectors.toMap(l -> l,
                 l -> new ImageView(ImageLoader.getInstance().getFilePath(l.getClass()))));
-        x.entrySet().stream().forEach(l -> {
+        map.entrySet().stream().forEach(l -> {
             l.getValue().setFitWidth(l.getKey().getWidth());
             l.getValue().setFitHeight(l.getKey().getHeight());
         });
-        return x;
+        return map;
     }
 }
 

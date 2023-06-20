@@ -7,8 +7,8 @@ import javafx.animation.AnimationTimer;
  * GameLoopManager implemented with an JavaFx AnimationTimer.
  */
 public class AnimationTimerGameLoopManager {
-    private GameLoop loop;
-    private AnimationTimer gameLoopAnimationTimer;
+    private final GameLoop loop;
+    private final AnimationTimer gameLoopAnimationTimer;
 
     /**
      * @param gameLoop that the Manger will manage.

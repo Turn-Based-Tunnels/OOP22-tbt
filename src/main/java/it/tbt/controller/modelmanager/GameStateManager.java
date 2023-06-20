@@ -12,7 +12,7 @@ import it.tbt.model.world.api.World;
  */
 public final class GameStateManager implements IGameStateManager {
 
-    private TransitionManager transitionManager;
+    private final TransitionManager transitionManager;
 
     /**
      * @param world world object used for the game

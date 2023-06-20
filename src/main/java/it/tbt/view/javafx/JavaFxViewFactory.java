@@ -1,4 +1,4 @@
-package it.tbt.view.javaFx;
+package it.tbt.view.javafx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.controller.modelmanager.MenuState;
@@ -56,12 +56,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createMenu(final ViewController menuController, final MenuState menuState) {
-        Scene scene = new Scene(new Group(), WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
-        return new JavaFxMenuView(menuController, this.stage, scene, menuState);
+        return new JavaFxMenuView(menuController, this.stage, getNewScene(), menuState);
     }
 
     /**
@@ -69,13 +64,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createPause(final ViewController menuController, final MenuState menuState) {
-        Scene scene = new Scene(new Group(), WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
-
-        return new JavaFxMenuView(menuController, this.stage, scene, menuState);
+        return new JavaFxMenuView(menuController, this.stage, getNewScene(), menuState);
     }
 
     /**
@@ -83,12 +72,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createRoom(final ViewController exploreController, final ExploreState exploreState) {
-        Scene scene = new Scene(new Group(), WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
-        return new JavaFxExploreView(exploreController, exploreState, this.stage, scene);
+        return new JavaFxExploreView(exploreController, exploreState, this.stage, getNewScene());
     }
 
     /**
@@ -96,13 +80,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createFight(final ViewController fightController, final FightState fightState) {
-        Group group = new Group();
-        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
-        return new JavaFxFightView(stage, scene, fightController, fightState);
+        return new JavaFxFightView(stage, getNewScene(), fightController, fightState);
     }
 
     /**
@@ -110,13 +88,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createShop(final ShopController shopController, final ShopState shopState) {
-        Group group = new Group();
-        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
-        return new JavaFxShopView(shopController, stage, scene, shopState);
+        return new JavaFxShopView(shopController, stage, getNewScene(), shopState);
     }
 
     /**
@@ -124,14 +96,7 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createInventory(final ViewController inventoryController, final InventoryState inventoryState) {
-        Group group = new Group();
-        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
-
-        return new JavaFxInventoryView(inventoryController, this.stage, scene, inventoryState);
+        return new JavaFxInventoryView(inventoryController, this.stage, getNewScene(), inventoryState);
     }
 
     /**
@@ -139,13 +104,19 @@ public class JavaFxViewFactory implements GameViewFactory {
      */
     @Override
     public GameView createEndScreen(final ViewController endController, final EndState endState) {
-        Group group = new Group();
-        Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
-        Platform.runLater(() -> {
-            stage.setScene(scene);
-            stage.show();
-        });
+        return new JavaFxEndingView(endController, this.stage, getNewScene(), endState);
+    }
 
-        return new JavaFxEndingView(endController, this.stage, scene, endState);
+    /**
+     * @return a Scene with size {@link JavaFxViewFactory#HEIGHT_WINDOW} and {@link JavaFxViewFactory#WIDTH_WINDOW}.
+     */
+    private Scene getNewScene() {
+        final Group group = new Group();
+        final Scene scene = new Scene(group, WIDTH_WINDOW, HEIGHT_WINDOW);
+        Platform.runLater(() -> {
+            this.stage.setScene(scene);
+            this.stage.show();
+        });
+        return scene;
     }
 }

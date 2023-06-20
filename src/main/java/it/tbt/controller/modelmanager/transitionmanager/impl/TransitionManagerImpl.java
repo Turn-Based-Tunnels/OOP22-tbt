@@ -29,10 +29,10 @@ import java.util.Optional;
 public final class TransitionManagerImpl implements TransitionManager {
 
     private Optional<GameState> currentGameState;
-    private World world;
-    private IParty party;
-    private MenuModelImpl mainMenu;
-    private MenuModelImpl pauseMenu;
+    private final World world;
+    private final IParty party;
+    private final MenuModelImpl mainMenu;
+    private final MenuModelImpl pauseMenu;
     private Optional<ModelState> currentModelState;
     private Boolean stateChanged = false;
 
@@ -71,8 +71,8 @@ public final class TransitionManagerImpl implements TransitionManager {
         if (this.party instanceof StateTrigger) {
             ((StateTrigger) this.party).setStateObserver(this);
         }
-        for (var x : this.world.getListRoom()) {
-            for (var y : x.getEntities()) {
+        for (final var x : this.world.getListRoom()) {
+            for (final var y : x.getEntities()) {
                 if (y instanceof StateTrigger) {
                     ((StateTrigger) y).setStateObserver(this);
                     if (y instanceof FightNPC) {
@@ -85,12 +85,12 @@ public final class TransitionManagerImpl implements TransitionManager {
             }
         }
         pauseMenu.setStateObserver(this);
-        for (var x : this.mainMenu.getItems()) {
+        for (final var x : this.mainMenu.getItems()) {
             if (x instanceof StateTrigger) {
                 ((StateTrigger) x).setStateObserver(this);
             }
         }
-        for (var x : this.pauseMenu.getItems()) {
+        for (final var x : this.pauseMenu.getItems()) {
             if (x instanceof StateTrigger) {
                 ((StateTrigger) x).setStateObserver(this);
             }
@@ -101,6 +101,7 @@ public final class TransitionManagerImpl implements TransitionManager {
     /**
      * {@inheritDoc}
      */
+    @Override
     public GameState getState() {
         if (this.currentGameState.isEmpty()) {
             throw new IllegalStateException("Game Transition Manager not initialized properly. GameState not present.");
