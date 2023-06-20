@@ -67,7 +67,6 @@ public final class ImageLoader {
                         // Extract the image path and object class
                         String imagePath = jsonObject.get("imagePath").getAsString();
                         Class<?> objectClass = Class.forName(jsonObject.get("objectClass").getAsString());
-                        // Add the mapping to the imageObjectMap
                         imageObjectMap.put(objectClass, imagePath);
                     }
                 }
