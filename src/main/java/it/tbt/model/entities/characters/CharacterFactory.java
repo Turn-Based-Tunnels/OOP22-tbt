@@ -77,6 +77,7 @@ public final class CharacterFactory {
      * The sum of all the stats must be statSum (circa), this will help defining
      * how hard is defeating the enemy.
      * Every stats will be at least 10% of statsSum
+     * 
      * @param name
      * @param statsSum
      * @return new random nemy
@@ -89,10 +90,9 @@ public final class CharacterFactory {
         final int statsSumPart = (int) (statsSum * 0.7); // ~70%
         final int res = statsSum / 10; // ~10%
         return new Enemy(
-            name,
-            (int) (tmpHealth * statsSumPart / sum) + res + 1,
-            (int) (tmpAttack * statsSumPart / sum) + res + 1,
-            (int) (tmpSpeed * statsSumPart / sum) + res + 1
-        );
+                name,
+                (int) (tmpHealth * statsSumPart / sum) + res + 1,
+                (int) (tmpAttack * statsSumPart / sum) + res + 1,
+                (int) (tmpSpeed * statsSumPart / sum) + res + 1);
     }
 }

@@ -1,7 +1,5 @@
-package it.tbt.model;
+package it.tbt.model.entities;
 
-import it.tbt.model.entities.SpatialEntity;
-import it.tbt.model.entities.SpatialEntityImpl;
 import it.tbt.model.statechange.StateObserver;
 import it.tbt.model.statechange.StateTrigger;
 import it.tbt.model.world.interaction.Interactable;
@@ -26,11 +24,11 @@ public class EndEntity extends SpatialEntityImpl implements Interactable, StateT
      * @param message
      */
     public EndEntity(final String name,
-                     final int x,
-                     final int y,
-                     final int width,
-                     final int height,
-                     final String message) {
+            final int x,
+            final int y,
+            final int width,
+            final int height,
+            final String message) {
         super(name, x, y, width, height);
         this.message = message;
         this.stateObserver = Optional.empty();
@@ -38,6 +36,7 @@ public class EndEntity extends SpatialEntityImpl implements Interactable, StateT
 
     /**
      * Triggers the {@link GameState#ENDING} GameState.
+     * 
      * @param interactionTrigger
      */
     @Override

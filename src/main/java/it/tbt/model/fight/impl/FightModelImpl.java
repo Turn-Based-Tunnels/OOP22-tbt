@@ -61,7 +61,7 @@ public final class FightModelImpl implements FightModel {
         }
         this.enemies = new ArrayList<>();
         for (int c = 1; c < ENEMYLIMIT; c++) {
-            this.addEnemy(CharacterFactory.createRandomEnemy("Enemy " + c, averageEnemyStat));
+            this.enemies.add(CharacterFactory.createRandomEnemy("Enemy " + c, averageEnemyStat));
         }
         this.selectedTargetIndex = 0;
         this.usingSkill = false;
@@ -140,19 +140,6 @@ public final class FightModelImpl implements FightModel {
     }
 
     /**
-     * Adds an enemy to the fight.
-     *
-     * @param enemy the enemy character to add
-     */
-    public void addEnemy(final Enemy enemy) {
-        if (enemy == null) {
-            throw new IllegalArgumentException(
-                    "è stato passato un argomento non lecito a addEnemy");
-        }
-        this.enemies.add(enemy);
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -171,8 +158,6 @@ public final class FightModelImpl implements FightModel {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = {
-            "EI2, EI" }, justification = "The Component needs to access the exact instance of the selected Ally.")
     @Override
     public Ally getCurrentAlly() {
         return this.currentAlly;
@@ -277,7 +262,7 @@ public final class FightModelImpl implements FightModel {
             throw new IllegalStateException("L'alleato corrente non ha la lista di skills istanziata");
         }
 
-        final Character character = (Character) getCurrentAlly();
+        final Character character = (Character) this.currentAlly;
         final Character selectedAlly = (Character) getSelectedAlly();
         final Character target = (Character) getSelectedEnemy();
 
