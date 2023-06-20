@@ -39,6 +39,7 @@ public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC, KillableEnt
             throw new IllegalArgumentException("Items cannot be null");
         }
         this.items = Map.copyOf(items);
+        this.killObserver = null;
     }
 
     /**
@@ -57,18 +58,21 @@ public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC, KillableEnt
         if (interactable instanceof IParty) {
             for (Map.Entry<Item, Integer> entry : items.entrySet()) {
                 int count = 0;
-                while (count < entry.getValue ()) {
+                while (count < entry.getValue()) {
                     ((IParty) interactable).addItemToInventory(entry.getKey());
 
-                    count ++;
+                    count++;
                 }
             }
         }
         this.killObserver.onKill(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setKillObserver (KillObserver killObserver) {
+    public void setKillObserver(final KillObserver killObserver) {
         this.killObserver = killObserver;
     }
 }
