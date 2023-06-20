@@ -33,6 +33,7 @@ public class FightNPCImpl extends AbstractNPCImpl implements FightNPC, StateTrig
                         final int width, final FightModel fightModel) {
         super(name, x, y, height, width);
         this.fightModel = fightModel;
+        this.killObserver = null;
     }
 
     /**

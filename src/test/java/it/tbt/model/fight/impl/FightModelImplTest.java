@@ -20,24 +20,27 @@ import it.tbt.model.entities.characters.Enemy;
 import it.tbt.model.party.IParty;
 import it.tbt.model.party.Party;
 
-public class FightModelImplTest {
+public final class FightModelImplTest {
 
     private FightModelImpl fightModel;
 
+    @SuppressWarnings("MagicNumber")
     @BeforeEach
     public void setUp() {
         int averageEnemyStat = 10;
         final Map<Item, Double> drops = new HashMap<>();
-        fightModel = new FightModelImpl(averageEnemyStat, drops);
-        final IParty party = new Party("Party", 75, 75, 75, 75);
         final List<Ally> allies = new ArrayList<>();
         allies.add(new Ally("Roberto", 10, 10, 10));
         allies.add(new Ally("Roberto", 10, 10, 11));
         allies.add(new Ally("Roberto", 10, 10, 12));
         allies.add(new Ally("Roberto", 10, 10, 13));
+        fightModel = new FightModelImpl(averageEnemyStat, drops);
+        final IParty party = new Party("Party", 75, 75, 75, 75, allies);
+
         fightModel.initializeParty(party);
     }
 
+    @SuppressWarnings("MagicNumber")
     @Test
     public void testInitializeParty() {
         // Create a party
@@ -137,6 +140,7 @@ public class FightModelImplTest {
         assertTrue(sumHPEnemyAfter < sumHPEnemy);
     }
 
+    @SuppressWarnings("MagicNumber")
     @Test
     void testSelectNextTarget() {
         // Simulate selecting the next target
@@ -149,6 +153,7 @@ public class FightModelImplTest {
         assertTrue(updatedTargetIndex == initialTargetIndex + 1 || updatedTargetIndex == 3);
     }
 
+    @SuppressWarnings("MagicNumber")
     @Test
     void testSelectPreviousTarget() {
         // Simulate selecting the previous target

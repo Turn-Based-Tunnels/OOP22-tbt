@@ -33,6 +33,7 @@ public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC, Killabl
             throw new IllegalArgumentException("Heal amount cannot be negative");
         }
         this.healAmount = healAmount;
+        this.killObserver = null;
     }
 
     /**
@@ -60,8 +61,11 @@ public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC, Killabl
         this.killObserver.onKill(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setKillObserver (final KillObserver killObserver) {
+    public void setKillObserver(final KillObserver killObserver) {
         this.killObserver = killObserver;
     }
 }

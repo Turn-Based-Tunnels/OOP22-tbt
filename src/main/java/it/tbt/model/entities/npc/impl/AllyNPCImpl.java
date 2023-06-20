@@ -7,7 +7,7 @@ import it.tbt.model.entities.npc.api.AllyNPC;
 import it.tbt.model.party.IParty;
 import it.tbt.model.world.api.KillObserver;
 
-import java.lang.reflect.Member;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +40,7 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC, KillableEnt
         }
 
         this.ally = new Ally(ally.getName(), ally.getMaxHealth(), ally.getAttack(), ally.getSpeed(), ally.getSkills());
+        this.killObserver = null;
     }
 
     /**
@@ -57,15 +58,18 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC, KillableEnt
     @Override
     public void onInteraction(final SpatialEntity interactionTrigger) {
         if (interactionTrigger instanceof IParty) {
-            List<Ally> temp = new ArrayList<> (((IParty) interactionTrigger).getMembers ());
+            List<Ally> temp = new ArrayList<>(((IParty) interactionTrigger).getMembers());
             temp.add(ally);
             ((IParty) interactionTrigger).setMembers(temp);
         }
         this.killObserver.onKill(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setKillObserver (KillObserver killObserver) {
+    public void setKillObserver(final KillObserver killObserver) {
         this.killObserver = killObserver;
     }
 }

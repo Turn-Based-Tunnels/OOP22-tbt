@@ -29,7 +29,7 @@ public final class PartyFactory {
     /**
      * @return a Party object with default settings.
      */
-    @SuppressWarnings("magicnumber")
+    @SuppressWarnings("MagicNumber")
     public static IParty createDefaultParty() {
         IParty party = new Party(DEFAULT_PARTY_NAME,
                 (DEFAULT_WIDTH / 2),
