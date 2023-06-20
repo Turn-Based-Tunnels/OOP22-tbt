@@ -72,7 +72,9 @@ public final class ExploreControllerImpl extends AbstractViewController {
     /**
      * Trigger the {@link it.tbt.model.GameState#INVENTORY} GameState.
      */
-    private void triggerInventory() { this.addCommand(new CommandInventory(this.modelState.getTriggerInventory())); }
+    private void triggerInventory() {
+        this.addCommand(new CommandInventory(this.modelState.getTriggerInventory()));
+    }
 
     @Override
     public void onKeyPressed(final int key) {

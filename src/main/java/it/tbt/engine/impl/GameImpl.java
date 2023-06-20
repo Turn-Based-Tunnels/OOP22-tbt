@@ -78,6 +78,10 @@ public final class GameImpl implements Game {
         }
         return !r;
     }
+
+    /**
+     * Checks if the game has been initialized. Throws an IllegalStateException if not.
+     */
     private void checkInit() {
         if (!this.initialized) {
             throw new IllegalStateException("Game object has not been initialized.");

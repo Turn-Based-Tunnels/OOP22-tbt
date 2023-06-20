@@ -1,66 +1,66 @@
 [
   {
-    "imagePath": "./tbt/images/ally.gif",
+    "imagePath": "tbt/images/ally.gif",
     "objectClass": "it.tbt.model.party.Party"
   },
   {
-    "imagePath": "./tbt/images/roomLink.png",
+    "imagePath": "tbt/images/roomLink.png",
     "objectClass": "it.tbt.model.roomLink.RoomLinkImpl"
   },
   {
-    "imagePath": "./tbt/images/Room.png",
+    "imagePath": "tbt/images/Room.png",
     "objectClass": "it.tbt.model.world.impl.RoomImpl"
   },
   {
-    "imagePath": "./tbt/images/enemy.gif",
+    "imagePath": "tbt/images/enemy.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.FightNPCImpl"
   },
   {
-    "imagePath": "./tbt/images/shop.gif",
+    "imagePath": "tbt/images/shop.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.ShopNPCImpl"
   },
   {
-    "imagePath": "./tbt/images/itemnpc.gif",
+    "imagePath": "tbt/images/itemnpc.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.ItemNPCImpl"
   },
   {
-    "imagePath": "./tbt/images/heal.gif",
+    "imagePath": "tbt/images/heal.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.HealerNPCImpl"
   },
   {
-    "imagePath": "./tbt/images/menuBackground.png",
+    "imagePath": "tbt/images/menuBackground.png",
     "objectClass": "it.tbt.controller.modelmanager.MenuStateImpl"
   },
   {
-    "imagePath": "./tbt/images/menuBackground.png",
+    "imagePath": "tbt/images/menuBackground.png",
     "objectClass": "it.tbt.controller.modelmanager.shop.ShopStateImpl"
   },
   {
-    "imagePath": "./tbt/images/menuBackground.png",
+    "imagePath": "tbt/images/menuBackground.png",
     "objectClass": "it.tbt.controller.modelmanager.InventoryStateImpl"
   },
   {
-    "imagePath": "./tbt/images/wall.png",
+    "imagePath": "tbt/images/wall.png",
     "objectClass": "it.tbt.controller.modelmanager.ExploreStateImpl"
   },
   {
-    "imagePath": "./tbt/images/ally.gif",
+    "imagePath": "tbt/images/ally.gif",
     "objectClass": "it.tbt.model.entities.characters.Ally"
   },
   {
-    "imagePath": "./tbt/images/allyNPC.gif",
+    "imagePath": "tbt/images/allyNPC.gif",
     "objectClass": "it.tbt.model.entities.npc.impl.AllyNPCImpl"
   },
   {
-    "imagePath": "./tbt/images/enemy.gif",
+    "imagePath": "tbt/images/enemy.gif",
     "objectClass": "it.tbt.model.entities.characters.Enemy"
   },
   {
-    "imagePath": "./tbt/images/bricks.png",
+    "imagePath": "tbt/images/bricks.png",
     "objectClass": "it.tbt.controller.modelmanager.FightStateImpl"
   },
   {
-    "imagePath": "./tbt/images/EndEntity.png",
+    "imagePath": "tbt/images/EndEntity.png",
     "objectClass": "it.tbt.model.entities.EndEntity"
   }
 ]

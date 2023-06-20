@@ -13,6 +13,8 @@ import it.tbt.model.command.api.Command;
 import it.tbt.model.GameState;
 import it.tbt.view.api.GameView;
 import it.tbt.view.api.GameViewFactory;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -133,8 +135,14 @@ public class GameViewManagerImpl implements ViewControllerManager {
             var x = createViewFunction.apply(state, controller);
             this.currentController = controller;
             this.currentGameView = x;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
     }
 }

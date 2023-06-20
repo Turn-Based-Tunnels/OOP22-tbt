@@ -14,7 +14,6 @@ import javafx.stage.Stage;
  */
 
 public abstract class AbstractJavaFxView extends AbstractGameView {
-    private final Stage stage;
     private Scene scene;
 
     /**
@@ -24,7 +23,6 @@ public abstract class AbstractJavaFxView extends AbstractGameView {
      */
     protected AbstractJavaFxView(final ViewController viewController, final Stage stage, final Scene scene) {
         super(viewController);
-        this.stage = stage;
         this.scene = scene;
         scene.setCursor(Cursor.NONE);
         stage.setResizable(false);

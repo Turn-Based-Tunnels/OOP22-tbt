@@ -30,7 +30,11 @@ import java.util.ArrayList;
  * Factory with static methods for creation of World objects.
  */
 public final class WorldFactory {
+    /**
+     * Utility class should not have public constructor.
+     */
     private WorldFactory() { }
+
     private static final Random RND = new Random();
     private static final int STANDARD_ENTITY_HEIGHT = 50,
             STANDARTD_ENTITY_WIDTH = 50,
@@ -53,8 +57,12 @@ public final class WorldFactory {
     private static final int INT_CONST_10000 = 10000;
 
     /**
+<<<<<<< HEAD
+     * @return a World object created by Default values.
+=======
      * Create World implementation with default implementation.
      * @return world object
+>>>>>>> 18abf332c73efb92c288d3dc3b8e6379e47155a1
      */
     public static World createWorldDefault() {
         World w = new WorldImpl();
