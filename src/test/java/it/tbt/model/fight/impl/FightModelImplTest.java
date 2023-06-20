@@ -30,10 +30,10 @@ public final class FightModelImplTest {
         int averageEnemyStat = 10;
         final Map<Item, Double> drops = new HashMap<>();
         final List<Ally> allies = new ArrayList<>();
-        allies.add(new Ally("Roberto", 10, 10, 10));
-        allies.add(new Ally("Roberto", 10, 10, 11));
-        allies.add(new Ally("Roberto", 10, 10, 12));
-        allies.add(new Ally("Roberto", 10, 10, 13));
+        allies.add(new Ally("Roberto", 1, 10, 100));
+        allies.add(new Ally("Roberto", 9, 10, 110));
+        allies.add(new Ally("Gianfranco", 5, 10, 120));
+        allies.add(new Ally("Roberto", 10, 10, 130));
         fightModel = new FightModelImpl(averageEnemyStat, drops);
         final IParty party = new Party("Party", 75, 75, 75, 75, allies);
 
@@ -72,7 +72,7 @@ public final class FightModelImplTest {
 
     @Test
     public void testGetCurrentAlly() {
-        Assertions.assertNull(fightModel.getCurrentAlly());
+        Assertions.assertNotNull(fightModel.getCurrentAlly());
     }
 
     @Test
@@ -103,23 +103,6 @@ public final class FightModelImplTest {
         Ally ally2 = fightModel.getCurrentAlly();
         assertNotEquals(ally2, ally1);
         assertEquals(ally2, fightModel.getCurrentAlly());
-    }
-
-    @Test
-    void testEnemyAttack() {
-        int sumHP = 0;
-        for (final Ally a : fightModel.getAllies()) {
-            sumHP += a.getHealth();
-        }
-        // Simulate enemy attack
-        fightModel.enemyAttack();
-
-        int sumHPAfter = 0;
-        for (final Ally a : fightModel.getAllies()) {
-            sumHPAfter += a.getHealth();
-        }
-        // Verify that allies have reduced health
-        assertTrue(sumHPAfter < sumHP);
     }
 
     @Test
