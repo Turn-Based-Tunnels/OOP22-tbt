@@ -34,8 +34,14 @@ public final class FightModelImplTest {
     private static final int ALLY2_SPEED = 110;
     private static final int ALLY3_SPEED = 120;
     private static final int ALLY4_SPEED = 130;
+    private static final int INT_CONST_7 = 7;
+    private static final int INT_CONST_9 = 9;
     private static final int DEFAULT_POSITION_AND_SIZE = 75;
 
+    /**
+     * Sets up the class for testing. The class needs some party members, a party
+     * and enemies.
+     */
     @SuppressWarnings("MagicNumber")
     @BeforeEach
     public void setUp() {
@@ -62,8 +68,8 @@ public final class FightModelImplTest {
         // Create a party
         Party party = new Party("Party", DEFAULT_POSITION_AND_SIZE, DEFAULT_POSITION_AND_SIZE,
                 DEFAULT_POSITION_AND_SIZE, DEFAULT_POSITION_AND_SIZE);
-        Ally ally1 = new Ally("Ally 1", 20, 5, 8);
-        Ally ally2 = new Ally("Ally 2", 18, 7, 6);
+        Ally ally1 = new Ally("Ally 1", BASE_HEALTH, INT_CONST_7, INT_CONST_9);
+        Ally ally2 = new Ally("Ally 2", BASE_HEALTH, INT_CONST_9, INT_CONST_7);
         party.addMember(ally1);
         party.addMember(ally2);
 
