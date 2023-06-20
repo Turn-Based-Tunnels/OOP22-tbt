@@ -10,6 +10,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Handle Serialization and Deserialization of Optiona<T> objects.
  * @param <T>
@@ -18,6 +20,10 @@ import com.google.gson.JsonSerializer;
 public final class OptionalHandler<T> implements JsonSerializer<Optional<T>>, JsonDeserializer<Optional<T>> {
 
     @Override
+    @SuppressFBWarnings(
+        value = "BC",
+        justification = "ParameterizedType extends the interface Type"
+    )
     public Optional<T> deserialize(
         final JsonElement json,
         final Type typeOfT,

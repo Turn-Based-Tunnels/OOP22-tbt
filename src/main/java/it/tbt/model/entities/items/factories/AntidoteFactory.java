@@ -7,7 +7,8 @@ import it.tbt.controller.resources.ConfigManager;
 import it.tbt.model.entities.items.Antidote;
 
 /**
- * Antidote Factory.
+ * Singleton antidote factory.
+ * Reads tbt/entities/antidote.json
  */
 public final class AntidoteFactory implements ItemFactory<Antidote> {
     private final Antidote antidote;

@@ -4,6 +4,7 @@ package it.tbt.model.shop;
 import java.util.Map;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.characters.Inventory;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.party.IParty;
@@ -14,6 +15,7 @@ import it.tbt.model.statechange.StateTrigger;
  * Shop model class.
  */
 public class Shop implements StateTrigger {
+    private static final String error = "The shop does not have a reference to the party";
     private StateObserver stateObserver;
     private IParty party;
     private final Inventory shopInventory;
@@ -25,6 +27,10 @@ public class Shop implements StateTrigger {
      * @param shopItems
      * @param wallet
      */
+    @SuppressFBWarnings(
+        value = "EI2",
+        justification = "The Shop needs to access the exact instance of the Party the game is using."
+    )
     public Shop(final IParty party, final Map<Item, Integer> shopItems, final int wallet) {
         this.party = party;
         this.shopInventory = new Inventory(shopItems);
@@ -69,7 +75,7 @@ public class Shop implements StateTrigger {
      */
     public Map<Item, Integer> getPartyItems() {
         if (party == null) {
-            throw new IllegalStateException("The shop does not have a reference to the party");
+            throw new IllegalStateException(error);
         }
         return party.getInventory();
     }
@@ -89,7 +95,7 @@ public class Shop implements StateTrigger {
      */
     public boolean sell(final String name) {
         if (party == null) {
-            throw new IllegalStateException("The shop does not have a reference to the party");
+            throw new IllegalStateException(error);
         }
         final Optional<Item> optItem = mapContainsItem(name, shopInventory.getItems());
         if (!optItem.isEmpty()) {
@@ -115,7 +121,7 @@ public class Shop implements StateTrigger {
      */
     public boolean buy(final String name) {
         if (party == null) {
-            throw new IllegalStateException("The shop does not have a reference to the party");
+            throw new IllegalStateException(error);
         }
         final Optional<Item> optItem = mapContainsItem(name, party.getInventory());
         if (!optItem.isEmpty()) {
@@ -140,7 +146,7 @@ public class Shop implements StateTrigger {
      */
     public int getPartyWallet() {
         if (party == null) {
-            throw new IllegalStateException("The shop does not have a reference to the party");
+            throw new IllegalStateException(error);
         }
         return party.getWallet();
     }
@@ -165,6 +171,10 @@ public class Shop implements StateTrigger {
      * Initialize party reference.
      * @param party
      */
+    @SuppressFBWarnings(
+        value = "EI2",
+        justification = "The Shop needs to access the exact instance of the Party the game is using."
+    )
     public void setParty(final IParty party) {
         this.party = party;
     }

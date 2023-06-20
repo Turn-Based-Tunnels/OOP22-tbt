@@ -8,7 +8,8 @@ import it.tbt.controller.resources.ConfigManager;
 import it.tbt.model.entities.items.Armor;
 
 /**
- * Factory of armors.
+ * Singleton armors factory.
+ * Reads tbt/entities/armors.json
  */
 public final class ArmorFactory implements ItemFactory<Armor> {
     private final Set<Armor> items;
