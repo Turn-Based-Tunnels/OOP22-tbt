@@ -15,13 +15,12 @@ public class AnimationTimerGameLoopManager {
      */
     public AnimationTimerGameLoopManager(final GameLoop gameLoop) {
         this.loop = gameLoop;
-        var gameLoopAnimationTimer = new AnimationTimer() {
+        this.gameLoopAnimationTimer = new AnimationTimer() {
             @Override
             public void handle(final long now) {
                 loop.loop();
             }
         };
-        this.gameLoopAnimationTimer = gameLoopAnimationTimer;
     }
 
     /**

@@ -56,7 +56,7 @@ public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC, KillableEnt
     @Override
     public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
-            for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            for (final Map.Entry<Item, Integer> entry : items.entrySet()) {
                 int count = 0;
                 while (count < entry.getValue()) {
                     ((IParty) interactable).addItemToInventory(entry.getKey());

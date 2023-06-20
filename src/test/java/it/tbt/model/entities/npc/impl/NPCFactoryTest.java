@@ -24,13 +24,13 @@ class NPCFactoryTest {
     static final int INT_CONST_20 = 20;
     static final int INT_CONST_30 = 30;
     static final int INT_CONST_50 = 50;
-    static final int INT_CONST_10000 = 10000;
+    static final int INT_CONST_10000 = 10_000;
 
 
     @Test
     void testCreateDialogueNPC() {
         // Create a dialogue NPC using the NPCFactory
-        NPC dialogueNPC = NPCFactory.createDialogueNPC("John", INT_CONST_10, INT_CONST_20,
+        final NPC dialogueNPC = NPCFactory.createDialogueNPC("John", INT_CONST_10, INT_CONST_20,
                 INT_CONST_50, INT_CONST_30, "Hello, how can I help you?");
 
         // Assert that the NPC is an instance of DialogueNPCImpl
@@ -50,12 +50,12 @@ class NPCFactoryTest {
     @Test
     void testCreateItemNPC() {
         // Create a map of items for the item NPC
-        Map<Item, Integer> items = new HashMap<>();
+        final Map<Item, Integer> items = new HashMap<>();
         items.put((Item) WeaponFactory.getInstance().getItems().toArray()[0], 1);
         items.put((Item) ArmorFactory.getInstance().getItems().toArray()[0], 2);
 
         // Create an item NPC using the NPCFactory
-        NPC itemNPC = NPCFactory.createItemNPC("Merchant",
+        final NPC itemNPC = NPCFactory.createItemNPC("Merchant",
                 INT_CONST_10, INT_CONST_20, INT_CONST_50, INT_CONST_30, items);
 
         // Assert that the NPC is an instance of ItemNPCImpl
@@ -73,15 +73,13 @@ class NPCFactoryTest {
     @Test
     void testCreateShopNPC() {
         // Create a shop for the shop NPC
-        Shop shop = new Shop(new HashMap<Item, Integer>() {{
-            put((Item) WeaponFactory.getInstance().getItems().toArray()[0], 1);
-            put((Item) ArmorFactory.getInstance().getItems().toArray()[0], 2);
-
-
-        }}, INT_CONST_10000);
+        final Map<Item, Integer> shopMap = new HashMap<>();
+        shopMap.put((Item) WeaponFactory.getInstance().getItems().toArray()[0], 1);
+        shopMap.put((Item) ArmorFactory.getInstance().getItems().toArray()[0], 2);
+        final Shop shop = new Shop(shopMap, INT_CONST_10000);
 
         // Create a shop NPC using the NPCFactory
-        NPC shopNPC = NPCFactory.createShopNPC("Shopkeeper",
+        final NPC shopNPC = NPCFactory.createShopNPC("Shopkeeper",
                 INT_CONST_10, INT_CONST_20, INT_CONST_50, INT_CONST_30, shop);
 
         // Assert that the NPC is an instance of ShopNPCImpl
@@ -99,7 +97,7 @@ class NPCFactoryTest {
     @Test
     void testCreateHealerNPC() {
         // Create a healer NPC using the NPCFactory
-        NPC healerNPC = NPCFactory.createHealerNPC("Healer",
+        final NPC healerNPC = NPCFactory.createHealerNPC("Healer",
                 INT_CONST_10, INT_CONST_20, INT_CONST_50, INT_CONST_30, INT_CONST_10);
 
         // Assert that the NPC is an instance of HealerNPCImpl
@@ -117,15 +115,14 @@ class NPCFactoryTest {
     @Test
     void testCreateFightNPC() {
         // Create a fight model for the fight NPC
-        FightModel fightModel = new FightModelImpl(INT_CONST_10, new HashMap<Item, Double>() {{
-            put((Item) WeaponFactory.getInstance().getItems().toArray()[0], 0.5);
-            put((Item) ArmorFactory.getInstance().getItems().toArray()[0], 0.5);
-
-
-        }});
+        final Map<Item, Double> drop = new HashMap<>();
+        drop.put((Item) WeaponFactory.getInstance().getItems().toArray()[0], 0.5);
+        drop.put((Item) ArmorFactory.getInstance().getItems().toArray()[0], 0.5);
+        final FightModel fightModel = new FightModelImpl(INT_CONST_10, drop);
 
         // Create a fight NPC using the NPCFactory
-        NPC fightNPC = NPCFactory.createFightNPC("Enemy", INT_CONST_10, INT_CONST_20, INT_CONST_50, INT_CONST_30, fightModel);
+        final NPC fightNPC = NPCFactory.createFightNPC("Enemy", INT_CONST_10,
+                INT_CONST_20, INT_CONST_50, INT_CONST_30, fightModel);
 
         // Assert that the NPC is an instance of FightNPCImpl
         assertTrue(fightNPC instanceof FightNPCImpl);
@@ -142,10 +139,10 @@ class NPCFactoryTest {
     @Test
     void testCreateAllyNPC() {
         // Create an ally for the ally NPC
-        Ally ally = CharacterFactory.createAlly("asd", INT_CONST_10, INT_CONST_10, INT_CONST_10);
+        final Ally ally = CharacterFactory.createAlly("asd", INT_CONST_10, INT_CONST_10, INT_CONST_10);
 
         // Create an ally NPC using the NPCFactory
-        NPC allyNPC = NPCFactory.createAllyNPC("Friend", INT_CONST_10, INT_CONST_20, INT_CONST_50, INT_CONST_30, ally);
+        final NPC allyNPC = NPCFactory.createAllyNPC("Friend", INT_CONST_10, INT_CONST_20, INT_CONST_50, INT_CONST_30, ally);
 
         // Assert that the NPC is an instance of AllyNPCImpl
         assertTrue(allyNPC instanceof AllyNPCImpl);

@@ -37,10 +37,10 @@ public class JavaFxEndingView extends AbstractJavaFxView {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            StackPane root = new StackPane();
+            final StackPane root = new StackPane();
             root.getChildren().clear();
-            VBox vbox = new VBox();
-            Label title = new Label(main.getMessage());
+            final VBox vbox = new VBox();
+            final Label title = new Label(main.getMessage());
             vbox.getChildren().add(title);
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(10);

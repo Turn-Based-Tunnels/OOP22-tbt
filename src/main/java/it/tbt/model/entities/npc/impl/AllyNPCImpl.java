@@ -58,7 +58,7 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC, KillableEnt
     @Override
     public void onInteraction(final SpatialEntity interactionTrigger) {
         if (interactionTrigger instanceof IParty) {
-            List<Ally> temp = new ArrayList<>(((IParty) interactionTrigger).getMembers());
+            final List<Ally> temp = new ArrayList<>(((IParty) interactionTrigger).getMembers());
             temp.add(ally);
             ((IParty) interactionTrigger).setMembers(temp);
         }

@@ -67,20 +67,20 @@ public class JavaFxInventoryView extends AbstractJavaFxView {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            VBox root = new VBox();
+            final VBox root = new VBox();
 
 
             root.getChildren().clear();
 
             int counter = 0;
-            VBox inventoryList = new VBox();
-            for (Map.Entry<Item, Integer> x
+            final VBox inventoryList = new VBox();
+            for (final Map.Entry<Item, Integer> x
                     : inventoryState.getInventory().entrySet()) {
-                Label label = new Label(((new ItemPair(x.getKey(), x.getValue())).toString()));
-                if (inventoryState.getPhase() == InventoryPhase.INVENTORY && inventoryState.getItemSelected() == -1) {
-                    if (counter == inventoryState.getItemFocus()) {
-                        label.setStyle("-fx-background-color: yellow;");
-                    }
+                final Label label = new Label(new ItemPair(x.getKey(), x.getValue()).toString());
+                if (inventoryState.getPhase() == InventoryPhase.INVENTORY
+                        && inventoryState.getItemSelected() == -1
+                        && counter == inventoryState.getItemFocus()) {
+                    label.setStyle("-fx-background-color: yellow;");
                 }
                 if (inventoryState.getPhase() == InventoryPhase.INVENTORY && inventoryState.getItemSelected() != -1) {
                     if (counter == inventoryState.getItemSelected()) {
@@ -94,61 +94,57 @@ public class JavaFxInventoryView extends AbstractJavaFxView {
                 counter++;
             }
             if (inventoryList.getChildren().size() == 0) {
-                Label label = new Label("Inventario vuoto");
+                final Label label = new Label("Inventario vuoto");
                 inventoryList.getChildren().add(label);
             }
 
             // Create a label for the inventory title
-            Label inventoryTitle = new Label("Inventory");
+            final Label inventoryTitle = new Label("Inventory");
             inventoryTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
             inventoryList.setFocusTraversable(false);
 
             // Create a VBox for the inventory
-            VBox inventoryBox = new VBox(10, inventoryTitle, inventoryList);
+            final VBox inventoryBox = new VBox(10, inventoryTitle, inventoryList);
             inventoryBox.setPadding(new Insets(10));
 
-            VBox memberBox = new VBox();
-            Label memberTitle = new Label("Member details");
+            final VBox memberBox = new VBox();
+            final Label memberTitle = new Label("Member details");
             memberTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
             memberTitle.setFocusTraversable(false);
             memberBox.getChildren().add(memberTitle);
             // Create party member list
-            VBox partyList = new VBox();
+            final VBox partyList = new VBox();
             counter = 0;
-            for (Ally ally
+            for (final Ally ally
                     : this.inventoryState.getPartyMembers()) {
-                Label label = new Label(ally.getName());
+                final Label label = new Label(ally.getName());
                 if (counter < this.inventoryState.getPartySize()) {
                     label.setStyle("-fx-border-color: red;");
                 }
                 if (inventoryState.getPhase() == InventoryPhase.MEMBERS
-                        && inventoryState.getAllySelected() != -1) {
-                    if (counter == inventoryState.getAllySelected()) {
-                        label.setStyle(label.getStyle() + "-fx-background-color: lightblue;");
-                    }
+                        && inventoryState.getAllySelected() != -1
+                        && counter == inventoryState.getAllySelected()) {
+                    label.setStyle(label.getStyle() + "-fx-background-color: lightblue;");
                 }
-                if ((inventoryState.getPhase() == InventoryPhase.INVENTORY && inventoryState.getItemSelected() != -1)
-                        || (inventoryState.getPhase() == InventoryPhase.MEMBERS && inventoryState.getAllySelected() == -1)
-                        || (inventoryState.getPhase() == InventoryPhase.MEMBERS && inventoryState.getAllySelected() != -1)) {
-                    if (counter == inventoryState.getAllyFocused()) {
-                        label.setStyle(label.getStyle() + "-fx-background-color: yellow;");
-                        memberBox.getChildren().addAll(new Label("Name: " + ally.getName()),
-                                                            new Label("HP: " + ally.getHealth() + "/" + ally.getMaxHealth()),
-                                                            new Label("Status: " + ally.getStatuses().toString()),
-                                                            new Label("Skill: "
-                                                                    + ally.getSkills().get(0).getAttackMultiplier()),
-                                                            new Label("Attack: " + ally.getAttack()),
-                                                            new Label("Speed: " + ally.getSpeed()),
-                                                            new Label("Weapon: "
-                                                                    + (ally.getWeapon().isPresent()
-                                                                            ? ally.getWeapon().get().toString() : "")),
-                                                            new Label("Armor: "
-                                                                    + (ally.getArmor().isPresent()
-                                                                            ? ally.getArmor().get().toString() : ""))
-                        );
-
-
-                    }
+                if ((inventoryState.getPhase() == InventoryPhase.INVENTORY && inventoryState.getItemSelected() != -1
+                        || inventoryState.getPhase() == InventoryPhase.MEMBERS && inventoryState.getAllySelected() == -1
+                        || inventoryState.getPhase() == InventoryPhase.MEMBERS && inventoryState.getAllySelected() != -1)
+                        && counter == inventoryState.getAllyFocused()) {
+                    label.setStyle(label.getStyle() + "-fx-background-color: yellow;");
+                    memberBox.getChildren().addAll(new Label("Name: " + ally.getName()),
+                                                    new Label("HP: " + ally.getHealth() + "/" + ally.getMaxHealth()),
+                                                    new Label("Status: " + ally.getStatuses().toString()),
+                                                    new Label("Skill: "
+                                                            + ally.getSkills().get(0).getAttackMultiplier()),
+                                                    new Label("Attack: " + ally.getAttack()),
+                                                    new Label("Speed: " + ally.getSpeed()),
+                                                    new Label("Weapon: "
+                                                            + (ally.getWeapon().isPresent()
+                                                                    ? ally.getWeapon().get().toString() : "")),
+                                                    new Label("Armor: "
+                                                            + (ally.getArmor().isPresent()
+                                                                    ? ally.getArmor().get().toString() : ""))
+                    );
                 }
 
                 partyList.getChildren().add(label);
@@ -157,18 +153,18 @@ public class JavaFxInventoryView extends AbstractJavaFxView {
 
 
             // Create a label for the party title
-            Label partyTitle = new Label("Party");
+            final Label partyTitle = new Label("Party");
             partyTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
             partyList.setFocusTraversable(false);
             // Create a VBox for the party members
-            VBox partyBox = new VBox(10, partyTitle, partyList);
+            final VBox partyBox = new VBox(10, partyTitle, partyList);
             partyBox.setPadding(new Insets(10));
             // Create a BorderPane as the root pane
-            GridPane pane = new GridPane();
+            final GridPane pane = new GridPane();
             pane.setHgap(10);
-            ColumnConstraints column1 = new ColumnConstraints();
-            ColumnConstraints column2 = new ColumnConstraints();
-            ColumnConstraints column3 = new ColumnConstraints();
+            final ColumnConstraints column1 = new ColumnConstraints();
+            final ColumnConstraints column2 = new ColumnConstraints();
+            final ColumnConstraints column3 = new ColumnConstraints();
             column1.setPercentWidth(COLUMN_WIDTH);
             column2.setPercentWidth(COLUMN_WIDTH);
             column3.setPercentWidth(COLUMN_WIDTH);

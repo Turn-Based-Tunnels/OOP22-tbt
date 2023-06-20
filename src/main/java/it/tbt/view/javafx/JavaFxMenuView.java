@@ -60,19 +60,19 @@ public class JavaFxMenuView extends AbstractJavaFxView {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            StackPane root = new StackPane();
+            final StackPane root = new StackPane();
             root.getChildren().clear();
-            VBox vbox = new VBox();
-            Label title = new Label(main.getTitle());
+            final VBox vbox = new VBox();
+            final Label title = new Label(main.getTitle());
             title.setStyle("-fx-text-fill: white; -fx-font-size: 25px;");
             vbox.getChildren().add(title);
             int count = 0;
             //System.out.println(main.getFocus());
-            for (MenuItem item
+            for (final MenuItem item
                     : main.getItems()) {
                 if (item instanceof MenuButton) {
-                    Button button = new Button(item.getText());
-                    Font buttonFont = Font.font("Arial", FontWeight.BOLD, 16);
+                    final Button button = new Button(item.getText());
+                    final Font buttonFont = Font.font("Arial", FontWeight.BOLD, 16);
                     if (count == main.getFocus()) {
                         button.setStyle("-fx-background-color: lightblue;");
                     }
@@ -83,11 +83,11 @@ public class JavaFxMenuView extends AbstractJavaFxView {
                     button.setFocusTraversable(false);
                     button.setMinWidth(vbox.getPrefWidth());
                     vbox.getChildren().add(button);
-                } else if (item instanceof it.tbt.model.menu.api.MenuSelect) {
-                    Label label = new Label(item.getText());
+                } else if (item instanceof MenuSelect) {
+                    final Label label = new Label(item.getText());
                     label.setFocusTraversable(false);
-                    Button button = new Button("<      " + ((MenuSelect) item).getLabel() + "      >");
-                    Font buttonFont = Font.font("Arial", FontWeight.BOLD, 16);
+                    final Button button = new Button("<      " + ((MenuSelect) item).getLabel() + "      >");
+                    final Font buttonFont = Font.font("Arial", FontWeight.BOLD, 16);
                     if (count == main.getFocus()) {
                         button.setStyle("-fx-background-color: lightblue;");
                     }

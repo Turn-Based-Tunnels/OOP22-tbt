@@ -37,11 +37,11 @@ public class MenuStateImpl implements MenuState {
      */
     @Override
     public void nextElement() {
-        List<MenuItem> items = menuModel.getItems();
+        final List<MenuItem> items = menuModel.getItems();
         if (items.isEmpty()) {
             throw new IllegalStateException("Menu has no items");
         }
-        int focus = menuModel.getFocus();
+        final int focus = menuModel.getFocus();
         menuModel.setFocus((focus + 1) % items.size());
     }
 
@@ -50,11 +50,11 @@ public class MenuStateImpl implements MenuState {
      */
     @Override
     public void previousElement() {
-        List<MenuItem> items = menuModel.getItems();
+        final List<MenuItem> items = menuModel.getItems();
         if (items.isEmpty()) {
             throw new IllegalStateException("Menu has no items");
         }
-        int focus = menuModel.getFocus();
+        final int focus = menuModel.getFocus();
         menuModel.setFocus((focus - 1) < 0 ? items.size() - 1 : focus - 1);
     }
 
@@ -82,7 +82,7 @@ public class MenuStateImpl implements MenuState {
         if (menuModel == null) {
             throw new IllegalStateException("Menu model not set");
         }
-        menuModel.toExplore();
+        menuModel.triggerExplore();
     }
 
     /**

@@ -42,9 +42,7 @@ public class ShopNPCImpl extends AbstractNPCImpl implements ShopNPC, StateTrigge
     }
 
     /**
-     * Returns the shop associated with the shop NPC.
-     *
-     * @return the shop associated with the shop NPC
+     * {@inheritDoc}
      */
     @SuppressFBWarnings(
             value = {
@@ -52,6 +50,7 @@ public class ShopNPCImpl extends AbstractNPCImpl implements ShopNPC, StateTrigge
             },
             justification = "The NPC have to expose the exact instance of shop."
     )
+    @Override
     public Shop getShop() {
         return shop;
     }

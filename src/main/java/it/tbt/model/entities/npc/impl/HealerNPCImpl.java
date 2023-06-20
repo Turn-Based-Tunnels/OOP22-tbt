@@ -50,7 +50,7 @@ public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC, Killabl
     @Override
     public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
-            for (Ally ally : ((IParty) interactable).getMembers()) {
+            for (final Ally ally : ((IParty) interactable).getMembers()) {
                 if (ally.getHealth() + this.getHealAmount() <= ally.getMaxHealth()) {
                     ally.setHealth(ally.getHealth() + this.getHealAmount());
                 } else {

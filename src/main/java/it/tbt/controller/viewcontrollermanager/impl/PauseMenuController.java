@@ -34,19 +34,19 @@ public class PauseMenuController extends AbstractViewController {
     @Override
     public void onKeyPressed(final int key) {
         switch (key) {
-            case KeyEvent.VK_UP, KeyEvent.VK_W -> this.addCommand(() -> modelState.previousElement());
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> this.addCommand(() -> modelState.nextElement());
-            case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> this.addCommand(() -> modelState.previousElement());
+            case KeyEvent.VK_DOWN, KeyEvent.VK_S -> this.addCommand(() -> modelState.nextElement());
+            case KeyEvent.VK_SPACE, KeyEvent.VK_ENTER -> {
                 if (modelState.getItems().get(modelState.getFocus()) instanceof MenuButton) {
                     this.addCommand(((MenuButton) modelState.getItems().get(modelState.getFocus())).getAction());
                 }
             }
-            case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> {
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
                 if (modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>) {
                     this.addCommand(((MenuSelect) modelState.getItems().get(modelState.getFocus())).nextOption());
                 }
             }
-            case KeyEvent.VK_LEFT, KeyEvent.VK_A -> {
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
                 if (modelState.getItems().get(modelState.getFocus()) instanceof MenuSelect<?>) {
                     this.addCommand(((MenuSelect) modelState.getItems().get(modelState.getFocus())).previousOption());
                 }

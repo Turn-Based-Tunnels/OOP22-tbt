@@ -9,7 +9,7 @@ class MenuFactoryTest {
     @Test
     void testGetMainMenu() {
         // Get the main menu from the MenuFactory
-        MenuModelImpl mainMenu = MenuFactory.getMainMenu();
+        final MenuModelImpl mainMenu = MenuFactory.getMainMenu();
 
         // Assert that the menu title is correct
         assertEquals("Main Menu", mainMenu.getTitle());
@@ -25,7 +25,7 @@ class MenuFactoryTest {
     @Test
     void testGetPauseMenu() {
         // Get the pause menu from the MenuFactory
-        MenuModelImpl pauseMenu = MenuFactory.getPauseMenu();
+        final MenuModelImpl pauseMenu = MenuFactory.getPauseMenu();
 
         // Assert that the menu title is correct
         assertEquals("Pause", pauseMenu.getTitle());

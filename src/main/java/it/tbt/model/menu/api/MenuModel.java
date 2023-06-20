@@ -38,5 +38,5 @@ public interface MenuModel {
     /**
      * Performs the "Explore" action.
      */
-    void toExplore();
+    void triggerExplore();
 }
