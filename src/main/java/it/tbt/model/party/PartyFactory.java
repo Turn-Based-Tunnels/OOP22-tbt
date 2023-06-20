@@ -20,9 +20,11 @@ public final class PartyFactory {
     private static final String DEFAULT_PARTY_NAME = "PARTY";
 
     /**
-     * Private constructor not to give the possibility to instantiate a utility class.
+     * Private constructor not to give the possibility to instantiate a utility
+     * class.
      */
-    private PartyFactory() { }
+    private PartyFactory() {
+    }
 
     /**
      * @return a Party object with default settings.
@@ -30,19 +32,18 @@ public final class PartyFactory {
     @SuppressWarnings("magicnumber")
     public static IParty createDefaultParty() {
         IParty party = new Party(DEFAULT_PARTY_NAME,
-               (DEFAULT_WIDTH / 2),
-               (DEFAULT_HEIGHT / 2),
-               DEFAULT_WIDTH,
-               DEFAULT_HEIGHT);
+                (DEFAULT_WIDTH / 2),
+                (DEFAULT_HEIGHT / 2),
+                DEFAULT_WIDTH,
+                DEFAULT_HEIGHT);
         ArrayList<Ally> allies = new ArrayList<>();
         ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
 
         allies.add(new Ally("Roberto", 50, 50, 50, new ArrayList<>(Arrays.asList(skills.get(0)))));
         allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
-        allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
         allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
         allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
-        party.setMembers (allies);
+        party.setMembers(allies);
 
         for (final Potion potion : PotionFactory.getInstance().getItems()) {
             party.addItemToInventory(potion);

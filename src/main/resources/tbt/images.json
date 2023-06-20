@@ -61,6 +61,6 @@
   },
   {
     "imagePath": "./tbt/images/EndEntity.png",
-    "objectClass": "it.tbt.model.EndEntity"
+    "objectClass": "it.tbt.model.entities.EndEntity"
   }
 ]
