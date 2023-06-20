@@ -29,7 +29,7 @@ public final class AntidoteFactory implements ItemFactory<Antidote> {
         if (optItems.isEmpty()) {
             throw new IllegalStateException("Failed loading antidote.json");
         } else {
-            antidote = new Antidote(optItems.get().getValue()); // Ugly bugfix
+            antidote = optItems.get();
         }
     }
 
