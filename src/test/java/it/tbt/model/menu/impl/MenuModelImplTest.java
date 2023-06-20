@@ -13,30 +13,33 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class MenuModelImplTest {
 
+    private static final String NAME_1 = "Item 1";
+    private static final String NAME_2 = "Item 2";
+    private static final String TEST_MENU = "Test Menu";
     @Test
     void testGetTitle() {
         // Create a sample list of menu items
-        List<MenuItem> items = new ArrayList<>();
-        items.add(new MenuNewGameButton("Item 1"));
-        items.add(new MenuQuitGameButton("Item 2"));
+        final List<MenuItem> items = new ArrayList<>();
+        items.add(new MenuNewGameButton(NAME_1));
+        items.add(new MenuQuitGameButton(NAME_2));
 
         // Create a MenuModelImpl instance
-        MenuModelImpl menuModel = new MenuModelImpl("Test Menu", items);
+        final MenuModelImpl menuModel = new MenuModelImpl(TEST_MENU, items);
 
         // Assert that the title is correct
-        assertEquals("Test Menu", menuModel.getTitle());
+        assertEquals(TEST_MENU, menuModel.getTitle());
         assertEquals(items, menuModel.getItems());
     }
 
     @Test
     void testGetFocus() {
         // Create a sample list of menu items
-        List<MenuItem> items = new ArrayList<>();
-        items.add(new MenuNewGameButton("Item 1"));
-        items.add(new MenuQuitGameButton("Item 2"));
+        final List<MenuItem> items = new ArrayList<>();
+        items.add(new MenuNewGameButton(NAME_1));
+        items.add(new MenuQuitGameButton(NAME_2));
 
         // Create a MenuModelImpl instance
-        MenuModelImpl menuModel = new MenuModelImpl("Test Menu", items);
+        final MenuModelImpl menuModel = new MenuModelImpl(TEST_MENU, items);
 
         // Assert that the initial focus is 0
         assertEquals(0, menuModel.getFocus());
@@ -51,16 +54,16 @@ class MenuModelImplTest {
     @Test
     void testGetItems() {
         // Create a sample list of menu items
-        List<MenuItem> items = new ArrayList<>();
-        items.add(new MenuNewGameButton("Item 1"));
-        items.add(new MenuQuitGameButton("Item 2"));
+        final List<MenuItem> items = new ArrayList<>();
+        items.add(new MenuNewGameButton(NAME_1));
+        items.add(new MenuQuitGameButton(NAME_2));
 
 
         // Create a MenuModelImpl instance
-        MenuModelImpl menuModel = new MenuModelImpl("Test Menu", items);
+        final MenuModelImpl menuModel = new MenuModelImpl(TEST_MENU, items);
 
         // Get the menu items from the menu model
-        List<MenuItem> retrievedItems = menuModel.getItems();
+        final List<MenuItem> retrievedItems = menuModel.getItems();
 
         // Assert that the retrieved items match the original items
         assertIterableEquals(items, retrievedItems);
@@ -68,23 +71,23 @@ class MenuModelImplTest {
     }
 
     @Test
-    void testToExplore() {
+    void testTriggerExplore() {
         // Create a sample list of menu items
-        List<MenuItem> items = new ArrayList<>();
-        items.add(new MenuNewGameButton("Item 1"));
-        items.add(new MenuQuitGameButton("Item 2"));
+        final List<MenuItem> items = new ArrayList<>();
+        items.add(new MenuNewGameButton(NAME_1));
+        items.add(new MenuQuitGameButton(NAME_2));
 
         // Create a MenuModelImpl instance
-        MenuModelImpl menuModel = new MenuModelImpl("Test Menu", items);
+        final MenuModelImpl menuModel = new MenuModelImpl(TEST_MENU, items);
 
         // Create a mock StateObserver
-        StateObserverMock observerMock = new StateObserverMock();
+        final StateObserverMock observerMock = new StateObserverMock();
 
         // Set the mock StateObserver on the menu model
         menuModel.setStateObserver(observerMock);
 
-        // Call the toExplore() method
-        menuModel.toExplore();
+
+        menuModel.triggerExplore();
 
         // Assert that the onExplore() method of the mock observer has been called
         assertTrue(observerMock.isExploreCalled());
@@ -92,7 +95,7 @@ class MenuModelImplTest {
 
     // A mock implementation of the StateObserver interface for testing purposes
     private static class StateObserverMock implements StateObserver {
-        private boolean exploreCalled = false;
+        private boolean exploreCalled;
 
         @Override
         public void onExplore() {

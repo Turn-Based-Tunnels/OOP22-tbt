@@ -87,7 +87,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                                 BackgroundPosition.DEFAULT,
                                 new BackgroundSize(1.0, 1.0, true, true, false, false)));
         this.movingSpace.setBackground(backgroundSpace);
-        Background backgroundScene = new Background(
+        final Background backgroundScene = new Background(
                         new BackgroundImage(
                         new Image(ImageLoader.getInstance().getFilePath(this.exploreState.getClass())),
                                 BackgroundRepeat.NO_REPEAT,

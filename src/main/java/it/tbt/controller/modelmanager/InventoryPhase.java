@@ -33,7 +33,7 @@ public enum InventoryPhase {
      * @return The previous phase in the sequence.
      */
     public InventoryPhase previous() {
-        int previousIndex = Math.floorMod(this.ordinal() - 1, VALUES.length);
+        final int previousIndex = Math.floorMod(this.ordinal() - 1, VALUES.length);
         return VALUES[previousIndex];
     }
 }

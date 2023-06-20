@@ -149,9 +149,9 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                 } else {
                     final List<Item> items = new ArrayList<>(this.getInventory().keySet());
                     if (items.get(this.itemSelected) instanceof Consumable) {
-                        if ((items.get(this.itemSelected) instanceof Potion)
-                                && (this.getPartyMembers().get(this.membersCounter).getMaxHealth()
-                                != this.getPartyMembers().get(this.membersCounter).getHealth())) {
+                        if (items.get(this.itemSelected) instanceof Potion
+                                && this.getPartyMembers().get(this.membersCounter).getMaxHealth()
+                                != this.getPartyMembers().get(this.membersCounter).getHealth()) {
                             this.getPartyMembers().get(this.membersCounter).setHealth(
                                     this.getPartyMembers().get(this.membersCounter).getHealth()
                                     + ((Potion) items.get(this.itemSelected)).getHealPower()
@@ -164,8 +164,8 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                             }
                             party.removeItemFromInventory(items.get(this.itemSelected));
                         }
-                        if ((items.get(this.itemSelected) instanceof Antidote)
-                                && (this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED))) {
+                        if (items.get(this.itemSelected) instanceof Antidote
+                                && this.getPartyMembers().get(this.membersCounter).removeStatus(Status.POISONED)) {
                             party.removeItemFromInventory(items.get(this.itemSelected));
                         }
                     }

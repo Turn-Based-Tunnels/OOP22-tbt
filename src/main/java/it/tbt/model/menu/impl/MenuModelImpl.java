@@ -15,7 +15,7 @@ public class MenuModelImpl implements MenuModel, StateTrigger {
     private final List<MenuItem> items;
     private StateObserver stateObserver;
     private final String title;
-    private int focus = 0;
+    private int focus;
 
 
     /**
@@ -25,7 +25,7 @@ public class MenuModelImpl implements MenuModel, StateTrigger {
      * @param items the list of menu items
      * @throws IllegalArgumentException if title is null or empty, or if items is null
      */
-    public MenuModelImpl(final String title, final List<it.tbt.model.menu.api.MenuItem> items) {
+    public MenuModelImpl(final String title, final List<MenuItem> items) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
         }
@@ -73,7 +73,7 @@ public class MenuModelImpl implements MenuModel, StateTrigger {
      * {@inheritDoc}
      */
     @Override
-    public void toExplore() {
+    public void triggerExplore() {
         if (stateObserver == null) {
             throw new IllegalStateException("StateObserver not set");
         }
