@@ -1,17 +1,20 @@
 package it.tbt.model.entities.npc.impl;
 
+import it.tbt.model.entities.KillableEntity;
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.npc.api.HealerNPC;
 import it.tbt.model.party.IParty;
+import it.tbt.model.world.api.KillObserver;
 
 /**
  * The {@code HealerNPCImpl} class is an implementation of the {@link HealerNPC} interface.
  * It extends the {@link AbstractNPCImpl} class and represents an NPC that can heal allies.
  */
-public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC {
+public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC, KillableEntity {
 
     private final int healAmount;
+    private KillObserver killObserver;
 
     /**
      * Constructs a new instance of the HealerNPCImpl class with the specified name, position, dimensions, and heal amount.
@@ -54,5 +57,11 @@ public class HealerNPCImpl extends AbstractNPCImpl implements HealerNPC {
                 }
             }
         }
+        this.killObserver.onKill(this);
+    }
+
+    @Override
+    public void setKillObserver (final KillObserver killObserver) {
+        this.killObserver = killObserver;
     }
 }

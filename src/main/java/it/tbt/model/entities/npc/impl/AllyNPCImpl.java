@@ -1,17 +1,25 @@
 package it.tbt.model.entities.npc.impl;
 
+import it.tbt.model.entities.KillableEntity;
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.characters.Ally;
 import it.tbt.model.entities.npc.api.AllyNPC;
 import it.tbt.model.party.IParty;
+import it.tbt.model.world.api.KillObserver;
+
+import java.lang.reflect.Member;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@code AllyNPCImpl} class is an implementation of the {@link AllyNPC} interface.
  * It extends the {@link AbstractNPCImpl} class and represents an NPC ally.
  */
-public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
+public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC, KillableEntity {
 
     private final Ally ally;
+    private KillObserver killObserver;
+
 
     /**
      * Constructs a new instance of the AllyNPCImpl class with the specified name, position, dimensions, and ally.
@@ -49,7 +57,15 @@ public class AllyNPCImpl extends AbstractNPCImpl implements AllyNPC {
     @Override
     public void onInteraction(final SpatialEntity interactionTrigger) {
         if (interactionTrigger instanceof IParty) {
-            ((IParty) interactionTrigger).addMember(ally);
+            List<Ally> temp = new ArrayList<> (((IParty) interactionTrigger).getMembers ());
+            temp.add(ally);
+            ((IParty) interactionTrigger).setMembers(temp);
         }
+        this.killObserver.onKill(this);
+    }
+
+    @Override
+    public void setKillObserver (KillObserver killObserver) {
+        this.killObserver = killObserver;
     }
 }

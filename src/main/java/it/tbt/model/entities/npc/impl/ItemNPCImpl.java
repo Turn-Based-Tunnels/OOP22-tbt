@@ -1,9 +1,11 @@
 package it.tbt.model.entities.npc.impl;
 
+import it.tbt.model.entities.KillableEntity;
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.items.Item;
 import it.tbt.model.entities.npc.api.ItemNPC;
 import it.tbt.model.party.IParty;
+import it.tbt.model.world.api.KillObserver;
 
 import java.util.Map;
 
@@ -11,9 +13,10 @@ import java.util.Map;
  * The {@code ItemNPCImpl} class is an implementation of the {@link ItemNPC} interface.
  * It extends the {@link AbstractNPCImpl} class and represents an NPC that provides items to the player's party.
  */
-public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC {
+public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC, KillableEntity {
 
     private final Map<Item, Integer> items;
+    private KillObserver killObserver;
 
     /**
      * Constructs a new instance of the ItemNPCImpl class with the specified name, position, dimensions, and items.
@@ -53,12 +56,19 @@ public class ItemNPCImpl extends AbstractNPCImpl implements ItemNPC {
     public void onInteraction(final SpatialEntity interactable) {
         if (interactable instanceof IParty) {
             for (Map.Entry<Item, Integer> entry : items.entrySet()) {
-                while (entry.getValue() > 0) {
+                int count = 0;
+                while (count < entry.getValue ()) {
                     ((IParty) interactable).addItemToInventory(entry.getKey());
-                    entry.setValue(entry.getValue() - 1);
+
+                    count ++;
                 }
             }
-            items.clear();
         }
+        this.killObserver.onKill(this);
+    }
+
+    @Override
+    public void setKillObserver (KillObserver killObserver) {
+        this.killObserver = killObserver;
     }
 }

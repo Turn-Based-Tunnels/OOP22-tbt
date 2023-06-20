@@ -29,24 +29,27 @@ public final class PartyFactory {
      */
     @SuppressWarnings("magicnumber")
     public static IParty createDefaultParty() {
+        IParty party = new Party(DEFAULT_PARTY_NAME,
+               (DEFAULT_WIDTH / 2),
+               (DEFAULT_HEIGHT / 2),
+               DEFAULT_WIDTH,
+               DEFAULT_HEIGHT);
         ArrayList<Ally> allies = new ArrayList<>();
         ArrayList<Skill> skills = new ArrayList<>(SkillFactory.getFactory().getSkills());
 
         allies.add(new Ally("Roberto", 50, 50, 50, new ArrayList<>(Arrays.asList(skills.get(0)))));
         allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
+        allies.add(new Ally("Gianfranco", 10, 10, 70, new ArrayList<>(Arrays.asList(skills.get(1)))));
         allies.add(new Ally("Caparezza", 30, 90, 20, new ArrayList<>(Arrays.asList(skills.get(2)))));
         allies.add(new Ally("Robertino", 20, 20, 20, new ArrayList<>(Arrays.asList(skills.get(3)))));
-        Party p = new Party("party", 75, 75, 75, 75, allies);
+        party.setMembers (allies);
+
         for (final Potion potion : PotionFactory.getInstance().getItems()) {
-            p.addItemToInventory(potion);
-            p.addItemToInventory(potion);
+            party.addItemToInventory(potion);
+            party.addItemToInventory(potion);
         }
-        p.addItemToInventory(AntidoteFactory.getInstance().getAntidote());
-        p.addCash(5000);
-       return new Party(DEFAULT_PARTY_NAME,
-               (DEFAULT_WIDTH / 2),
-               (DEFAULT_HEIGHT / 2),
-               DEFAULT_WIDTH,
-               DEFAULT_HEIGHT, allies);
+        party.addItemToInventory(AntidoteFactory.getInstance().getAntidote());
+        party.addCash(5000);
+        return party;
     }
 }
