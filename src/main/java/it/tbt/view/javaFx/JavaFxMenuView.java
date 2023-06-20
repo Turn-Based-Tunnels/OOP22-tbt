@@ -67,7 +67,7 @@ public class JavaFxMenuView extends AbstractJavaFxView {
             title.setStyle("-fx-text-fill: white; -fx-font-size: 25px;");
             vbox.getChildren().add(title);
             int count = 0;
-            System.out.println(main.getFocus());
+            //System.out.println(main.getFocus());
             for (MenuItem item
                     : main.getItems()) {
                 if (item instanceof MenuButton) {

@@ -57,12 +57,9 @@ public final class WorldFactory {
     private static final int INT_CONST_10000 = 10000;
 
     /**
-<<<<<<< HEAD
-     * @return a World object created by Default values.
-=======
      * Create World implementation with default implementation.
-     * @return world object
->>>>>>> 18abf332c73efb92c288d3dc3b8e6379e47155a1
+     *
+     * @return world object.
      */
     public static World createWorldDefault() {
         World w = new WorldImpl();
