@@ -160,7 +160,20 @@ public final class FightModelImpl implements FightModel {
      */
     @Override
     public Ally getCurrentAlly() {
-        return this.currentAlly;
+        Ally returnAlly = new Ally(this.currentAlly.getName(), this.currentAlly.getMaxHealth(),
+                this.currentAlly.getAttack(),
+                this.currentAlly.getSpeed(), this.currentAlly.getSkills());
+        for (Status s : this.currentAlly.getStatuses()) {
+            returnAlly.addStatus(s);
+        }
+        if (this.currentAlly.getArmor().isPresent()) {
+            returnAlly.equipeArmor(this.currentAlly.getArmor().get());
+        }
+        if (this.currentAlly.getWeapon().isPresent()) {
+            returnAlly.equipeWeapon(this.currentAlly.getWeapon().get());
+        }
+
+        return returnAlly;
     }
 
     /**
