@@ -15,7 +15,7 @@ import it.tbt.model.statechange.StateTrigger;
  * Shop model class.
  */
 public class Shop implements StateTrigger {
-    private static final String error = "The shop does not have a reference to the party";
+    private static final String ERROR = "The shop does not have a reference to the party";
     private StateObserver stateObserver;
     private IParty party;
     private final Inventory shopInventory;
@@ -75,7 +75,7 @@ public class Shop implements StateTrigger {
      */
     public Map<Item, Integer> getPartyItems() {
         if (party == null) {
-            throw new IllegalStateException(error);
+            throw new IllegalStateException(ERROR);
         }
         return party.getInventory();
     }
@@ -95,7 +95,7 @@ public class Shop implements StateTrigger {
      */
     public boolean sell(final String name) {
         if (party == null) {
-            throw new IllegalStateException(error);
+            throw new IllegalStateException(ERROR);
         }
         final Optional<Item> optItem = mapContainsItem(name, shopInventory.getItems());
         if (!optItem.isEmpty()) {
@@ -121,7 +121,7 @@ public class Shop implements StateTrigger {
      */
     public boolean buy(final String name) {
         if (party == null) {
-            throw new IllegalStateException(error);
+            throw new IllegalStateException(ERROR);
         }
         final Optional<Item> optItem = mapContainsItem(name, party.getInventory());
         if (!optItem.isEmpty()) {
@@ -146,7 +146,7 @@ public class Shop implements StateTrigger {
      */
     public int getPartyWallet() {
         if (party == null) {
-            throw new IllegalStateException(error);
+            throw new IllegalStateException(ERROR);
         }
         return party.getWallet();
     }
