@@ -63,12 +63,12 @@ public final class WorldFactory {
      */
     public static World createWorldDefault() {
         World w = new WorldImpl();
-        Room allyRoom = new RoomImpl("AllyRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
-        Room itemRoom = new RoomImpl("ItemRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
-        Room shopRoom = new RoomImpl("ShopRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
-        Room fightRoom = new RoomImpl("FightRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
-        Room healRoom = new RoomImpl("HealStart", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
-        Room endRoom = new RoomImpl("EndRoom", RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room allyRoom = new RoomImpl(RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room itemRoom = new RoomImpl(RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room shopRoom = new RoomImpl(RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room fightRoom = new RoomImpl(RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room healRoom = new RoomImpl(RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
+        Room endRoom = new RoomImpl( RoomImpl.DEFAULT_WIDTH_ROOM, RoomImpl.DEFAULT_HEIGHT_ROOM);
         RoomLink roomLink1 = new RoomLinkImpl("link", CENTER_X, CENTER_Y, STANDARTD_ENTITY_WIDTH,
                 STANDARD_ENTITY_HEIGHT, allyRoom, itemRoom);
         allyRoom.addEntity(roomLink1);
