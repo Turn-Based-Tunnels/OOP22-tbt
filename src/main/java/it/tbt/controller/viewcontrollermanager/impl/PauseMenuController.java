@@ -52,8 +52,7 @@ public class PauseMenuController extends AbstractViewController {
                 }
             }
             case KeyEvent.VK_ESCAPE -> this.addCommand(modelState::triggerExplore);
-            default -> {
-            }
+            default -> { }
         }
     }
 }

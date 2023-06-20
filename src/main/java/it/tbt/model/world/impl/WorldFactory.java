@@ -30,6 +30,7 @@ import java.util.ArrayList;
  * Factory with static methods for creation of World objects.
  */
 public final class WorldFactory {
+    private WorldFactory() { }
     private static final Random RND = new Random();
     private static final int STANDARD_ENTITY_HEIGHT = 50,
             STANDARTD_ENTITY_WIDTH = 50,
@@ -44,8 +45,16 @@ public final class WorldFactory {
             CENTER_X = RoomImpl.DEFAULT_WIDTH_ROOM / 6 * 3,
             CENTER_Y = RoomImpl.DEFAULT_WIDTH_ROOM / 6 * 3;
 
+    //constants to suppress checkstyles
+    private static final int INT_CONST_10 = 10;
+    private static final int INT_CONST_5 = 5;
+
+    private static final int INT_CONST_50 = 50;
+    private static final int INT_CONST_10000 = 10000;
+
     /**
      * Create World implementation with default implementation.
+     * @return world object
      */
     public static World createWorldDefault() {
         World w = new WorldImpl();
@@ -78,21 +87,21 @@ public final class WorldFactory {
         }
 
         fightRoom.addEntity(NPCFactory.createFightNPC("Roberto", TOP_LEFT_X, TOP_LEFT_Y, STANDARD_ENTITY_HEIGHT,
-                STANDARTD_ENTITY_WIDTH, new FightModelImpl(5, drops)));
+                STANDARTD_ENTITY_WIDTH, new FightModelImpl(INT_CONST_5, drops)));
 
         // shop
         Map<Item, Integer> shopItems = new HashMap<>();
         for (final Item item : PotionFactory.getInstance().getItems()) {
-            shopItems.put(item, 10); // 10 of each potions
+            shopItems.put(item, INT_CONST_10); // 10 of each potions
         }
-        shopItems.put(AntidoteFactory.getInstance().getAntidote(), 10);
+        shopItems.put(AntidoteFactory.getInstance().getAntidote(), INT_CONST_10);
         final Set<Weapon> weapons = WeaponFactory.getInstance().getItems();
         shopItems.put(weapons.stream().skip(RND.nextInt(weapons.size() - 1)).findFirst().get(), 1); // a random weapon
         shopItems.put(weapons.stream().skip(RND.nextInt(weapons.size() - 1)).findFirst().get(), 1); // a random weapon
         final Set<Armor> armors = ArmorFactory.getInstance().getItems();
         shopItems.put(armors.stream().skip(RND.nextInt(armors.size() - 1)).findFirst().get(), 1); // a random weapon
         shopItems.put(armors.stream().skip(RND.nextInt(armors.size() - 1)).findFirst().get(), 1); // a random weapon
-        int wallet = 10000;
+        int wallet = INT_CONST_10000;
         shopRoom.addEntity(NPCFactory.createShopNPC("Merchant", TOP_RIGHT_X, TOP_RIGHT_Y, STANDARD_ENTITY_HEIGHT,
                 STANDARTD_ENTITY_WIDTH, new Shop(shopItems, wallet)));
 
@@ -100,11 +109,11 @@ public final class WorldFactory {
         List<Skill> skills = new ArrayList<>();
         skills.add((Skill) SkillFactory.getFactory().getSkills().toArray()[0]);
         allyRoom.addEntity(NPCFactory.createAllyNPC("Ally", BOTTOM_LEFT_X, BOTTOM_LEFT_Y, STANDARD_ENTITY_HEIGHT,
-                STANDARTD_ENTITY_WIDTH, CharacterFactory.createAlly("Pippo", 50, 50, 50, skills)));
+                STANDARTD_ENTITY_WIDTH, CharacterFactory.createAlly("Pippo", INT_CONST_50, INT_CONST_50, INT_CONST_50, skills)));
 
         // Heal
         healRoom.addEntity(NPCFactory.createHealerNPC("Healer", BOTTOM_LEFT_X, BOTTOM_LEFT_Y, STANDARD_ENTITY_HEIGHT,
-                STANDARTD_ENTITY_WIDTH, 10));
+                STANDARTD_ENTITY_WIDTH, INT_CONST_10));
 
         // Item
         Map<Item, Integer> itemsMap = new HashMap<>();

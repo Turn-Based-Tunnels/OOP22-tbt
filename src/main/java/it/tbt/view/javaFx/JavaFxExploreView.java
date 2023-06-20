@@ -142,7 +142,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
      * @param predicate based on which a set of SpatialEntity must be filtered.
      * @param entitySet the SpatialEntity set to be filtered and its entities to be mapped to the ImageViews
      *                  which images are being taken thanks to the {@link ImageLoader}
-     * @return
+     * @return  A map of entity->sprite.
      */
     private Map<SpatialEntity, ImageView> getMapEntitiesImagesBasedOnPredicate(final Predicate<SpatialEntity> predicate,
                                                                                final Set<SpatialEntity> entitySet) {
