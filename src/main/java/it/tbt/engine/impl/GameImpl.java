@@ -30,9 +30,6 @@ public final class GameImpl implements Game {
      *            Creates both the World, the IParty and the Menus object with
      *            default
      *            implementations.
-     * 
-     * @param gvf the GameViewFactory which is used to create views different based
-     *            on the graphical framework chosen.
      */
     public GameImpl(final GameViewFactory gvf) {
         viewControllerManager = new GameViewManagerImpl(gvf);
