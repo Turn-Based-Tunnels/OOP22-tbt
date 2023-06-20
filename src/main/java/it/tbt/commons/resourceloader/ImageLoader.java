@@ -4,11 +4,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import it.tbt.controller.SimpleLogger;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class for getting paths of images mapped to classes of the game.
@@ -21,7 +24,9 @@ public final class ImageLoader {
      */
     private static String filepath = "tbt/images.json";
     private static ImageLoader instance = new ImageLoader();
-    private Map<Class<?>, String> imageObjectMap;
+    private final Map<Class<?>, String> imageObjectMap;
+
+    private final Logger logger = SimpleLogger.getLogger("ImageLoader", Level.SEVERE);
 
     /**
      * Utility class should not have public constructor.
@@ -29,7 +34,7 @@ public final class ImageLoader {
     private ImageLoader() {
         // Initialize the map and populate it from a JSON file
         imageObjectMap = new HashMap<>();
-        loadMappingsFromFile(filepath);
+        loadMappingsFromFile();
     }
 
     /**
@@ -50,29 +55,28 @@ public final class ImageLoader {
 
     /**
      * Loads all the paths and matches to the corresponding class in the internal map.
-     * @param filePath
      */
-    private void loadMappingsFromFile(final String filePath) {
+    private void loadMappingsFromFile() {
         try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tbt/images.json");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, CHARSET);
+            final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tbt/images.json");
+            final InputStreamReader inputStreamReader = new InputStreamReader(inputStream, CHARSET);
             // Parse the JSON file
-            JsonElement jsonElement = JsonParser.parseReader(inputStreamReader);
+            final JsonElement jsonElement = JsonParser.parseReader(inputStreamReader);
             if (jsonElement.isJsonArray()) {
-                JsonArray jsonArray = jsonElement.getAsJsonArray();
+                final JsonArray jsonArray = jsonElement.getAsJsonArray();
                 // Iterate through each object in the array
-                for (JsonElement element : jsonArray) {
+                for (final JsonElement element : jsonArray) {
                     if (element.isJsonObject()) {
-                        JsonObject jsonObject = element.getAsJsonObject();
+                        final JsonObject jsonObject = element.getAsJsonObject();
                         // Extract the image path and object class
-                        String imagePath = jsonObject.get("imagePath").getAsString();
-                        Class<?> objectClass = Class.forName(jsonObject.get("objectClass").getAsString());
+                        final String imagePath = jsonObject.get("imagePath").getAsString();
+                        final Class<?> objectClass = Class.forName(jsonObject.get("objectClass").getAsString());
                         imageObjectMap.put(objectClass, imagePath);
                     }
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.severe("Error while reading image paths.");
         }
     }
 }

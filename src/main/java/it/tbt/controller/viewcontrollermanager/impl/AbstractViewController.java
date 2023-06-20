@@ -10,7 +10,7 @@ import java.util.List;
  * AbstractViewController for all ViewController objects.
  */
 public abstract class AbstractViewController implements ViewController {
-    private List<Command> commands;
+    private final List<Command> commands;
 
     /**
      * Creates the command list.

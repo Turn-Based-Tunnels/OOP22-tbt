@@ -11,11 +11,11 @@ import it.tbt.model.world.api.Room;
  */
 public final class ExploreStateImpl implements ExploreState {
 
-    private Room room;
-    private IParty party;
-    private PauseTrigger pauseTrigger;
+    private final Room room;
+    private final IParty party;
+    private final PauseTrigger pauseTrigger;
 
-    private InventoryTrigger inventoryTrigger;
+    private final InventoryTrigger inventoryTrigger;
 
     /**
      * @param room the current room
@@ -43,6 +43,7 @@ public final class ExploreStateImpl implements ExploreState {
             justification = "The rest of the components need the exact object of the party to queue changes."
                     + "And the synchronization is based on the changes in this object."
     )
+    @Override
     public IParty getParty() {
         return party; }
     /**
