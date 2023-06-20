@@ -1,5 +1,6 @@
 package it.tbt.model.entities.npc.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.entities.SpatialEntity;
 import it.tbt.model.entities.npc.api.ShopNPC;
 import it.tbt.model.party.IParty;
@@ -26,6 +27,12 @@ public class ShopNPCImpl extends AbstractNPCImpl implements ShopNPC, StateTrigge
      * @param shop   the shop associated with the NPC
      * @throws IllegalArgumentException if the name or shop is null
      */
+    @SuppressFBWarnings (
+            value = {
+                    "EI2"
+            },
+            justification = "ShopNPC have to get the exact instance of Shop"
+    )
     public ShopNPCImpl(final String name, final int x, final int y, final int height, final int width, final Shop shop) {
         super(name, x, y, height, width);
         if (shop == null) {
@@ -39,6 +46,12 @@ public class ShopNPCImpl extends AbstractNPCImpl implements ShopNPC, StateTrigge
      *
      * @return the shop associated with the shop NPC
      */
+    @SuppressFBWarnings(
+            value = {
+                    "EI"
+            },
+            justification = "The NPC have to expose the exact instance of shop."
+    )
     public Shop getShop() {
         return shop;
     }

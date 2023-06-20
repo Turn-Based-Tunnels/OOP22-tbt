@@ -9,7 +9,6 @@ import it.tbt.model.entities.characters.Enemy;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,7 +42,8 @@ public final class JavaFxFightView extends AbstractJavaFxView {
     private static final String BLUE = "#0000FF";
     private static final String RED = "-fx-background-color: red;";
     private final FightState main;
-    private final Scene scene;
+    private final double height;
+    private final double width;
     private final Image enemyImage;
     private final Image allyImage;
     private final Image defeatedImage;
@@ -66,7 +66,8 @@ public final class JavaFxFightView extends AbstractJavaFxView {
                     "è stato passato un argomento non lecito alla creazione di JavaFxFightView");
         }
 
-        this.scene = scene;
+        this.height = scene.getHeight() - (scene.getHeight() / JavaFxFightView.BORDER_SCALE);
+        this.width = scene.getWidth() - (scene.getWidth() / JavaFxFightView.BORDER_SCALE);
         this.main = main;
         this.defeatedImage = new Image(
                 getClass().getClassLoader().getResource("tbt/images/transparent.png").toExternalForm());
@@ -168,8 +169,8 @@ public final class JavaFxFightView extends AbstractJavaFxView {
 
             root.setBackground(this.bg);
             final BorderPane pane = new BorderPane();
-            pane.setMaxHeight(this.scene.getHeight() - (this.scene.getHeight() / JavaFxFightView.BORDER_SCALE));
-            pane.setMaxWidth(this.scene.getWidth() - (this.scene.getWidth() / JavaFxFightView.BORDER_SCALE));
+            pane.setMaxHeight(this.height);
+            pane.setMaxWidth(this.width);
             // Creazione delle etichette per gli alleati
             final Label allyLabel1 = new Label();
             final Label allyLabel2 = new Label();
@@ -291,13 +292,8 @@ public final class JavaFxFightView extends AbstractJavaFxView {
             pane.setTop(enemyGrid);
             pane.setCenter(buttonBox);
             pane.setBottom(allyGrid);
-            pane.setBottom(allyGrid);
 
             root.setAlignment(Pos.CENTER);
-            this.scene.setCursor(Cursor.NONE);
-
-            root.setAlignment(Pos.CENTER);
-            this.scene.setCursor(Cursor.NONE);
 
             root.getChildren().add(pane);
             this.getScene().setRoot(root);

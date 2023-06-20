@@ -1,7 +1,8 @@
 package it.tbt.controller.modelmanager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tbt.model.menu.api.MenuItem;
-import it.tbt.model.menu.impl.MenuModelImpl;
+import it.tbt.model.menu.api.MenuModel;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * It manages the state of a menu in the application's controller.
  */
 public class MenuStateImpl implements MenuState {
-    private final MenuModelImpl menuModel;
+    private final MenuModel menuModel;
 
     /**
      * Constructs a new {@code MenuStateImpl} with the specified menu model.
@@ -18,7 +19,13 @@ public class MenuStateImpl implements MenuState {
      * @param menu the menu model
      * @throws IllegalArgumentException if the menu is null
      */
-    public MenuStateImpl(final MenuModelImpl menu) {
+    @SuppressFBWarnings(
+            value = {
+                    "EI2"
+            },
+            justification = "Menu have to get the exact instance of MenuModel"
+    )
+    public MenuStateImpl(final MenuModel menu) {
         if (menu == null) {
             throw new IllegalArgumentException("Menu cannot be null");
         }
