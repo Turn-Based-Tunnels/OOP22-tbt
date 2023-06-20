@@ -24,7 +24,7 @@ import it.tbt.model.party.Party;
  * This class is used to test the implementation of the {@link FightModelImpl}
  * class.
  */
-public final class FightModelImplTest {
+final class FightModelImplTest {
 
     private FightModelImpl fightModel;
 
@@ -37,15 +37,16 @@ public final class FightModelImplTest {
     private static final int INT_CONST_7 = 7;
     private static final int INT_CONST_9 = 9;
     private static final int DEFAULT_POSITION_AND_SIZE = 75;
+    private static final String MAGIC_NUMBER = "MagicNumber";
 
     /**
      * Sets up the class for testing. The class needs some party members, a party
      * and enemies.
      */
-    @SuppressWarnings("MagicNumber")
+    @SuppressWarnings(MAGIC_NUMBER)
     @BeforeEach
-    public void setUp() {
-        int averageEnemyStat = 10;
+    void setUp() {
+        final int averageEnemyStat = 10;
         final Map<Item, Double> drops = new HashMap<>();
         final List<Ally> allies = new ArrayList<>();
         allies.add(new Ally("Turgico", BASE_HEALTH, BASE_ATTACK, ALLY1_SPEED));
@@ -62,14 +63,14 @@ public final class FightModelImplTest {
     /**
      * Tests the initialization of the party in the fight model.
      */
-    @SuppressWarnings("MagicNumber")
+    @SuppressWarnings(MAGIC_NUMBER)
     @Test
-    public void testInitializeParty() {
+    void testInitializeParty() {
         // Create a party
-        Party party = new Party("Party", DEFAULT_POSITION_AND_SIZE, DEFAULT_POSITION_AND_SIZE,
+        final Party party = new Party("Party", DEFAULT_POSITION_AND_SIZE, DEFAULT_POSITION_AND_SIZE,
                 DEFAULT_POSITION_AND_SIZE, DEFAULT_POSITION_AND_SIZE);
-        Ally ally1 = new Ally("Ally 1", BASE_HEALTH, INT_CONST_7, INT_CONST_9);
-        Ally ally2 = new Ally("Ally 2", BASE_HEALTH, INT_CONST_9, INT_CONST_7);
+        final Ally ally1 = new Ally("Ally 1", BASE_HEALTH, INT_CONST_7, INT_CONST_9);
+        final Ally ally2 = new Ally("Ally 2", BASE_HEALTH, INT_CONST_9, INT_CONST_7);
         party.addMember(ally1);
         party.addMember(ally2);
 
@@ -77,17 +78,17 @@ public final class FightModelImplTest {
         fightModel.initializeParty(party);
 
         // Check if the party members are correctly set
-        List<Ally> allies = fightModel.getAllies();
-        Assertions.assertEquals(4, allies.size());
-        Assertions.assertTrue(allies.contains(ally1));
-        Assertions.assertTrue(allies.contains(ally2));
+        final List<Ally> allies = fightModel.getAllies();
+        assertEquals(4, allies.size());
+        assertTrue(allies.contains(ally1));
+        assertTrue(allies.contains(ally2));
     }
 
     /**
      * Tests the retrieval of all allies from the fight model.
      */
     @Test
-    public void testGetAllies() {
+    void testGetAllies() {
         Assertions.assertNotNull(fightModel.getAllies());
     }
 
@@ -95,7 +96,7 @@ public final class FightModelImplTest {
      * Tests the retrieval of all enemies from the fight model.
      */
     @Test
-    public void testGetEnemies() {
+    void testGetEnemies() {
         Assertions.assertNotNull(fightModel.getEnemies());
     }
 
@@ -103,7 +104,7 @@ public final class FightModelImplTest {
      * Tests the retrieval of the current ally from the fight model.
      */
     @Test
-    public void testGetCurrentAlly() {
+    void testGetCurrentAlly() {
         Assertions.assertNotNull(fightModel.getCurrentAlly());
     }
 
@@ -111,7 +112,7 @@ public final class FightModelImplTest {
      * Tests the selection of an action in the fight model.
      */
     @Test
-    public void testSelectAction() {
+    void testSelectAction() {
         // Select to use a skill
         fightModel.selectAction(true, false, false);
         assertTrue(fightModel.isUsingSkill());
@@ -136,9 +137,9 @@ public final class FightModelImplTest {
      */
     @Test
     void testAdvanceTurn() {
-        Ally ally1 = fightModel.getCurrentAlly();
+        final Ally ally1 = fightModel.getCurrentAlly();
         fightModel.advanceTurn();
-        Ally ally2 = fightModel.getCurrentAlly();
+        final Ally ally2 = fightModel.getCurrentAlly();
         assertNotEquals(ally2, ally1);
         assertEquals(ally2, fightModel.getCurrentAlly());
     }
@@ -167,32 +168,32 @@ public final class FightModelImplTest {
     /**
      * Tests the selection of the next target in the fight model.
      */
-    @SuppressWarnings("MagicNumber")
+    @SuppressWarnings(MAGIC_NUMBER)
     @Test
     void testSelectNextTarget() {
         // Simulate selecting the next target
         fightModel.selectNextTarget();
 
         // Verify that the target index has incremented
-        int initialTargetIndex = fightModel.getSelectedTargetIndex();
+        final int initialTargetIndex = fightModel.getSelectedTargetIndex();
         fightModel.selectNextTarget();
-        int updatedTargetIndex = fightModel.getSelectedTargetIndex();
+        final int updatedTargetIndex = fightModel.getSelectedTargetIndex();
         assertTrue(updatedTargetIndex == initialTargetIndex + 1 || updatedTargetIndex == 3);
     }
 
     /**
      * Tests the selection of the previous target in the fight model.
      */
-    @SuppressWarnings("MagicNumber")
+    @SuppressWarnings(MAGIC_NUMBER)
     @Test
     void testSelectPreviousTarget() {
         // Simulate selecting the previous target
         fightModel.selectPreviousTarget();
 
         // Verify that the target index has decremented
-        int initialTargetIndex = fightModel.getSelectedTargetIndex();
+        final int initialTargetIndex = fightModel.getSelectedTargetIndex();
         fightModel.selectPreviousTarget();
-        int updatedTargetIndex = fightModel.getSelectedTargetIndex();
+        final int updatedTargetIndex = fightModel.getSelectedTargetIndex();
         assertTrue(updatedTargetIndex == initialTargetIndex - 1 || updatedTargetIndex == 0);
     }
 }
