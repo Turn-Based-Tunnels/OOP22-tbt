@@ -18,6 +18,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.stage.Stage;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -35,6 +36,7 @@ public class JavaFxExploreView extends AbstractJavaFxView {
     private final Pane movingSpace = new Pane();
     private final StackPane total = new StackPane();
     private Map<MovableEntity, ImageView> images = new HashMap<>(); //Images of objects who can move
+    private Set<SpatialEntity> currentEntitiesInRoom = new HashSet<>();
     private final Pane staticImages = new Pane();
 
     /**
@@ -60,9 +62,9 @@ public class JavaFxExploreView extends AbstractJavaFxView {
      */
     @Override
     public void render() {
-        if (!Stream.concat(this.exploreState.getRoom().getEntities().stream().filter(l -> l instanceof MovableEntity),
-                Stream.of(this.exploreState.getParty())).collect(Collectors.toSet()).equals(this.images.keySet())) {
+        if (!currentEntitiesInRoom.equals(this.exploreState.getRoom().getEntities())) {
             loadAllImages();
+            this.currentEntitiesInRoom = Set.copyOf(this.exploreState.getRoom().getEntities());
         }
         Platform.runLater(() -> {
             this.total.getChildren().clear();
@@ -73,6 +75,9 @@ public class JavaFxExploreView extends AbstractJavaFxView {
         });
     }
 
+    /**
+     * Creates the background.
+     */
     private void loadBackground() {
         Background bg = new Background(
                         new BackgroundImage(
@@ -99,6 +104,9 @@ public class JavaFxExploreView extends AbstractJavaFxView {
 
     }
 
+    /**
+     * Loads all the images.
+     */
     private void loadAllImages() {
         var x = getMapEntitiesImagesBasedOnPredicate(l -> true,
                 Stream.concat(this.exploreState.getRoom().getEntities().stream(),
@@ -109,12 +117,6 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                         filter(l -> !(l.getKey() instanceof MovableEntity)).
                         map(l -> Map.entry(l.getKey(), l.getValue())).
                         collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
-        loadImagesToRegion(this.movingSpace,
-                x.entrySet().
-                        stream().
-                        filter(l -> l.getKey() instanceof MovableEntity).
-                        map(l -> Map.entry(l.getKey(), l.getValue())).
-                        collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         this.images = x.entrySet().
                 stream().
                 filter(l -> l.getKey() instanceof MovableEntity).
@@ -122,6 +124,11 @@ public class JavaFxExploreView extends AbstractJavaFxView {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
+    /**
+     * Adds the SpatialEntities ImageViews to the Pane, making it sure to not exceed the Pane boundaries.
+     * @param r pane on to which add the ImageViews
+     * @param images Map of the images
+     */
     private void loadImagesToRegion(final Pane r, final Map<? extends SpatialEntity, ImageView> images) {
         r.getChildren().clear();
         images.entrySet().stream().forEach(l -> {
@@ -130,6 +137,13 @@ public class JavaFxExploreView extends AbstractJavaFxView {
             r.getChildren().add(l.getValue());
         });
     }
+
+    /**
+     * @param predicate based on which a set of SpatialEntity must be filtered.
+     * @param entitySet the SpatialEntity set to be filtered and its entities to be mapped to the ImageViews
+     *                  which images are being taken thanks to the {@link ImageLoader}
+     * @return
+     */
     private Map<SpatialEntity, ImageView> getMapEntitiesImagesBasedOnPredicate(final Predicate<SpatialEntity> predicate,
                                                                                final Set<SpatialEntity> entitySet) {
         var x = entitySet.stream().
