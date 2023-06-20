@@ -4,7 +4,7 @@ import it.tbt.model.menu.api.MenuButton;
 
 /**
  * The {@code MenuButton} class represents a button in a menu.
- * It extends the {@link MenuItem} class and implements the {@link it.tbt.model.menu.api.MenuButton} interface.
+ * It extends the {@link AbstractMenuItem} class and implements the {@link MenuButton} interface.
  */
 public abstract class AbstractMenuButton extends AbstractMenuItem implements MenuButton {
 

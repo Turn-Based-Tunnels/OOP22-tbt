@@ -4,7 +4,6 @@ import it.tbt.controller.modelmanager.EndState;
 import it.tbt.controller.viewcontrollermanager.api.ViewController;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -17,7 +16,6 @@ import javafx.stage.Stage;
  */
 public class JavaFxEndingView extends AbstractJavaFxView {
 
-    private final Scene scene;
     private final EndState main;
     /**
      * Creates a new instance of {@code JavaFxEndingView} with the specified end controller, stage, scene, and end state.
@@ -30,7 +28,6 @@ public class JavaFxEndingView extends AbstractJavaFxView {
     public JavaFxEndingView(final ViewController endController, final Stage stage,
                             final Scene scene, final EndState endState) {
         super(endController, stage, scene);
-        this.scene = scene;
         this.main = endState;
     }
 
@@ -49,7 +46,6 @@ public class JavaFxEndingView extends AbstractJavaFxView {
             vbox.setSpacing(10);
             root.getChildren().add(vbox);
             root.setAlignment(Pos.CENTER);
-            this.scene.setCursor(Cursor.NONE);
             this.getScene().setRoot(root);
         });
     }

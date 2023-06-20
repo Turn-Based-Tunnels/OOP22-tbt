@@ -8,7 +8,6 @@ import it.tbt.model.menu.api.MenuItem;
 import it.tbt.model.menu.api.MenuSelect;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -105,7 +104,6 @@ public class JavaFxMenuView extends AbstractJavaFxView {
             root.getChildren().add(vbox);
             root.setAlignment(Pos.CENTER);
             root.setBackground(this.bg);
-            this.getScene().setCursor(Cursor.NONE);
             this.getScene().setRoot(root);
 
         });
