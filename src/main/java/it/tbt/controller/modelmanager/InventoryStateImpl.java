@@ -34,7 +34,7 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
     private static final int NOT_SELECTED = -1;
     private final IParty party;
     private InventoryPhase phase;
-    private final boolean itemLocked;
+    private boolean itemLocked;
     private int membersCounter;
     private int memberSelected;
     private int itemCounter;
@@ -195,6 +195,11 @@ public class InventoryStateImpl implements InventoryState, StateTrigger {
                     }
                     this.itemSelected = NOT_SELECTED;
                     this.itemCounter = 0;
+                    if (party.getInventory().size() == 0) {
+                        this.phase = InventoryPhase.MEMBERS;
+                        this.itemLocked = true;
+                    }
+
                 }
             }
             case MEMBERS -> {

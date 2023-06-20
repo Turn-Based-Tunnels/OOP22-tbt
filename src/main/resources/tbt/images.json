@@ -56,7 +56,7 @@
     "objectClass": "it.tbt.model.entities.characters.Enemy"
   },
   {
-    "imagePath": "tbt/images/bricks.png",
+    "imagePath": "tbt/images/room.jpg",
     "objectClass": "it.tbt.controller.modelmanager.FightStateImpl"
   },
   {
